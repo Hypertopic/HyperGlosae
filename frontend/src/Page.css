@@ -1,0 +1,23 @@
+.page {
+  text-align: justify;
+  background-color: ghostwhite;
+  border-radius: 10px;
+}
+
+.rubric {
+  color: crimson;
+  text-align: center;
+}
+
+.scholium {
+  background-color: gainsboro;
+}
+
+.row:first-of-type > .scholium {
+  border-radius: 0px 10px 0px 0px;
+}
+
+.row:last-of-type > .scholium {
+  border-radius: 0px 0px 10px 0px;
+}
+
