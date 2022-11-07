@@ -8,7 +8,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <Page />
+    <Page id="02ee00d85cdb11ed834c4fb9e3c972af" />
   </React.StrictMode>
 );
 
