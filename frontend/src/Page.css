@@ -13,6 +13,10 @@
   background-color: gainsboro;
 }
 
+.row {
+  white-space: pre-wrap;
+}
+
 .row:first-of-type > .scholium {
   border-radius: 0px 10px 0px 0px;
 }
