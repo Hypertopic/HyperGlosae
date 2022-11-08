@@ -4,11 +4,17 @@ import './index.css';
 import Page from './Page';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <Page id="02ee00d85cdb11ed834c4fb9e3c972af" />
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Page />} />
+        <Route path="/:id" element={<Page />} />
+      </Routes>
+    </BrowserRouter>
   </React.StrictMode>
 );
 

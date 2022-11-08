@@ -4,10 +4,12 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 
-function Page({id}) {
+function Page() {
 
   const [page, setPage] = useState([]);
+  let {id = "02ee00d85cdb11ed834c4fb9e3c972af"} = useParams();
 
   useEffect(() => {
     fetch(`http://localhost:5984/hyperglosae/_design/app/_view/links?startkey=["${id}"]&endkey=["${id}",{}]`)
