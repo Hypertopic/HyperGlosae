@@ -9,6 +9,7 @@ import { useParams } from 'react-router-dom';
 function Page() {
 
   const [page, setPage] = useState([]);
+  const [margin, setMargin] = useState();
   let {id = "02ee00d85cdb11ed834c4fb9e3c972af"} = useParams();
 
   useEffect(() => {
@@ -16,16 +17,18 @@ function Page() {
       .then(x => x.json())
       .then(
         (result) => {
+          setMargin(null);
           let passages = result.rows.reduce(({whole, part}, x, i, {length}) => {
             if (part.rubric && (x.key[1] !== part.rubric)) {
               whole.push(part);
               part = {source:'', scholia:[]};
             }
             part.rubric = x.key[1];
-            if (x.value.isPartOf === x.key[0]) {
+            if (x.value.isPartOf === id) {
               part.source = x.value.text;
             } else {
               part.scholia = [...part.scholia || [], x.value.text];
+              setMargin(x.value.isPartOf);
             }
             if (i === length - 1) {
               return [...whole, part];
@@ -43,15 +46,15 @@ function Page() {
   return (
       <Container className="page">
         {page.map(({rubric, source, scholia}) =>
-          <Passage key={rubric} source={source} rubric={rubric} scholium={scholia[0]} />)}
+          <Passage key={rubric} source={source} rubric={rubric} scholium={scholia[0]} hasMargin={!!margin} />)}
       </Container>
   );
 }
 
-function Passage({source, rubric, scholium}) {
+function Passage({source, rubric, scholium, hasMargin}) {
   return (
     <Row>
-      <Col xs={7}>
+      <Col xs={7} className="source">
         <Container>
           <Row>
             <Col>
@@ -61,10 +64,17 @@ function Passage({source, rubric, scholium}) {
           </Row>
         </Container>
       </Col>
-      <Col xs={5} className="scholium">
-        {scholium}
-      </Col>
+      <PassageMargin text={scholium} active={hasMargin} />
     </Row>
+  );
+}
+
+function PassageMargin({active, text}) {
+  if (!active) return;
+  return (
+    <Col xs={5} className="scholium">
+      {text}
+    </Col>
   );
 }
 

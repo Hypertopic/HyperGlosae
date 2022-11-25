@@ -1,7 +1,22 @@
 .page {
   text-align: justify;
-  background-color: ghostwhite;
   border-radius: 10px;
+}
+
+.row {
+  white-space: pre-wrap;
+}
+
+.source {
+  background-color: ghostwhite;
+}
+
+.row:first-of-type .source {
+  border-radius: 10px 0px 0px 0px;
+}
+
+.row:last-of-type .source {
+  border-radius: 0px 0px 0px 10px;
 }
 
 .rubric {
@@ -13,15 +28,11 @@
   background-color: gainsboro;
 }
 
-.row {
-  white-space: pre-wrap;
-}
-
-.row:first-of-type > .scholium {
+.row:first-of-type .scholium {
   border-radius: 0px 10px 0px 0px;
 }
 
-.row:last-of-type > .scholium {
+.row:last-of-type .scholium {
   border-radius: 0px 0px 10px 0px;
 }
 
