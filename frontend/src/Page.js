@@ -22,7 +22,7 @@ function Page() {
               part = {source:'', scholia:[]};
             }
             part.rubric = x.key[1];
-            if (x.id === x.key[0]) {
+            if (x.value.isPartOf === x.key[0]) {
               part.source = x.value.text;
             } else {
               part.scholia = [...part.scholia || [], x.value.text];
