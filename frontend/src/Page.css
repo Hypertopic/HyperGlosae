@@ -11,6 +11,12 @@
   background-color: ghostwhite;
 }
 
+.row:first-of-type div {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+}
+
 .row:first-of-type .source {
   border-radius: 10px 0px 0px 0px;
 }
@@ -30,9 +36,23 @@
 
 .row:first-of-type .scholium {
   border-radius: 0px 10px 0px 0px;
+  justify-content: flex-end;
+  text-align: right;
 }
 
 .row:last-of-type .scholium {
   border-radius: 0px 0px 10px 0px;
 }
 
+.runningHead {
+  color: crimson;
+}
+
+.work {
+  font-variant: small-caps;
+  margin-right: .5rem;
+}
+
+.edition {
+  padding-bottom: 12px;
+}
