@@ -56,3 +56,9 @@
 .edition {
   padding-bottom: 12px;
 }
+
+.icon,
+.icon:hover {
+  color: crimson;
+  text-decoration: none;
+}

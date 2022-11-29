@@ -4,7 +4,8 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
+import { ArrowLeftSquare } from 'react-bootstrap-icons';
 
 function Page() {
 
@@ -104,6 +105,7 @@ function RunningHeadMargin({metadata}) {
   if (!metadata) return;
   return (
     <Col xs={5} className="scholium">
+      <Link to={`../${metadata.id}`} className="icon"> <ArrowLeftSquare title="Check its gloses" /> </Link>
       <RunningHead metadata={metadata} />
     </Col>
   );
