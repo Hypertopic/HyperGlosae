@@ -16,12 +16,12 @@ function Page() {
   let {id = "02ee00d85cdb11ed834c4fb9e3c972af"} = useParams();
 
   useEffect(() => {
-    fetch(`http://localhost:5984/hyperglosae/_design/app/_view/metadata?startkey=["${id}"]&endkey=["${id}",{}]`)
+    fetch(`http://localhost:5984/hyperglosae/_design/app/_view/metadata?startkey=["${id}"]&endkey=["${id}",{}]&include_docs=true`)
       .then(x => x.json())
       .then(
         (result) => {
           setMetadata(
-            result.rows.map(x => x.value)
+            result.rows.map(x => x.doc)
           );
         }
       );
@@ -58,8 +58,8 @@ function Page() {
   return (
       <Container className="page">
         <Row>
-          <RunningHeadSource metadata={ metadata.find(x => (x.id === id)) } />
-          <RunningHeadMargin metadata={ metadata.find(x => (x.id === margin)) } />
+          <RunningHeadSource metadata={ metadata.find(x => (x._id === id)) } />
+          <RunningHeadMargin metadata={ metadata.find(x => (x._id === margin)) } />
         </Row>
         {page.map(({rubric, source, scholia}) =>
           <Passage key={rubric} source={source} rubric={rubric} scholium={scholia[0]} hasMargin={!!margin} />)}
@@ -106,7 +106,7 @@ function RunningHeadMargin({metadata}) {
   if (!metadata) return;
   return (
     <Col xs={5} className="scholium">
-      <Link to={`../${metadata.id}`} className="icon"> <ArrowLeftSquare title="Check its gloses" /> </Link>
+      <Link to={`../${metadata._id}`} className="icon"> <ArrowLeftSquare title="Check its gloses" /> </Link>
       <Metadata metadata={metadata} />
     </Col>
   );

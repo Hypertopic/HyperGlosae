@@ -1,8 +1,8 @@
-function (doc) {
-  const { getMetadata, getRelatedDocuments, emitMetadata } = require('views/lib/links');
-
-  let metadata = getMetadata(doc);
-  let related = getRelatedDocuments(doc);
-
-  emitMetadata({metadata, id: doc._id, related});
+function ({_id, links = [], dc_title}) {
+  if (!dc_title) return;
+  links.forEach(({subject, object}) => {
+    let reference = (subject && subject !== _id) ? subject : object;
+    emit([reference], {_id});
+  });
+  emit([_id], {_id});
 }
