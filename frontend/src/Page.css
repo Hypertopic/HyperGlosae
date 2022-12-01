@@ -44,19 +44,6 @@
   border-radius: 0px 0px 10px 0px;
 }
 
-.runningHead {
-  color: crimson;
-}
-
-.work {
-  font-variant: small-caps;
-  margin-right: .5rem;
-}
-
-.edition {
-  padding-bottom: 12px;
-}
-
 .icon,
 .icon:hover {
   color: crimson;

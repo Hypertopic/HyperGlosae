@@ -6,6 +6,7 @@ import Col from 'react-bootstrap/Col';
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ArrowLeftSquare } from 'react-bootstrap-icons';
+import Metadata from './Metadata';
 
 function Page() {
 
@@ -96,7 +97,7 @@ function PassageMargin({active, text}) {
 function RunningHeadSource({metadata}) {
   return (
     <Col xs={7} className="source">
-      <RunningHead metadata={metadata} />
+      <Metadata metadata={metadata} />
     </Col>
   );
 }
@@ -106,23 +107,8 @@ function RunningHeadMargin({metadata}) {
   return (
     <Col xs={5} className="scholium">
       <Link to={`../${metadata.id}`} className="icon"> <ArrowLeftSquare title="Check its gloses" /> </Link>
-      <RunningHead metadata={metadata} />
+      <Metadata metadata={metadata} />
     </Col>
-  );
-}
-
-function RunningHead({metadata}) {
-  return (
-    <>
-      <span className="runningHead work">
-        {metadata?.dc_title} ({metadata?.dc_creator}),
-      </span>
-      <span className="runningHead edition">
-        {metadata?.dc_translator? `Translated by ${metadata.dc_translator.join(' & ')}` : ''}
-        {metadata?.dc_isPartOf? <i>{metadata.dc_isPartOf}</i> : ''}
-        {metadata?.dc_issued? `, ${new Date(metadata.dc_issued).getFullYear()}` : ''}
-      </span>
-    </>
   );
 }
 
