@@ -16,21 +16,21 @@ function Page() {
   let {id = "02ee00d85cdb11ed834c4fb9e3c972af"} = useParams();
 
   useEffect(() => {
-    fetch(`http://localhost:5984/hyperglosae/_design/app/_view/links?startkey=["${id}"]&endkey=["${id}",{}]`)
+    fetch(`http://localhost:5984/hyperglosae/_design/app/_view/metadata?startkey=["${id}"]&endkey=["${id}",{}]`)
       .then(x => x.json())
       .then(
         (result) => {
-          let { metadata, data } = result.rows.reduce(({metadata, data}, x) => {
-            if (x.key[1] === 0) {
-              metadata.push(x.value);
-            } else {
-              data.push(x);
-            }
-            return {metadata, data};
-          }, {metadata: [], data: []});
-          setMetadata(metadata);
+          setMetadata(
+            result.rows.map(x => x.value)
+          );
+        }
+      );
+    fetch(`http://localhost:5984/hyperglosae/_design/app/_view/content?startkey=["${id}"]&endkey=["${id}",{}]`)
+      .then(x => x.json())
+      .then(
+        (result) => {
           setMargin(null);
-          let passages = data.reduce(({whole, part}, x, i, {length}) => {
+          let passages = result.rows.reduce(({whole, part}, x, i, {length}) => {
             if (part.rubric && (x.key[1] !== part.rubric)) {
               whole.push(part);
               part = {source:'', scholia:[]};
