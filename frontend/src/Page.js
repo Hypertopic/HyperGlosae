@@ -5,14 +5,17 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { ArrowLeftSquare } from 'react-bootstrap-icons';
+import { Bookmark, BookmarkFill } from 'react-bootstrap-icons';
 import Metadata from './Metadata';
+import DocumentsCards from './DocumentsCards';
 
 function Page() {
 
   const [page, setPage] = useState([]);
   const [margin, setMargin] = useState();
   const [metadata, setMetadata] = useState([]);
+  const [sourceMetadata, setSourceMetadata] = useState();
+  const [sourcesOfSourceMetadata, setSourcesOfSourceMetadata] = useState([]);
   let {id = "02ee00d85cdb11ed834c4fb9e3c972af"} = useParams();
 
   useEffect(() => {
@@ -20,9 +23,15 @@ function Page() {
       .then(x => x.json())
       .then(
         (result) => {
-          setMetadata(
-            result.rows.map(x => x.doc)
+          let documents = result.rows.map(x => x.doc);
+          setMetadata(documents);
+          let focusedDocument = documents.find(x => (x._id === id));
+          setSourceMetadata(focusedDocument);
+          let forwardLinks = (focusedDocument.links || []).map(({subject, object}) =>
+            (subject && (subject !== id)) ? subject : object
           );
+          let forwardLinkedDocuments = documents.filter(x => forwardLinks.includes(x._id));
+          setSourcesOfSourceMetadata(forwardLinkedDocuments);
         }
       );
     fetch(`http://localhost:5984/hyperglosae/_design/app/_view/content?startkey=["${id}"]&endkey=["${id}",{}]`)
@@ -55,14 +64,22 @@ function Page() {
       )
   }, [id]);
 
+
   return (
-      <Container className="page">
+      <Container>
         <Row>
-          <RunningHeadSource metadata={ metadata.find(x => (x._id === id)) } />
-          <RunningHeadMargin metadata={ metadata.find(x => (x._id === margin)) } />
+          <Col md={2} className="references">
+            <DocumentsCards docs={sourcesOfSourceMetadata} />
+          </Col>
+          <Col className="page">
+            <Row className ="runningHead">
+              <RunningHeadSource metadata={ sourceMetadata } />
+              <RunningHeadMargin metadata={ metadata.find(x => (x._id === margin)) } />
+            </Row>
+            {page.map(({rubric, source, scholia}) =>
+              <Passage key={rubric} source={source} rubric={rubric} scholium={scholia[0]} hasMargin={!!margin} />)}
+          </Col>
         </Row>
-        {page.map(({rubric, source, scholia}) =>
-          <Passage key={rubric} source={source} rubric={rubric} scholium={scholia[0]} hasMargin={!!margin} />)}
       </Container>
   );
 }
@@ -97,6 +114,7 @@ function PassageMargin({active, text}) {
 function RunningHeadSource({metadata}) {
   return (
     <Col xs={7} className="source">
+      <BookmarkFill className="icon" />
       <Metadata metadata={metadata} />
     </Col>
   );
@@ -106,7 +124,9 @@ function RunningHeadMargin({metadata}) {
   if (!metadata) return;
   return (
     <Col xs={5} className="scholium">
-      <Link to={`../${metadata._id}`} className="icon"> <ArrowLeftSquare title="Check its gloses" /> </Link>
+      <Link to={`../${metadata._id}`} className="icon">
+        <Bookmark title="Focus on this document" />
+      </Link>
       <Metadata metadata={metadata} />
     </Col>
   );

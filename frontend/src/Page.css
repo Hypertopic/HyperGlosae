@@ -3,7 +3,7 @@
   border-radius: 10px;
 }
 
-.row {
+.page .row {
   white-space: pre-wrap;
 }
 
@@ -11,17 +11,18 @@
   background-color: ghostwhite;
 }
 
-.row:first-of-type div {
+.page .runningHead div {
   display: flex;
   flex-wrap: wrap;
   align-content: flex-start;
+  padding-top: 17px;
 }
 
-.row:first-of-type .source {
+.page .row:first-of-type .source {
   border-radius: 10px 0px 0px 0px;
 }
 
-.row:last-of-type .source {
+.page .row:last-of-type .source {
   border-radius: 0px 0px 0px 10px;
 }
 
@@ -34,18 +35,27 @@
   background-color: gainsboro;
 }
 
-.row:first-of-type .scholium {
+.page .row:first-of-type .scholium {
   border-radius: 0px 10px 0px 0px;
   justify-content: flex-end;
   text-align: right;
 }
 
-.row:last-of-type .scholium {
+.page .row:last-of-type .scholium {
   border-radius: 0px 0px 10px 0px;
+}
+
+.runningHead {
+  color: crimson;
 }
 
 .icon,
 .icon:hover {
   color: crimson;
   text-decoration: none;
+}
+
+.references .card {
+  background-color: gainsboro;
+  text-color: black;
 }
