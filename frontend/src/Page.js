@@ -93,7 +93,7 @@ function Passage({source, rubric, scholium, hasMargin}) {
             <Col>
               {source}
             </Col>
-            <Col sm={1} className="rubric">{rubric}</Col>
+            <Col xs={1} className="rubric">{rubric}</Col>
           </Row>
         </Container>
       </Col>

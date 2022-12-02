@@ -12,14 +12,13 @@
 }
 
 .page .runningHead div {
-  display: flex;
-  flex-wrap: wrap;
-  align-content: flex-start;
   padding-top: 17px;
+  margin-top: 12px;
 }
 
 .page .row:first-of-type .source {
   border-radius: 10px 0px 0px 0px;
+  text-align: left;
 }
 
 .page .row:last-of-type .source {
@@ -45,6 +44,11 @@
   border-radius: 0px 0px 10px 0px;
 }
 
+.page .row:last-of-type div {
+  padding-bottom: 17px;
+  margin-bottom: 12px;
+}
+
 .runningHead {
   color: crimson;
 }
@@ -53,9 +57,11 @@
 .icon:hover {
   color: crimson;
   text-decoration: none;
+  margin-right: .5rem;
 }
 
 .references .card {
   background-color: gainsboro;
   text-color: black;
+  margin-top: 12px;
 }
