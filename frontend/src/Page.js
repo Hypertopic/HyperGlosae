@@ -16,7 +16,7 @@ function Page() {
   const [metadata, setMetadata] = useState([]);
   const [sourceMetadata, setSourceMetadata] = useState();
   const [sourcesOfSourceMetadata, setSourcesOfSourceMetadata] = useState([]);
-  let {id = "02ee00d85cdb11ed834c4fb9e3c972af"} = useParams();
+  let {id } = useParams();
 
   useEffect(() => {
     fetch(`http://localhost:5984/hyperglosae/_design/app/_view/metadata?startkey=["${id}"]&endkey=["${id}",{}]&include_docs=true`)
@@ -66,7 +66,7 @@ function Page() {
 
 
   return (
-      <Container>
+      <Container className="screen">
         <Row>
           <Col md={2} className="references">
             <DocumentsCards docs={sourcesOfSourceMetadata} />

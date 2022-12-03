@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import Page from './Page';
+import Bookshelf from './Bookshelf';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
@@ -11,7 +12,7 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Page />} />
+        <Route path="/" element={<Bookshelf />} />
         <Route path="/:id" element={<Page />} />
       </Routes>
     </BrowserRouter>

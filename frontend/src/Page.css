@@ -13,7 +13,6 @@
 
 .page .runningHead div {
   padding-top: 17px;
-  margin-top: 12px;
 }
 
 .page .row:first-of-type .source {
@@ -46,7 +45,6 @@
 
 .page .row:last-of-type div {
   padding-bottom: 17px;
-  margin-bottom: 12px;
 }
 
 .runningHead {
@@ -63,5 +61,4 @@
 .references .card {
   background-color: gainsboro;
   text-color: black;
-  margin-top: 12px;
 }
