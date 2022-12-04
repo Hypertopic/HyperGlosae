@@ -4,7 +4,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useLocation } from 'react-router-dom';
 import { Bookmark, BookmarkFill } from 'react-bootstrap-icons';
 import Metadata from './Metadata';
 import DocumentsCards from './DocumentsCards';
@@ -12,11 +12,11 @@ import DocumentsCards from './DocumentsCards';
 function Page() {
 
   const [page, setPage] = useState([]);
-  const [margin, setMargin] = useState();
   const [metadata, setMetadata] = useState([]);
   const [sourceMetadata, setSourceMetadata] = useState();
   const [sourcesOfSourceMetadata, setSourcesOfSourceMetadata] = useState([]);
   let {id } = useParams();
+  let margin = useLocation().hash.slice(1);
 
   useEffect(() => {
     fetch(`http://localhost:5984/hyperglosae/_design/app/_view/metadata?startkey=["${id}"]&endkey=["${id}",{}]&include_docs=true`)
@@ -38,7 +38,6 @@ function Page() {
       .then(x => x.json())
       .then(
         (result) => {
-          setMargin(null);
           let passages = result.rows.reduce(({whole, part}, x, i, {length}) => {
             if (part.rubric && (x.key[1] !== part.rubric)) {
               whole.push(part);
@@ -48,8 +47,10 @@ function Page() {
             if (x.value.isPartOf === id) {
               part.source = x.value.text;
             } else {
-              part.scholia = [...part.scholia || [], x.value.text];
-              setMargin(x.value.isPartOf);
+              part.scholia = [...part.scholia || [], x.value];
+              if (!margin) {
+                location.hash = x.value.isPartOf;
+              }
             }
             if (i === length - 1) {
               return [...whole, part];
@@ -64,7 +65,6 @@ function Page() {
       )
   }, [id]);
 
-
   return (
       <Container className="screen">
         <Row>
@@ -77,14 +77,15 @@ function Page() {
               <RunningHeadMargin metadata={ metadata.find(x => (x._id === margin)) } />
             </Row>
             {page.map(({rubric, source, scholia}) =>
-              <Passage key={rubric} source={source} rubric={rubric} scholium={scholia[0]} hasMargin={!!margin} />)}
+              <Passage key={rubric} source={source} rubric={rubric} scholia={scholia} margin={margin} />)}
           </Col>
         </Row>
       </Container>
   );
 }
 
-function Passage({source, rubric, scholium, hasMargin}) {
+function Passage({source, rubric, scholia, margin}) {
+  let scholium = scholia.find(x => (x.isPartOf === margin)) || {text: ''};
   return (
     <Row>
       <Col xs={7} className="source">
@@ -97,16 +98,16 @@ function Passage({source, rubric, scholium, hasMargin}) {
           </Row>
         </Container>
       </Col>
-      <PassageMargin text={scholium} active={hasMargin} />
+      <PassageMargin scholium={scholium} active={!!margin} />
     </Row>
   );
 }
 
-function PassageMargin({active, text}) {
+function PassageMargin({active, scholium}) {
   if (!active) return;
   return (
     <Col xs={5} className="scholium">
-      {text}
+      {scholium.text}
     </Col>
   );
 }
