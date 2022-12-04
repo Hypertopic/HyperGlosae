@@ -1,0 +1,14 @@
+{
+  "_id": "09c906c6732b11ed89466ba197585f87",
+  "dc_title": "A tündérek",
+  "dc_creator": "Charles Perrault",
+  "dc_translator": ["Ildikó Lőrinszky", "Laurent Dedryvère"],
+  "dc_issued": "2022-07-17",
+  "dc_language": "hun",
+  "dc_license": "https://creativecommons.org/licenses/by-nc-nd/4.0/",
+  "dc_source": "https://traduxio.org/works/79df781ff8941879f960c6500b3b74cf?open=Ildikó%20Lőrinszky%20et%20Laurent%20Dedryvère",
+  "links": [{
+    "verb": "isTranslationOf",
+    "object": "37b4b9ba5cdb11ed887beb5c373fa643"
+  }]
+}
