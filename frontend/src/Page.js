@@ -59,6 +59,7 @@ function Page() {
             }
             return {whole, part};
           }, {whole: [], part: {source:'', scholia:[]}});
+          passages = Array.isArray(passages) ? passages : [];
           setPage(passages);
         },
         (error) => {
