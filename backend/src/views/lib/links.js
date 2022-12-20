@@ -8,7 +8,9 @@ exports.getRelatedDocuments = ({_id, isPartOf, links = []}) =>
 
 exports.emitPassages = ({text, isPartOf, related}) => {
   const PASSAGE = /{(.+)} ([^{]+)/g;
-  [...text.matchAll(PASSAGE)].forEach(([_, rubric, passage]) => {
+  let passages = [...text.matchAll(PASSAGE)];
+  passages = (passages.length || !text) ? passages : [[null, null, text]];
+  passages.forEach(([_, rubric, passage]) => {
  	  related.forEach(x => {
  	    emit([x, Number(rubric)], {text: passage, isPartOf});
  	  });

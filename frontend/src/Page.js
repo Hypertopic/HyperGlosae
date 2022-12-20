@@ -98,12 +98,18 @@ function Passage({source, rubric, scholia, margin}) {
             <Col>
               {source}
             </Col>
-            <Col xs={1} className="rubric">{rubric}</Col>
+            <Rubric id={rubric} />
           </Row>
         </Container>
       </Col>
       <PassageMargin scholium={scholium} active={!!margin} />
     </Row>
+  );
+}
+
+function Rubric({id}) {
+  if (id) return (
+    <Col xs={1} className="rubric">{id}</Col>
   );
 }
 
