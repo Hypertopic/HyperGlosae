@@ -6,6 +6,7 @@ import Col from 'react-bootstrap/Col';
 import { useState, useEffect } from 'react';
 import { useParams, Link, useLocation } from 'react-router-dom';
 import { Bookmark, BookmarkFill, ChevronBarDown } from 'react-bootstrap-icons';
+import ReactMarkdown from 'react-markdown';
 import Metadata from './Metadata';
 import DocumentsCards from './DocumentsCards';
 
@@ -96,7 +97,7 @@ function Passage({source, rubric, scholia, margin}) {
         <Container>
           <Row>
             <Col>
-              {source}
+              <ReactMarkdown children={source} />
             </Col>
             <Rubric id={rubric} />
           </Row>
@@ -117,7 +118,7 @@ function PassageMargin({active, scholium}) {
   if (!active) return;
   return (
     <Col xs={5} className="scholium">
-      {scholium.text}
+      <ReactMarkdown children={scholium.text} />
     </Col>
   );
 }

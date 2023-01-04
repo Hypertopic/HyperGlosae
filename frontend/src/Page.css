@@ -43,7 +43,7 @@
   border-radius: 0px 0px 10px 0px;
 }
 
-.page .row:last-of-type div {
+.page > .row:last-of-type > div {
   padding-bottom: 17px;
 }
 
@@ -61,4 +61,8 @@
 .references .card {
   background-color: gainsboro;
   text-color: black;
+}
+
+p, ul, h1, h2 {
+  margin-bottom: 0px !important;
 }
