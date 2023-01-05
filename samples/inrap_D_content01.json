@@ -1,0 +1,10 @@
+{
+  "_id": "5f08554085cf11edba7403b7c72ddf8c",
+  "isPartOf": "c2b9f52285ce11edbd0aff9b25defbab",
+  "text": "## Flux\nParmi les flux évoqués par l'informateur, nous remarquons une grande diversité :\n- de [vestiges],\n- de documents.\n\nNous pouvons faire l'hypothèse que pour contrecarrer son caractère \"destructif\" (étudier une couche stratigraphique nécessite de détruire la couche au-dessus), **l'archéologie transforme les vestiges en documents** ([photographies], plans, [coupes], etc.). Nous essaierons d'en rendre compte dans notre diagramme de flux.\n\nConcernant les vestiges, nous voyons une grande finesse dans la classification de ces derniers (par datation, nature, forme, etc.). Il semblerait même que cette classification (ou \"**typologie**\") soit une part importante du travail des archéologues. Aussi, nous y consacrerons un diagramme de classes.\n",
+  "dc_source": "https://cassandre.utt.fr/memo/edbb69a33827773d728069d8755133ab",
+  "links": [{
+    "verb": "isGroundedIn",
+    "object": "05b61f5285c711ed97bf6b9b56808c45"
+  }]
+}
