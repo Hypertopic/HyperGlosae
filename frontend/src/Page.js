@@ -44,14 +44,17 @@ function Page() {
       .then(x => x.json())
       .then(
         (result) => {
+          let shouldBeAligned = (result.rows[0].key[1] !== 0);
           let passages = result.rows.reduce(({whole, part}, x, i, {length}) => {
-            if (part.rubric && (x.key[1] !== part.rubric)) {
+            if (part.rubric && (x.key[1] !== part.rubric || !shouldBeAligned && i === length - 1)) {
               whole.push(part);
               part = {source:'', scholia:[]};
             }
-            part.rubric = x.key[1];
+            if (shouldBeAligned) {
+              part.rubric = x.key[1];
+            }
             if (x.value.isPartOf === id) {
-              part.source = x.value.text;
+              part.source += x.value.text;
             } else {
               part.scholia = [...part.scholia || [], x.value];
             }
@@ -90,7 +93,7 @@ function Page() {
 }
 
 function Passage({source, rubric, scholia, margin}) {
-  let scholium = scholia.find(x => (x.isPartOf === margin)) || {text: ''};
+  let scholium = scholia.filter(x => (x.isPartOf === margin)) || {text: ''};
   return (
     <Row>
       <Col className="source">
@@ -116,9 +119,10 @@ function Rubric({id}) {
 
 function PassageMargin({active, scholium}) {
   if (!active) return;
+  let scholiumText = scholium.map(x => x.text).join('');
   return (
     <Col xs={5} className="scholium">
-      <ReactMarkdown children={scholium.text} />
+      <ReactMarkdown children={scholiumText} />
     </Col>
   );
 }
