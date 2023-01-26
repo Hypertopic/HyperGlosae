@@ -38,15 +38,17 @@ function References({doc}) {
 }
 
 function ToolBar({doc_id, expandable}) {
-  if (expandable) return (
-    <Link to={`#${doc_id}`} className="icon">
-      <ChevronExpand title="Open this document" />
-    </Link>
-  );
   return (
-    <Link to={`../${doc_id}`} className="icon">
-      <Bookmark title="Focus on this document" />
-    </Link>
+    <>
+      { expandable &&
+        <Link to={`#${doc_id}`} className="icon">
+          <ChevronExpand title="Open this document" />
+        </Link>
+      }
+      <Link to={`../${doc_id}`} className="icon">
+        <Bookmark title="Focus on this document" />
+      </Link>
+    </>
   );
 }
 
