@@ -2,8 +2,8 @@ import { Link } from 'react-router-dom';
 import Card from 'react-bootstrap/Card';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
-import { Bookmark, ChevronExpand } from 'react-bootstrap-icons';
 import Metadata from './Metadata';
+import BrowseTools from './BrowseTools';
 
 function DocumentsCards({docs, expandable}) {
   return (
@@ -21,7 +21,7 @@ function DocumentCard({doc, expandable}) {
   return (
     <Card className="h-100">
       <Card.Body>
-        <ToolBar doc_id={doc._id} expandable={expandable} />
+        <BrowseTools id={doc._id} openable={expandable} />
         <Metadata metadata={doc} />
       </Card.Body>
       <References doc={doc} />
@@ -34,21 +34,6 @@ function References({doc}) {
     <Card.Footer>
       referenced by {doc.referenced} document(s)
     </Card.Footer>
-  );
-}
-
-function ToolBar({doc_id, expandable}) {
-  return (
-    <>
-      { expandable &&
-        <Link to={`#${doc_id}`} className="icon">
-          <ChevronExpand title="Open this document" />
-        </Link>
-      }
-      <Link to={`../${doc_id}`} className="icon">
-        <Bookmark title="Focus on this document" />
-      </Link>
-    </>
   );
 }
 

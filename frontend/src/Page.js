@@ -4,11 +4,12 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { useState, useEffect } from 'react';
-import { useParams, Link, useLocation } from 'react-router-dom';
-import { Bookmark, BookmarkFill, ChevronBarDown } from 'react-bootstrap-icons';
+import { useParams, useLocation } from 'react-router-dom';
+import { BookmarkFill } from 'react-bootstrap-icons';
 import ReactMarkdown from 'react-markdown';
 import Metadata from './Metadata';
 import DocumentsCards from './DocumentsCards';
+import BrowseTools from './BrowseTools';
 
 function Page() {
 
@@ -140,12 +141,7 @@ function RunningHeadMargin({metadata}) {
   if (!metadata) return;
   return (
     <Col xs={5} className="scholium">
-      <Link to="#" className="icon">
-        <ChevronBarDown title="Close this document" />
-      </Link>
-      <Link to={`../${metadata._id}`} className="icon">
-        <Bookmark title="Focus on this document" />
-      </Link>
+      <BrowseTools id={metadata._id} closable={true} />
       <Metadata metadata={metadata} />
     </Col>
   );
