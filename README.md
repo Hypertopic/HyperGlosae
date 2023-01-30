@@ -19,6 +19,19 @@ We think they are both willing and able to adopt such an infrastructure.
 
 Step by step, we will prototype such an infrastructure and will test it on prior documented practices of "parallel documents" in our existing Hypertopic software suite (esp. [TraduXio](https://hypertopic.org/traduxio) and [Cassandre](https://hypertopic.org/cassandre)).
 
+## Requirements
+
+HyperGlosae will be designed with environmental responsibility in mind (for example the number and weight of HTTP requests will be kept low).
+
+## Architecture
+
+Bidirectional links cannot be distributed as easily as unidirectional links.
+If the frontend was the origin of every request (as on the Web), getting all bidirectional links to a given document would require every backend (that may store one) to be queried...
+Instead, the original hypertext architecture was more like a federation of backends (a bit like Usenet).
+A modern version of this (see figure below) will be achieved with CouchDB filtered replications.
+
+![HyperGlosae architecture](./docs/architecture.png "Hypertext architecture, revisited from Nelson (1993:4/62) with current technologies (React and CouchDB).")
+
 ## Deliverables
 
 The folders of the repository will correspond to the main deliverables:
@@ -28,4 +41,3 @@ The folders of the repository will correspond to the main deliverables:
 - `frontend` prototype for reading and writing parallel documents,
 - `backend` prototype for storing parallel documents (see instructions for [testing it](./backend/CONTRIBUTING.md)),
 - `library` of reusable parts to be integrated in other frontends.
-
