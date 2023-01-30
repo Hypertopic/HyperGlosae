@@ -38,6 +38,6 @@ The folders of the repository will correspond to the main deliverables:
 
 - `samples` of parallel documents, meaningful for stakeholders of our existing software,
 - `features` specification through usage scenarios,
-- `frontend` prototype for reading and writing parallel documents,
+- `frontend` prototype for reading and writing parallel documents (see instructions for [testing it](./frontend/CONTRIBUTING.md)),
 - `backend` prototype for storing parallel documents (see instructions for [testing it](./backend/CONTRIBUTING.md)),
 - `library` of reusable parts to be integrated in other frontends.
