@@ -84,8 +84,8 @@ function Page() {
               <RunningHeadSource metadata={ sourceMetadata } />
               <RunningHeadMargin metadata={ metadata.find(x => (x._id === margin)) } />
             </Row>
-            {page.map(({rubric, source, scholia}) =>
-              <Passage key={rubric} source={source} rubric={rubric} scholia={scholia} margin={margin} />)}
+            {page.map(({rubric, source, scholia}, i) =>
+              <Passage key={rubric || i} source={source} rubric={rubric} scholia={scholia} margin={margin} />)}
           </Col>
           <References scholiaMetadata={scholiaMetadata} active={!margin} />
         </Row>
