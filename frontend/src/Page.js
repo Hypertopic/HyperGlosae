@@ -10,6 +10,7 @@ import ReactMarkdown from 'react-markdown';
 import Metadata from './Metadata';
 import DocumentsCards from './DocumentsCards';
 import BrowseTools from './BrowseTools';
+import hyperglosae from './hyperglosae';
 
 function Page() {
 
@@ -22,11 +23,10 @@ function Page() {
   let margin = useLocation().hash.slice(1);
 
   useEffect(() => {
-    fetch(`http://localhost:5984/hyperglosae/_design/app/_view/metadata?startkey=["${id}"]&endkey=["${id}",{}]&include_docs=true`)
-      .then(x => x.json())
+    hyperglosae.getView({view: 'metadata', id, options:['include_docs']})
       .then(
-        (result) => {
-          let documents = result.rows.map(x => x.doc);
+        (rows) => {
+          let documents = rows.map(x => x.doc);
           setMetadata(documents);
           let focusedDocument = documents.find(x => (x._id === id));
           setSourceMetadata(focusedDocument);
@@ -41,12 +41,11 @@ function Page() {
           setScholiaMetadata(reverseLinkedDocuments);
         }
       );
-    fetch(`http://localhost:5984/hyperglosae/_design/app/_view/content?startkey=["${id}"]&endkey=["${id}",{}]`)
-      .then(x => x.json())
+    hyperglosae.getView({view: 'content', id})
       .then(
-        (result) => {
-          let shouldBeAligned = (result.rows[0].key[1] !== 0);
-          let passages = result.rows.reduce(({whole, part}, x, i, {length}) => {
+        (rows) => {
+          let shouldBeAligned = (rows[0].key[1] !== 0);
+          let passages = rows.reduce(({whole, part}, x, i, {length}) => {
             if (part.rubric && (x.key[1] !== part.rubric || !shouldBeAligned && i === length - 1)) {
               whole.push(part);
               part = {source:'', scholia:[]};
