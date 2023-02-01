@@ -1,0 +1,14 @@
+{
+  "_id": "6327c5008d1f11ed9aa8e7ae771dee2e",
+  "dc_title": "Étiquetage de l'entretien",
+  "dc_isPartOf": "Archéologie préventive (IF14)",
+  "dc_creator": "Aurélien Bénel",
+  "dc_issued": "2019-09-24",
+  "links": [{
+    "verb": "isGroundedIn",
+    "object": "05b61f5285c711ed97bf6b9b56808c45"
+  }],
+  "dc_language": "fra",
+  "text":"{1} responsable d'opération\n: Acteur{5} fouiller selon le programme\n: Action{7} recherches historiques sur la zone balisée\n: Flux{9} coupes\n: Flux\n\nstructures\n: Flux\n\ntamisage\n: Action\n\nrelever les coupes\n: Action{15} objets\n: Flux\n\nsacs\n: Flux\n\nterre\n: Flux\n\nrelevé topographique\n: Flux\n\nphotos\n: Flux\n\ncreuser\n: Action\n\nprendre en photo\n: Action\n\ndessiner les plans\n: Action\n\narchiver tous les sacs\n: Action\n\ndécapage du terrain\n: Action\n\nprélever la terre, les objets, les mettre en sac\n: Action{17} mobilier\n: Flux\n\nrapport\n: Flux\n\nfiche d'enregistrement\n: Flux\n\ninterpréter\n: Action\n\nlavage\n: Action\n\nscannés et redessinés sur ordinateur\n: Action\n\n{19}graines\n: Flux\n\ncharbons\n: Flux\n\nfaire des prélèvements\n: Action{21}reversés aux collections publiques\n: Action\n\nservice régional de l'archéologie\n: Acteur\n\non les garde pendant deux ans en études\n: Action{31} vestiges\n: Flux\n\nparcelle\n: Flux{41} techniciens\n: Acteur{43} les CDD, ceux qui sont de passage à l'INRAP, souvent des prestataires\n: Acteur{45} publications\n: Flux\n\nchercheurs\n: Acteur\n\nresponsables d'opérations mais spécialisés sur des périodes chronologiques\n: Acteur{53} fouilleurs\n: Acteur",
+  "dc_license": "https://creativecommons.org/licenses/by/4.0/"
+}
