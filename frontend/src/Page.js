@@ -19,8 +19,10 @@ function Page() {
   const [sourceMetadata, setSourceMetadata] = useState();
   const [sourcesOfSourceMetadata, setSourcesOfSourceMetadata] = useState([]);
   const [scholiaMetadata, setScholiaMetadata] = useState([]);
+  const [content, setContent] = useState([]);
   let {id } = useParams();
   let margin = useLocation().hash.slice(1);
+  let hasRubrics = (id, rows) => rows.some(x => x.key[1] !== 0 && x.value.isPartOf === id);
 
   useEffect(() => {
     hyperglosae.getView({view: 'metadata', id, options:['include_docs']})
@@ -28,49 +30,60 @@ function Page() {
         (rows) => {
           let documents = rows.map(x => x.doc);
           setMetadata(documents);
-          let focusedDocument = documents.find(x => (x._id === id));
-          setSourceMetadata(focusedDocument);
-          let forwardLinks = (focusedDocument.links || []).map(({subject, object}) =>
-            (subject && (subject !== id)) ? subject : object
-          );
-          let forwardLinkedDocuments = documents.filter(x => forwardLinks.includes(x._id));
-          setSourcesOfSourceMetadata(forwardLinkedDocuments);
-          let reverseLinkedDocuments = documents.filter(
-            x => !forwardLinks.includes(x._id) && x._id !== id
-          );
-          setScholiaMetadata(reverseLinkedDocuments);
         }
       );
     hyperglosae.getView({view: 'content', id})
       .then(
         (rows) => {
-          let shouldBeAligned = (rows[0].key[1] !== 0);
-          let passages = rows.reduce(({whole, part}, x, i, {length}) => {
-            if (part.rubric && (x.key[1] !== part.rubric || !shouldBeAligned && i === length - 1)) {
-              whole.push(part);
-              part = {source:'', scholia:[]};
-            }
-            if (shouldBeAligned) {
-              part.rubric = x.key[1];
-            }
-            if (x.value.isPartOf === id) {
-              part.source += x.value.text;
-            } else {
-              part.scholia = [...part.scholia || [], x.value];
-            }
-            if (i === length - 1) {
-              return [...whole, part];
-            }
-            return {whole, part};
-          }, {whole: [], part: {source:'', scholia:[]}});
-          passages = Array.isArray(passages) ? passages : [];
-          setPage(passages);
+          setContent(rows);
         },
         (error) => {
           console.log(error.message)
         }
-      )
+      );
   }, [id]);
+
+  useEffect(() => {
+    if (metadata.length) {
+      let focusedDocument = metadata.find(x => (x._id === id));
+      setSourceMetadata(focusedDocument);
+      let forwardLinks = (focusedDocument.links || []).map(({subject, object}) =>
+        (subject && (subject !== id)) ? subject : object
+      );
+      let forwardLinkedDocuments = metadata.filter(x => forwardLinks.includes(x._id));
+      setSourcesOfSourceMetadata(forwardLinkedDocuments);
+      let reverseLinkedDocuments = metadata.filter(
+        x => !forwardLinks.includes(x._id) && x._id !== id
+      );
+      setScholiaMetadata(reverseLinkedDocuments);
+    }
+  }, [id, metadata]);
+
+  useEffect(() => {
+    if (content.length) {
+      let shouldBeAligned = hasRubrics(id, content) && (!margin || hasRubrics(margin, content));
+      let passages = content.reduce(({whole, part}, x, i, {length}) => {
+        if (part.rubric && (x.key[1] !== part.rubric || !shouldBeAligned && i === length - 1)) {
+          whole.push(part);
+          part = {source:'', scholia:[]};
+        }
+        if (shouldBeAligned) {
+          part.rubric = x.key[1];
+        }
+        if (x.value.isPartOf === id) {
+          part.source += x.value.text;
+        } else {
+          part.scholia = [...part.scholia || [], x.value];
+        }
+        if (i === length - 1) {
+          return [...whole, part];
+        }
+        return {whole, part};
+      }, {whole: [], part: {source:'', scholia:[]}});
+      passages = Array.isArray(passages) ? passages : [];
+      setPage(passages);
+    }
+  }, [id, margin, content]);
 
   return (
       <Container className="screen">
