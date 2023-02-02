@@ -7,6 +7,7 @@ import { useState, useEffect } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 import { BookmarkFill } from 'react-bootstrap-icons';
 import ReactMarkdown from 'react-markdown';
+import { remarkDefinitionList, defListHastHandlers } from 'remark-definition-list';
 import Metadata from './Metadata';
 import DocumentsCards from './DocumentsCards';
 import BrowseTools from './BrowseTools';
@@ -113,7 +114,9 @@ function Passage({source, rubric, scholia, margin}) {
         <Container>
           <Row>
             <Col>
-              <ReactMarkdown children={source} />
+              <FormattedText>
+                {source}
+              </FormattedText>
             </Col>
             <Rubric id={rubric} />
           </Row>
@@ -135,7 +138,9 @@ function PassageMargin({active, scholium}) {
   let scholiumText = scholium.map(x => x.text).join('');
   return (
     <Col xs={5} className="scholium">
-      <ReactMarkdown children={scholiumText} />
+      <FormattedText>
+        {scholiumText}
+      </FormattedText>
     </Col>
   );
 }
@@ -165,6 +170,19 @@ function References({scholiaMetadata, active}) {
     <Col className="references" >
       <DocumentsCards docs={scholiaMetadata} expandable={true} />
     </Col>
+  );
+}
+
+function FormattedText({children}) {
+  return (
+    <ReactMarkdown
+      remarkPlugins={[remarkDefinitionList]}
+      remarkRehypeOptions={{
+        handlers: defListHastHandlers
+      }}
+    >
+      {children}
+    </ReactMarkdown>
   );
 }
 

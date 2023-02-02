@@ -3,7 +3,7 @@
   border-radius: 10px;
 }
 
-.page .row {
+.page .row p {
   white-space: pre-wrap;
 }
 
@@ -65,4 +65,8 @@
 
 p, ul, h1, h2 {
   margin-bottom: 0px !important;
+}
+
+dd {
+  padding-left: 30px;
 }
