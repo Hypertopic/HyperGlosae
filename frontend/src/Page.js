@@ -72,7 +72,7 @@ function Page() {
           part.rubric = x.key[1];
         }
         if (x.value.isPartOf === id) {
-          part.source += x.value.text;
+          part.source += '\n\n' + x.value.text;
         } else {
           part.scholia = [...part.scholia || [], x.value];
         }
