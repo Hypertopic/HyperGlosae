@@ -70,3 +70,8 @@ p, ul, h1, h2 {
 dd {
   padding-left: 30px;
 }
+
+img {
+  max-width: 100%;
+  height: auto;
+}
