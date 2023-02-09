@@ -32,6 +32,45 @@ A modern version of this (see figure below) will be achieved with CouchDB filter
 
 ![HyperGlosae architecture](./docs/architecture.png "Hypertext architecture, revisited from Nelson (1993:4/62) with current technologies (React and CouchDB).")
 
+## "Literature" model
+
+The concept of *literature* (*e.g.* "scientific literature") is that *reading* a document results in *writing* new ones (highlights, annotations, analyses, translations, critics, etc.).
+Hence the meaning of a document is indeed in the whole graph of direct or indirect sources and offsprings.
+
+### Forward links
+
+![](docs/screenshot_translator_forwardlink.png)
+A *forward link* is similar to a bibliographical reference: because a document (in the center) has been written after reading a prior document (on the left margin), it refers to it.
+
+In this hypertext system, contrary to the Web:
+- the reference of the link does not depend of a host (see [format](https://github.com/Hypertopic/HyperGlosae/blob/47e401e57c62756edfbdedb3172e49f87f18b532/samples/perrault_jamborova.json#L11-L12)),
+- the system resolves the identifier and gets bibliographical data (see [format](https://github.com/Hypertopic/HyperGlosae/blob/47e401e57c62756edfbdedb3172e49f87f18b532/samples/perrault_1886.json#L2-L7)).
+
+### Reverse links
+
+![](docs/screenshot_translatior_reverselinks.png)
+A "reverse link" is the virtual one going from a document to a document that refers to it.
+Consulting (on the right margin) the different translations, commentaries, analyses of a given source (in the center) has deep philosophical and political perspectives: each derived document can be seen as a different *point of view* on the document, attested by a specific author at a given date.
+
+Contrary to this hypertext system, the Web has no built-in features to compute and display "reverse links" but, for example, such a computation is handled for the Web globally by Google Search (to compute *PageRank*), and locally by certain blog or wiki software.
+
+### Side-by-side linked documents
+
+![](docs/screenshot_analyst_picture_whole.png)
+
+![](docs/screenshot_analyst_text_whole.png)
+Opening one of the reverse links, side by side with its source, is like reviving the moment when the author of the derived document read the source and started to write in the margin, creating a new document.
+
+### Side-by-side parallel documents
+
+![](docs/screenshot_translator_parallel.png)
+
+![](docs/screenshot_analyst_parallel.png)
+Translations, *scholia* (comments on a term), qualitative analysis "codes", are typical *parallel linked documents* of a source.
+It means that every part of the derived document is linked to a specific part of the source document, using:
+- a mandatory *rubric*, *i.e.* the "red-printed" identifier of a passage (see [format](https://github.com/Hypertopic/HyperGlosae/blob/47e401e57c62756edfbdedb3172e49f87f18b532/samples/perrault_jamborova03.json#L8)), already defined in the source (see [format](https://github.com/Hypertopic/HyperGlosae/blob/47e401e57c62756edfbdedb3172e49f87f18b532/samples/perrault_1886_content.json#L4)), and that follows the same order as the passages,
+- an optional quote from this passage (see [format](https://github.com/Hypertopic/HyperGlosae/blob/6a1b4a56dea8d3d0fb2a3de3e49d972c503b3848/samples/inrap_D0.json#L12) and commit message).
+
 ## Deliverables
 
 The folders of the repository will correspond to the main deliverables:
