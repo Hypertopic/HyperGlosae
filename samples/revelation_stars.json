@@ -1,0 +1,19 @@
+{
+  "_id": "a0cdf96ab2c211ed9f5ecfb8095a0b31",
+  "dc_title": "Soleil noir et étoiles qui tombent – Comparaison de vitraux",
+  "dc_isPartOf": "Iconographie et numérique : De la sémantique à la sémiotique",
+  "dc_creator": "Aurélien Bénel",
+  "dc_issued": "2022-10-13",
+  "text": "",
+  "dc_license": "https://creativecommons.org/licenses/by-sa/4.0/",
+  "links": [{
+    "verb": "includes",
+    "object": "b8cc79d8abba11edb9ee53989bc96c06"
+  }, {
+    "verb": "includes",
+    "object": "23ee16c6abc111edacc14f3cacd3cada"
+  }, {
+    "verb": "includes",
+    "object": "4745d83eabc111edb4d7a3e38e32ff69"
+  }]
+}
