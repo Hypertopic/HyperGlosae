@@ -23,7 +23,7 @@ function Page() {
   const [content, setContent] = useState([]);
   let {id } = useParams();
   let margin = useLocation().hash.slice(1);
-  let hasRubrics = (id, rows) => rows.some(x => x.key[1] !== 0 && x.value.isPartOf === id);
+  let hasRubrics = (id, rows) => rows.some(x => x.key[1] !== 0 && x.value.isPartOf === id && x.value.text);
 
   useEffect(() => {
     hyperglosae.getView({view: 'metadata', id, options:['include_docs']})
@@ -33,7 +33,7 @@ function Page() {
           setMetadata(documents);
         }
       );
-    hyperglosae.getView({view: 'content', id})
+    hyperglosae.getView({view: 'content', id, options:['include_docs']})
       .then(
         (rows) => {
           setContent(rows);
@@ -71,10 +71,12 @@ function Page() {
         if (shouldBeAligned) {
           part.rubric = x.key[1];
         }
-        if (x.value.isPartOf === id) {
-          part.source += '\n\n' + x.value.text;
+        let text = x.doc ? x.doc.text : x.value.text;
+        let isPartOf = x.value.isPartOf;
+        if (isPartOf === id) {
+          part.source += '\n\n' + text;
         } else {
-          part.scholia = [...part.scholia || [], x.value];
+          part.scholia = [...part.scholia || [], {text, isPartOf}];
         }
         if (i === length - 1) {
           return [...whole, part];

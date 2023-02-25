@@ -12,7 +12,19 @@ exports.emitPassages = ({text, isPartOf, related}) => {
   passages = (passages.length || !text) ? passages : [[null, null, text]];
   passages.forEach(([_, rubric, passage]) => {
  	  related.forEach(x => {
- 	    emit([x, Number(rubric)], {text: passage, isPartOf});
+ 	    emit([x, Number(rubric)], {text: passage, isPartOf, _id: null});
  	  });
+  });
+}
+
+exports.emitIncludedDocuments = ({isPartOf, links}) => {
+  let includedDocuments = links
+    .filter(x => x.verb === 'includes')
+    .map(x => x.object);
+  includedDocuments.forEach((x, i) => {
+    emit([isPartOf, i], {inclusion: 'whole', isPartOf, _id: x});
+    includedDocuments.forEach((y, j) => {
+      emit([x, i], {inclusion: 'whole', isPartOf, _id: y});
+    });
   });
 }
