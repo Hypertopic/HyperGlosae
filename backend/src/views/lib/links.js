@@ -1,9 +1,9 @@
 // Note: The result set includes also the document itself or its main document
-exports.getRelatedDocuments = ({_id, isPartOf, links = []}) =>
+exports.getRelatedDocuments = ({isPartOf, links}) =>
   new Set(
     links.reduce((l, {object, subject}) => [...l, subject, object], [])
       .filter(x => !!x)
-      .concat(isPartOf || _id)
+      .concat(isPartOf)
   );
 
 exports.emitPassages = ({text, isPartOf, related}) => {
