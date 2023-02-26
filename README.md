@@ -71,6 +71,21 @@ It means that every part of the derived document is linked to a specific part of
 - a mandatory *rubric*, *i.e.* the "red-printed" identifier of a passage (see [format](https://github.com/Hypertopic/HyperGlosae/blob/47e401e57c62756edfbdedb3172e49f87f18b532/samples/perrault_jamborova03.json#L8)), already defined in the source (see [format](https://github.com/Hypertopic/HyperGlosae/blob/47e401e57c62756edfbdedb3172e49f87f18b532/samples/perrault_1886_content.json#L4)), and that follows the same order as the passages,
 - an optional quote from this passage (see [format](https://github.com/Hypertopic/HyperGlosae/blob/6a1b4a56dea8d3d0fb2a3de3e49d972c503b3848/samples/inrap_D0.json#L12) and commit message).
 
+### Transclusion (inclusion by reference)
+
+![](docs/screenshot_historian_transclusion_links.png)
+
+A new document can be made by *transcluding* (i.e. "virtually including") the content of existing documents or parts of them (see [format](https://github.com/Hypertopic/HyperGlosae/blob/92a029c3a5e636769243d571ef977a5505e5a7b3/samples/revelation_stars.json#L9-L19)).
+
+The resulting collection can be used to compare documents (e.g. related works of art, alternative translations, etc.).
+It can also be used to present selected documents to an audience in a meaningful order (chronological, narrative, argumentative, etc.).
+
+Because transclusion is also a *link*:
+- bibliographical data from sources are displayed with the derived document,
+- collections based on the same document appear as *reverse links*.
+
+![](docs/screenshot_historian_transclusion_reverselinks.png)
+
 ## Deliverables
 
 The folders of the repository will correspond to the main deliverables:
