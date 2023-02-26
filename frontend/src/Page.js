@@ -8,9 +8,11 @@ import { useParams, useLocation } from 'react-router-dom';
 import { BookmarkFill } from 'react-bootstrap-icons';
 import ReactMarkdown from 'react-markdown';
 import { remarkDefinitionList, defListHastHandlers } from 'remark-definition-list';
+import remarkUnwrapImages from 'remark-unwrap-images'
 import Metadata from './Metadata';
 import DocumentsCards from './DocumentsCards';
 import BrowseTools from './BrowseTools';
+import CroppedImage from './CroppedImage';
 import hyperglosae from './hyperglosae';
 
 function Page() {
@@ -48,9 +50,9 @@ function Page() {
     if (metadata.length) {
       let focusedDocument = metadata.find(x => (x._id === id));
       setSourceMetadata(focusedDocument);
-      let forwardLinks = (focusedDocument.links || []).map(({subject, object}) =>
-        (subject && (subject !== id)) ? subject : object
-      );
+      let forwardLinks = (focusedDocument.links || [])
+        .map(({subject, object}) => (subject && (subject !== id)) ? subject : object)
+        .map(x => x.split('#')[0]);
       let forwardLinkedDocuments = metadata.filter(x => forwardLinks.includes(x._id));
       setSourcesOfSourceMetadata(forwardLinkedDocuments);
       let reverseLinkedDocuments = metadata.filter(
@@ -59,6 +61,18 @@ function Page() {
       setScholiaMetadata(reverseLinkedDocuments);
     }
   }, [id, metadata]);
+
+  let getText = ({doc, value}) => {
+    if (!doc) {
+      return value.text;
+    }
+    if (value.inclusion !== 'whole') {
+      let fragment = '#' + value.inclusion;
+      let imageReference = /!\[\]\([^)]+/;
+      return doc.text.replace(imageReference, '$&' + fragment);
+    }
+    return doc.text;
+  }
 
   useEffect(() => {
     if (content.length) {
@@ -71,7 +85,7 @@ function Page() {
         if (shouldBeAligned) {
           part.rubric = x.key[1];
         }
-        let text = x.doc ? x.doc.text : x.value.text;
+        let text = getText(x);
         let isPartOf = x.value.isPartOf;
         if (isPartOf === id) {
           part.source += '\n\n' + text;
@@ -178,7 +192,10 @@ function References({scholiaMetadata, active}) {
 function FormattedText({children}) {
   return (
     <ReactMarkdown
-      remarkPlugins={[remarkDefinitionList]}
+      remarkPlugins={[remarkDefinitionList, remarkUnwrapImages]}
+      components={{
+        img: CroppedImage
+      }}
       remarkRehypeOptions={{
         handlers: defListHastHandlers
       }}
