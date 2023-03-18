@@ -11,16 +11,23 @@ Production settings will be provided in a different document.
 1. Start CouchDB and push the code and samples:
 
   ```sh
-  export COUCHDB_USER="TO BE CHANGED"
-  export COUCHDB_PASSWORD="TO BE CHANGED"
+  export COUCHDB_USER="TO_BE_CHANGED"
+  export COUCHDB_PASSWORD="TO_BE_CHANGED"
   docker-compose up -d
   ```
 
 2. Enable CORS in CouchDB.
+
+  ```sh
+  alias put='curl -X PUT -u "${COUCHDB_USER}:${COUCHDB_PASSWORD}"'
+  put localhost:5984/_node/nonode@nohost/_config/httpd/enable_cors --data '"true"'
+  put localhost:5984/_node/nonode@nohost/_config/cors/origins --data '"*"'
+  ```
+
 3. Set public access to the database:
 
   ```sh
-  curl -X PUT -u ${COUCHDB_USER}:${COUCHDB_PASSWORD} -i http://localhost:5984/hyperglosae/_security --data '{"members":{"roles":[]},"admins":{"roles":["_admin"]}}'
+  put localhost:5984/hyperglosae/_security --data '{"members":{"roles":[]},"admins":{"roles":["_admin"]}}'
   ```
 
 ## Contribute to test data

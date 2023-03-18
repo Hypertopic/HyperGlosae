@@ -1,6 +1,12 @@
 # Testing and developping Hyperglosae frontend
 
-## Development mode
+## Install dependencies
+
+```
+npm install
+```
+
+## Run in development mode
 
 ```
 npm start
@@ -14,7 +20,7 @@ You may also see any lint errors in the console.
 
 The frontend is coded in JavaScript with the React framework (see [documentation](https://reactjs.org/docs/getting-started.html)).
 
-## Pre-production mode
+## Run in pre-production mode
 
 ```
 npm run build
