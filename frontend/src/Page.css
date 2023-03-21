@@ -7,7 +7,7 @@
   white-space: pre-wrap;
 }
 
-.source {
+.main {
   background-color: ghostwhite;
 }
 
@@ -15,12 +15,12 @@
   padding-top: 17px;
 }
 
-.page .row:first-of-type .source {
+.page .row:first-of-type .main {
   border-radius: 10px 0px 0px 0px;
   text-align: left;
 }
 
-.page .row:last-of-type .source {
+.page .row:last-of-type .main {
   border-radius: 0px 0px 0px 10px;
 }
 
@@ -58,7 +58,8 @@
   margin-right: .5rem;
 }
 
-.references .card {
+.sources .card, 
+.gloses .card {
   background-color: gainsboro;
   text-color: black;
 }

@@ -14,7 +14,7 @@ function BrowseTools({id, closable, openable}) {
           <ChevronExpand title="Open this document" />
         </Link>
       }
-      <Link to={`../${id}`} className="icon">
+      <Link to={`../${id}`} className="icon focus">
         <Bookmark title="Focus on this document" />
       </Link>
     </>

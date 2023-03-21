@@ -105,7 +105,7 @@ function Page() {
   return (
       <Container className="screen">
         <Row>
-          <Col md={2} className="references">
+          <Col md={2} className="sources">
             <DocumentsCards docs={sourcesOfSourceMetadata} />
           </Col>
           <Col className="page">
@@ -126,7 +126,7 @@ function Passage({source, rubric, scholia, margin}) {
   let scholium = scholia.filter(x => (x.isPartOf === margin)) || {text: ''};
   return (
     <Row>
-      <Col className="source">
+      <Col className="main">
         <Container>
           <Row>
             <Col>
@@ -163,7 +163,7 @@ function PassageMargin({active, scholium}) {
 
 function RunningHeadSource({metadata}) {
   return (
-    <Col className="source">
+    <Col className="main">
       <BookmarkFill className="icon" />
       <Metadata metadata={metadata} />
     </Col>
@@ -183,7 +183,7 @@ function RunningHeadMargin({metadata}) {
 function References({scholiaMetadata, active}) {
   if (!active) return;
   return (
-    <Col className="references" >
+    <Col className="gloses" >
       <DocumentsCards docs={scholiaMetadata} expandable={true} />
     </Col>
   );
