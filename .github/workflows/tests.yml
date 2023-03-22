@@ -1,0 +1,51 @@
+name: Acceptance tests
+on:
+  - push
+  - pull_request
+
+jobs:
+
+  build:
+    uses: ./.github/workflows/build.yml
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download sources
+        uses: actions/checkout@v3
+      - name: Install and launch backend with test data
+        run: |
+          cd backend
+          export COUCHDB_USER="TO_BE_CHANGED"
+          export COUCHDB_PASSWORD="TO_BE_CHANGED"
+          docker compose up -d
+      - name: Wait for backend
+        uses: nev7n/wait_for_response@v1
+        with:
+          url: http://localhost:5984/hyperglosae
+          responseCode: 401
+      - name: Enable CORS and public access in backend
+        run: |
+          export COUCHDB_USER="TO_BE_CHANGED"
+          export COUCHDB_PASSWORD="TO_BE_CHANGED"
+          curl -X PUT -u "${COUCHDB_USER}:${COUCHDB_PASSWORD}" -s localhost:5984/_node/nonode@nohost/_config/httpd/enable_cors --data '"true"'
+          curl -X PUT -u "${COUCHDB_USER}:${COUCHDB_PASSWORD}" -s localhost:5984/_node/nonode@nohost/_config/cors/origins --data '"*"'
+          curl -X PUT -u "${COUCHDB_USER}:${COUCHDB_PASSWORD}" -s localhost:5984/hyperglosae/_security --data '{"members":{"roles":[]},"admins":{"roles":["_admin"]}}'
+      - name: Get frontend build
+        uses: actions/download-artifact@v3
+        with:
+          name: frontend-build
+          path: frontend/build
+      - name: Start frontend
+        run: |
+          cd frontend
+          npm run preprod &
+      - name: Wait for frontend
+        uses: nev7n/wait_for_response@v1
+        with:
+          url: http://localhost:3000/
+          responseCode: 200
+      - name: Run tests
+        run:
+          docker run --rm -v "$(pwd)":/app --tty --net="host" --env APP_HOST="http://`hostname`:3000" benel/cucumber-capybara --retry 2 --fail-fast --no-source --no-snippets
+        shell: 'script -q -e -c "bash {0}"'
