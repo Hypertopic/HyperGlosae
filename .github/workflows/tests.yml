@@ -10,6 +10,7 @@ jobs:
 
   test:
     runs-on: ubuntu-latest
+    needs: build
     steps:
       - name: Download sources
         uses: actions/checkout@v3
@@ -20,10 +21,9 @@ jobs:
           export COUCHDB_PASSWORD="TO_BE_CHANGED"
           docker compose up -d
       - name: Wait for backend
-        uses: nev7n/wait_for_response@v1
+        uses: docker://benel/wait-for-response:1
         with:
-          url: http://localhost:5984/hyperglosae
-          responseCode: 401
+          args: http://localhost:5984/hyperglosae 401 5000 500
       - name: Enable CORS and public access in backend
         run: |
           export COUCHDB_USER="TO_BE_CHANGED"
@@ -41,10 +41,9 @@ jobs:
           cd frontend
           npm run preprod &
       - name: Wait for frontend
-        uses: nev7n/wait_for_response@v1
+        uses: docker://benel/wait-for-response:1
         with:
-          url: http://localhost:3000/
-          responseCode: 200
+          args: http://localhost:3000/ 200 30000 500
       - name: Run tests
         run:
           docker run --rm -v "$(pwd)":/app --tty --net="host" --env APP_HOST="http://`hostname`:3000" benel/cucumber-capybara --retry 2 --fail-fast --no-source --no-snippets
