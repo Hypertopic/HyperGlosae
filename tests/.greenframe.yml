@@ -1,0 +1,7 @@
+baseURL: http://localhost:3000/ # Your app url
+projectName: HyperGlosae PE Louis Magnier # We prefilled for you the good project name
+scenarios: 
+  - path: ./scenario.js # the scenario we've just created together !
+    name: My first scenario
+databaseContainers:
+  - 'backend-couchdb-1'

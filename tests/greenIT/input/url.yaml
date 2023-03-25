@@ -1,0 +1,6 @@
+# Analyse l'URL collectif.greenit.fr 
+- name : 'HyperGlosae'
+  url : 'http://localhost:3000/'
+  actions:
+    - name : "Scroll auto vers le bas de la page"
+      type : 'scroll'

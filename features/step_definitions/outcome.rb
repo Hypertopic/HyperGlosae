@@ -9,3 +9,23 @@ end
 Alors('{string} est une des gloses') do |title|
   expect(find('.gloses')).to have_content title
 end
+
+Alors('je peux lire {string}') do |text|
+  expect(page).to have_content text
+end
+
+Alors('je peux lire:') do |text|
+  expect(page).to have_content text
+end
+
+Alors('je ne peux pas lire {string}') do |text|
+  expect(page).not_to have_content text
+end
+
+Alors("je vois l'image {string}") do |alternative_text|
+  expect(page).to have_image(alternative_text)
+end
+
+Alors("je ne vois pas l'image {string}") do |alternative_text|
+  expect(page).not_to have_image(alternative_text)
+end
