@@ -22,3 +22,7 @@ end
 def click_on_icon_next_to(action, text)
   find(:xpath, "//span[contains(., \"#{text}\")]/preceding-sibling::a[contains(@class, '#{action}')]", match: :first).click
 end
+
+def have_image(alternative_text)
+  have_xpath(".//img[@alt='#{alternative_text}']")
+end

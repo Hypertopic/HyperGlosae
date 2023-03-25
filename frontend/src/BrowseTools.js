@@ -10,7 +10,7 @@ function BrowseTools({id, closable, openable}) {
         </Link>
       }
       {openable &&
-        <Link to={`#${id}`} className="icon">
+        <Link to={`#${id}`} className="icon open">
           <ChevronExpand title="Open this document" />
         </Link>
       }
