@@ -68,7 +68,7 @@ function Page() {
     }
     if (value.inclusion !== 'whole') {
       let fragment = '#' + value.inclusion;
-      let imageReference = /!\[\]\([^)]+/;
+      let imageReference = /!\[[^\]]*\]\([^)]+/;
       return doc.text.replace(imageReference, '$&' + fragment);
     }
     return doc.text;
