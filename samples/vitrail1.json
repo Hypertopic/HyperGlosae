@@ -1,0 +1,14 @@
+{
+  "_id": "ejrbzoefkznfkpz1",
+"dc_title": "Vitrail 1",
+"dc_isPartOf": "Eglise St-Jean-au-Marché, Troyes",
+"dc_creator": "Aurélien Bénel",
+"dc_issued": "2016-06/18",
+"text": "Voici le premier vitrail trouvable dans l'église st-Jean \n ![](https://steatite.utt.fr/optimized/aa3ae9e5b438bddfcc9928bd31f39aab90208052)",
+"dc_language": "fra",
+"links": [{
+  "verb": "includes",
+  "object": "ejrbzoefkznfkpz"
+  }],
+"dc_license": "https://creativecommons.org/licenses/by/4.0/"
+}
