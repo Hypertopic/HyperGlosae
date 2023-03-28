@@ -1,0 +1,14 @@
+{
+    "_id": "ejrbzoefkznfkpz1-1",
+  "dc_title": "Vitrail 1, fragment 1",
+  "dc_isPartOf": "Eglise St-Jean-au-Marché, Troyes",
+  "dc_creator": "Louis Magnier",
+  "dc_issued": "2023-03/14",
+  "text": "Voici le premier fragment du vitrail trouvable dans l'église st-Jean \n ![](https://steatite.utt.fr/optimized/48b7ae381163c7157acc7188c0d29715f02b9a28)",
+  "dc_language": "fra",
+  "links": [{
+    "verb": "includes",
+    "object": "ejrbzoefkznfkpz1"
+    }],
+  "dc_license": "https://creativecommons.org/licenses/by/4.0/"
+}
