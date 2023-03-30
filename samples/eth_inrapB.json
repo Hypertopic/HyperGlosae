@@ -1,0 +1,15 @@
+{
+  "_id": "6b56ee657c870dfacd34e9ae4e0576ce",
+  "links": [
+    {
+      "verb": "isGroundedIn",
+      "object": "6b56ee657c870dfacd34e9ae4e050fcc"
+    }
+  ],
+  "dc_issued": "2016",
+  "dc_language": "fra",
+  "dc_title": "Se rendre à l'atelier",
+  "dc_creator": "Christophe Lejeune",
+  "text": "\n * Dans l'atelier / en ligne / au musée / sur le faisceau \n* Chacun de son côté / en sous groupe / en grand groupe \n* Apprendre / transmettre / coacher \n* Parrainage / mentorat / compagnonnage",
+  "couchapp": {}
+}

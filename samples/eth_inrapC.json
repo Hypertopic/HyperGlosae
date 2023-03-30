@@ -1,0 +1,15 @@
+{
+  "_id": "6b56ee657c870dfacd34e9ae4e05dbd2",
+  "links": [
+    {
+      "verb": "isGroundedIn",
+      "object": "6b56ee657c870dfacd34e9ae4e050fcc"
+    }
+  ],
+  "dc_issued": "2016",
+  "dc_language": "fra",
+  "dc_title": "Rencontrons un président",
+  "text": "* Origine, d'où ? \n* Train électrique \n* Milieu des cheminots\n* En faire un travail \n* Trains touritiques\n",
+  "dc_creator": "Christophe Lejeune",
+  "couchapp": {}
+}
