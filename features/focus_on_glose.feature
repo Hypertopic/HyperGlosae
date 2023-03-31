@@ -20,6 +20,8 @@ Scénario: dans le cas d'un journal de bord en analyse du système d'information
   Quand je me focalise sur "Flux de l'Institut (diagramme d'activité)"
   Alors "Flux de l'Institut (diagramme d'activité)" est le document principal
   Et "Analyse de l'entretien" est une des sources
+  Et "Flux de l'Institut (diagramme d'activité)" est le titre de la page web
+
 
 Scénario: dans le cas d'une comparaison entre œuvres d'art apparentées
 
