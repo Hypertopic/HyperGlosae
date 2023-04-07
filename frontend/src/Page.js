@@ -6,13 +6,10 @@ import Col from 'react-bootstrap/Col';
 import { useState, useEffect } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 import { BookmarkFill } from 'react-bootstrap-icons';
-import ReactMarkdown from 'react-markdown';
-import { remarkDefinitionList, defListHastHandlers } from 'remark-definition-list';
-import remarkUnwrapImages from 'remark-unwrap-images';
 import Metadata from './Metadata';
 import DocumentsCards from './DocumentsCards';
 import BrowseTools from './BrowseTools';
-import CroppedImage from './CroppedImage';
+import FormattedText from './FormattedText';
 import hyperglosae from './hyperglosae';
 
 function Page() {
@@ -189,22 +186,6 @@ function References({scholiaMetadata, active}) {
     <Col className="gloses" >
       <DocumentsCards docs={scholiaMetadata} expandable={true} />
     </Col>
-  );
-}
-
-function FormattedText({children}) {
-  return (
-    <ReactMarkdown
-      remarkPlugins={[remarkDefinitionList, remarkUnwrapImages]}
-      components={{
-        img: CroppedImage
-      }}
-      remarkRehypeOptions={{
-        handlers: defListHastHandlers
-      }}
-    >
-      {children}
-    </ReactMarkdown>
   );
 }
 
