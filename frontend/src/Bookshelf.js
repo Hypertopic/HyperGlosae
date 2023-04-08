@@ -9,7 +9,7 @@ function Bookshelf() {
   const [documents, setDocuments] = useState([]);
 
   useEffect(() => {
-    hyperglosae.getView({view: 'all_documents', options:['group']})
+    hyperglosae.getView({view: 'all_documents', options: ['group']})
       .then((rows) => {
         setDocuments(
           rows.map(

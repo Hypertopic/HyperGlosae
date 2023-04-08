@@ -8,7 +8,7 @@ import { useParams, useLocation } from 'react-router-dom';
 import { BookmarkFill } from 'react-bootstrap-icons';
 import ReactMarkdown from 'react-markdown';
 import { remarkDefinitionList, defListHastHandlers } from 'remark-definition-list';
-import remarkUnwrapImages from 'remark-unwrap-images'
+import remarkUnwrapImages from 'remark-unwrap-images';
 import Metadata from './Metadata';
 import DocumentsCards from './DocumentsCards';
 import BrowseTools from './BrowseTools';
@@ -28,23 +28,23 @@ function Page() {
   let hasRubrics = (id, rows) => rows.some(x => x.key[1] !== 0 && x.value.isPartOf === id && x.value.text);
 
   if (sourceMetadata)
-    document.title = `${sourceMetadata.dc_title} ${sourceMetadata.dc_creator ? `(${sourceMetadata.dc_creator})` : ''}`
+    document.title = `${sourceMetadata.dc_title} ${sourceMetadata.dc_creator ? `(${sourceMetadata.dc_creator})` : ''}`;
 
   useEffect(() => {
-    hyperglosae.getView({view: 'metadata', id, options:['include_docs']})
+    hyperglosae.getView({view: 'metadata', id, options: ['include_docs']})
       .then(
         (rows) => {
           let documents = rows.map(x => x.doc);
           setMetadata(documents);
         }
       );
-    hyperglosae.getView({view: 'content', id, options:['include_docs']})
+    hyperglosae.getView({view: 'content', id, options: ['include_docs']})
       .then(
         (rows) => {
           setContent(rows);
         },
         (error) => {
-          console.log(error.message)
+          console.log(error.message);
         }
       );
   }, [id]);
@@ -75,7 +75,7 @@ function Page() {
       return doc.text.replace(imageReference, '$&' + fragment);
     }
     return doc.text;
-  }
+  };
 
   useEffect(() => {
     if (content.length) {
@@ -83,7 +83,7 @@ function Page() {
       let passages = content.reduce(({whole, part}, x, i, {length}) => {
         if (part.rubric && (x.key[1] !== part.rubric || !shouldBeAligned && i === length - 1)) {
           whole.push(part);
-          part = {source:'', scholia:[]};
+          part = {source: '', scholia: []};
         }
         if (shouldBeAligned) {
           part.rubric = x.key[1];
@@ -99,29 +99,29 @@ function Page() {
           return [...whole, part];
         }
         return {whole, part};
-      }, {whole: [], part: {source:'', scholia:[]}});
+      }, {whole: [], part: {source: '', scholia: []}});
       passages = Array.isArray(passages) ? passages : [];
       setPage(passages);
     }
   }, [id, margin, content]);
 
   return (
-      <Container className="screen">
-        <Row>
-          <Col md={2} className="sources">
-            <DocumentsCards docs={sourcesOfSourceMetadata} />
-          </Col>
-          <Col className="page">
-            <Row className ="runningHead">
-              <RunningHeadSource metadata={ sourceMetadata } />
-              <RunningHeadMargin metadata={ metadata.find(x => (x._id === margin)) } />
-            </Row>
-            {page.map(({rubric, source, scholia}, i) =>
-              <Passage key={rubric || i} source={source} rubric={rubric} scholia={scholia} margin={margin} />)}
-          </Col>
-          <References scholiaMetadata={scholiaMetadata} active={!margin} />
-        </Row>
-      </Container>
+    <Container className="screen">
+      <Row>
+        <Col md={2} className="sources">
+          <DocumentsCards docs={sourcesOfSourceMetadata} />
+        </Col>
+        <Col className="page">
+          <Row className ="runningHead">
+            <RunningHeadSource metadata={ sourceMetadata } />
+            <RunningHeadMargin metadata={ metadata.find(x => (x._id === margin)) } />
+          </Row>
+          {page.map(({rubric, source, scholia}, i) =>
+            <Passage key={rubric || i} source={source} rubric={rubric} scholia={scholia} margin={margin} />)}
+        </Col>
+        <References scholiaMetadata={scholiaMetadata} active={!margin} />
+      </Row>
+    </Container>
   );
 }
 
