@@ -9,6 +9,7 @@ import { BookmarkFill } from 'react-bootstrap-icons';
 import Metadata from './Metadata';
 import DocumentsCards from './DocumentsCards';
 import BrowseTools from './BrowseTools';
+import EditableText from './EditableText';
 import FormattedText from './FormattedText';
 import hyperglosae from './hyperglosae';
 
@@ -90,7 +91,7 @@ function Page() {
         if (isPartOf === id) {
           part.source += '\n\n' + text;
         } else {
-          part.scholia = [...part.scholia || [], {text, isPartOf}];
+          part.scholia = [...part.scholia || [], {id: x.id, text, isPartOf}];
         }
         if (i === length - 1) {
           return [...whole, part];
@@ -138,7 +139,7 @@ function Passage({source, rubric, scholia, margin}) {
           </Row>
         </Container>
       </Col>
-      <PassageMargin scholium={scholium} active={!!margin} />
+      <PassageMargin scholium={scholium} active={!!margin} rubric={rubric} />
     </Row>
   );
 }
@@ -149,14 +150,13 @@ function Rubric({id}) {
   );
 }
 
-function PassageMargin({active, scholium}) {
+function PassageMargin({active, scholium, rubric}) {
   if (!active) return;
-  let scholiumText = scholium.map(x => x.text).join('');
   return (
     <Col xs={5} className="scholium">
-      <FormattedText>
-        {scholiumText}
-      </FormattedText>
+      {scholium.map((x, i) =>
+        <EditableText key={i} text={x.text} id={x.id} rubric={rubric} />
+      )}
     </Col>
   );
 }

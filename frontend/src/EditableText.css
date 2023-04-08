@@ -1,0 +1,11 @@
+.editable {
+  border: 1px solid;
+  border-color: transparent;
+}
+
+.editable:hover {
+  background: lightgray;
+  border-color: black;
+}
+
+

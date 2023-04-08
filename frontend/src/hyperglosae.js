@@ -1,9 +1,9 @@
-const service = 'http://localhost:5984/hyperglosae/_design/app';
+const service = 'http://localhost:5984/hyperglosae';
 
 let getView = ({view, id, options = []}) =>
   fetch(`${
     service
-  }/_view/${
+  }/_design/app/_view/${
     view
   }?${
     id ? `startkey=["${id}"]&endkey=["${id}",{}]` : ''
@@ -13,4 +13,20 @@ let getView = ({view, id, options = []}) =>
     .then(x => x.json())
     .then(x => x.rows);
 
-export default {service, getView};
+let getDocument = (id) =>
+  fetch(`${service}/${id}`)
+    .then(x => x.json());
+
+let putDocument = (doc) =>
+  fetch(`${service}/${doc._id}`, {
+    method: 'PUT',
+    body: JSON.stringify(doc)
+  })
+    .then(x => {
+      if (x.ok) {
+        return x.json();
+      }
+      throw new Error(x.statusText);
+    });
+
+export default {service, getView, getDocument, putDocument};
