@@ -175,7 +175,7 @@ function RunningHeadMargin({metadata}) {
   return (
     <Col xs={5} className="scholium">
       <BrowseTools id={metadata._id} closable={true} />
-      <Metadata metadata={metadata} />
+      <Metadata metadata={metadata} editable={true} />
     </Col>
   );
 }
