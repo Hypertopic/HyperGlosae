@@ -33,7 +33,7 @@ function EditableText({id, text, rubric}) {
 
   let editedText = (rubric) ? editedDocument.text.match(PASSAGE)[1] : editedDocument.text;
   if (!beingEdited) return (
-    <div className="editable" onClick={handleClick} >
+    <div className="editable" onClick={handleClick} title="Edit content...">
       <FormattedText>
         {editedText}
       </FormattedText>
