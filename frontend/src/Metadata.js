@@ -4,8 +4,7 @@ import { useEffect, useState } from 'react';
 import yaml from 'yaml';
 import hyperglosae from './hyperglosae';
 
-function Metadata({metadata, editable}) {
-  if (!metadata) return;
+function Metadata({metadata = {}, editable}) {
   const [beingEdited, setBeingEdited] = useState(false);
   const [editedDocument, setEditedDocument] = useState(metadata);
 
