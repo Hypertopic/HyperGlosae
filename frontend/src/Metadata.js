@@ -36,6 +36,10 @@ function Metadata({metadata = {}, editable}) {
     Object.entries(editedDocument)
       .filter(([key, _]) => key.startsWith('dc_'))
   );
+
+  let format = (actors, prefix = '', suffix = '') =>
+    actors && (prefix + [actors].flat().join(' & ') + suffix);
+
   if (!beingEdited) {
     let {dc_title, dc_creator, dc_translator, dc_isPartOf, dc_issued} = editedMetadata;
     let attributes = (editable)
@@ -44,10 +48,10 @@ function Metadata({metadata = {}, editable}) {
     return (
       <span {...attributes}>
         <span className="work">
-          {dc_title} {dc_creator ? `(${dc_creator})` : ''},
+          {dc_title} {format(dc_creator, '(', ')')},
         </span>
         <span className="edition">
-          {dc_translator ? `Translated by ${dc_translator.join(' & ')}, ` : ''}
+          {format(dc_translator, 'Translated by ', ', ')}
           {dc_isPartOf ? <i>{dc_isPartOf}, </i> : ''}
           {dc_issued ? `${new Date(dc_issued).getFullYear()}` : ''}
         </span>
