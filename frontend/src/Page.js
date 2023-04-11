@@ -23,19 +23,19 @@ function Page() {
   const [sourcesOfSourceMetadata, setSourcesOfSourceMetadata] = useState([]);
   const [scholiaMetadata, setScholiaMetadata] = useState([]);
   const [content, setContent] = useState([]);
-  let {id } = useParams();
+  let { id } = useParams();
   let margin = useLocation().hash.slice(1);
   let hasRubrics = (id, rows) => rows.some(x => x.key[1] !== 0 && x.value.isPartOf === id && x.value.text);
 
   useEffect(() => {
-    hyperglosae.getView({view: 'metadata', id, options:['include_docs']})
+    hyperglosae.getView({ view: 'metadata', id, options: ['include_docs'] })
       .then(
         (rows) => {
           let documents = rows.map(x => x.doc);
           setMetadata(documents);
         }
       );
-    hyperglosae.getView({view: 'content', id, options:['include_docs']})
+    hyperglosae.getView({ view: 'content', id, options: ['include_docs'] })
       .then(
         (rows) => {
           setContent(rows);
@@ -51,7 +51,7 @@ function Page() {
       let focusedDocument = metadata.find(x => (x._id === id));
       setSourceMetadata(focusedDocument);
       let forwardLinks = (focusedDocument.links || [])
-        .map(({subject, object}) => (subject && (subject !== id)) ? subject : object)
+        .map(({ subject, object }) => (subject && (subject !== id)) ? subject : object)
         .map(x => x.split('#')[0]);
       let forwardLinkedDocuments = metadata.filter(x => forwardLinks.includes(x._id));
       setSourcesOfSourceMetadata(forwardLinkedDocuments);
@@ -62,25 +62,23 @@ function Page() {
     }
   }, [id, metadata]);
 
-  let getText = ({doc, value}) => {
+  let getText = ({ doc, value }) => {
     if (!doc) {
       return value.text;
     }
-    if (value.inclusion !== 'whole') {
-      let fragment = '#' + value.inclusion;
-      let imageReference = /!\[[^\]]*\]\([^)]+/;
-      return doc.text.replace(imageReference, '$&' + fragment);
-    }
-    return doc.text;
+    let fragment = (value.inclusion !== 'whole' ? '#' + value.inclusion : "") + ` "${doc.dc_title}"`;
+    console.log(fragment)
+    let imageReference = /!\[[^\]]*\]\([^)]+/;
+    return doc.text.replace(imageReference, '$&' + fragment);
   }
 
   useEffect(() => {
     if (content.length) {
       let shouldBeAligned = hasRubrics(id, content) && (!margin || hasRubrics(margin, content));
-      let passages = content.reduce(({whole, part}, x, i, {length}) => {
+      let passages = content.reduce(({ whole, part }, x, i, { length }) => {
         if (part.rubric && (x.key[1] !== part.rubric || !shouldBeAligned && i === length - 1)) {
           whole.push(part);
-          part = {source:'', scholia:[]};
+          part = { source: '', scholia: [] };
         }
         if (shouldBeAligned) {
           part.rubric = x.key[1];
@@ -90,46 +88,46 @@ function Page() {
         if (isPartOf === id) {
           part.source += '\n\n' + text;
         } else {
-          part.scholia = [...part.scholia || [], {text, isPartOf}];
+          part.scholia = [...part.scholia || [], { text, isPartOf }];
         }
         if (i === length - 1) {
           return [...whole, part];
         }
-        return {whole, part};
-      }, {whole: [], part: {source:'', scholia:[]}});
+        return { whole, part };
+      }, { whole: [], part: { source: '', scholia: [] } });
       passages = Array.isArray(passages) ? passages : [];
       setPage(passages);
     }
   }, [id, margin, content]);
 
   return (
-      <Container className="screen">
-        <Row>
-          <Col md={2} className="sources">
-            <DocumentsCards docs={sourcesOfSourceMetadata} />
-          </Col>
-          <Col className="page">
-            <Row className ="runningHead">
-              <RunningHeadSource metadata={ sourceMetadata } />
-              <RunningHeadMargin metadata={ metadata.find(x => (x._id === margin)) } />
-            </Row>
-            {page.map(({rubric, source, scholia}, i) =>
-              <Passage key={rubric || i} source={source} rubric={rubric} scholia={scholia} margin={margin} />)}
-          </Col>
-          <References scholiaMetadata={scholiaMetadata} active={!margin} />
-        </Row>
-      </Container>
+    <Container className="screen">
+      <Row>
+        <Col md={2} className="sources">
+          <DocumentsCards docs={sourcesOfSourceMetadata} />
+        </Col>
+        <Col className="page">
+          <Row className="runningHead">
+            <RunningHeadSource metadata={sourceMetadata} />
+            <RunningHeadMargin metadata={metadata.find(x => (x._id === margin))} />
+          </Row>
+          {page.map(({ rubric, source, scholia }, i) =>
+            <Passage key={rubric || i} source={source} rubric={rubric} scholia={scholia} margin={margin} />)}
+        </Col>
+        <References scholiaMetadata={scholiaMetadata} active={!margin} />
+      </Row>
+    </Container>
   );
 }
 
-function Passage({source, rubric, scholia, margin}) {
-  let scholium = scholia.filter(x => (x.isPartOf === margin)) || {text: ''};
+function Passage({ source, rubric, scholia, margin }) {
+  let scholium = scholia.filter(x => (x.isPartOf === margin)) || { text: '' };
   return (
     <Row>
       <Col className="main">
         <Container>
           <Row>
-            <Col>
+            <Col className="figure-body">
               <FormattedText>
                 {source}
               </FormattedText>
@@ -143,13 +141,13 @@ function Passage({source, rubric, scholia, margin}) {
   );
 }
 
-function Rubric({id}) {
+function Rubric({ id }) {
   if (id) return (
     <Col xs={1} className="rubric">{id}</Col>
   );
 }
 
-function PassageMargin({active, scholium}) {
+function PassageMargin({ active, scholium }) {
   if (!active) return;
   let scholiumText = scholium.map(x => x.text).join('');
   return (
@@ -161,7 +159,7 @@ function PassageMargin({active, scholium}) {
   );
 }
 
-function RunningHeadSource({metadata}) {
+function RunningHeadSource({ metadata }) {
   return (
     <Col className="main">
       <BookmarkFill className="icon" />
@@ -170,7 +168,7 @@ function RunningHeadSource({metadata}) {
   );
 }
 
-function RunningHeadMargin({metadata}) {
+function RunningHeadMargin({ metadata }) {
   if (!metadata) return;
   return (
     <Col xs={5} className="scholium">
@@ -180,7 +178,7 @@ function RunningHeadMargin({metadata}) {
   );
 }
 
-function References({scholiaMetadata, active}) {
+function References({ scholiaMetadata, active }) {
   if (!active) return;
   return (
     <Col className="gloses" >
@@ -189,7 +187,7 @@ function References({scholiaMetadata, active}) {
   );
 }
 
-function FormattedText({children}) {
+function FormattedText({ children }) {
   return (
     <ReactMarkdown
       remarkPlugins={[remarkDefinitionList, remarkUnwrapImages]}
