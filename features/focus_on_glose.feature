@@ -30,4 +30,6 @@ Scénario: dans le cas d'une comparaison entre œuvres d'art apparentées
   Alors "Lavage des tuniques – Comparaison de vitraux" est le document principal
   Et "Photographie : vitrail, baie 113, Église Saint-Nizier, Troyes" une des sources
   Et "Photographie : vitrail, baie 6, Église Saint-Martin-ès-Vignes, Troyes" une des sources
+  Et l'image intégrée en glose "SNZ 113" est légendée par son titre : "Photographie : vitrail, baie 113, Église Saint-Nizier, Troyes"
+  Et l'image intégrée en glose "SMV 006 Lavage" est légendée par son titre : "Photographie : vitrail, baie 6, Église Saint-Martin-ès-Vignes, Troyes"
 
