@@ -29,3 +29,11 @@ end
 Alors("je ne vois pas l'image {string}") do |alternative_text|
   expect(page).not_to have_image(alternative_text)
 end
+
+Alors("l'image intégrée dans la page {string} est légendée par son titre : {string}") do |image, image_caption|
+  expect(find('.page')).to have_content image_caption
+end
+
+Alors("l'image intégrée en source {string} est légendée par son titre : {string}") do |image, image_caption|
+  expect(find('.sources')).to have_content image_caption
+end

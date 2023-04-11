@@ -54,5 +54,5 @@ Scénario: quand la glose est une comparaison de documents apparentés
   Et je vois l'image "SNZ 113"
   Et l'image intégrée dans la page "SNZ 113" est légendée par son titre : "Photographie : vitrail, baie 113, Église Saint-Nizier, Troyes"
   Et l'image intégrée dans la page "SMV 006 Soleil" est légendée par son titre : "Photographie : vitrail, baie 6, Église Saint-Martin-ès-Vignes, Troyes"
-  Et l'image intégrée dans la page "GRV 005" est légendée par son titre : "Photographie : vitrail, baie 5, Église Saint-Martin, Grandville, Aube (Aurélien Bénel),2016"
+  Et l'image intégrée dans la page "GRV 005" est légendée par son titre : "Photographie : vitrail, baie 5, Église Saint-Martin, Grandville, Aube"
 
