@@ -16,6 +16,7 @@
     "react-router-dom": "^6.4.3",
     "remark-definition-list": "^1.2.0",
     "remark-unwrap-images": "^3.0.1",
+    "uuid": "^9.0.0",
     "web-vitals": "^2.1.4",
     "yaml": "^2.2.1"
   },

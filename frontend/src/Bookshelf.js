@@ -21,7 +21,7 @@ function Bookshelf() {
 
   return (
     <Container className="screen bookshelf">
-      <DocumentsCards docs={documents} />
+      <DocumentsCards docs={documents} byRow={4} />
     </Container>
   );
 }

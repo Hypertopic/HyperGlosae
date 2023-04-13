@@ -21,6 +21,7 @@ function Page() {
   const [sourcesOfSourceMetadata, setSourcesOfSourceMetadata] = useState([]);
   const [scholiaMetadata, setScholiaMetadata] = useState([]);
   const [content, setContent] = useState([]);
+  const [lastUpdate, setLastUpdate] = useState();
   let {id } = useParams();
   let margin = useLocation().hash.slice(1);
   let hasRubrics = (id, rows) => rows.some(x => x.key[1] !== 0 && x.value.isPartOf === id && x.value.text);
@@ -45,7 +46,7 @@ function Page() {
           console.log(error.message);
         }
       );
-  }, [id]);
+  }, [id, lastUpdate]);
 
   useEffect(() => {
     if (metadata.length) {
@@ -61,7 +62,7 @@ function Page() {
       );
       setScholiaMetadata(reverseLinkedDocuments);
     }
-  }, [id, metadata]);
+  }, [id, metadata, lastUpdate]);
 
   let getText = ({doc, value}) => {
     if (!doc) {
@@ -107,7 +108,7 @@ function Page() {
     <Container className="screen">
       <Row>
         <Col md={2} className="sources">
-          <DocumentsCards docs={sourcesOfSourceMetadata} />
+          <DocumentsCards docs={sourcesOfSourceMetadata} byRow={1} />
         </Col>
         <Col className="page">
           <Row className ="runningHead">
@@ -117,7 +118,9 @@ function Page() {
           {page.map(({rubric, source, scholia}, i) =>
             <Passage key={rubric || i} source={source} rubric={rubric} scholia={scholia} margin={margin} />)}
         </Col>
-        <References scholiaMetadata={scholiaMetadata} active={!margin} />
+        <References scholiaMetadata={scholiaMetadata} active={!margin}
+          createOn={[id]} {...{setLastUpdate}}
+        />
       </Row>
     </Container>
   );
@@ -180,11 +183,13 @@ function RunningHeadMargin({metadata}) {
   );
 }
 
-function References({scholiaMetadata, active}) {
+function References({scholiaMetadata, active, createOn, setLastUpdate}) {
   if (!active) return;
   return (
     <Col className="gloses" >
-      <DocumentsCards docs={scholiaMetadata} expandable={true} />
+      <DocumentsCards docs={scholiaMetadata} expandable={true} {...{createOn}}
+        byRow={1} {...{setLastUpdate}}
+      />
     </Col>
   );
 }
