@@ -7,6 +7,7 @@ import hyperglosae from './hyperglosae';
 
 function Bookshelf() {
   const [documents, setDocuments] = useState([]);
+  const [lastUpdate, setLastUpdate] = useState();
 
   useEffect(() => {
     hyperglosae.getView({view: 'all_documents', options: ['group']})
@@ -17,11 +18,13 @@ function Bookshelf() {
           )
         );
       });
-  }, []);
+  }, [lastUpdate]);
 
   return (
     <Container className="screen bookshelf">
-      <DocumentsCards docs={documents} byRow={4} />
+      <DocumentsCards docs={documents} byRow={4} createOn={[]}
+        {...{setLastUpdate}}
+      />
     </Container>
   );
 }

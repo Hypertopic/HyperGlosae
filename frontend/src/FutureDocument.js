@@ -28,7 +28,7 @@ function FutureDocument({relatedTo, setLastUpdate}) {
       })
     ]).then((x) => {
       setLastUpdate(_id);
-      navigate('#' + _id);
+      navigate((relatedTo.length ? '#' : '/') + _id);
     });
   };
 
