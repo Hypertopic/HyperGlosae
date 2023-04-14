@@ -1,0 +1,12 @@
+{
+    "_id": "4e1a31e14b032f2fa9e161ee9b009123",
+    "dc_title": "Note rire Buster Keaton",
+    "dc_creator": "Sun Sun",
+    "dc_issued": "2023-02-21",
+    "text": "Ce qui m'a fait rire :\n\n**9min40 à 10min15**\nIl tombe dans son propre piège (peau de banane).",
+    "dc_license": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "links": [{
+        "verb": "isGroundedIn",
+        "object": "4e1a31e14b032f2fa9e161ee9b009125"
+    }]
+}
