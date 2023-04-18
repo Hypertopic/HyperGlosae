@@ -26,7 +26,7 @@ function Page({backend}) {
   let hasRubrics = (id, rows) => rows.some(x => x.key[1] !== 0 && x.value.isPartOf === id && x.value.text);
 
   if (sourceMetadata)
-    document.title = `${sourceMetadata.dc_title} ${sourceMetadata.dc_creator ? `(${sourceMetadata.dc_creator})` : ''}`;
+    document.title = `${sourceMetadata.dc_title}${sourceMetadata.dc_spatial ? ', ' + sourceMetadata.dc_spatial + ' ' : ''} ${sourceMetadata.dc_creator ? `(${sourceMetadata.dc_creator})` : ''}`;
 
   useEffect(() => {
     backend.getView({view: 'metadata', id, options: ['include_docs']})
