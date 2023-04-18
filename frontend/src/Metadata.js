@@ -40,14 +40,14 @@ function Metadata({metadata = {}, editable, backend}) {
     actors && (prefix + [actors].flat().join(' & ') + suffix);
 
   if (!beingEdited) {
-    let {dc_title, dc_creator, dc_translator, dc_isPartOf, dc_issued} = editedMetadata;
+    let {dc_title, dc_spatial, dc_creator, dc_translator, dc_isPartOf, dc_issued} = editedMetadata;
     let attributes = (editable)
       ? {className: 'editable metadata', onClick: handleClick, title: 'Edit metadata...'}
       : {};
     return (
       <span {...attributes}>
         <span className="work">
-          {dc_title} {format(dc_creator, '(', ')')},
+          {dc_title}{dc_spatial ? ', ' + dc_spatial : ''} {format(dc_creator, '(', ')')},
         </span>
         <span className="edition">
           {format(dc_translator, 'Translated by ', ', ')}
