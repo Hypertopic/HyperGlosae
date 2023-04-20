@@ -4,15 +4,21 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Metadata from './Metadata';
 import BrowseTools from './BrowseTools';
+import FutureDocument from './FutureDocument';
 
-function DocumentsCards({docs, expandable}) {
+function DocumentsCards({docs, expandable, byRow, createOn, setLastUpdate}) {
   return (
     <Row className="gy-4">
       {docs.map(x =>
-        <Col key={x._id} className="xs-4">
+        <Col key={x._id} md={ byRow && (12 / byRow) }>
           <DocumentCard doc={x} expandable={expandable} />
         </Col>
       )}
+      {createOn &&
+        <Col>
+          <FutureDocument relatedTo={createOn} {...{setLastUpdate}} />
+        </Col>
+      }
     </Row>
   );
 }

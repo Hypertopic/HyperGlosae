@@ -1,5 +1,6 @@
 Alors('{string} est le document principal') do |title|
   expect(find('.main .work')).to have_content title
+  expect(page).to have_title title
 end
 
 Alors('{string} est une des sources') do |title|

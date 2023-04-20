@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { Bookmark, ChevronBarDown, ChevronExpand } from 'react-bootstrap-icons';
 
 function BrowseTools({id, closable, openable}) {
-  return(
+  return (
     <>
       {closable &&
         <Link to="#" className="icon">

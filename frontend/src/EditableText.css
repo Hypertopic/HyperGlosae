@@ -1,0 +1,11 @@
+.editable:has(img) {
+  border: 1px solid;
+  border-color: transparent;
+}
+
+.editable:hover {
+  background: lightgray;
+  border-color: black;
+}
+
+
