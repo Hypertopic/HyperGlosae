@@ -1,0 +1,31 @@
+name: Expose tests
+on: 
+  workflow_dispatch
+
+jobs:
+    ExposeTest:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Download sources
+              uses: actions/checkout@v3
+            - name: Get green it report zip
+              uses: actions/download-artifact@v3
+              with:
+                name: green-it-report
+                path: /home/runner/work/output
+            - name: copy artifact into repo
+              run: cp /home/runner/work/output /home/runner/work/HyperGlosae/HyperGlosae/tests/greenIT/output
+            - name: commit artifact
+              uses: EndBug/add-and-commit@v9
+              with:
+                add: /home/runner/work/HyperGlosae/HyperGlosae/tests/greenIT/output
+                cwd: '/home/runner/work/HyperGlosae/HyperGlosae'
+                default_author: github_actions
+                message: 'WORKFLOW : Add green IT Analysis HTML file output'
+            - name: Set CURRENT_BRANCH
+              run: echo "CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)" >> $GITHUB_ENV
+            - name: create link to go to html file exposition
+              run:
+                echo "https://htmlpreview.github.io/?https://github.com/vallhallalm/HyperGlosae/${{env.CURRENT_BRANCH}}/tests/greenIT/output/global.html"
+        
+    
