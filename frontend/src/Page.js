@@ -9,7 +9,7 @@ import { BookmarkFill } from 'react-bootstrap-icons';
 import ReactMarkdown from 'react-markdown';
 import { remarkDefinitionList, defListHastHandlers } from 'remark-definition-list';
 import remarkUnwrapImages from 'remark-unwrap-images'
-import Metadata from './Metadata';
+import { Metadata, License } from './Metadata';
 import DocumentsCards from './DocumentsCards';
 import BrowseTools from './BrowseTools';
 import CroppedImage from './CroppedImage';
@@ -166,6 +166,7 @@ function RunningHeadSource({metadata}) {
     <Col className="main">
       <BookmarkFill className="icon" />
       <Metadata metadata={metadata} />
+      <License metadata={metadata} />
     </Col>
   );
 }
@@ -176,6 +177,7 @@ function RunningHeadMargin({metadata}) {
     <Col xs={5} className="scholium">
       <BrowseTools id={metadata._id} closable={true} />
       <Metadata metadata={metadata} />
+      <License metadata={metadata} />
     </Col>
   );
 }

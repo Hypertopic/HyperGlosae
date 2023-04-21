@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import Card from 'react-bootstrap/Card';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
-import Metadata from './Metadata';
+import {Metadata, License} from './Metadata';
 import BrowseTools from './BrowseTools';
 
 function DocumentsCards({docs, expandable}) {
@@ -23,6 +23,7 @@ function DocumentCard({doc, expandable}) {
       <Card.Body>
         <BrowseTools id={doc._id} openable={expandable} />
         <Metadata metadata={doc} />
+        <License metadata={doc} />
       </Card.Body>
       <References doc={doc} />
     </Card>
