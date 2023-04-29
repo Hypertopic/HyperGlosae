@@ -1,19 +1,29 @@
 import ReactCrop from 'react-image-crop';
 import 'react-image-crop/dist/ReactCrop.css';
 
-function CroppedImage({src, alt}) {
+function CroppedImage({ src, alt, title }) {
+
+  const image = <img className="figure-img img-fluid rounded" {...{ src, alt }} />;
+  const caption = <figcaption className="figure-caption text-end">{title}</figcaption>;
+
   let fragment = src.match(/#xywh=percent:([.\d]+),([.\d]+),([.\d]+),([.\d]+)/);
   if (fragment) {
     let [_, x, y, width, height] = fragment;
-    let crop = {unit: '%', x, y, width, height};
+    let crop = { unit: '%', x, y, width, height };
     return (
-      <ReactCrop {...{crop}} disabled={true} >
-        <img {...{src, alt}} />
-      </ReactCrop>
+      <figure className="figure">
+        <ReactCrop {...{ crop }} disabled={true} >
+          {image}
+        </ReactCrop>
+        {caption}
+      </figure>
     );
   }
   return (
-    <img {...{src, alt}} />
+    <figure className="figure">
+      {image}
+      {caption}
+    </figure>
   );
 }
 

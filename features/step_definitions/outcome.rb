@@ -38,3 +38,11 @@ end
 Alors("je vois que la licence de la glose est {string}") do |text|
   expect(find('.scholium .license')).to have_content text
 end
+
+Alors("l'image intégrée dans la page {string} est légendée par son titre : {string}") do |image, image_caption|
+  expect(find('.page')).to have_content image_caption
+end
+
+Alors("l'image intégrée en source {string} est légendée par son titre : {string}") do |image, image_caption|
+  expect(find('.sources')).to have_content image_caption
+end

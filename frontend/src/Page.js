@@ -68,12 +68,9 @@ function Page() {
     if (!doc) {
       return value.text;
     }
-    if (value.inclusion !== 'whole') {
-      let fragment = '#' + value.inclusion;
-      let imageReference = /!\[[^\]]*\]\([^)]+/;
-      return doc.text.replace(imageReference, '$&' + fragment);
-    }
-    return doc.text;
+    let fragment = (value.inclusion !== 'whole' ? '#' + value.inclusion : '') + ` "${doc.dc_title}"`;
+    let imageReference = /!\[[^\]]*\]\([^)]+/;
+    return doc.text.replace(imageReference, '$&' + fragment);
   };
 
   useEffect(() => {
@@ -133,7 +130,7 @@ function Passage({source, rubric, scholia, margin}) {
       <Col className="main">
         <Container>
           <Row>
-            <Col>
+            <Col className="figure-body">
               <FormattedText>
                 {source}
               </FormattedText>

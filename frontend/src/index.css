@@ -15,3 +15,12 @@ code {
 .screen {
   margin: 12px 0;
 }
+
+.figure {
+  margin-bottom: 15px;
+  margin-top: 15px;
+}
+
+.figure-body {
+  margin-top: 20px !important;
+}
