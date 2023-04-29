@@ -71,9 +71,16 @@ function Metadata({metadata = {}, editable}) {
 function License({metadata}) {
   let license_uri = metadata.dc_license;
   let [license_name] = /BY[\w-]+/i.exec(license_uri) || [];
+  if (license_name) return (
+    <span className="license">
+      <a href={license_uri}>
+        CC-{license_name.toUpperCase()}
+      </a>
+    </span>
+  );
   return (
     <span className="license">
-      {license_name ? `CC-${license_name.toUpperCase()}` : 'All rights reserved'}
+      All rights reserved
     </span>
   );
 }

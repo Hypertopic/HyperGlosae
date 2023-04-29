@@ -7,3 +7,11 @@
   padding-bottom: 12px;
 }
 
+.license a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.license a:hover {
+  color: inherit;
+}
