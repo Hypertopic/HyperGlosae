@@ -55,6 +55,7 @@ function Metadata({metadata = {}, editable}) {
           {dc_isPartOf ? <i>{dc_isPartOf}, </i> : ''}
           {dc_issued ? `${new Date(dc_issued).getFullYear()}` : ''}
         </span>
+        , <License metadata={metadata} />
       </span>
     );
   }
@@ -65,6 +66,23 @@ function Metadata({metadata = {}, editable}) {
       />
     </form>
   );
+}
+
+function License({metadata}) {
+  let {dc_license} = metadata;
+  let license = 'All rights reserved';
+  if ( dc_license ) {
+    const licenseList = ["by-nc-sa", "by-nc-nd", "by-sa", "by-nd", "by-nc", "by"];
+    let licenseStocked = licenseList.find(license => dc_license.includes(license));
+    if ( licenseStocked ) {
+      license = licenseStocked;
+    }
+    return (
+      <span className="license">
+        {license}
+      </span>
+    );
+  }
 }
 
 export default Metadata;
