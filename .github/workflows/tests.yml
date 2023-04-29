@@ -6,18 +6,22 @@ on:
 jobs:
 
   build:
+    if: "${{'PROCESS : Commit Green IT Analysis HTML file output to be previewed' != github.event.head_commit.message}}"
     uses: ./.github/workflows/build.yml
 
   test:
+    if: "${{'PROCESS : Commit Green IT Analysis HTML file output to be previewed' != github.event.head_commit.message}}"
     runs-on: ubuntu-latest
     steps:
       - name: Download sources
         uses: actions/checkout@v3
       - name: Download tools
         run: |
+          sudo apt install bc
           cd backend
           docker compose pull
           docker pull benel/cucumber-capybara
+          curl https://assets.greenframe.io/install.sh | bash
       - name: Install and launch backend with test data
         run: |
           cd backend
@@ -58,3 +62,28 @@ jobs:
         run:
           docker run --rm -v "$(pwd)":/app --tty --net="host" --env APP_HOST="http://`hostname`:3000" benel/cucumber-capybara --retry 2 --fail-fast --no-source --no-snippets
         shell: 'script -q -e -c "bash {0}"'
+      - name: Run eco-design test
+        run: |
+          if [[ "${{ github.event_name }}" == 'push' ]]; then
+            echo "Setting environment variable for push event"
+            echo "GREENFRAME_SECRET_TOKEN=${{secrets.GREENFRAME_SECRET_TOKEN}}" >> $GITHUB_ENV
+          fi
+          cd tests
+          bash greenframeThreshold.sh ${{github.event_name}}
+          cd /home/runner/work/
+          mkdir output
+          chmod -R a+rwX /home/runner/work/output/
+          cd /home/runner/work/HyperGlosae/HyperGlosae/tests/greenIT/
+          sudo docker run -t --init --rm --cap-add=SYS_ADMIN --network="host" -v /home/runner/work/HyperGlosae/HyperGlosae/tests/greenIT/input:/app/input -v /home/runner/work/output:/app/output  --name green-it-test vallhallalm/green_it_cli:v1 greenit analyse /app/input/url.yaml /app/output/global.html --format=html
+      - name: save output from greenIT as Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: green-it-report
+          path: /home/runner/work/output
+          retention-days: 5
+
+  exposeTest:
+    if: | 
+      ${{('PROCESS : Commit Green IT Analysis HTML file output to be previewed' != github.event.head_commit.message)}}
+    needs: test
+    uses: ./.github/workflows/exposeTests.yml
