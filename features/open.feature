@@ -49,7 +49,7 @@ Scénario: quand la glose est une comparaison de documents apparentés
   Et je ne vois pas l'image "SMV 006 Lavage"
   Quand je consulte le contenu de "Soleil noir et étoiles qui tombent – Comparaison de vitraux"
   Alors je vois l'image "GRV 005"
-  Et je vois que la licence de la glose est "by-sa"
+  Et je vois que la licence de la glose est "CC-BY-SA"
   Et je vois l'image "SMV 006 Soleil"
   Mais je ne vois pas l'image "SMV 006 Lavage"
   Et je vois l'image "SNZ 113"

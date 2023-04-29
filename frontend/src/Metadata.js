@@ -69,20 +69,13 @@ function Metadata({metadata = {}, editable}) {
 }
 
 function License({metadata}) {
-  let {dc_license} = metadata;
-  let license = 'All rights reserved';
-  if (dc_license) {
-    const licenseList = ['by-nc-sa', 'by-nc-nd', 'by-sa', 'by-nd', 'by-nc', 'by'];
-    let licenseStocked = licenseList.find(license => dc_license.includes(license));
-    if (licenseStocked) {
-      license = licenseStocked;
-    }
-    return (
-      <span className="license">
-        {license}
-      </span>
-    );
-  }
+  let license_uri = metadata.dc_license;
+  let [license_name] = /BY[\w-]+/i.exec(license_uri) || [];
+  return (
+    <span className="license">
+      {license_name ? `CC-${license_name.toUpperCase()}` : 'All rights reserved'}
+    </span>
+  );
 }
 
 export default Metadata;
