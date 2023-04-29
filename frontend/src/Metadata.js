@@ -71,10 +71,10 @@ function Metadata({metadata = {}, editable}) {
 function License({metadata}) {
   let {dc_license} = metadata;
   let license = 'All rights reserved';
-  if ( dc_license ) {
-    const licenseList = ["by-nc-sa", "by-nc-nd", "by-sa", "by-nd", "by-nc", "by"];
+  if (dc_license) {
+    const licenseList = ['by-nc-sa', 'by-nc-nd', 'by-sa', 'by-nd', 'by-nc', 'by'];
     let licenseStocked = licenseList.find(license => dc_license.includes(license));
-    if ( licenseStocked ) {
+    if (licenseStocked) {
       license = licenseStocked;
     }
     return (
