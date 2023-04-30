@@ -3,7 +3,7 @@ import 'react-image-crop/dist/ReactCrop.css';
 
 function CroppedImage({ src, alt, title }) {
 
-  const image = <img className="figure-img img-fluid rounded" {...{ src, alt }} />;
+  const image = <img className="img-fluid rounded" {...{ src, alt }} />;
   const caption = <figcaption className="figure-caption text-end">{title}</figcaption>;
 
   let fragment = src.match(/#xywh=percent:([.\d]+),([.\d]+),([.\d]+),([.\d]+)/);
