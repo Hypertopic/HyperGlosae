@@ -9,12 +9,14 @@ function Menu() {
   return (
     <Navbar bg="dark" variant="dark">
       <Container>
-        <Navbar.Brand href="/">
-          <img
-            src="/logo.png"
-            height="30"
-            alt="Index"
-          />
+        <Navbar.Brand>
+          <Link to="/">
+            <img
+              src="/logo.png"
+              height="30"
+              alt="Index"
+            />
+          </Link>
         </Navbar.Brand>
         <Navbar.Text>
           {random}

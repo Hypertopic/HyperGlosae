@@ -11,8 +11,8 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <Menu />
     <BrowserRouter>
+      <Menu />
       <Routes>
         <Route path="/" element={<Bookshelf />} />
         <Route path="/:id" element={<Page />} />
