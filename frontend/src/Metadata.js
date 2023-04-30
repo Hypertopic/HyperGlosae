@@ -2,9 +2,8 @@ import './Metadata.css';
 
 import { useEffect, useState } from 'react';
 import yaml from 'yaml';
-import hyperglosae from './hyperglosae';
 
-function Metadata({metadata = {}, editable}) {
+function Metadata({metadata = {}, editable, backend}) {
   const [beingEdited, setBeingEdited] = useState(false);
   const [editedDocument, setEditedDocument] = useState(metadata);
 
@@ -14,7 +13,7 @@ function Metadata({metadata = {}, editable}) {
 
   let handleClick = () => {
     setBeingEdited(true);
-    hyperglosae.getDocument(metadata._id)
+    backend.getDocument(metadata._id)
       .then((x) => {
         setEditedDocument(x);
       });
@@ -29,7 +28,7 @@ function Metadata({metadata = {}, editable}) {
       ...yaml.parse(event.target.value)
     };
     setEditedDocument(updatedDocument);
-    hyperglosae.putDocument(updatedDocument);
+    backend.putDocument(updatedDocument);
   };
 
   let editedMetadata = Object.fromEntries(

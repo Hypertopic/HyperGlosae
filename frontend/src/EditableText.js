@@ -2,9 +2,8 @@ import './EditableText.css';
 
 import { useState, useEffect } from 'react';
 import FormattedText from './FormattedText';
-import hyperglosae from './hyperglosae';
 
-function EditableText({id, text, rubric}) {
+function EditableText({id, text, rubric, backend}) {
   const [beingEdited, setBeingEdited] = useState(false);
   const [editedDocument, setEditedDocument] = useState({
     text: (rubric) ? `{${rubric}} ${text}` : text
@@ -13,7 +12,7 @@ function EditableText({id, text, rubric}) {
 
   let handleClick = () => {
     setBeingEdited(true);
-    hyperglosae.getDocument(id)
+    backend.getDocument(id)
       .then((x) => {
         setEditedDocument(x);
       });
@@ -28,7 +27,7 @@ function EditableText({id, text, rubric}) {
 
   let handleBlur = () => {
     setBeingEdited(false);
-    hyperglosae.putDocument(editedDocument);
+    backend.putDocument(editedDocument);
   };
 
   let editedText = (rubric) ? editedDocument.text.match(PASSAGE)[1] : editedDocument.text;

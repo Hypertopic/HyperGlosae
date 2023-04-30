@@ -4,23 +4,22 @@ import { useNavigate } from 'react-router-dom';
 import Card from 'react-bootstrap/Card';
 import { PlusLg } from 'react-bootstrap-icons';
 import { v4 as uuid } from 'uuid';
-import hyperglosae from './hyperglosae';
 
-function FutureDocument({relatedTo, setLastUpdate}) {
+function FutureDocument({relatedTo, setLastUpdate, backend}) {
   const navigate = useNavigate();
 
   let handleClick = async () => {
     let _id = uuid();
     let links = relatedTo.map(object => ({verb: 'refersTo', object}));
     Promise.all([
-      hyperglosae.putDocument({
+      backend.putDocument({
         _id,
         dc_creator: '<CREATOR>',
         dc_title: '<TITLE>',
         dc_issued: new Date(),
         links
       }),
-      hyperglosae.putDocument({
+      backend.putDocument({
         _id: uuid(),
         isPartOf: _id,
         text: '<TEXT>',

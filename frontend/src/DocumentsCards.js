@@ -6,7 +6,7 @@ import Metadata from './Metadata';
 import BrowseTools from './BrowseTools';
 import FutureDocument from './FutureDocument';
 
-function DocumentsCards({docs, expandable, byRow, createOn, setLastUpdate}) {
+function DocumentsCards({docs, expandable, byRow, createOn, setLastUpdate, backend}) {
   return (
     <Row className="gy-4">
       {docs.map(x =>
@@ -16,7 +16,7 @@ function DocumentsCards({docs, expandable, byRow, createOn, setLastUpdate}) {
       )}
       {createOn &&
         <Col>
-          <FutureDocument relatedTo={createOn} {...{setLastUpdate}} />
+          <FutureDocument relatedTo={createOn} {...{setLastUpdate, backend}} />
         </Col>
       }
     </Row>

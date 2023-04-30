@@ -11,9 +11,8 @@ import DocumentsCards from './DocumentsCards';
 import BrowseTools from './BrowseTools';
 import EditableText from './EditableText';
 import FormattedText from './FormattedText';
-import hyperglosae from './hyperglosae';
 
-function Page() {
+function Page({backend}) {
 
   const [page, setPage] = useState([]);
   const [metadata, setMetadata] = useState([]);
@@ -30,14 +29,14 @@ function Page() {
     document.title = `${sourceMetadata.dc_title} ${sourceMetadata.dc_creator ? `(${sourceMetadata.dc_creator})` : ''}`;
 
   useEffect(() => {
-    hyperglosae.getView({view: 'metadata', id, options: ['include_docs']})
+    backend.getView({view: 'metadata', id, options: ['include_docs']})
       .then(
         (rows) => {
           let documents = rows.map(x => x.doc);
           setMetadata(documents);
         }
       );
-    hyperglosae.getView({view: 'content', id, options: ['include_docs']})
+    backend.getView({view: 'content', id, options: ['include_docs']})
       .then(
         (rows) => {
           setContent(rows);
@@ -110,20 +109,25 @@ function Page() {
         <Col className="page">
           <Row className ="runningHead">
             <RunningHeadSource metadata={ sourceMetadata } />
-            <RunningHeadMargin metadata={ metadata.find(x => (x._id === margin)) } />
+            <RunningHeadMargin {...{backend}}
+              metadata={ metadata.find(x => (x._id === margin)) }
+            />
           </Row>
           {page.map(({rubric, source, scholia}, i) =>
-            <Passage key={rubric || i} source={source} rubric={rubric} scholia={scholia} margin={margin} />)}
+            <Passage key={rubric || i}
+              {...{source, rubric, scholia, margin, backend}}
+            />)
+          }
         </Col>
         <References scholiaMetadata={scholiaMetadata} active={!margin}
-          createOn={[id]} {...{setLastUpdate}}
+          createOn={[id]} {...{setLastUpdate, backend}}
         />
       </Row>
     </Container>
   );
 }
 
-function Passage({source, rubric, scholia, margin}) {
+function Passage({source, rubric, scholia, margin, backend}) {
   let scholium = scholia.filter(x => (x.isPartOf === margin)) || {text: ''};
   return (
     <Row>
@@ -139,7 +143,7 @@ function Passage({source, rubric, scholia, margin}) {
           </Row>
         </Container>
       </Col>
-      <PassageMargin scholium={scholium} active={!!margin} rubric={rubric} />
+      <PassageMargin active={!!margin} {...{scholium, rubric, backend}} />
     </Row>
   );
 }
@@ -150,12 +154,12 @@ function Rubric({id}) {
   );
 }
 
-function PassageMargin({active, scholium, rubric}) {
+function PassageMargin({active, scholium, rubric, backend}) {
   if (!active) return;
   return (
     <Col xs={5} className="scholium">
       {scholium.map((x, i) =>
-        <EditableText key={i} text={x.text} id={x.id} rubric={rubric} />
+        <EditableText key={i} text={x.text} id={x.id} {...{rubric, backend}} />
       )}
     </Col>
   );
@@ -170,22 +174,22 @@ function RunningHeadSource({metadata}) {
   );
 }
 
-function RunningHeadMargin({metadata}) {
+function RunningHeadMargin({metadata, backend}) {
   if (!metadata) return;
   return (
     <Col xs={5} className="scholium">
       <BrowseTools id={metadata._id} closable={true} />
-      <Metadata metadata={metadata} editable={true} />
+      <Metadata metadata={metadata} editable={true} {...{backend}} />
     </Col>
   );
 }
 
-function References({scholiaMetadata, active, createOn, setLastUpdate}) {
+function References({scholiaMetadata, active, createOn, setLastUpdate, backend}) {
   if (!active) return;
   return (
     <Col className="gloses" >
-      <DocumentsCards docs={scholiaMetadata} expandable={true} {...{createOn}}
-        byRow={1} {...{setLastUpdate}}
+      <DocumentsCards docs={scholiaMetadata} expandable={true} byRow={1}
+        {...{createOn, setLastUpdate, backend}}
       />
     </Col>
   );
