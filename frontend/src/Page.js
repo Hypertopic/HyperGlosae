@@ -134,7 +134,7 @@ function Passage({source, rubric, scholia, margin, backend}) {
       <Col className="main">
         <Container>
           <Row>
-            <Col className="figure-body">
+            <Col>
               <FormattedText>
                 {source}
               </FormattedText>
