@@ -1,0 +1,22 @@
+{
+    "_id": "ejrbzoefkznfkpzdetail",
+    "dc_title": "Parcours : Vitrail Vie de Jean le Baptiste en détail, Eglise St-Jean-Au-Marché, Troyes",
+    "links": [
+        {
+            "verb": "includes",
+            "object": "ejrbzoefkznfkpz20"
+        },
+        {
+            "verb": "includes",
+            "object": "ejrbzoefkznfkpz20-1"
+        },
+        {
+            "verb": "includes",
+            "object": "ejrbzoefkznfkpz20-2"
+        },
+        {
+            "verb": "includes",
+            "object": "ejrbzoefkznfkpz20-3"
+        }
+    ]
+}
