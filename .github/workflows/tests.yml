@@ -35,6 +35,8 @@ jobs:
           curl -X PUT -u "${COUCHDB_USER}:${COUCHDB_PASSWORD}" -s localhost:5984/_node/nonode@nohost/_config/httpd/enable_cors --data '"true"'
           curl -X PUT -u "${COUCHDB_USER}:${COUCHDB_PASSWORD}" -s localhost:5984/_node/nonode@nohost/_config/cors/origins --data '"*"'
           curl -X PUT -u "${COUCHDB_USER}:${COUCHDB_PASSWORD}" -s localhost:5984/hyperglosae/_security --data '{"members":{"roles":[]},"admins":{"roles":["_admin"]}}'
+          curl -X PUT -u "${COUCHDB_USER}:${COUCHDB_PASSWORD}" -s localhost:5984/_users
+          curl -X PUT -u "${COUCHDB_USER}:${COUCHDB_PASSWORD}" -s localhost:5984/_users/org.couchdb.user:alice --data '{"name":"alice", "password":"whiterabbit", "roles":[], "type":"user"}'
       - name: Wait for frontend build
         uses: lewagon/wait-on-check-action@v1.3.1
         with:
