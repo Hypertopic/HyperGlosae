@@ -34,8 +34,8 @@ function FutureDocument({relatedTo, setLastUpdate, backend}) {
   return (
     <Card>
       <Card.Body className="text-center">
-        <PlusLg title="Create a document as a glose" className="icon"
-          onClick={handleClick}
+        <PlusLg title={`Create a document ${relatedTo.length ? 'as a glose' : 'from scratch'}`}
+          className="icon" onClick={handleClick}
         />
       </Card.Body>
     </Card>
