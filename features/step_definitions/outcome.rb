@@ -11,6 +11,10 @@ Alors('{string} est une des gloses') do |title|
   expect(find('.gloses')).to have_content title
 end
 
+Alors('{string} est la glose ouverte') do |title|
+  expect(find('.scholium')).to have_content title
+end
+
 Alors('je peux lire {string}') do |text|
   expect(page).to have_content text
 end

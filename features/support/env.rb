@@ -30,3 +30,14 @@ end
 def have_image(alternative_text)
   have_xpath(".//img[@alt='#{alternative_text}']")
 end
+
+def sign_in(username, password)
+  fill_in placeholder: "Username", with: username
+  fill_in placeholder: 'Password', with: password
+  click_on 'Sign in'
+  expect(page).to have_content username
+end
+
+def sign_out
+  refresh
+end

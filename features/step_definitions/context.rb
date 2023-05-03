@@ -16,8 +16,13 @@ Soit('{string} une des gloses') do |title|
 end
 
 Soit('une session active avec mon compte') do
-  fill_in placeholder: "Username", with: 'alice'
-  fill_in placeholder: 'Password', with: 'whiterabbit'
-  click_on 'Sign in'
-  expect(page).to have_content 'alice'
+  sign_in('alice', 'whiterabbit')
 end
+
+Soit('un document existant affiché comme document principal') do
+  visit '/'
+  sign_in('alice', 'whiterabbit')
+  click_on_icon('create-document')
+  sign_out
+end
+
