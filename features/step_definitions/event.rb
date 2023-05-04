@@ -9,3 +9,9 @@ end
 Quand("j'essaie de créer un nouveau document") do
   click_on_icon('create-document')
 end
+
+Quand("j'essaie de remplacer les métadonnées de la glose par :") do |metadata|
+  click_on_text('metadata')
+  find('textarea').fill_in with: metadata
+  leave_textarea
+end

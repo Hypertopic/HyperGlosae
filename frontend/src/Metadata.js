@@ -42,7 +42,7 @@ function Metadata({metadata = {}, editable, backend}) {
   if (!beingEdited) {
     let {dc_title, dc_creator, dc_translator, dc_isPartOf, dc_issued} = editedMetadata;
     let attributes = (editable)
-      ? {className: 'editable', onClick: handleClick, title: 'Edit metadata...'}
+      ? {className: 'editable metadata', onClick: handleClick, title: 'Edit metadata...'}
       : {};
     return (
       <span {...attributes}>

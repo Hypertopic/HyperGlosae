@@ -12,7 +12,7 @@ Alors('{string} est une des gloses') do |title|
 end
 
 Alors('{string} est la glose ouverte') do |title|
-  expect(find('.scholium')).to have_content title
+  expect(find('.runningHead .scholium')).to have_content title
 end
 
 Alors('je peux lire {string}') do |text|

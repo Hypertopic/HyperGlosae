@@ -26,3 +26,11 @@ Soit('un document existant affiché comme document principal') do
   sign_out
 end
 
+Soit('un document existant affiché comme glose') do
+  visit '/'
+  sign_in('alice', 'whiterabbit')
+  click_on_icon('create-document')
+  click_on_icon('create-document')
+  sign_out
+end
+
