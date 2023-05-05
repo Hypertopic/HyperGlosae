@@ -15,3 +15,9 @@ Quand("j'essaie de remplacer les métadonnées de la glose par :") do |metadata|
   find('textarea').fill_in with: metadata
   leave_textarea
 end
+
+Quand("j'essaie de remplacer le contenu de la glose par :") do |metadata|
+  click_on_text('content')
+  find('textarea').fill_in with: metadata
+  leave_textarea
+end
