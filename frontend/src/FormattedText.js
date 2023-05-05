@@ -8,7 +8,7 @@ function FormattedText({children}) {
     <ReactMarkdown
       remarkPlugins={[remarkDefinitionList, remarkUnwrapImages]}
       components={{
-        img: CroppedImage,
+        img: (x) => embedVideo(x) || CroppedImage(x),
         a: ({children, href}) => <a href={href}>{children}</a>
       }}
       remarkRehypeOptions={{
@@ -31,17 +31,15 @@ function getId(text) {
   return match ? match[1] : null;
 }
 
-function embedVideo({href, children}) {
-  const videoId = getId(href);
+function embedVideo({src}) {
+  const videoId = getId(src);
   if (videoId) {
     const embedLink = `https://www.youtube.com/embed/${videoId}`;
     return (
       <iframe width="80%" height="300" src={embedLink} frameBorder="0" allowFullScreen></iframe>
     );
   }
-  return (
-    <a href={href}>{children}</a>
-  );
+  return null;
 }
 
 export default FormattedText;
