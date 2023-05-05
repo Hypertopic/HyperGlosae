@@ -11,6 +11,7 @@ import DocumentsCards from './DocumentsCards';
 import BrowseTools from './BrowseTools';
 import EditableText from './EditableText';
 import FormattedText from './FormattedText';
+import Type, { TypeBadge } from './Type';
 
 function Page({backend}) {
 
@@ -170,6 +171,7 @@ function RunningHeadSource({metadata}) {
     <Col className="main">
       <BookmarkFill className="icon" />
       <Metadata metadata={metadata} />
+      <TypeBadge type={metadata?.type} />
     </Col>
   );
 }
@@ -180,6 +182,7 @@ function RunningHeadMargin({metadata, backend}) {
     <Col xs={5} className="scholium">
       <BrowseTools id={metadata._id} closable={true} />
       <Metadata metadata={metadata} editable={true} {...{backend}} />
+      <Type metadata={metadata} editable={true} {...{backend}}/>
     </Col>
   );
 }

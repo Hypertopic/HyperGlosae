@@ -5,6 +5,7 @@ import Row from 'react-bootstrap/Row';
 import Metadata from './Metadata';
 import BrowseTools from './BrowseTools';
 import FutureDocument from './FutureDocument';
+import { TypeBadge } from './Type';
 
 function DocumentsCards({docs, expandable, byRow, createOn, setLastUpdate, backend}) {
   return (
@@ -29,6 +30,7 @@ function DocumentCard({doc, expandable}) {
       <Card.Body>
         <BrowseTools id={doc._id} openable={expandable} />
         <Metadata metadata={doc} />
+        <TypeBadge type={doc?.type}/>
       </Card.Body>
       <References doc={doc} />
     </Card>
