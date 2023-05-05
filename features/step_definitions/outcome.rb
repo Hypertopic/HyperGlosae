@@ -54,3 +54,9 @@ end
 Alors('le type {string} est le type de la glose ouverte') do |type| 
   expect(find('.typeBadge')).to have_content type
 end
+
+Alors('le document comporte la vidéo avec pour titre {string}') do |title|
+  within_frame do
+    expect(page).to have_content title
+  end
+end
