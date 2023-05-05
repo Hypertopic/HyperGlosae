@@ -10,7 +10,6 @@ function FormattedText({children}) {
       components={{
         img: CroppedImage,
         a: ({children, href}) => <a href={href}>{children}</a>
-
       }}
       remarkRehypeOptions={{
         handlers: defListHastHandlers
@@ -18,6 +17,25 @@ function FormattedText({children}) {
     >
       {children}
     </ReactMarkdown>
+  );
+}
+
+function getId(text) {
+  const regExp = /^.*(?:youtube\.com\/watch\?v=|youtu\.be\/)([^\s&]{11})/;
+  const match = text.match(regExp);
+  return match ? match[1] : null;
+}
+
+function embedVideo({href, children}) {
+  const videoId = getId(href);
+  if (videoId) {
+    const embedLink = `https://www.youtube.com/embed/${videoId}`;
+    return (
+      <iframe width="80%" height="300" src={embedLink} frameBorder="0" allowFullScreen></iframe>
+    );
+  }
+  return (
+    <a href={href}>{children}</a>
   );
 }
 
