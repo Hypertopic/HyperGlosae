@@ -8,7 +8,9 @@ function FormattedText({children}) {
     <ReactMarkdown
       remarkPlugins={[remarkDefinitionList, remarkUnwrapImages]}
       components={{
-        img: CroppedImage
+        img: CroppedImage,
+        a: ({children, href}) => <a href={href}>{children}</a>
+
       }}
       remarkRehypeOptions={{
         handlers: defListHastHandlers
