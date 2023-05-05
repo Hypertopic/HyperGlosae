@@ -15,3 +15,8 @@ Quand("j'essaie de remplacer les métadonnées de la glose par :") do |metadata|
   find('textarea').fill_in with: metadata
   leave_textarea
 end
+
+Quand("j'attache le type {string}") do |type|
+  click_on_icon('typeIcon')
+  find('.typeBadge', text: type).click
+end

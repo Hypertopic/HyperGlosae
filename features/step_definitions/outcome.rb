@@ -50,3 +50,7 @@ end
 Alors("l'image intégrée en source {string} est légendée par son titre : {string}") do |image, image_caption|
   expect(find('.sources')).to have_content image_caption
 end
+
+Alors('le type {string} est le type de la glose ouverte') do |type| 
+  expect(find('.typeBadge')).to have_content type
+end

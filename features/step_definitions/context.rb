@@ -33,4 +33,3 @@ Soit('un document existant affiché comme glose') do
   click_on_icon('create-document')
   sign_out
 end
-
