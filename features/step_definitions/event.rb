@@ -20,3 +20,9 @@ Quand("j'attache le type {string}") do |type|
   click_on_icon('typeIcon')
   find('.typeBadge', text: type).click
 end
+
+Quand("j'essaie de remplacer le contenu de la glose par :") do |metadata|
+  click_on_text('content')
+  find('textarea').fill_in with: metadata
+  leave_textarea
+end
