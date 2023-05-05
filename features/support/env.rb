@@ -49,3 +49,7 @@ end
 def leave_textarea
   find('.navbar').click
 end
+
+def press_key(action, key)
+  find(".#{action}", match: :first).send_keys(key)
+end

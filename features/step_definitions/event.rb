@@ -15,3 +15,10 @@ Quand("j'essaie de remplacer les métadonnées de la glose par :") do |metadata|
   find('textarea').fill_in with: metadata
   leave_textarea
 end
+
+Quand("j'ajoute {string} au document en mode edition") do |content|
+  click_on_icon('editable-content')
+  press_key('form-control', :enter)
+  press_key('form-control', content)
+  press_key('form-control', :tab)
+end

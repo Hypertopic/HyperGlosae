@@ -50,3 +50,7 @@ end
 Alors("l'image intégrée en source {string} est légendée par son titre : {string}") do |image, image_caption|
   expect(find('.sources')).to have_content image_caption
 end
+
+Alors('le document comporte la vidéo avec pour titre {string}') do |title|
+  expect(page).to have_content title
+end
