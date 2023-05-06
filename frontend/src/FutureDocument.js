@@ -10,10 +10,12 @@ function FutureDocument({relatedTo, setLastUpdate, backend}) {
 
   let handleClick = async () => {
     let _id = uuid();
+    let editors = [backend.credentials.name];
     let links = relatedTo.map(object => ({verb: 'refersTo', object}));
     Promise.all([
       backend.putDocument({
         _id,
+        editors,
         dc_creator: '<CREATOR>',
         dc_title: '<TITLE>',
         dc_issued: new Date(),
@@ -21,6 +23,7 @@ function FutureDocument({relatedTo, setLastUpdate, backend}) {
       }),
       backend.putDocument({
         _id: uuid(),
+        editors,
         isPartOf: _id,
         text: '<TEXT>',
         links

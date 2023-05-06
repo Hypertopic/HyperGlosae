@@ -26,10 +26,19 @@ Soit('un document existant affiché comme document principal') do
   sign_out
 end
 
-Soit('un document existant affiché comme glose') do
+Soit("un document dont je suis l'auteur affiché comme glose") do
   visit '/'
   sign_in('alice', 'whiterabbit')
   click_on_icon('create-document')
   click_on_icon('create-document')
   sign_out
 end
+
+Soit("un document dont je ne suis pas l'auteur affiché comme glose") do
+  visit '/'
+  sign_in('bill', 'madhatter')
+  click_on_icon('create-document')
+  click_on_icon('create-document')
+  sign_out
+end
+

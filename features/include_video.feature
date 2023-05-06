@@ -4,7 +4,7 @@ Fonctionnalité: Insérer dans un document une vidéo
 
 Scénario: provenant de YouTube
 
-  Soit un document existant affiché comme glose
+  Soit un document dont je suis l'auteur affiché comme glose
   Et une session active avec mon compte
   Quand j'essaie de remplacer le contenu de la glose par :
     """

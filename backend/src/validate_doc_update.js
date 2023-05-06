@@ -5,6 +5,12 @@ function (_, oldDoc, user) {
     throw({unauthorized: `Before editing this document, please ${todo} first.`});
   }
 
+  if (user.roles.includes('_admin')) return true;
+
   if (!user.name) advise('log in');
+
+  if (oldDoc && oldDoc.editors && !oldDoc.editors.includes(user.name)) {
+    advise('request authorization to its editors');
+  }
 
 }
