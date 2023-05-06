@@ -10,7 +10,7 @@ Scénario: en étant connecté
     """
     dc_title: Commentaire
     dc_creator: Alice Liddell
-    dc_created: 1932
+    dc_issued: "1932"
     """
   Alors "Commentaire" est la glose ouverte
 
@@ -21,6 +21,6 @@ Scénario: sans être connecté
     """
     dc_title: Commentaire
     dc_creator: Alice Liddell
-    dc_issued: 1932
+    dc_issued: "1932"
     """
   Alors je peux lire "Before editing this document, please log in first"
