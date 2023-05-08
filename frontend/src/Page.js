@@ -25,9 +25,10 @@ function Page({backend}) {
   let {id } = useParams();
   let margin = useLocation().hash.slice(1);
   let hasRubrics = (id, rows) => rows.some(x => x.key[1] !== 0 && x.value.isPartOf === id && x.value.text);
+  const getCaption = ({dc_title, dc_spatial}) => dc_title + (dc_spatial ? `, ${dc_spatial}` : '');
 
   if (sourceMetadata)
-    document.title = `${sourceMetadata.dc_title}${sourceMetadata.dc_spatial ? ', ' + sourceMetadata.dc_spatial : ''} ${sourceMetadata.dc_creator ? `(${sourceMetadata.dc_creator})` : ''}`;
+    document.title = `${getCaption(sourceMetadata)} ${sourceMetadata.dc_creator ? `(${sourceMetadata.dc_creator})` : ''}`;
 
   useEffect(() => {
     backend.getView({view: 'metadata', id, options: ['include_docs']})
@@ -68,7 +69,8 @@ function Page({backend}) {
     if (!doc) {
       return value.text;
     }
-    let fragment = (value.inclusion !== 'whole' ? '#' + value.inclusion : '') + ` "${doc.dc_title}"`;
+    let fragment = (value.inclusion !== 'whole' ? '#' + value.inclusion : '')
+      + ` "${getCaption(doc)}"`;
     let imageReference = /!\[[^\]]*\]\([^)]+/;
     return doc.text.replace(imageReference, '$&' + fragment);
   };

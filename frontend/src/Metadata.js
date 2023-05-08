@@ -39,6 +39,8 @@ function Metadata({metadata = {}, editable, backend}) {
   let format = (actors, prefix = '', suffix = '') =>
     actors && (prefix + [actors].flat().join(' & ') + suffix);
 
+  let getCaption = ({dc_title, dc_spatial}) => dc_title + (dc_spatial ? `, ${dc_spatial}` : '');
+
   if (!beingEdited) {
     let {dc_title, dc_spatial, dc_creator, dc_translator, dc_isPartOf, dc_issued} = editedMetadata;
     let attributes = (editable)
@@ -47,7 +49,7 @@ function Metadata({metadata = {}, editable, backend}) {
     return (
       <span {...attributes}>
         <span className="work">
-          {dc_title}{dc_spatial ? ', ' + dc_spatial : ''} {format(dc_creator, '(', ')')},
+          {getCaption({dc_title, dc_spatial})} {format(dc_creator, '(', ')')},
         </span>
         <span className="edition">
           {format(dc_translator, 'Translated by ', ', ')}
