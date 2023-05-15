@@ -8,7 +8,7 @@ import Form from 'react-bootstrap/Form';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 
-function Menu({backend}) {
+function Menu({ backend }) {
   return (
     <Navbar bg="dark" variant="dark">
       <Container>
@@ -21,13 +21,13 @@ function Menu({backend}) {
             />
           </Link>
         </Navbar.Brand>
-        <Authentication {...{backend}} />
+        <Authentication {...{ backend }} />
       </Container>
     </Navbar>
   );
 }
 
-function Authentication({backend}) {
+function Authentication({ backend }) {
   const [credentials, setCredentials] = useState();
 
   let handleSubmit = (e) => {
