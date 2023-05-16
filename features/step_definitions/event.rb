@@ -28,5 +28,5 @@ Quand("j'essaie de remplacer le contenu de la glose par :") do |metadata|
 end
 
 Quand("je navigue vers le document suivant") do
-  click_on_icon('next-document')
+  click_on('->')
 end

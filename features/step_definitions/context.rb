@@ -15,6 +15,30 @@ Soit('{string} une des gloses') do |title|
   expect(find('.gloses')).to have_content title
 end
 
+Soit('je vois les sources') do
+  expect(find('.sources'))
+end
+
+Soit('je vois les gloses') do
+  expect(find('.gloses'))
+end
+
+Soit('je ne vois pas les sources') do
+  expect(find('.sources', :visible => :hidden))
+end
+
+Soit('je ne vois pas les gloses') do
+  expect(find('.gloses', :visible => :hidden))
+end
+
+Soit('je suis sur téléphone') do
+  resize_window(550, 800)
+end
+
+Soit('je suis sur ordinateur') do
+  resize_window(1080, 1920)
+end
+
 Soit('une session active avec mon compte') do
   sign_in('alice', 'whiterabbit')
 end
