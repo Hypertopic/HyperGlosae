@@ -49,3 +49,7 @@ end
 def leave_textarea
   find('.navbar').click
 end
+
+def resize_window(width, heigth)
+  page.current_window.resize_to(width, heigth)
+end
