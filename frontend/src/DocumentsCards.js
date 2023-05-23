@@ -36,7 +36,7 @@ function DocumentsCards({docs, expandable, byRow, createOn, setLastUpdate, backe
   );
 }
 
-function DocumentCard({doc, expandable}) {
+export function DocumentCard({doc, expandable}) {
   const collectionId = useMemo(() => {
     if (doc?.links?.length > 1) {
       return doc.links.every((item) => {
