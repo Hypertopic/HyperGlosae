@@ -9,3 +9,7 @@ end
 Quand("j'essaie de créer un nouveau document") do
   click_on_icon('create-document')
 end
+
+Quand('je crée une collection à partir de ce document') do
+  click_on_icon('creation')
+end
