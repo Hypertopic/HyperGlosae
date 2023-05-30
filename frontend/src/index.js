@@ -24,6 +24,7 @@ root.render(
       <Routes>
         <Route path="/" element={<Bookshelf {...{backend}} />} />
         <Route path="/:id" element={<Page {...{backend}} />} />
+        <Route path="/collection/:collectionId/document/:id" element={<Page {...{backend}} />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
