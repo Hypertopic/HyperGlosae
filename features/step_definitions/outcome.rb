@@ -60,3 +60,8 @@ Alors('le document comporte la vidéo avec pour titre {string}') do |title|
     expect(page).to have_content title
   end
 end
+
+Alors("la collection {string} est une référence créée") do |title|
+  expect(page).to have_content title
+end
+

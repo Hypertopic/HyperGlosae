@@ -26,3 +26,8 @@ Quand("j'essaie de remplacer le contenu de la glose par :") do |metadata|
   find('textarea').fill_in with: metadata
   leave_textarea
 end
+
+Quand('je crée une collection à partir de ce document') do
+  click_on_icon('create-collection')
+end
+
