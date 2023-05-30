@@ -21,6 +21,7 @@ function Page({backend}) {
   const [scholiaMetadata, setScholiaMetadata] = useState([]);
   const [content, setContent] = useState([]);
   const [lastUpdate, setLastUpdate] = useState();
+  const [isCollection, setIsCollection] = useState(true);
   let {id } = useParams();
   let margin = useLocation().hash.slice(1);
   let hasRubrics = (id, rows) => rows.some(x => x.key[1] !== 0 && x.value.isPartOf === id && x.value.text);
@@ -60,6 +61,7 @@ function Page({backend}) {
         x => !forwardLinks.includes(x._id) && x._id !== id
       );
       setScholiaMetadata(reverseLinkedDocuments);
+      forwardLinks.length ? setIsCollection(true) : setIsCollection(false);
     }
   }, [id, metadata, lastUpdate]);
 
@@ -120,7 +122,7 @@ function Page({backend}) {
           }
         </Col>
         <References scholiaMetadata={scholiaMetadata} active={!margin}
-          createOn={[id]} {...{setLastUpdate, backend}}
+          createOn={[id]} {...{setLastUpdate, backend, isCollection}}
         />
       </Row>
     </Container>
@@ -184,12 +186,12 @@ function RunningHeadMargin({metadata, backend}) {
   );
 }
 
-function References({scholiaMetadata, active, createOn, setLastUpdate, backend}) {
+function References({scholiaMetadata, active, createOn, setLastUpdate, backend, isCollection}) {
   if (!active) return;
   return (
     <Col className="gloses" >
       <DocumentsCards docs={scholiaMetadata} expandable={true} byRow={1}
-        {...{createOn, setLastUpdate, backend}}
+        {...{createOn, setLastUpdate, backend, isCollection}}
       />
     </Col>
   );

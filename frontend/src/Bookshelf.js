@@ -21,7 +21,7 @@ function Bookshelf({backend}) {
 
   return (
     <Container className="screen bookshelf">
-      <DocumentsCards docs={documents} byRow={4} createOn={[]}
+      <DocumentsCards docs={documents} byRow={4} createOn={[]} isCollection={true}
         {...{setLastUpdate, backend}}
       />
     </Container>

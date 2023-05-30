@@ -61,6 +61,18 @@
 
 .sources .card, 
 .gloses .card {
+  text-align: center;
+}
+
+.creation {
+  text-align: center;
+}
+
+.references {
+  justify-content: flex-end;
+}
+
+.references .card {
   background-color: gainsboro;
   text-color: black;
 }
