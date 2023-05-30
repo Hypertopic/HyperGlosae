@@ -60,3 +60,11 @@ Alors('le document comporte la vidéo avec pour titre {string}') do |title|
     expect(page).to have_content title
   end
 end
+
+Alors("le texte {string} est visible dans la navbar") do |text|
+  expect(find('.navbar-collec')).to have_content text
+end
+
+Alors("{string} est le document affiché à l'écran") do |text|
+  expect(find('.runningHead')).to have_content text
+end
