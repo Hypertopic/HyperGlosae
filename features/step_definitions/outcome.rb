@@ -27,8 +27,12 @@ Alors('je ne peux pas lire {string}') do |text|
   expect(page).not_to have_content text
 end
 
-Alors("je vois l'image {string}") do |alternative_text|
-  expect(page).to have_image(alternative_text)
+Alors("je vois l'image {string} dans le document principal") do |alternative_text|
+  expect(find('.row:not(.runningHead)>.main')).to have_image(alternative_text)
+end
+
+Alors("je vois l'image {string} dans la glose") do |alternative_text|
+  expect(find('.row:not(.runningHead)>.scholium')).to have_image(alternative_text)
 end
 
 Alors("je ne vois pas l'image {string}") do |alternative_text|
@@ -59,9 +63,5 @@ Alors('le document comporte la vidéo avec pour titre {string}') do |title|
   within_frame do
     expect(page).to have_content title
   end
-end
-
-Alors("la collection {string} est une référence créée") do |title|
-  expect(page).to have_content title
 end
 

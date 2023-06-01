@@ -43,16 +43,16 @@ Scénario: quand la glose est une comparaison de documents apparentés
   Soit "Photographie : vitrail, baie 113, Église Saint-Nizier, Troyes" le document principal
   Et "Soleil noir et étoiles qui tombent – Comparaison de vitraux" une des gloses
   Et "Lavage des tuniques – Comparaison de vitraux" une des gloses
-  Et je vois l'image "SNZ 113"
+  Et je vois l'image "SNZ 113" dans le document principal
   Mais je ne vois pas l'image "GRV 005"
   Et je ne vois pas l'image "SMV 006 Soleil"
   Et je ne vois pas l'image "SMV 006 Lavage"
   Quand je consulte le contenu de "Soleil noir et étoiles qui tombent – Comparaison de vitraux"
-  Alors je vois l'image "GRV 005"
+  Alors je vois l'image "GRV 005" dans la glose
   Et je vois que la licence de la glose est "CC-BY-SA"
-  Et je vois l'image "SMV 006 Soleil"
+  Et je vois l'image "SMV 006 Soleil" dans la glose
   Mais je ne vois pas l'image "SMV 006 Lavage"
-  Et je vois l'image "SNZ 113"
+  Et je vois l'image "SNZ 113" dans la glose
   Et l'image intégrée dans la page "SNZ 113" est légendée par son titre : "Photographie : vitrail, baie 113, Église Saint-Nizier, Troyes"
   Et l'image intégrée dans la page "SMV 006 Soleil" est légendée par son titre : "Photographie : vitrail, baie 6, Église Saint-Martin-ès-Vignes, Troyes"
   Et l'image intégrée dans la page "GRV 005" est légendée par son titre : "Photographie : vitrail, baie 5, Église Saint-Martin, Grandville, Aube"
