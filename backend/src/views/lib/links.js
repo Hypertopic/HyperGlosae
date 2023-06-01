@@ -30,7 +30,7 @@ exports.emitIncludedDocuments = ({isPartOf, links}) => {
   includedDocuments.forEach((x, i) => {
     emit([isPartOf, i], {inclusion: x.fragment || 'whole', isPartOf, _id: x.id});
     includedDocuments.forEach((y, j) => {
-      emit([x.id, i], {inclusion: y.fragment || 'whole', isPartOf, _id: y.id});
+      emit([x.id, j], {inclusion: y.fragment || 'whole', isPartOf, _id: y.id});
     });
   });
 }
