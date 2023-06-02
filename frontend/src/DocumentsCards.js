@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { useMemo, useRef } from 'react';
+import { useMemo } from 'react';
 import Card from 'react-bootstrap/Card';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
@@ -8,6 +8,7 @@ import BrowseTools from './BrowseTools';
 import FutureDocument from './FutureDocument';
 import FutureCollection from './FutureCollection';
 import { TypeBadge } from './Type';
+import { isPhoneSizedWindow } from './utils';
 
 function DocumentsCards({docs, expandable, byRow, createOn, setLastUpdate, backend}) {
   return (
@@ -44,13 +45,12 @@ function DocumentCard({doc, expandable}) {
     };
     return undefined;
   }, [doc]);
-  const windowWidth = useRef(window.innerWidth);
 
   return (
     <Card className="h-100">
       <Card.Body>
         <BrowseTools
-          id={collectionId ? doc.links.length && windowWidth.current < 820 ? doc.links[0].object : doc._id : doc._id}
+          id={collectionId ? doc.links.length && isPhoneSizedWindow() ? doc.links[0].object : doc._id : doc._id}
           openable={expandable}
           collectionId={collectionId}
         />
