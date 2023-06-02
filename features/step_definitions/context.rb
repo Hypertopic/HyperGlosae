@@ -66,3 +66,15 @@ Soit("un document dont je ne suis pas l'auteur affiché comme glose") do
   sign_out
 end
 
+Soit('un document existant contenant :') do |markdown|
+  visit '/'
+  sign_in('bill', 'madhatter')
+  click_on_icon('create-document')
+  click_on_icon('create-document')
+  click_on_text('content')
+  find('textarea').fill_in with: markdown
+  leave_textarea
+  click_on_icon('focus')
+  sign_out
+end
+
