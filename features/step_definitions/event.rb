@@ -21,9 +21,9 @@ Quand("j'attache le type {string}") do |type|
   find('.typeBadge', text: type).click
 end
 
-Quand("j'essaie de remplacer le contenu de la glose par :") do |metadata|
+Quand("j'essaie de remplacer le contenu de la glose par :") do |markdown|
   click_on_text('content')
-  find('textarea').fill_in with: metadata
+  find('textarea').fill_in with: markdown
   leave_textarea
 end
 
