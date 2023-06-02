@@ -2,6 +2,7 @@ import ReactMarkdown from 'react-markdown';
 import remarkUnwrapImages from 'remark-unwrap-images';
 import { remarkDefinitionList, defListHastHandlers } from 'remark-definition-list';
 import CroppedImage from './CroppedImage';
+import VideoComment from './VideoComment';
 
 function FormattedText({children}) {
   return (
@@ -9,6 +10,7 @@ function FormattedText({children}) {
       remarkPlugins={[remarkDefinitionList, remarkUnwrapImages]}
       components={{
         img: (x) => embedVideo(x) || CroppedImage(x),
+        p: (x) => VideoComment(x) || <p>{x.children}</p>,
         a: ({children, href}) => <a href={href}>{children}</a>
       }}
       remarkRehypeOptions={{
