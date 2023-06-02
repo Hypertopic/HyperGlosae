@@ -12,23 +12,15 @@ function FutureDocument({relatedTo, setLastUpdate, backend}) {
     let _id = uuid();
     let editors = [backend.credentials.name];
     let links = relatedTo.map(object => ({verb: 'refersTo', object}));
-    Promise.all([
-      backend.putDocument({
-        _id,
-        editors,
-        dc_creator: '<CREATOR>',
-        dc_title: '<TITLE>',
-        dc_issued: new Date(),
-        links
-      }),
-      backend.putDocument({
-        _id: uuid(),
-        editors,
-        isPartOf: _id,
-        text: '<TEXT>',
-        links
-      })
-    ]).then((x) => {
+    backend.putDocument({
+      _id,
+      editors,
+      dc_creator: '<CREATOR>',
+      dc_title: '<TITLE>',
+      dc_issued: new Date(),
+      text: '<TEXT>',
+      links
+    }).then((x) => {
       setLastUpdate(_id);
       navigate((relatedTo.length ? '#' : '/') + _id);
     });
