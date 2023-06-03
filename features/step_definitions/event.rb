@@ -31,3 +31,6 @@ Quand('je crée une collection à partir de ce document') do
   click_on_icon('create-collection')
 end
 
+Quand("je navigue vers le document suivant") do
+  click_on('->')
+end
