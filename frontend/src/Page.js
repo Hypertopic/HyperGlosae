@@ -3,7 +3,7 @@ import './Page.css';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 import { BookmarkFill } from 'react-bootstrap-icons';
 import Metadata from './Metadata';
@@ -12,6 +12,7 @@ import BrowseTools from './BrowseTools';
 import EditableText from './EditableText';
 import FormattedText from './FormattedText';
 import Type, { TypeBadge } from './Type';
+import NavbarCollection from './navbarCollection';
 
 function Page({backend}) {
 
@@ -21,8 +22,18 @@ function Page({backend}) {
   const [sourcesOfSourceMetadata, setSourcesOfSourceMetadata] = useState([]);
   const [scholiaMetadata, setScholiaMetadata] = useState([]);
   const [content, setContent] = useState([]);
+  const [parcours, setParcours] = useState({});
   const [lastUpdate, setLastUpdate] = useState();
-  let {id } = useParams();
+  let {id, collectionId} = useParams();
+  const position = useMemo(() => {
+    if (parcours.links && id) {
+      let element = parcours.links.find((item) => {
+        return item.object === id;
+      });
+      return parcours.links.indexOf(element);
+    }
+    return undefined;
+  }, [parcours.links, id]);
   let margin = useLocation().hash.slice(1);
   let hasRubrics = (id, rows) => rows.some(x => x.key[1] !== 0 && x.value.isPartOf === id && x.value.text);
   const getCaption = ({dc_title, dc_spatial}) => dc_title + (dc_spatial ? `, ${dc_spatial}` : '');
@@ -52,18 +63,23 @@ function Page({backend}) {
   useEffect(() => {
     if (metadata.length) {
       let focusedDocument = metadata.find(x => (x._id === id));
-      setSourceMetadata(focusedDocument);
-      let forwardLinks = (focusedDocument.links || [])
-        .map(({subject, object}) => (subject && (subject !== id)) ? subject : object)
-        .map(x => x.split('#')[0]);
-      let forwardLinkedDocuments = metadata.filter(x => forwardLinks.includes(x._id));
-      setSourcesOfSourceMetadata(forwardLinkedDocuments);
-      let reverseLinkedDocuments = metadata.filter(
-        x => !forwardLinks.includes(x._id) && x._id !== id
-      );
-      setScholiaMetadata(reverseLinkedDocuments);
+      if (focusedDocument) {
+        setSourceMetadata(focusedDocument);
+        let forwardLinks = (focusedDocument.links || [])
+          .map(({subject, object}) => (subject && (subject !== id)) ? subject : object)
+          .map(x => x.split('#')[0]);
+        let forwardLinkedDocuments = metadata.filter(x => forwardLinks.includes(x._id));
+        setSourcesOfSourceMetadata(forwardLinkedDocuments);
+        let reverseLinkedDocuments = metadata.filter(
+          x => !forwardLinks.includes(x._id) && x._id !== id
+        );
+        setScholiaMetadata(reverseLinkedDocuments);
+      };
+      if (collectionId) {
+        setParcours(metadata.find((item) => item._id === collectionId));
+      }
     }
-  }, [id, metadata, lastUpdate]);
+  }, [id, metadata, lastUpdate, collectionId]);
 
   let getText = ({doc, value}) => {
     if (!doc) {
@@ -126,6 +142,17 @@ function Page({backend}) {
           createOn={[id]} {...{setLastUpdate, backend}}
         />
       </Row>
+      <div className="navbar-collec">
+        {parcours.links && position != undefined &&
+          <NavbarCollection
+            position={position + 1}
+            total={parcours.links.length}
+            pastId={ position == 0 ? undefined : parcours.links[position - 1].object }
+            nextId={ position == parcours.links.length - 1 ? undefined : parcours.links[position + 1].object }
+            collectionId={parcours._id}
+          />
+        }
+      </div>
     </Container>
   );
 }
