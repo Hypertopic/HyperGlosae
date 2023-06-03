@@ -78,3 +78,10 @@ Soit('un document existant contenant :') do |markdown|
   sign_out
 end
 
+Soit("le texte {string} visible dans la navbar") do |text|
+  expect(find('.navbar-collec')).to have_content text
+end
+
+Soit("{string} le document actuel dans la collection") do |text|
+  expect(find('.runningHead')).to have_content text
+end
