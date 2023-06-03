@@ -7,13 +7,12 @@ Scénario: sur téléphone, je ne vois pas les gloses et sources
   Soit la liste des documents affichée
   Et je suis sur téléphone
   Quand je me focalise sur "Parcours : Visite de l'Eglise St-Jean-au-Marché, Troyes"
-  Alors "Parcours : Visite de l'Eglise St-Jean-au-Marché, Troyes" est le document principal
+  Alors "Plan : Eglise St-Jean-au-Marché, Troyes (CNRS)," est le document affiché à l'écran
   Et je ne vois pas les gloses
   Et je ne vois pas les sources
   Et je vois l'image "SJ" dans le document principal
-  Et je vois l'image "SJ 018" dans le document principal
-  Et je vois l'image "SJ 020" dans le document principal
-
+  Et je ne vois pas l'image "SJ 018"
+  Et je ne vois pas l'image "SJ 020"
 
 Scénario: sur ordinateur, je vois les gloses et sourcess
 
