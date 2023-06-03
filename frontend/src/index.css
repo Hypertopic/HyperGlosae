@@ -18,7 +18,7 @@ code {
 
 @media screen and (max-width: 768px) {
 
-  .navbar,
+  .navbarTop,
   .sources,
   .gloses {
     display: none !important;
