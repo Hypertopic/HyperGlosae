@@ -69,3 +69,11 @@ def get_id(name)
     end
   return id
 end
+
+def fill_element(selector, text)
+  find(selector).fill_in with: text
+end
+
+def click_on_element(class_name, text)
+  find(class_name, text: text).click
+end
