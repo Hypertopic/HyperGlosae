@@ -72,3 +72,7 @@ end
 Alors("{string} est le document affiché à l'écran") do |text|
   expect(find('.runningHead')).to have_content text
 end
+
+Alors ("le document {string} est inclus dans la collection {string}") do |image, image_collection|
+  expect(find('.page')).to have_content image
+end

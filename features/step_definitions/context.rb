@@ -85,3 +85,7 @@ end
 Soit("{string} le document actuel dans la collection") do |text|
   expect(find('.runningHead')).to have_content text
 end
+Soit('{string} image principal') do |title|
+  expect(find('.gloses')).to have_content title
+end
+
