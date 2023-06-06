@@ -85,3 +85,13 @@ end
 Soit("{string} le document actuel dans la collection") do |text|
   expect(find('.runningHead')).to have_content text
 end
+
+Soit('le document actuel {string} dans la collection {string}') do |document, collection|
+  document_id = get_id(document)
+  collection_id = get_id(collection)
+  go_on_document_inside_collection(document_id, collection_id)
+end
+
+Soit('{string} autre collection dans laquelle le document principal est contenu') do |text|
+  expect(find('.related-collections-displayer')).to have_content text
+end
