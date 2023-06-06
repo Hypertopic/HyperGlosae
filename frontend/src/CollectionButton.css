@@ -1,0 +1,8 @@
+.collectionButton {
+    height: 56px !important;
+    width: inherit;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* 隐藏超出容器的内容 */
+    white-space: nowrap; /* 禁止文字换行 */
+}

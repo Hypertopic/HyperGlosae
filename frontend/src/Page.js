@@ -24,6 +24,8 @@ function Page({backend}) {
   const [content, setContent] = useState([]);
   const [trail, setTrail] = useState({});
   const [lastUpdate, setLastUpdate] = useState();
+  const [collections, setCollections] = useState([]);
+  const [isCollection, setIsCollection] = useState(true);
   let {id, collectionId} = useParams();
   const position = useMemo(() => {
     if (trail.links && id) {
@@ -58,6 +60,15 @@ function Page({backend}) {
           console.log(error.message);
         }
       );
+    backend.getView({view: 'all_collection'})
+      .then(
+        (rows) => {
+          setCollections(rows);
+        },
+        (error) => {
+          console.log(error.message);
+        }
+      );
   }, [id, lastUpdate]);
 
   useEffect(() => {
@@ -74,6 +85,7 @@ function Page({backend}) {
           x => !forwardLinks.includes(x._id) && x._id !== id
         );
         setScholiaMetadata(reverseLinkedDocuments);
+        forwardLinks.length ? setIsCollection(true) : setIsCollection(false);
       };
       if (collectionId) {
         setTrail(metadata.find((item) => item._id === collectionId));
@@ -123,13 +135,13 @@ function Page({backend}) {
     <Container className="screen">
       <Row>
         <Col md={2} className="sources">
-          <DocumentsCards docs={sourcesOfSourceMetadata} byRow={1} />
+          <DocumentsCards docs={sourcesOfSourceMetadata} collections={collections} byRow={1}/>
         </Col>
         <Col className="page">
-          <Row className ="runningHead">
-            <RunningHeadSource metadata={ sourceMetadata } />
+          <Row className="runningHead">
+            <RunningHeadSource metadata={sourceMetadata}/>
             <RunningHeadMargin {...{backend}}
-              metadata={ metadata.find(x => (x._id === margin)) }
+              metadata={metadata.find(x => (x._id === margin))}
             />
           </Row>
           {page.map(({rubric, source, scholia}, i) =>
@@ -138,8 +150,8 @@ function Page({backend}) {
             />)
           }
         </Col>
-        <References scholiaMetadata={scholiaMetadata} active={!margin}
-          createOn={[id]} {...{setLastUpdate, backend}}
+        <References scholiaMetadata={scholiaMetadata} active={!margin} collections={collections}
+          createOn={[id]} {...{setLastUpdate, backend, isCollection}}
         />
       </Row>
       <div className="navbar-collec">
@@ -169,7 +181,7 @@ function Passage({source, rubric, scholia, margin, backend}) {
                 {source}
               </FormattedText>
             </Col>
-            <Rubric id={rubric} />
+            <Rubric id={rubric}/>
           </Row>
         </Container>
       </Col>
@@ -198,9 +210,9 @@ function PassageMargin({active, scholium, rubric, backend}) {
 function RunningHeadSource({metadata}) {
   return (
     <Col className="main">
-      <BookmarkFill className="icon" />
-      <Metadata metadata={metadata} />
-      <TypeBadge type={metadata?.type} />
+      <BookmarkFill className="icon"/>
+      <Metadata metadata={metadata}/>
+      <TypeBadge type={metadata?.type}/>
     </Col>
   );
 }
@@ -209,19 +221,19 @@ function RunningHeadMargin({metadata, backend}) {
   if (!metadata) return;
   return (
     <Col xs={5} className="scholium">
-      <BrowseTools id={metadata._id} closable={true} />
+      <BrowseTools id={metadata._id} closable={true}/>
       <Metadata metadata={metadata} editable={true} {...{backend}} />
       <Type metadata={metadata} editable={true} {...{backend}}/>
     </Col>
   );
 }
 
-function References({scholiaMetadata, active, createOn, setLastUpdate, backend}) {
+function References({scholiaMetadata, active, createOn, setLastUpdate, backend, collections, isCollection}) {
   if (!active) return;
   return (
-    <Col className="gloses" >
-      <DocumentsCards docs={scholiaMetadata} expandable={true} byRow={1}
-        {...{createOn, setLastUpdate, backend}}
+    <Col className="gloses">
+      <DocumentsCards docs={scholiaMetadata} expandable={true} byRow={1} collections={collections}
+        {...{createOn, setLastUpdate, backend, isCollection}}
       />
     </Col>
   );
