@@ -53,3 +53,11 @@ end
 def resize_window(width, heigth)
   page.current_window.resize_to(width, heigth)
 end
+
+def fill_element(selector, text)
+  find(selector).fill_in with: text
+end
+
+def click_on_element(class_name, text)
+  find(class_name, text: text).click
+end

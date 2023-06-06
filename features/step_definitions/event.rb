@@ -12,18 +12,18 @@ end
 
 Quand("j'essaie de remplacer les métadonnées de la glose par :") do |metadata|
   click_on_text('metadata')
-  find('textarea').fill_in with: metadata
+  fill_element('textarea', metadata)
   leave_textarea
 end
 
 Quand("j'attache le type {string}") do |type|
   click_on_icon('typeIcon')
-  find('.typeBadge', text: type).click
+  click_on_element('.typeBadge', type)
 end
 
 Quand("j'essaie de remplacer le contenu de la glose par :") do |markdown|
   click_on_text('content')
-  find('textarea').fill_in with: markdown
+  fill_element('textarea', markdown)
   leave_textarea
 end
 
