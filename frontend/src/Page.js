@@ -10,7 +10,7 @@ import Metadata from './Metadata';
 import DocumentsCards from './DocumentsCards';
 import BrowseTools from './BrowseTools';
 import EditableText from './EditableText';
-import FormattedText from './FormattedText';
+import DocumentSources from './DocumentSources';
 import Type, { TypeBadge } from './Type';
 import NavbarCollection from './navbarCollection';
 
@@ -165,9 +165,9 @@ function Passage({source, rubric, scholia, margin, backend}) {
         <Container>
           <Row>
             <Col>
-              <FormattedText>
+              <DocumentSources>
                 {source}
-              </FormattedText>
+              </DocumentSources>
             </Col>
             <Rubric id={rubric} />
           </Row>
