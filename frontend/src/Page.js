@@ -220,7 +220,7 @@ function References({scholiaMetadata, active, createOn, setLastUpdate, backend})
   if (!active) return;
   return (
     <Col className="gloses" >
-      <DocumentsCards docs={scholiaMetadata} expandable={true} byRow={1}
+      <DocumentsCards docs={scholiaMetadata} expandable={true} byRow={1} isDeletable={true}
         {...{createOn, setLastUpdate, backend}}
       />
     </Col>

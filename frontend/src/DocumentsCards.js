@@ -8,13 +8,14 @@ import BrowseTools from './BrowseTools';
 import FutureDocument from './FutureDocument';
 import FutureCollection from './FutureCollection';
 import { TypeBadge } from './Type';
+import DeleteReferenceButton from './DeleteReferenceButton';
 
-function DocumentsCards({docs, expandable, byRow, createOn, setLastUpdate, backend}) {
+function DocumentsCards({docs, expandable, byRow, isDeletable, createOn, setLastUpdate, backend}) {
   return (
     <Row className="gy-4">
       {docs.map(x =>
         <Col key={x._id} md={ byRow && (12 / byRow) }>
-          <DocumentCard doc={x} expandable={expandable} />
+          <DocumentCard doc={x} expandable={expandable} isDeletable={isDeletable} ref_id={createOn} {...{setLastUpdate, backend}}/>
         </Col>
       )}
       {createOn &&
@@ -35,7 +36,7 @@ function DocumentsCards({docs, expandable, byRow, createOn, setLastUpdate, backe
   );
 }
 
-function DocumentCard({doc, expandable}) {
+function DocumentCard({doc, expandable, isDeletable, ref_id, setLastUpdate, backend}) {
   const collectionId = useMemo(() => {
     if (doc?.links?.length > 1) {
       return doc.links.every((item) => {
@@ -48,6 +49,11 @@ function DocumentCard({doc, expandable}) {
 
   return (
     <Card className="h-100">
+      {isDeletable && (
+        <Card.Header className="d-flex justify-content-end">
+          <DeleteReferenceButton doc={doc} ref_id={ref_id} setLastUpdate={setLastUpdate} backend={backend}/>
+        </Card.Header>
+      )}
       <Card.Body>
         <BrowseTools
           id={collectionId ? doc.links.length && windowWidth.current < 820 ? doc.links[0].object : doc._id : doc._id}
