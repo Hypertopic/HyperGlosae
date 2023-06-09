@@ -85,3 +85,7 @@ end
 Soit("{string} le document actuel dans la collection") do |text|
   expect(find('.runningHead')).to have_content text
 end
+
+Soit('{string} une des gloses ouverte') do |title|
+  click_on_icon_next_to('open', title)
+end

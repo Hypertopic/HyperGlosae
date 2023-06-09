@@ -72,3 +72,10 @@ end
 Alors("{string} est le document affiché à l'écran") do |text|
   expect(find('.runningHead')).to have_content text
 end
+
+Alors('la vidéo du document principal se lance de {string} secondes à {string} secondes') do |start, ending|
+  within_frame do
+    expect(page.body).to match(/"start":\s*#{start}/)
+    expect(page.body).to match(/"end":\s*#{ending}/)
+  end
+end
