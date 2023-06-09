@@ -72,3 +72,7 @@ end
 Alors("{string} est le document affiché à l'écran") do |text|
   expect(find('.runningHead')).to have_content text
 end
+
+Alors("La référence {string} n'existe pas dans le document principal") do |title|
+  expect(page).not_to have_content title
+end

@@ -34,3 +34,7 @@ end
 Quand("je navigue vers le document suivant") do
   click_on('->')
 end
+
+Quand("je vais supprimer les références") do
+  click_on_icon('delete_reference')
+end
