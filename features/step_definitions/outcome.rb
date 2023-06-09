@@ -72,3 +72,7 @@ end
 Alors("{string} est le document affiché à l'écran") do |text|
   expect(find('.runningHead')).to have_content text
 end
+
+Alors('la vidéo du document principal se lance de {string} secondes à {string} secondes') do |start, ending|
+  expect(page).to have_xpath("//iframe[contains(@src, 'start=#{start}&end=#{ending}')]")
+end

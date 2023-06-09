@@ -34,3 +34,7 @@ end
 Quand("je navigue vers le document suivant") do
   click_on('->')
 end
+
+Quand("je clique sur la référence temporelle {string} avec pour commentaire {string}") do |timecode, comment|
+  find(:xpath, "//p[contains(., \"#{timecode}\")]", match: :first).click
+end
