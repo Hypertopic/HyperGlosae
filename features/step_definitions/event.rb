@@ -34,3 +34,11 @@ end
 Quand("je navigue vers le document suivant") do
   click_on('->')
 end
+
+Quand("j'ajoute \"Photographie : vitrail, baie 113\" à la collection {string}") do |title|
+  click_on_icon('addCollection')
+  collection_list = all('.collectionList', visible: true)
+  random_index = rand(collection_list.length)
+  collection_list[random_index].click
+  # find('.collectionList').click
+end
