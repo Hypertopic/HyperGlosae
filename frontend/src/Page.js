@@ -24,6 +24,7 @@ function Page({backend}) {
   const [content, setContent] = useState([]);
   const [trail, setTrail] = useState({});
   const [lastUpdate, setLastUpdate] = useState();
+  const [collections, setCollections] = useState([]);
   let {id, collectionId} = useParams();
   const position = useMemo(() => {
     if (trail.links && id) {
@@ -59,6 +60,18 @@ function Page({backend}) {
         }
       );
   }, [id, lastUpdate]);
+
+  useEffect(() => {
+    backend.getView({view: 'all_collection'})
+      .then(
+        (rows) => {
+          setCollections(rows);
+        },
+        (error) => {
+          console.log(error.message);
+        }
+      );
+  }, []);
 
   useEffect(() => {
     if (metadata.length) {
@@ -123,7 +136,7 @@ function Page({backend}) {
     <Container className="screen">
       <Row>
         <Col md={2} className="sources">
-          <DocumentsCards docs={sourcesOfSourceMetadata} byRow={1} />
+          <DocumentsCards docs={sourcesOfSourceMetadata} byRow={1} collections={collections} />
         </Col>
         <Col className="page">
           <Row className ="runningHead">
@@ -138,7 +151,7 @@ function Page({backend}) {
             />)
           }
         </Col>
-        <References scholiaMetadata={scholiaMetadata} active={!margin}
+        <References scholiaMetadata={scholiaMetadata} active={!margin} collections={collections}
           createOn={[id]} {...{setLastUpdate, backend}}
         />
       </Row>
@@ -216,11 +229,11 @@ function RunningHeadMargin({metadata, backend}) {
   );
 }
 
-function References({scholiaMetadata, active, createOn, setLastUpdate, backend}) {
+function References({scholiaMetadata, active, createOn, setLastUpdate, backend, collections}) {
   if (!active) return;
   return (
     <Col className="gloses" >
-      <DocumentsCards docs={scholiaMetadata} expandable={true} byRow={1}
+      <DocumentsCards docs={scholiaMetadata} expandable={true} byRow={1} collections={collections}
         {...{createOn, setLastUpdate, backend}}
       />
     </Col>

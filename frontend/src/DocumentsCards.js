@@ -6,10 +6,10 @@ import Row from 'react-bootstrap/Row';
 import Metadata from './Metadata';
 import BrowseTools from './BrowseTools';
 import FutureDocument from './FutureDocument';
-import FutureCollection from './FutureCollection';
 import { TypeBadge } from './Type';
+import CollectionList from './CollectionList';
 
-function DocumentsCards({docs, expandable, byRow, createOn, setLastUpdate, backend}) {
+function DocumentsCards({docs, expandable, byRow, createOn, setLastUpdate, backend, collections}) {
   return (
     <Row className="gy-4">
       {docs.map(x =>
@@ -25,7 +25,7 @@ function DocumentsCards({docs, expandable, byRow, createOn, setLastUpdate, backe
             </Col>
             {(createOn.length > 0) &&
               <Col>
-                <FutureCollection relatedTo={createOn} {...{setLastUpdate, backend}} />
+                <CollectionList relatedTo={createOn} collections={collections} {...{setLastUpdate, backend}} />
               </Col>
             }
           </Row>

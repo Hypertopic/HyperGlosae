@@ -1,7 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import Card from 'react-bootstrap/Card';
 import { v4 as uuidv4 } from 'uuid';
-import { FolderPlus } from 'react-bootstrap-icons';
 
 function FutureCollection({relatedTo, setLastUpdate, backend}) {
   const navigate = useNavigate();
@@ -28,10 +27,8 @@ function FutureCollection({relatedTo, setLastUpdate, backend}) {
 
   return (
     <Card className="h-100">
-      <Card.Body className="text-center">
-        <FolderPlus title="Create a collection from this document"
-          className="icon create-collection" onClick={handleClick}
-        />
+      <Card.Body className="creation">
+        <span title="Create a collection from this document" className="icon create-collection" onClick={handleClick}>Create a new Collection.</span>
       </Card.Body>
     </Card>
   );
