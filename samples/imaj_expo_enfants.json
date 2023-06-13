@@ -1,0 +1,18 @@
+{
+  "_id": "a0cdf96ab2c211ed9f5ecfb8295a0b31",
+  "dc_title": "Exposition \"Nos dessins préférés\"",
+  "dc_isPartOf": "",
+  "dc_creator": "Léa et Léo",
+  "dc_issued": "2022-10-13",
+  "text": "",
+  "links": [ {
+    "verb": "includes",
+    "object": "8844c7de386e11eeb84fc79a7aaea501"
+  }, {
+    "verb": "includes",
+    "object": "9173da34386e11ee90e31bb3eed21e3b"
+  }, {
+    "verb": "includes",
+    "object": "d2b49a6a386e11ee8b464fb7626a2c27"
+  }]
+}

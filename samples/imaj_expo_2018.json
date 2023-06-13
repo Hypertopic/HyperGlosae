@@ -1,0 +1,20 @@
+{
+  "_id": "a0cdf96ab2c211ed9f5acfb8095a0b31",
+  "dc_title": "Exposition \"La paix, le bien vivre ensemble\"",
+  "dc_creator": "IMAJ",
+  "dc_issued": "2018",
+  "text": "",
+  "links": [ {
+    "verb": "includes",
+    "object": "8844c7de386e11eeb84fc79a7aaea501"
+  }, {
+    "verb": "includes",
+    "object": "9173da34386e11ee90e31bb3eed21e3b"
+  }, {
+    "verb": "includes",
+    "object": "9a7905fa386e11ee90a5bb6241e80425"
+  }, {
+    "verb": "includes",
+    "object": "a707c202386e11ee88f7b705d6ffcd0a"
+  }]
+}

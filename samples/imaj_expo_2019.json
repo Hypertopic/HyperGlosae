@@ -1,0 +1,20 @@
+{
+  "_id": "a0cdf96ab2c211ed9f5ecfb8295a0b66",
+  "dc_title": "Exposition \"Traces et écritures dans l'Histoire\"",
+  "dc_creator": "IMAJ",
+  "dc_issued": "2019",
+  "text": "",
+  "links": [ {
+    "verb": "includes",
+    "object": "b33f9568386e11eea7644766f8f7218a"
+  }, {
+    "verb": "includes",
+    "object": "bc1eb592386e11ee8601d33e7e2de576"
+  }, {
+    "verb": "includes",
+    "object": "d2b49a6a386e11ee8b464fb7626a2c27"
+  }, {
+    "verb": "includes",
+    "object": "fe8beb2a386e11ee9dec4735e408414e"
+  }]
+}
