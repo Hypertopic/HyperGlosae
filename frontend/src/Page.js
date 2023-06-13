@@ -97,7 +97,8 @@ function Page({backend}) {
       let passages = content.reduce(({whole, part}, x, i, {length}) => {
         if (part.rubric && (x.key[1] !== part.rubric || !shouldBeAligned && i === length - 1)) {
           whole.push(part);
-          part = {source: '', scholia: []};
+          part = {source: [], scholia: []};
+          Array.from(part.source);
         }
         if (shouldBeAligned) {
           part.rubric = x.key[1];
@@ -105,7 +106,7 @@ function Page({backend}) {
         let text = getText(x);
         let isPartOf = x.value.isPartOf;
         if (isPartOf === id) {
-          part.source += '\n\n' + text;
+          part.source.push(text);
         } else {
           part.scholia = [...part.scholia || [], {id: x.id, text, isPartOf}];
         }
@@ -113,7 +114,7 @@ function Page({backend}) {
           return [...whole, part];
         }
         return {whole, part};
-      }, {whole: [], part: {source: '', scholia: []}});
+      }, {whole: [], part: {source: [], scholia: []}});
       passages = Array.isArray(passages) ? passages : [];
       setPage(passages);
     }
