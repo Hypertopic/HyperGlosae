@@ -1,0 +1,20 @@
+{
+    "_id": "a0cdf96ab2c211ed9f5ecfb8295a0b31",
+    "dc_title": "Exposition de Léa et Léo",
+    "dc_isPartOf": "",
+    "dc_creator": "Préférées",
+    "dc_issued": "2022-10-13",
+    "text": "",
+    "dc_license": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "links": [ {
+      "verb": "includes",
+      "object": "b8cc79d8abba11edb9ee53989bc96c07"
+    }, {
+      "verb": "includes",
+      "object": "b8cc79d8abba12edb9ee53989bc96c17"
+    }, {
+      "verb": "includes",
+      "object": "b8cc79d9abba12eyu9ee53989bc96c77"
+    }]
+  }
+  

@@ -1,0 +1,22 @@
+{
+    "_id": "a0cdf96ab2c211ed9f5acfb8095a0b31",
+    "dc_title": "Exposition 2018",
+    "dc_isPartOf": "",
+    "dc_creator": "Lauréats",
+    "dc_issued": "2018-10-13",
+    "text": "",
+    "dc_license": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "links": [ {
+      "verb": "includes",
+      "object": "b8cc79d8abba11edb9ee53989bc96c17"
+    }, {
+      "verb": "includes",
+      "object": "b8cc79d8abba12edb9ee53989bc96c17"
+    }, {
+      "verb": "includes",
+      "object": "b8cc79d9abba12edb9ee53989bc96f17"
+    }, {
+      "verb": "includes",
+      "object": "b8cc79d9abba12edb9ee53989bc96c17"
+    }]
+  }
