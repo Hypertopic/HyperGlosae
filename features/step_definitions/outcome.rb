@@ -39,12 +39,12 @@ Alors("je ne vois pas l'image {string}") do |alternative_text|
   expect(page).not_to have_image(alternative_text)
 end
 
-Alors("je vois que la licence du document principal est {string}") do |text|
-  expect(page).to have_content text
+Alors("je vois que l'image de la licence du document principal est {string}") do |image|
+  expect(page).to have_image image
 end
 
-Alors("je vois que la licence de la glose est {string}") do |text|
-  expect(find('.scholium .license')).to have_content text
+Alors("je vois que l'image de la licence de la glose est {string}") do |image|
+  expect(find('.scholium .license')).to have_image image
 end
 
 Alors("l'image intégrée dans la page {string} est légendée par son titre : {string}") do |image, image_caption|
