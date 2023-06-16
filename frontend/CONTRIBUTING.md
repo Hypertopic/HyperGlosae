@@ -64,3 +64,8 @@ The build is minified and the filenames include the hashes.\
 Your app is ready to be deployed!
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
+## Run and fix eslint
+```
+npm run lint
+```
+

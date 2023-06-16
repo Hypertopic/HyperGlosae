@@ -1,15 +1,15 @@
 import ReactMarkdown from 'react-markdown';
 import remarkUnwrapImages from 'remark-unwrap-images';
-import { remarkDefinitionList, defListHastHandlers } from 'remark-definition-list';
+import { defListHastHandlers, remarkDefinitionList } from 'remark-definition-list';
 import CroppedImage from './CroppedImage';
 
-function FormattedText({children}) {
+function FormattedText({ children }) {
   return (
     <ReactMarkdown
-      remarkPlugins={[remarkDefinitionList, remarkUnwrapImages]}
+      remarkPlugins={[ remarkDefinitionList, remarkUnwrapImages ]}
       components={{
         img: (x) => embedVideo(x) || CroppedImage(x),
-        a: ({children, href}) => <a href={href}>{children}</a>
+        a: ({ children, href }) => <a href={href}>{children}</a>
       }}
       remarkRehypeOptions={{
         handlers: defListHastHandlers
@@ -26,7 +26,7 @@ function getId(text) {
   return match ? match[1] : null;
 }
 
-function embedVideo({src}) {
+function embedVideo({ src }) {
   const videoId = getId(src);
   if (videoId) {
     const embedLink = `https://www.youtube.com/embed/${videoId}`;

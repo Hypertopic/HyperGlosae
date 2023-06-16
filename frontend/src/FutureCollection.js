@@ -3,13 +3,13 @@ import Card from 'react-bootstrap/Card';
 import { v4 as uuidv4 } from 'uuid';
 import { FolderPlus } from 'react-bootstrap-icons';
 
-function FutureCollection({relatedTo, setLastUpdate, backend}) {
+function FutureCollection({ relatedTo, setLastUpdate, backend }) {
   const navigate = useNavigate();
 
   let handleClick = async () => {
     let _id = uuidv4();
-    let editors = [backend.credentials.name];
-    let links = relatedTo.map(object => ({verb: 'includes', object}));
+    let editors = [ backend.credentials.name ];
+    let links = relatedTo.map(object => ({ verb: 'includes', object }));
     backend.putDocument({
       _id,
       editors,
@@ -20,7 +20,7 @@ function FutureCollection({relatedTo, setLastUpdate, backend}) {
       dc_license: 'https://creativecommons.org/licenses/by-sa/4.0/',
       links
     })
-      .then((x) => {
+      .then(() => {
         setLastUpdate(_id);
         navigate((relatedTo.length ? '#' : '/') + _id);
       });

@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import { useMemo } from 'react';
 import Card from 'react-bootstrap/Card';
 import Col from 'react-bootstrap/Col';
@@ -10,23 +9,23 @@ import FutureCollection from './FutureCollection';
 import { TypeBadge } from './Type';
 import { isPhoneSizedWindow } from './utils';
 
-function DocumentsCards({docs, expandable, byRow, createOn, setLastUpdate, backend}) {
+function DocumentsCards({ docs, expandable, byRow, createOn, setLastUpdate, backend }) {
   return (
     <Row className="gy-4">
       {docs.map(x =>
-        <Col key={x._id} md={ byRow && (12 / byRow) }>
-          <DocumentCard doc={x} expandable={expandable} />
+        <Col key={x._id} md={byRow && (12 / byRow)}>
+          <DocumentCard doc={x} expandable={expandable}/>
         </Col>
       )}
       {createOn &&
         <Col>
           <Row>
             <Col>
-              <FutureDocument relatedTo={createOn} {...{setLastUpdate, backend}} />
+              <FutureDocument relatedTo={createOn} {...{ setLastUpdate, backend }} />
             </Col>
             {(createOn.length > 0) &&
               <Col>
-                <FutureCollection relatedTo={createOn} {...{setLastUpdate, backend}} />
+                <FutureCollection relatedTo={createOn} {...{ setLastUpdate, backend }} />
               </Col>
             }
           </Row>
@@ -36,15 +35,16 @@ function DocumentsCards({docs, expandable, byRow, createOn, setLastUpdate, backe
   );
 }
 
-export function DocumentCard({doc, expandable}) {
+export function DocumentCard({ doc, expandable }) {
   const collectionId = useMemo(() => {
     if (doc?.links?.length > 1) {
       return doc.links.every((item) => {
         return item.verb === 'includes';
       }) ? doc._id : undefined;
-    };
+    }
+
     return undefined;
-  }, [doc]);
+  }, [ doc ]);
 
   return (
     <Card className="h-100">
@@ -54,15 +54,15 @@ export function DocumentCard({doc, expandable}) {
           openable={expandable}
           collectionId={collectionId}
         />
-        <Metadata metadata={doc} />
+        <Metadata metadata={doc}/>
         <TypeBadge type={doc?.type}/>
       </Card.Body>
-      <References doc={doc} />
+      <References doc={doc}/>
     </Card>
   );
 }
 
-function References({doc}) {
+function References({ doc }) {
   if (doc.referenced) return (
     <Card.Footer>
       referenced by {doc.referenced} document(s)

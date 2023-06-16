@@ -10,11 +10,11 @@ function CroppedImage({ src, alt, title }) {
 
   let fragment = src.match(/#xywh=percent:([.\d]+),([.\d]+),([.\d]+),([.\d]+)/);
   if (fragment) {
-    let [_, x, y, width, height] = fragment;
+    let [ , x, y, width, height ] = fragment;
     let crop = { unit: '%', x, y, width, height };
     return (
       <figure className="figure">
-        <ReactCrop {...{ crop }} disabled={true} >
+        <ReactCrop {...{ crop }} disabled={true}>
           {image}
         </ReactCrop>
         {caption}

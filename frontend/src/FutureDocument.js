@@ -5,13 +5,13 @@ import Card from 'react-bootstrap/Card';
 import { PlusLg } from 'react-bootstrap-icons';
 import { v4 as uuid } from 'uuid';
 
-function FutureDocument({relatedTo, setLastUpdate, backend}) {
+function FutureDocument({ relatedTo, setLastUpdate, backend }) {
   const navigate = useNavigate();
 
   let handleClick = async () => {
     let _id = uuid();
-    let editors = [backend.credentials.name];
-    let links = relatedTo.map(object => ({verb: 'refersTo', object}));
+    let editors = [ backend.credentials.name ];
+    let links = relatedTo.map(object => ({ verb: 'refersTo', object }));
     backend.putDocument({
       _id,
       editors,
@@ -20,7 +20,7 @@ function FutureDocument({relatedTo, setLastUpdate, backend}) {
       dc_issued: new Date(),
       text: '<TEXT>',
       links
-    }).then((x) => {
+    }).then(() => {
       setLastUpdate(_id);
       navigate((relatedTo.length ? '#' : '/') + _id);
     });
