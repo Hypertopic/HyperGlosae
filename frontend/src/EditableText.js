@@ -1,11 +1,11 @@
 import './EditableText.css';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import FormattedText from './FormattedText';
 
-function EditableText({id, text, rubric, backend}) {
-  const [beingEdited, setBeingEdited] = useState(false);
-  const [editedDocument, setEditedDocument] = useState({
+function EditableText({ id, text, rubric, backend }) {
+  const [ beingEdited, setBeingEdited ] = useState(false);
+  const [ editedDocument, setEditedDocument ] = useState({
     text: (rubric) ? `{${rubric}} ${text}` : text
   });
   const PASSAGE = new RegExp(`\\{${rubric}} ?([^{]+)`);

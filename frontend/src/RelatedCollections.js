@@ -60,10 +60,11 @@ export default function DisplayRelatedCollections({
       {relatedCollections.length !== 0 && (
         <div className="related-collections">
           <h5>Autres parcours liés :</h5>
-          {relatedCollections.map((collection) => {
+          {relatedCollections.map((collection, i) => {
             return (
 
               <DocumentCard
+                key={i}
                 doc={collection}
                 expandable={false}
               />

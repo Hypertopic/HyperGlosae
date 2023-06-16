@@ -1,84 +1,84 @@
 .page {
-  text-align: justify;
-  border-radius: 10px;
+    text-align: justify;
+    border-radius: 10px;
 }
 
 .page .row p {
-  white-space: pre-wrap;
+    white-space: pre-wrap;
 }
 
 .main {
-  background-color: ghostwhite;
+    background-color: ghostwhite;
 }
 
 .page .runningHead div {
-  padding-top: 17px;
-  padding-bottom: 17px;
+    padding-top: 17px;
+    padding-bottom: 17px;
 }
 
 .page .row:first-of-type .main {
-  border-radius: 10px 0px 0px 0px;
-  text-align: left;
+    border-radius: 10px 0px 0px 0px;
+    text-align: left;
 }
 
 .page .row:last-of-type .main {
-  border-radius: 0px 0px 0px 10px;
+    border-radius: 0px 0px 0px 10px;
 }
 
 .rubric {
-  color: crimson;
-  text-align: center;
+    color: crimson;
+    text-align: center;
 }
 
 .scholium {
-  background-color: gainsboro;
+    background-color: gainsboro;
 }
 
 .page .row:first-of-type .scholium {
-  border-radius: 0px 10px 0px 0px;
-  justify-content: flex-end;
-  text-align: right;
+    border-radius: 0px 10px 0px 0px;
+    justify-content: flex-end;
+    text-align: right;
 }
 
 .page .row:last-of-type .scholium {
-  border-radius: 0px 0px 10px 0px;
+    border-radius: 0px 0px 10px 0px;
 }
 
 .page > .row:last-of-type > div {
-  padding-bottom: 17px;
+    padding-bottom: 17px;
 }
 
 .runningHead {
-  color: crimson;
+    color: crimson;
 }
 
 .icon,
 .icon:hover {
-  color: crimson;
-  text-decoration: none;
-  margin-right: .5rem;
+    color: crimson;
+    text-decoration: none;
+    margin-right: .5rem;
 }
 
-.sources .card, 
+.sources .card,
 .gloses .card {
-  background-color: gainsboro;
-  text-color: black;
+    background-color: gainsboro;
+    text-color: black;
 }
 
 p, ul, h1, h2 {
-  margin-bottom: 0px !important;
+    margin-bottom: 0px !important;
 }
 
 dd {
-  padding-left: 30px;
+    padding-left: 30px;
 }
 
 .navbar-collec {
-  display: none
+    display: none
 }
 
 @media screen and (max-width: 820px) {
-  .navbar-collec {
-    display: block
-  }
+    .navbar-collec {
+        display: block
+    }
 }

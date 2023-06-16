@@ -1,17 +1,17 @@
 .work {
-  font-variant: small-caps;
-  margin-right: .5rem;
+    font-variant: small-caps;
+    margin-right: .5rem;
 }
 
 .edition {
-  padding-bottom: 12px;
+    padding-bottom: 12px;
 }
 
 .license a {
-  text-decoration: none;
-  color: inherit;
+    text-decoration: none;
+    color: inherit;
 }
 
 .license a:hover {
-  color: inherit;
+    color: inherit;
 }

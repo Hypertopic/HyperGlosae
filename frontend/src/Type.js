@@ -1,10 +1,10 @@
+import React from 'react';
 import './Metadata.css';
 import './Type.css';
 
 import { TagFill } from 'react-bootstrap-icons';
 import { useState } from 'react';
 import { Badge, ListGroup } from 'react-bootstrap';
-import hyperglosae from './hyperglosae';
 
 // { [typeName: string ]: typeColor }
 // type typeColor = primary | secondary | success | danger | warning | info | light | dark

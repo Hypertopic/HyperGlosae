@@ -3,13 +3,13 @@ import './Metadata.css';
 import { useEffect, useState } from 'react';
 import yaml from 'yaml';
 
-function Metadata({metadata = {}, editable, backend}) {
-  const [beingEdited, setBeingEdited] = useState(false);
-  const [editedDocument, setEditedDocument] = useState(metadata);
+function Metadata({ metadata = {}, editable, backend }) {
+  const [ beingEdited, setBeingEdited ] = useState(false);
+  const [ editedDocument, setEditedDocument ] = useState(metadata);
 
   useEffect(() => {
     setEditedDocument(metadata);
-  }, [metadata]);
+  }, [ metadata ]);
 
   let handleClick = () => {
     setBeingEdited(true);
@@ -23,7 +23,7 @@ function Metadata({metadata = {}, editable, backend}) {
     setBeingEdited(false);
     let updatedDocument = {
       ...Object.fromEntries(
-        Object.entries(editedDocument).filter(([key, _]) => !key.startsWith('dc_'))
+        Object.entries(editedDocument).filter(([ key ]) => !key.startsWith('dc_'))
       ),
       ...yaml.parse(event.target.value)
     };
@@ -33,30 +33,30 @@ function Metadata({metadata = {}, editable, backend}) {
 
   let editedMetadata = Object.fromEntries(
     Object.entries(editedDocument)
-      .filter(([key, _]) => key.startsWith('dc_'))
+      .filter(([ key ]) => key.startsWith('dc_'))
   );
 
   let format = (actors, prefix = '', suffix = '') =>
-    actors && (prefix + [actors].flat().join(' & ') + suffix);
+    actors && (prefix + [ actors ].flat().join(' & ') + suffix);
 
-  let getCaption = ({dc_title, dc_spatial}) => dc_title + (dc_spatial ? `, ${dc_spatial}` : '');
+  let getCaption = ({ dc_title, dc_spatial }) => dc_title + (dc_spatial ? `, ${dc_spatial}` : '');
 
   if (!beingEdited) {
-    let {dc_title, dc_spatial, dc_creator, dc_translator, dc_isPartOf, dc_issued} = editedMetadata;
+    let { dc_title, dc_spatial, dc_creator, dc_translator, dc_isPartOf, dc_issued } = editedMetadata;
     let attributes = (editable)
-      ? {className: 'editable metadata', onClick: handleClick, title: 'Edit metadata...'}
+      ? { className: 'editable metadata', onClick: handleClick, title: 'Edit metadata...' }
       : {};
     return (
       <span {...attributes}>
         <span className="work">
-          {getCaption({dc_title, dc_spatial})} {format(dc_creator, '(', ')')},
+          {getCaption({ dc_title, dc_spatial })} {format(dc_creator, '(', ')')},
         </span>
         <span className="edition">
           {format(dc_translator, 'Translated by ', ', ')}
           {dc_isPartOf ? <i>{dc_isPartOf}, </i> : ''}
           {dc_issued ? `${new Date(dc_issued).getFullYear()}` : ''}
         </span>
-        , <License metadata={metadata} />
+        , <License metadata={metadata}/>
       </span>
     );
   }
@@ -69,9 +69,9 @@ function Metadata({metadata = {}, editable, backend}) {
   );
 }
 
-function License({metadata}) {
+function License({ metadata }) {
   let license_uri = metadata.dc_license;
-  let [license_name] = /BY[\w-]+/i.exec(license_uri) || [];
+  let [ license_name ] = /BY[\w-]+/i.exec(license_uri) || [];
   if (license_name) return (
     <span className="license">
       <a href={license_uri}>

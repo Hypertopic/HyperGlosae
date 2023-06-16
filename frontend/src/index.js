@@ -7,7 +7,7 @@ import Bookshelf from './Bookshelf';
 import Hyperglosae from './hyperglosae';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { NotificationContainer, NotificationManager } from 'react-notifications';
 import 'react-notifications/lib/notifications.css';
 
@@ -19,12 +19,12 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <Menu {...{backend}} />
-      <NotificationContainer />
+      <Menu {...{ backend }} />
+      <NotificationContainer/>
       <Routes>
-        <Route path="/" element={<Bookshelf {...{backend}} />} />
-        <Route path="/:id" element={<Page {...{backend}} />} />
-        <Route path="/collection/:collectionId/document/:id" element={<Page {...{backend}} />} />
+        <Route path="/" element={<Bookshelf {...{ backend }} />}/>
+        <Route path="/:id" element={<Page {...{ backend }} />}/>
+        <Route path="/collection/:collectionId/document/:id" element={<Page {...{ backend }} />}/>
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

@@ -1,18 +1,19 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import { useNavigate } from 'react-router-dom';
 
-function NavbarCollection ({position, total, nextId, pastId, collectionId}) {
+function NavbarCollection({ position, total, nextId, pastId, collectionId }) {
 
   const navigate = useNavigate();
-  function handleClickBack () {
-    navigate(`/collection/${collectionId}/document/${pastId}`);
-  };
 
-  function handleClickUp () {
+  function handleClickBack() {
+    navigate(`/collection/${collectionId}/document/${pastId}`);
+  }
+
+  function handleClickUp() {
     navigate(`/collection/${collectionId}/document/${nextId}`);
-  };
+  }
 
   return (
     <>
@@ -37,6 +38,6 @@ function NavbarCollection ({position, total, nextId, pastId, collectionId}) {
       </Navbar>
     </>
   );
-};
+}
 
 export default NavbarCollection;

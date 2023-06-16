@@ -1,4 +1,4 @@
-import {Buffer} from 'buffer';
+import { Buffer } from 'buffer';
 
 const service = 'http://localhost:5984/hyperglosae';
 
@@ -6,7 +6,7 @@ function Hyperglosae(logger) {
 
   this.credentials = {};
 
-  this.getView = ({view, id, options = []}) =>
+  this.getView = ({ view, id, options = [] }) =>
     fetch(`${
       service
     }/_design/app/_view/${
@@ -23,8 +23,8 @@ function Hyperglosae(logger) {
     fetch(`${service}/${id}`)
       .then(x => x.json());
 
-  let basicAuthentication = ({force}) => {
-    let {name, password} = this.credentials;
+  let basicAuthentication = ({ force }) => {
+    let { name, password } = this.credentials;
     if (!force && !name && !password) return ({});
     return ({
       'Authorization': 'Basic ' + Buffer.from(`${name}:${password}`).toString('base64')
@@ -34,7 +34,7 @@ function Hyperglosae(logger) {
   this.putDocument = (doc) =>
     fetch(`${service}/${doc._id}`, {
       method: 'PUT',
-      headers: basicAuthentication({force: false}),
+      headers: basicAuthentication({ force: false }),
       body: JSON.stringify(doc)
     })
       .then(x => x.json())
@@ -45,11 +45,11 @@ function Hyperglosae(logger) {
         }
       });
 
-  this.authenticate = ({name, password}) => {
-    this.credentials = {name, password};
+  this.authenticate = ({ name, password }) => {
+    this.credentials = { name, password };
     return fetch(`${service}`, {
       method: 'GET',
-      headers: basicAuthentication({force: true})
+      headers: basicAuthentication({ force: true })
     })
       .then(x => x.json())
       .then(x => {
