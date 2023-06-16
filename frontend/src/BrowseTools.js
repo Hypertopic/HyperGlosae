@@ -1,9 +1,8 @@
 import { Link } from 'react-router-dom';
-import { useRef } from 'react';
 import { Bookmark, ChevronBarDown, ChevronExpand } from 'react-bootstrap-icons';
+import { isPhoneSizedWindow } from './utils';
 
 function BrowseTools({id, closable, openable, collectionId}) {
-  const windowWidth = useRef(window.innerWidth);
   return (
     <>
       {closable &&
@@ -12,11 +11,11 @@ function BrowseTools({id, closable, openable, collectionId}) {
         </Link>
       }
       {openable &&
-        <Link to={collectionId && windowWidth.current < 820 ? `#/collection/${collectionId}/document/${id}` : `#${id}`} className="icon open">
+        <Link to={collectionId && isPhoneSizedWindow() ? `#/collection/${collectionId}/document/${id}` : `#${id}`} className="icon open">
           <ChevronExpand title="Open this document" />
         </Link>
       }
-      <Link to={collectionId && windowWidth.current < 820 ? `../collection/${collectionId}/document/${id}` : `../${id}`} className="icon focus">
+      <Link to={collectionId && isPhoneSizedWindow() ? `../collection/${collectionId}/document/${id}` : `../${id}`} className="icon focus">
         <Bookmark title="Focus on this document" />
       </Link>
     </>

@@ -13,9 +13,13 @@ import EditableText from './EditableText';
 import FormattedText from './FormattedText';
 import Type, { TypeBadge } from './Type';
 import NavbarCollection from './navbarCollection';
+import {TypesContext} from './DocumentsCards';
+import RelatedCollections from './RelatedCollections';
+import { isPhoneSizedWindow } from './utils';
 
 function Page({backend}) {
 
+  const [types, setTypes] = useState([]);
   const [page, setPage] = useState([]);
   const [metadata, setMetadata] = useState([]);
   const [sourceMetadata, setSourceMetadata] = useState();
@@ -49,6 +53,12 @@ function Page({backend}) {
           setMetadata(documents);
         }
       );
+    backend.getView({view: 'types', options: ['include_docs']})
+      .then(
+        (rows) => {
+          setTypes(rows);
+        }
+      );
     backend.getView({view: 'content', id, options: ['include_docs']})
       .then(
         (rows) => {
@@ -74,7 +84,7 @@ function Page({backend}) {
           x => !forwardLinks.includes(x._id) && x._id !== id
         );
         setScholiaMetadata(reverseLinkedDocuments);
-      };
+      }
       if (collectionId) {
         setTrail(metadata.find((item) => item._id === collectionId));
       }
@@ -120,40 +130,39 @@ function Page({backend}) {
   }, [id, margin, content]);
 
   return (
-    <Container className="screen">
-      <Row>
-        <Col md={2} className="sources">
-          <DocumentsCards docs={sourcesOfSourceMetadata} byRow={1} />
-        </Col>
-        <Col className="page">
-          <Row className ="runningHead">
-            <RunningHeadSource metadata={ sourceMetadata } />
-            <RunningHeadMargin {...{backend}}
-              metadata={ metadata.find(x => (x._id === margin)) }
-            />
-          </Row>
-          {page.map(({rubric, source, scholia}, i) =>
-            <Passage key={rubric || i}
-              {...{source, rubric, scholia, margin, backend}}
-            />)
+    <TypesContext.Provider value={types}>
+      <Container className="screen">
+        <Row>
+          <Col md={2} className="sources">
+            <DocumentsCards docs={sourcesOfSourceMetadata} types={types} byRow={1} />
+          </Col>
+          <Col className="page">
+            <Row className="runningHead">
+              <RunningHeadSource metadata={sourceMetadata}/>
+              <RunningHeadMargin {...{backend}} metadata={metadata.find(x => (x._id === margin))} />
+            </Row>
+            {page.map(({rubric, source, scholia}, i) =>
+              <Passage key={rubric || i} {...{source, rubric, scholia, margin, backend}} />)
+            }
+          </Col>
+          <References types={types} scholiaMetadata={scholiaMetadata} active={!margin} createOn={[id]} {...{setLastUpdate, backend}} />
+        </Row>
+        <div className="navbar-collec">
+          {(trail.links && position) != undefined &&
+            <>
+              <RelatedCollections relatedDocumentsMetadata={scholiaMetadata} currentCollectionId={collectionId} />
+              <NavbarCollection
+                position={position + 1}
+                total={trail.links.length}
+                pastId={ (position) == 0 ? undefined : trail.links[position - 1].object }
+                nextId={ (position == trail.links.length - 1) ? undefined : trail.links[position + 1].object }
+                collectionId={trail._id}
+              />
+            </>
           }
-        </Col>
-        <References scholiaMetadata={scholiaMetadata} active={!margin}
-          createOn={[id]} {...{setLastUpdate, backend}}
-        />
-      </Row>
-      <div className="navbar-collec">
-        {(trail.links && position) != undefined &&
-          <NavbarCollection
-            position={position + 1}
-            total={trail.links.length}
-            pastId={ (position) == 0 ? undefined : trail.links[position - 1].object }
-            nextId={ (position == trail.links.length - 1) ? undefined : trail.links[position + 1].object }
-            collectionId={trail._id}
-          />
-        }
-      </div>
-    </Container>
+        </div>
+      </Container>
+    </TypesContext.Provider>
   );
 }
 
@@ -216,13 +225,11 @@ function RunningHeadMargin({metadata, backend}) {
   );
 }
 
-function References({scholiaMetadata, active, createOn, setLastUpdate, backend}) {
+function References({scholiaMetadata, types, active, createOn, setLastUpdate, backend}) {
   if (!active) return;
   return (
-    <Col className="gloses" >
-      <DocumentsCards docs={scholiaMetadata} expandable={true} byRow={1}
-        {...{createOn, setLastUpdate, backend}}
-      />
+    <Col className="gloses">
+      <DocumentsCards docs={scholiaMetadata} types={types} expandable={true} byRow={1} {...{createOn, setLastUpdate, backend}} />
     </Col>
   );
 }
