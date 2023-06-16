@@ -1,5 +1,4 @@
 import './Page.css';
-
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -149,16 +148,17 @@ function Page({backend}) {
         </Row>
         <div className="navbar-collec">
           {(trail.links && position) != undefined &&
-            <>
-              <RelatedCollections relatedDocumentsMetadata={scholiaMetadata} currentCollectionId={collectionId} />
-              <NavbarCollection
-                position={position + 1}
-                total={trail.links.length}
-                pastId={ (position) == 0 ? undefined : trail.links[position - 1].object }
-                nextId={ (position == trail.links.length - 1) ? undefined : trail.links[position + 1].object }
-                collectionId={trail._id}
-              />
-            </>
+          <>
+            <RelatedCollections relatedDocumentsMetadata={scholiaMetadata}
+              currentCollectionId={collectionId} />
+            <NavbarCollection
+              position={position + 1}
+              total={trail.links.length}
+              pastId={ (position) == 0 ? undefined : trail.links[position - 1].object }
+              nextId={ (position == trail.links.length - 1) ? undefined : trail.links[position + 1].object }
+              collectionId={trail._id}
+            />
+          </>
           }
         </div>
       </Container>
