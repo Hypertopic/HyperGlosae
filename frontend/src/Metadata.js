@@ -56,7 +56,7 @@ function Metadata({metadata = {}, editable, backend}) {
           {dc_isPartOf ? <i>{dc_isPartOf}, </i> : ''}
           {dc_issued ? `${new Date(dc_issued).getFullYear()}` : ''}
         </span>
-        , <License metadata={metadata} />
+        <License metadata={metadata} />
       </span>
     );
   }
@@ -73,15 +73,15 @@ function License({metadata}) {
   let license_uri = metadata.dc_license;
   let [license_name] = /BY[\w-]+/i.exec(license_uri) || [];
   if (license_name) return (
-    <span className="license">
+    <div className="license">
       <a href={license_uri}>
-        CC-{license_name.toUpperCase()}
+        <img src= {`./license/cc.${license_name.toLowerCase()}.svg`} alt={`CC-${license_name.toUpperCase()}`} style={{height: '2em'}}/>
       </a>
-    </span>
+    </div>
   );
   return (
     <span className="license">
-      All rights reserved
+      , All rights reserved
     </span>
   );
 }
