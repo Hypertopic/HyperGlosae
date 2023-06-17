@@ -24,18 +24,8 @@ function Page({backend}) {
   const [sourcesOfSourceMetadata, setSourcesOfSourceMetadata] = useState([]);
   const [scholiaMetadata, setScholiaMetadata] = useState([]);
   const [content, setContent] = useState([]);
-  const [trail, setTrail] = useState({});
   const [lastUpdate, setLastUpdate] = useState();
   let {id, collectionId} = useParams();
-  const position = useMemo(() => {
-    if (trail.links && id) {
-      let element = trail.links.find((item) => {
-        return item.object === id;
-      });
-      return trail.links.indexOf(element);
-    }
-    return undefined;
-  }, [trail.links, id]);
   let margin = useLocation().hash.slice(1);
   let hasRubrics = (id, rows) => rows.some(x => x.key[1] !== 0 && x.value.isPartOf === id && x.value.text);
   const getCaption = ({dc_title, dc_spatial}) => dc_title + (dc_spatial ? `, ${dc_spatial}` : '');
@@ -77,11 +67,8 @@ function Page({backend}) {
         );
         setScholiaMetadata(reverseLinkedDocuments);
       };
-      if (collectionId) {
-        setTrail(metadata.find((item) => item._id === collectionId));
-      }
     }
-  }, [id, metadata, lastUpdate, collectionId]);
+  }, [id, metadata, lastUpdate]);
 
   let getText = ({doc, value}) => {
     if (!doc) {
@@ -145,16 +132,13 @@ function Page({backend}) {
         />
       </Row>
       <div className="navbar-collec">
-        {(trail.links && position) != undefined &&
+        {(collectionId) != undefined && metadata.length && id != undefined &&
         <>
           <RelatedCollections relatedDocumentsMetadata={scholiaMetadata}
             currentCollectionId={collectionId} />
           <NavbarCollection
-            position={position + 1}
-            total={trail.links.length}
-            pastId={ (position) == 0 ? undefined : trail.links[position - 1].object }
-            nextId={ (position == trail.links.length - 1) ? undefined : trail.links[position + 1].object }
-            collectionId={trail._id}
+            trail={metadata.find((item) => item._id === collectionId)}
+            documentId={id}
           />
         </>
         }
