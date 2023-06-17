@@ -1,17 +1,40 @@
-import React, {useEffect} from 'react';
+import React, {useMemo} from 'react';
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import { useNavigate } from 'react-router-dom';
 
-function NavbarCollection ({position, total, nextId, pastId, collectionId}) {
+function NavbarCollection ({trail, documentId}) {
+
+  const position = useMemo(() => {
+    if (trail.links && documentId) {
+      let element = trail.links.find((item) => {
+        return item.object === documentId;
+      });
+      return trail.links.indexOf(element);
+    }
+    return undefined;
+  }, [trail.links, documentId]);
+
+  const pastId = useMemo(() => {
+    if (trail.links) {
+      return (position) == 0 ? undefined : trail.links[position - 1].object;
+    }
+  }, [trail.links, position]);
+
+  const nextId = useMemo(() => {
+    if (trail.links) {
+      return (position == trail.links.length - 1) ? undefined : trail.links[position + 1].object;
+    }
+  }, [trail.links, position]);
 
   const navigate = useNavigate();
+
   function handleClickBack () {
-    navigate(`/collection/${collectionId}/document/${pastId}`);
+    navigate(`/collection/${trail._id}/document/${pastId}`);
   };
 
   function handleClickUp () {
-    navigate(`/collection/${collectionId}/document/${nextId}`);
+    navigate(`/collection/${trail._id}/document/${nextId}`);
   };
 
   return (
@@ -25,7 +48,7 @@ function NavbarCollection ({position, total, nextId, pastId, collectionId}) {
             {'<-'}
           </button>
           <div className="text-warning">
-            Parcours: {position}/{total}
+            Parcours: {position + 1}/{trail.links.length}
           </div>
           <button
             className={nextId ? 'btn btn-outline-light next-document' : 'btn btn-outline-light disabled next-document'}
