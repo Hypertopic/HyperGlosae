@@ -95,3 +95,7 @@ end
 Soit('{string} autre collection dans laquelle le document principal est contenu') do |text|
   expect(find('.related-collections-displayer')).to have_content text
 end
+
+Soit('{string} une des gloses ouverte') do |title|
+  click_on_icon_next_to('open', title)
+end

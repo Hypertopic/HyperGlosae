@@ -1,0 +1,9 @@
+.comment:hover{
+    color:blue;
+    cursor: pointer;
+}
+
+.comment {
+    margin-top: 15px;
+    font-weight: bold;
+}

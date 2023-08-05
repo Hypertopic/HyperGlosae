@@ -76,3 +76,7 @@ end
 Alors("{string} est la collection actuelle") do |title|
   expect(find('.current-collection')).to have_content title
 end
+
+Alors('la vidéo du document principal se lance de {string} secondes à {string} secondes') do |start, ending|
+  expect(page).to have_xpath("//iframe[contains(@src, 'start=#{start}&end=#{ending}')]")
+end
