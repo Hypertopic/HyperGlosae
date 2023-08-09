@@ -1,4 +1,15 @@
 .typeBadge {
-    margin: 0 10px;
-    text-transform: capitalize
+    margin: 10px 5px;
+    text-transform: capitalize;
+    width: fit-content;
+    padding: 8px 20px!important;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 1;
+    color: white;
+    text-align: center;
+    vertical-align: baseline;
+    border-radius: 20px;
+    display: inline-block;
+    word-break: break-word;
 }
