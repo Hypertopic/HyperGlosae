@@ -23,22 +23,6 @@ Soit('je vois les gloses') do
   expect(find('.gloses'))
 end
 
-Soit('je ne vois pas les sources') do
-  expect(find('.sources', :visible => :hidden))
-end
-
-Soit('je ne vois pas les gloses') do
-  expect(find('.gloses', :visible => :hidden))
-end
-
-Soit('je suis sur téléphone') do
-  resize_window(550, 800)
-end
-
-Soit('je suis sur ordinateur') do
-  resize_window(1080, 1920)
-end
-
 Soit('une session active avec mon compte') do
   sign_in('alice', 'whiterabbit')
 end
@@ -76,24 +60,6 @@ Soit('un document existant contenant :') do |markdown|
   leave_textarea
   click_on_icon('focus')
   sign_out
-end
-
-Soit("le texte {string} visible dans la navbar") do |text|
-  expect(find('.navbar-collec')).to have_content text
-end
-
-Soit("{string} le document actuel dans la collection") do |text|
-  expect(find('.runningHead')).to have_content text
-end
-
-Soit('le document actuel {string} dans la collection {string}') do |document, collection|
-  document_id = get_id(document)
-  collection_id = get_id(collection)
-  go_on_document_inside_collection(document_id, collection_id)
-end
-
-Soit('{string} autre collection dans laquelle le document principal est contenu') do |text|
-  expect(find('.related-collections-displayer')).to have_content text
 end
 
 Soit('{string} une des gloses ouverte') do |title|

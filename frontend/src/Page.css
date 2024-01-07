@@ -73,12 +73,3 @@ dd {
   padding-left: 30px;
 }
 
-.navbar-collec {
-  display: none
-}
-
-@media screen and (max-width: 820px) {
-  .navbar-collec {
-    display: block
-  }
-}

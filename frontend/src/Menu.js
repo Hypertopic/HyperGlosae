@@ -10,7 +10,7 @@ import { useState } from 'react';
 
 function Menu({backend}) {
   return (
-    <Navbar bg="dark" variant="dark" className="navbarTop">
+    <Navbar bg="dark" variant="dark">
       <Container>
         <Navbar.Brand>
           <Link to="/">

@@ -50,24 +50,8 @@ def leave_textarea
   find('.navbar').click
 end
 
-def resize_window(width, heigth)
-  page.current_window.resize_to(width, heigth)
-end
-
 def go_on_document_inside_collection(document, collection)
   visit "/collection/#{collection}/document/#{document}"
-end
-
-def get_id(name)
-  case name
-    when "Vitrail : Vie de Jean le Baptiste"
-      id = "ejrbzoefkznfkpz20"
-    when "Visite de l'Eglise St-Jean-au-Marché"
-      id = "ejrbzoefkznfkpzp"
-    else
-      id = "Not found"
-    end
-  return id
 end
 
 def fill_element(selector, text)

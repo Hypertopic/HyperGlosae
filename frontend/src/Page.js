@@ -3,7 +3,7 @@ import './Page.css';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 import { BookmarkFill } from 'react-bootstrap-icons';
 import Metadata from './Metadata';
@@ -12,9 +12,6 @@ import BrowseTools from './BrowseTools';
 import EditableText from './EditableText';
 import DocumentSources from './DocumentSources';
 import Type, { TypeBadge } from './Type';
-import NavbarCollection from './navbarCollection';
-import RelatedCollections from './RelatedCollections';
-import { isPhoneSizedWindow } from './utils';
 
 function Page({backend}) {
 
@@ -25,7 +22,7 @@ function Page({backend}) {
   const [scholiaMetadata, setScholiaMetadata] = useState([]);
   const [content, setContent] = useState([]);
   const [lastUpdate, setLastUpdate] = useState();
-  let {id, collectionId} = useParams();
+  let {id} = useParams();
   let margin = useLocation().hash.slice(1);
   let hasRubrics = (id, rows) => rows.some(x => x.key[1] !== 0 && x.value.isPartOf === id && x.value.text);
   const getCaption = ({dc_title, dc_spatial}) => dc_title + (dc_spatial ? `, ${dc_spatial}` : '');
@@ -131,18 +128,6 @@ function Page({backend}) {
           createOn={[id]} {...{setLastUpdate, backend}}
         />
       </Row>
-      <div className="navbar-collec">
-        {(collectionId) != undefined && metadata.length && id != undefined &&
-        <>
-          <RelatedCollections relatedDocumentsMetadata={scholiaMetadata}
-            currentCollectionId={collectionId} />
-          <NavbarCollection
-            trail={metadata.find((item) => item._id === collectionId)}
-            documentId={id}
-          />
-        </>
-        }
-      </div>
     </Container>
   );
 }
