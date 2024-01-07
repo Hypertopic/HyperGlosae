@@ -1,4 +1,4 @@
-import './Menu.css';
+import '../styles/Menu.css';
 
 import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';

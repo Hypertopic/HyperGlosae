@@ -1,4 +1,4 @@
-import './Page.css';
+import '../styles/Page.css';
 
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -6,12 +6,12 @@ import Col from 'react-bootstrap/Col';
 import { useState, useEffect } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 import { BookmarkFill } from 'react-bootstrap-icons';
-import Metadata from './Metadata';
-import DocumentsCards from './DocumentsCards';
-import BrowseTools from './BrowseTools';
-import EditableText from './EditableText';
-import DocumentSources from './DocumentSources';
-import Type, { TypeBadge } from './Type';
+import Metadata from '../components/Metadata';
+import DocumentsCards from '../components/DocumentsCards';
+import BrowseTools from '../components/BrowseTools';
+import EditableText from '../components/EditableText';
+import DocumentSources from '../components/DocumentSources';
+import Type, { TypeBadge } from '../components/Type';
 
 function Page({backend}) {
 

@@ -1,8 +1,8 @@
-import './Bookshelf.css';
+import '../styles/Bookshelf.css';
 
 import { useState, useEffect } from 'react';
 import Container from 'react-bootstrap/Container';
-import DocumentsCards from './DocumentsCards';
+import DocumentsCards from '../components/DocumentsCards';
 
 function Bookshelf({backend}) {
   const [documents, setDocuments] = useState([]);

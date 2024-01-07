@@ -1,4 +1,4 @@
-import './EditableText.css';
+import '../styles/EditableText.css';
 
 import { useState, useEffect } from 'react';
 import FormattedText from './FormattedText';

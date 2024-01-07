@@ -1,4 +1,4 @@
-import './VideoComment.css';
+import '../styles/VideoComment.css';
 
 function VideoComment({ children }) {
   const timecodeRegex = /(\d{2}:\d{2}:\d{2}\.\d{3}\s*-->\s*\d{2}:\d{2}:\d{2}\.\d{3})/;

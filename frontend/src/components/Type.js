@@ -1,5 +1,5 @@
-import './Metadata.css';
-import './Type.css';
+import '../styles/Metadata.css';
+import '../styles/Type.css';
 
 import { TagFill } from 'react-bootstrap-icons';
 import { useState, useContext } from 'react';

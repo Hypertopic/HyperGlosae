@@ -1,16 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
-import Menu from './Menu';
-import Page from './Page';
-import Bookshelf from './Bookshelf';
+import './styles/index.css';
+import Menu from './components/Menu';
+import Page from './routes/Page';
+import Bookshelf from './routes/Bookshelf';
 import Hyperglosae from './hyperglosae';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { NotificationContainer, NotificationManager } from 'react-notifications';
 import 'react-notifications/lib/notifications.css';
-import { TypesContext } from './TypesContext.js';
+import { TypesContext } from './components/TypesContext.js';
 
 const backend = new Hyperglosae(
   x => NotificationManager.warning(x, '', 2000)

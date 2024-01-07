@@ -1,4 +1,4 @@
-import './Metadata.css';
+import '../styles/Metadata.css';
 
 import { useEffect, useState } from 'react';
 import yaml from 'yaml';
