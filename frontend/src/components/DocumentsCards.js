@@ -5,7 +5,6 @@ import Row from 'react-bootstrap/Row';
 import Metadata from './Metadata';
 import BrowseTools from './BrowseTools';
 import FutureDocument from './FutureDocument';
-import FutureCollection from './FutureCollection';
 import { TypeBadge } from './Type';
 
 function DocumentsCards({docs, expandable, byRow, createOn, setLastUpdate, backend}) {
@@ -24,7 +23,7 @@ function DocumentsCards({docs, expandable, byRow, createOn, setLastUpdate, backe
             </Col>
             {(createOn.length > 0) &&
               <Col>
-                <FutureCollection relatedTo={createOn} {...{setLastUpdate, backend}} />
+                <FutureDocument relatedTo={createOn} verb="includes" {...{setLastUpdate, backend}} />
               </Col>
             }
           </Row>
