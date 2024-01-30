@@ -48,7 +48,7 @@ Alors("je vois que l'image de la licence de la glose est {string}") do |image|
 end
 
 Alors("l'image intégrée dans la page {string} est légendée par son titre : {string}") do |image, image_caption|
-  expect(find('.page')).to have_content image_caption
+  expect(find('.lectern')).to have_content image_caption
 end
 
 Alors("l'image intégrée en source {string} est légendée par son titre : {string}") do |image, image_caption|

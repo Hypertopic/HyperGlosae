@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './styles/index.css';
 import Menu from './components/Menu';
-import Page from './routes/Page';
+import Lectern from './routes/Lectern';
 import Bookshelf from './routes/Bookshelf';
 import Hyperglosae from './hyperglosae';
 import reportWebVitals from './reportWebVitals';
@@ -36,7 +36,7 @@ function App() {
         <TypesContext.Provider value={types}>
           <Routes>
             <Route path="/" element={<Bookshelf {...{backend}} />} />
-            <Route path="/:id" element={<Page {...{backend}} />} />
+            <Route path="/:id" element={<Lectern {...{backend}} />} />
           </Routes>
         </TypesContext.Provider>
       </BrowserRouter>

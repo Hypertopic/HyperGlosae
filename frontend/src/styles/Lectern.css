@@ -1,9 +1,9 @@
-.page {
+.lectern {
   text-align: justify;
   border-radius: 10px;
 }
 
-.page .row p {
+.lectern .row p {
   white-space: pre-wrap;
 }
 
@@ -11,17 +11,17 @@
   background-color: ghostwhite;
 }
 
-.page .runningHead div {
+.lectern .runningHead div {
   padding-top: 17px;
   padding-bottom: 17px;
 }
 
-.page .row:first-of-type .main {
+.lectern .row:first-of-type .main {
   border-radius: 10px 0px 0px 0px;
   text-align: left;
 }
 
-.page .row:last-of-type .main {
+.lectern .row:last-of-type .main {
   border-radius: 0px 0px 0px 10px;
 }
 
@@ -34,17 +34,17 @@
   background-color: gainsboro;
 }
 
-.page .row:first-of-type .scholium {
+.lectern .row:first-of-type .scholium {
   border-radius: 0px 10px 0px 0px;
   justify-content: flex-end;
   text-align: right;
 }
 
-.page .row:last-of-type .scholium {
+.lectern .row:last-of-type .scholium {
   border-radius: 0px 0px 10px 0px;
 }
 
-.page > .row:last-of-type > div {
+.lectern > .row:last-of-type > div {
   padding-bottom: 17px;
 }
 
@@ -59,7 +59,7 @@
   margin-right: .5rem;
 }
 
-.sources .card, 
+.sources .card,
 .gloses .card {
   background-color: gainsboro;
   text-color: black;

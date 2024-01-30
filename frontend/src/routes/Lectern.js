@@ -1,4 +1,4 @@
-import '../styles/Page.css';
+import '../styles/Lectern.css';
 
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -13,9 +13,9 @@ import EditableText from '../components/EditableText';
 import DocumentSources from '../components/DocumentSources';
 import Type, { TypeBadge } from '../components/Type';
 
-function Page({backend}) {
+function Lectern({backend}) {
 
-  const [page, setPage] = useState([]);
+  const [lectern, setLectern] = useState([]);
   const [metadata, setMetadata] = useState([]);
   const [sourceMetadata, setSourceMetadata] = useState();
   const [sourcesOfSourceMetadata, setSourcesOfSourceMetadata] = useState([]);
@@ -101,7 +101,7 @@ function Page({backend}) {
         return {whole, part};
       }, {whole: [], part: {source: [], scholia: []}});
       passages = Array.isArray(passages) ? passages : [];
-      setPage(passages);
+      setLectern(passages);
     }
   }, [id, margin, content]);
 
@@ -111,14 +111,14 @@ function Page({backend}) {
         <Col md={2} className="sources">
           <DocumentsCards docs={sourcesOfSourceMetadata} byRow={1} />
         </Col>
-        <Col className="page">
+        <Col className="lectern">
           <Row className ="runningHead">
             <RunningHeadSource metadata={ sourceMetadata } />
             <RunningHeadMargin {...{backend}}
               metadata={ metadata.find(x => (x._id === margin)) }
             />
           </Row>
-          {page.map(({rubric, source, scholia}, i) =>
+          {lectern.map(({rubric, source, scholia}, i) =>
             <Passage key={rubric || i}
               {...{source, rubric, scholia, margin, backend}}
             />)
@@ -202,4 +202,4 @@ function References({scholiaMetadata, active, createOn, setLastUpdate, backend})
   );
 }
 
-export default Page;
+export default Lectern;
