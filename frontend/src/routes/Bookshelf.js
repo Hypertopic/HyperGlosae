@@ -9,14 +9,7 @@ function Bookshelf({backend}) {
   const [lastUpdate, setLastUpdate] = useState();
 
   useEffect(() => {
-    backend.getView({view: 'all_documents', options: ['group']})
-      .then((rows) => {
-        setDocuments(
-          rows.map(
-            ({value}) => ({...value.metadata, referenced: value.referenced})
-          )
-        );
-      });
+    backend.refreshDocuments(setDocuments);
   }, [lastUpdate]);
 
   return (

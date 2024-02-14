@@ -31,22 +31,8 @@ function Lectern({backend}) {
     document.title = `${getCaption(sourceMetadata)} ${sourceMetadata.dc_creator ? `(${sourceMetadata.dc_creator})` : ''}`;
 
   useEffect(() => {
-    backend.getView({view: 'metadata', id, options: ['include_docs']})
-      .then(
-        (rows) => {
-          let documents = rows.map(x => x.doc);
-          setMetadata(documents);
-        }
-      );
-    backend.getView({view: 'content', id, options: ['include_docs']})
-      .then(
-        (rows) => {
-          setContent(rows);
-        },
-        (error) => {
-          console.log(error.message);
-        }
-      );
+    backend.refreshMetadata(id, setMetadata);
+    backend.refreshContent(id, setContent);
   }, [id, lastUpdate]);
 
   useEffect(() => {

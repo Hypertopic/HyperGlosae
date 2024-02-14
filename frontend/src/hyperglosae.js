@@ -61,6 +61,39 @@ function Hyperglosae(logger) {
       });
   };
 
+  this.refreshMetadata = (id, callback) => {
+    this.getView({view: 'metadata', id, options: ['include_docs']})
+      .then(
+        (rows) => {
+          let documents = rows.map(x => x.doc);
+          callback(documents);
+        }
+      );
+  };
+
+  this.refreshContent = (id, callback) => {
+    this.getView({view: 'content', id, options: ['include_docs']})
+      .then(
+        (rows) => {
+          callback(rows);
+        },
+        (error) => {
+          console.log(error.message);
+        }
+      );
+  };
+
+  this.refreshDocuments = (callback) => {
+    this.getView({view: 'all_documents', options: ['group']})
+      .then((rows) => {
+        callback(
+          rows.map(
+            ({value}) => ({...value.metadata, referenced: value.referenced})
+          )
+        );
+      });
+  };
+
   return this;
 }
 
