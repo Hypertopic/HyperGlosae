@@ -27,6 +27,12 @@ Quand("j'essaie de remplacer le contenu de la glose par :") do |markdown|
   leave_textarea
 end
 
+Quand("j'essaie de remplacer le contenu du premier passage de la glose par :") do |markdown|
+  click_on_text('content')
+  fill_element('textarea', markdown)
+  leave_textarea
+end
+
 Quand('je crée une collection à partir de ce document') do
   click_on_icon('create-collection')
 end
