@@ -15,14 +15,6 @@ Soit('{string} une des gloses') do |title|
   expect(find('.gloses')).to have_content title
 end
 
-Soit('je vois les sources') do
-  expect(find('.sources'))
-end
-
-Soit('je vois les gloses') do
-  expect(find('.gloses'))
-end
-
 Soit('une session active avec mon compte') do
   sign_in('alice', 'whiterabbit')
 end

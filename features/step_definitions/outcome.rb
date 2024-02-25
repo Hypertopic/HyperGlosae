@@ -43,10 +43,6 @@ Alors("je vois que l'image de la licence du document principal est {string}") do
   expect(page).to have_image image
 end
 
-Alors("je vois que l'image de la licence de la glose est {string}") do |image|
-  expect(find('.scholium .license')).to have_image image
-end
-
 Alors("l'image intégrée dans la page {string} est légendée par son titre : {string}") do |image, image_caption|
   expect(find('.lectern')).to have_content image_caption
 end
@@ -63,14 +59,6 @@ Alors('le document comporte la vidéo avec pour titre {string}') do |title|
   within_frame do
     expect(page).to have_content title
   end
-end
-
-Alors("le texte {string} est visible dans la navbar") do |text|
-  expect(find('.navbar-collec')).to have_content text
-end
-
-Alors("{string} est le document affiché à l'écran") do |text|
-  expect(find('.runningHead')).to have_content text
 end
 
 Alors('la vidéo du document principal se lance de {string} secondes à {string} secondes') do |start, ending|
