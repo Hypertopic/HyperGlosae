@@ -43,6 +43,7 @@ function Hyperglosae(logger) {
           logger(x.reason);
           throw new Error(x.reason);
         }
+        return x;
       });
 
   this.authenticate = ({name, password}) => {

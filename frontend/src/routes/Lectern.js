@@ -89,7 +89,7 @@ function Lectern({backend}) {
       passages = Array.isArray(passages) ? passages : [];
       setLectern(passages);
     }
-  }, [id, margin, content]);
+  }, [id, margin, content, lastUpdate]);
 
   return (
     <Container className="screen">
@@ -106,7 +106,7 @@ function Lectern({backend}) {
           </Row>
           {lectern.map(({rubric, source, scholia}, i) =>
             <Passage key={rubric || i}
-              {...{source, rubric, scholia, margin, backend}}
+              {...{source, rubric, scholia, margin, backend, setLastUpdate}}
             />)
           }
         </Col>
@@ -118,7 +118,7 @@ function Lectern({backend}) {
   );
 }
 
-function Passage({source, rubric, scholia, margin, backend}) {
+function Passage({source, rubric, scholia, margin, backend, setLastUpdate}) {
   let scholium = scholia.filter(x => (x.isPartOf === margin)) || {text: ''};
   return (
     <Row>
@@ -134,7 +134,7 @@ function Passage({source, rubric, scholia, margin, backend}) {
           </Row>
         </Container>
       </Col>
-      <PassageMargin active={!!margin} {...{scholium, rubric, backend}} />
+      <PassageMargin active={!!margin} {...{scholium, rubric, backend, setLastUpdate}} />
     </Row>
   );
 }
@@ -145,12 +145,12 @@ function Rubric({id}) {
   );
 }
 
-function PassageMargin({active, scholium, rubric, backend}) {
+function PassageMargin({active, scholium, rubric, backend, setLastUpdate}) {
   if (!active) return;
   return (
     <Col xs={5} className="scholium">
       {scholium.map((x, i) =>
-        <EditableText key={i} text={x.text} id={x.id} {...{rubric, backend}} />
+        <EditableText key={i} text={x.text} id={x.id} {...{rubric, backend, setLastUpdate}} />
       )}
     </Col>
   );
