@@ -85,6 +85,12 @@ Soit("un autre document, en plusieurs passages, affiché comme glose et dont je 
   sign_out
 end
 
+Soit("un autre document, non découpé, affiché comme glose et dont je suis l'auteur") do
+  sign_in('alice', 'whiterabbit')
+  click_on_icon('create-document')
+  sign_out
+end
+
 Soit('{string} une des gloses ouverte') do |title|
   click_on_icon_next_to('open', title)
 end
