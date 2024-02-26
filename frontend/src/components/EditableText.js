@@ -3,7 +3,7 @@ import '../styles/EditableText.css';
 import { useState, useEffect } from 'react';
 import FormattedText from './FormattedText';
 
-function EditableText({id, text, rubric, backend}) {
+function EditableText({id, text, rubric, backend, setLastUpdate}) {
   const [beingEdited, setBeingEdited] = useState(false);
   const [editedDocument, setEditedDocument] = useState({
     text: (rubric) ? `{${rubric}} ${text}` : text
@@ -27,7 +27,8 @@ function EditableText({id, text, rubric, backend}) {
 
   let handleBlur = () => {
     setBeingEdited(false);
-    backend.putDocument(editedDocument);
+    backend.putDocument(editedDocument)
+      .then(x => setLastUpdate(x.rev));
   };
 
   let editedText = (rubric) ? editedDocument.text.match(PASSAGE)[1] : editedDocument.text;
