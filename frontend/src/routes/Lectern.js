@@ -79,7 +79,7 @@ function Lectern({backend}) {
         if (isPartOf === id) {
           part.source.push(text);
         } else {
-          part.scholia = [...part.scholia || [], {id: x.id, text, isPartOf}];
+          part.scholia = [...part.scholia || [], {id: x.id, text, isPartOf, rubric: x.key[1]}];
         }
         if (i === length - 1) {
           return [...whole, part];
@@ -150,7 +150,9 @@ function PassageMargin({active, scholium, rubric, backend, setLastUpdate}) {
   return (
     <Col xs={5} className="scholium">
       {scholium.map((x, i) =>
-        <EditableText key={i} text={x.text} id={x.id} {...{rubric, backend, setLastUpdate}} />
+        <EditableText key={i} text={x.text} id={x.id} rubric={rubric || x.rubric}
+          {...{backend, setLastUpdate}}
+        />
       )}
     </Col>
   );
