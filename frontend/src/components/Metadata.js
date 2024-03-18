@@ -57,7 +57,7 @@ function Metadata({metadata = {}, editable, backend}) {
           {dc_isPartOf ? <i>{dc_isPartOf}, </i> : ''}
           {dc_issued ? `${new Date(dc_issued).getFullYear()}` : ''}
         </span>
-        <License metadata={metadata} />
+        <License key={metadata._id} license={metadata} />
       </span>
     );
   }
