@@ -1,6 +1,14 @@
 .lectern {
+  display: flex;
+  flex-direction: column;
   text-align: justify;
   border-radius: 10px;
+}
+
+.license-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: auto;
 }
 
 .lectern .row p {

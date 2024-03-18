@@ -5,6 +5,7 @@ import BrowseTools from './BrowseTools';
 import Metadata from './Metadata';
 import Type, { TypeBadge } from './Type';
 import Passage from './Passage';
+import License from './License';
 
 function OpenedDocuments({backend, lectern, metadata, sourceMetadata, margin, setLastUpdate}) {
   return (
@@ -20,6 +21,16 @@ function OpenedDocuments({backend, lectern, metadata, sourceMetadata, margin, se
           {...{source, rubric, scholia, margin, backend, setLastUpdate}}
         />)
       }
+      <Row>
+        <Col className="license-container">
+          <License key={sourceMetadata?._id} license={sourceMetadata?.dc_license} />
+        </Col>
+        {margin && (
+          <Col className="license-container">
+            <License key={margin} license={metadata.find(x => x._id === margin)?.dc_license} />
+          </Col>
+        )}
+      </Row>
     </Col>
   );
 }
