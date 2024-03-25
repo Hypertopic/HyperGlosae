@@ -12,6 +12,7 @@ import BrowseTools from '../components/BrowseTools';
 import EditableText from '../components/EditableText';
 import DocumentSources from '../components/DocumentSources';
 import Type, { TypeBadge } from '../components/Type';
+import License from '../components/License';
 
 function Lectern({backend}) {
 
@@ -106,7 +107,9 @@ function Lectern({backend}) {
           </Row>
           {lectern.map(({rubric, source, scholia}, i) =>
             <Passage key={rubric || i}
-              {...{source, rubric, scholia, margin, backend}}
+              {...{source, rubric, scholia, margin, backend, sourceMetadata, metadata}}
+              index={i}
+              length={lectern.length}
             />)
           }
         </Col>
@@ -118,7 +121,7 @@ function Lectern({backend}) {
   );
 }
 
-function Passage({source, rubric, scholia, margin, backend}) {
+function Passage({source, rubric, scholia, margin, backend, sourceMetadata, metadata, length, index}) {
   let scholium = scholia.filter(x => (x.isPartOf === margin)) || {text: ''};
   return (
     <Row>
@@ -132,9 +135,10 @@ function Passage({source, rubric, scholia, margin, backend}) {
             </Col>
             <Rubric id={rubric} />
           </Row>
+          {index === length - 1 && <License key={sourceMetadata?._id} license={sourceMetadata} />}
         </Container>
       </Col>
-      <PassageMargin active={!!margin} {...{scholium, rubric, backend}} />
+      <PassageMargin active={!!margin} {...{scholium, rubric, backend, length, index}} metadata={margin ? metadata.find(x => x._id === margin) : null} />
     </Row>
   );
 }
@@ -145,13 +149,14 @@ function Rubric({id}) {
   );
 }
 
-function PassageMargin({active, scholium, rubric, backend}) {
+function PassageMargin({active, scholium, rubric, backend, metadata, length, index}) {
   if (!active) return;
   return (
     <Col xs={5} className="scholium">
       {scholium.map((x, i) =>
         <EditableText key={i} text={x.text} id={x.id} {...{rubric, backend}} />
       )}
+      {index === length - 1 && <License key={metadata} license={metadata} />}
     </Col>
   );
 }
