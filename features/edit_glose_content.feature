@@ -36,3 +36,10 @@ Scénario: sans être connecté
     une lampe dans les ténèbres.
     """
   Alors je peux lire "Before editing this document, please log in first"
+  Et je peux copier mon texte nouvellement ajouté pour ne pas le perdre :
+    """
+    Nous traduisons ici "shape" par "ombre" et non "forme" car dans un autre
+    poème du recueil, les "shapes" sont clairement ce qui apparaît en allumant
+    une lampe dans les ténèbres.
+    """
+  Et le contenu original de la glose ne change pas
