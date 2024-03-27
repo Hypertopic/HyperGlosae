@@ -36,3 +36,35 @@ Scénario: sans être connecté
     une lampe dans les ténèbres.
     """
   Alors je peux lire "Before editing this document, please log in first"
+
+Scénario: dont les annotations sont manquantes ou inexistantes
+
+  Soit un document dont je suis l'auteur avec 2 parties
+  Et une session active avec mon compte
+  Et une glose faisant référence uniquement à la partie 1
+  Quand j'essaie d'éditer le bloc 2 avec le texte 
+    """
+    Diane
+    : Acteurs
+    """
+  Alors le bloc affiche
+    """
+    Diane
+      Acteur
+    """
+    
+Scénario: dont les annotations sont présentes
+
+  Soit un document dont je suis l'auteur avec 2 parties
+  Et une session active avec mon compte
+  Et une glose faisant référence uniquement à la partie 1
+  Quand j'essaie d'éditer le bloc 1 avec le texte 
+    """
+    Diane
+    : Acteurs
+    """
+  Alors le bloc affiche
+    """
+    Diane
+      Acteur
+    """
