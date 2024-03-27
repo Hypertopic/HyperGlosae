@@ -36,3 +36,4 @@ Scénario: sans être connecté
     une lampe dans les ténèbres.
     """
   Alors je peux lire "Before editing this document, please log in first"
+  Et je ne peux pas lire "Nous traduisons ici ..."
