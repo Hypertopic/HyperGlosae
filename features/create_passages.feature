@@ -13,7 +13,8 @@ Scénario: en regard d'un document découpé en passages
     {2} Le but de toute association politique est la conservation des droits naturels et imprescriptibles de l'Homme. Ces droits sont la liberté, la propriété, la sûreté, et la résistance à l'oppression.
     {3} Le principe de toute Souveraineté réside essentiellement dans la Nation. Nul corps, nul individu ne peut exercer d'autorité qui n'en émane expressément.
     """
-  Alors le texte du premier passage de la glose est :
+  Alors je ne peux pas lire "{1}"
+  Mais le texte du premier passage de la glose est :
     """
     Les hommes naissent et demeurent libres et égaux en droits. Les distinctions sociales ne peuvent être fondées que sur l'utilité commune.
     """
@@ -29,7 +30,8 @@ Scénario: en regard d'un document non découpé en passages
     {2} Le but de toute association politique est la conservation des droits naturels et imprescriptibles de l'Homme. Ces droits sont la liberté, la propriété, la sûreté, et la résistance à l'oppression.
     {3} Le principe de toute Souveraineté réside essentiellement dans la Nation. Nul corps, nul individu ne peut exercer d'autorité qui n'en émane expressément.
     """
-  Alors le texte du premier passage de la glose est :
+  Alors je ne peux pas lire "{1}"
+  Mais le texte du premier passage de la glose est :
     """
     Les hommes naissent et demeurent libres et égaux en droits. Les distinctions sociales ne peuvent être fondées que sur l'utilité commune.
     """

@@ -10,4 +10,4 @@ Scénario: provenant de YouTube
     """
     ![link](https://www.youtube.com/watch?v=JRXkAhMYKEc&ab_channel=ViniciusHenrique)
     """
-  Alors le document comporte la vidéo avec pour titre "Sherlock Jr. - Buster Keaton (1924) HD"
+  Alors le document comporte la vidéo "https://www.youtube.com/embed/JRXkAhMYKEc"

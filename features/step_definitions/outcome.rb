@@ -55,10 +55,8 @@ Alors('le type {string} est le type de la glose ouverte') do |type|
   expect(find('.typeBadge')).to have_content type
 end
 
-Alors('le document comporte la vidéo avec pour titre {string}') do |title|
-  within_frame do
-    expect(page).to have_content title
-  end
+Alors('le document comporte la vidéo {string}') do |uri|
+  expect(page).to have_xpath("//iframe[contains(@src, '#{uri}')]")
 end
 
 Alors('la vidéo du document principal se lance de {string} secondes à {string} secondes') do |start, ending|
