@@ -10,9 +10,11 @@ Scénario: dont on est l'auteur
     """
     dc_title: Commentaire
     dc_creator: Alice Liddell
-    dc_issued: "1932"
+    dc_issued: 1932
     """
   Alors "Commentaire" est la glose ouverte
+  Et le créateur est "Alice Liddell"
+  Et l'année de publication est "1932"
 
 Scénario: dont on n'est pas l'auteur
 
@@ -22,7 +24,7 @@ Scénario: dont on n'est pas l'auteur
     """
     dc_title: Commentaire
     dc_creator: Alice Liddell
-    dc_issued: "1932"
+    dc_issued: 1932
     """
   Alors je peux lire "Before editing this document, please request authorization to its editors first"
 
@@ -33,6 +35,6 @@ Scénario: sans être connecté
     """
     dc_title: Commentaire
     dc_creator: Alice Liddell
-    dc_issued: "1932"
+    dc_issued: 1932
     """
   Alors je peux lire "Before editing this document, please log in first"
