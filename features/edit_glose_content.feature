@@ -25,6 +25,7 @@ Scénario: dont on n'est pas l'auteur
     une lampe dans les ténèbres.
     """
   Alors je peux lire "Before editing this document, please request authorization to its editors first"
+  Et la glose est ouverte en mode édition
 
 Scénario: sans être connecté
 
@@ -36,3 +37,4 @@ Scénario: sans être connecté
     une lampe dans les ténèbres.
     """
   Alors je peux lire "Before editing this document, please log in first"
+  Et la glose est ouverte en mode édition
