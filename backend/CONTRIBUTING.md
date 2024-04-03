@@ -20,7 +20,7 @@ Production settings will be provided in a different document.
 
   ```sh
   alias put='curl -X PUT -u "${COUCHDB_USER}:${COUCHDB_PASSWORD}"'
-  put localhost:5984/_node/nonode@nohost/_config/httpd/enable_cors --data '"true"'
+  put localhost:5984/_node/nonode@nohost/_config/chttpd/enable_cors --data '"true"'
   put localhost:5984/_node/nonode@nohost/_config/cors/origins --data '"*"'
   ```
 

@@ -32,7 +32,7 @@ jobs:
         run: |
           export COUCHDB_USER="TO_BE_CHANGED"
           export COUCHDB_PASSWORD="TO_BE_CHANGED"
-          curl -X PUT -u "${COUCHDB_USER}:${COUCHDB_PASSWORD}" -s localhost:5984/_node/nonode@nohost/_config/httpd/enable_cors --data '"true"'
+          curl -X PUT -u "${COUCHDB_USER}:${COUCHDB_PASSWORD}" -s localhost:5984/_node/nonode@nohost/_config/chttpd/enable_cors --data '"true"'
           curl -X PUT -u "${COUCHDB_USER}:${COUCHDB_PASSWORD}" -s localhost:5984/_node/nonode@nohost/_config/cors/origins --data '"*"'
           curl -X PUT -u "${COUCHDB_USER}:${COUCHDB_PASSWORD}" -s localhost:5984/hyperglosae/_security --data '{"members":{"roles":[]},"admins":{"roles":["_admin"]}}'
           curl -X PUT -u "${COUCHDB_USER}:${COUCHDB_PASSWORD}" -s localhost:5984/_users
