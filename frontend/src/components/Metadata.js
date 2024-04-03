@@ -28,7 +28,8 @@ function Metadata({metadata = {}, editable, backend}) {
       ...yaml.parse(event.target.value)
     };
     setEditedDocument(updatedDocument);
-    backend.putDocument(updatedDocument);
+    backend.putDocument(updatedDocument)
+      .catch(console.error);
   };
 
   let editedMetadata = Object.fromEntries(

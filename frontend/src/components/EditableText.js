@@ -28,7 +28,8 @@ function EditableText({id, text, rubric, backend, setLastUpdate}) {
   let handleBlur = () => {
     setBeingEdited(false);
     backend.putDocument(editedDocument)
-      .then(x => setLastUpdate(x.rev));
+      .then(x => setLastUpdate(x.rev))
+      .catch(console.error);
   };
 
   let editedText = (rubric) ? editedDocument.text.match(PASSAGE)[1] : editedDocument.text;

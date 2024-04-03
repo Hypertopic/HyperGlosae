@@ -60,7 +60,8 @@ function Type({ metadata, editable, backend }) {
   const handleUpdate = async (type) => {
     setTypeSelected(type);
     setBeingEdited(false);
-    await backend.putDocument({ ...editedDocument, type });
+    await backend.putDocument({ ...editedDocument, type })
+      .catch(console.error);
   };
 
   return (

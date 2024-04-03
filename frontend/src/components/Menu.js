@@ -34,7 +34,8 @@ function Authentication({backend}) {
     e.preventDefault();
     let credentials = Object.fromEntries(new FormData(e.target).entries());
     backend.authenticate(credentials)
-      .then(() => setCredentials(credentials));
+      .then(() => setCredentials(credentials))
+      .catch(console.error);
   };
 
   if (credentials) return (

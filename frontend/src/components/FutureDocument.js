@@ -34,7 +34,7 @@ function FutureDocumentIcon({relatedTo, verb, setLastUpdate, backend}) {
     }).then((x) => {
       setLastUpdate(_id);
       navigate((relatedTo.length ? '#' : '/') + _id);
-    });
+    }).catch(console.error);
   };
 
   switch (verb) {
