@@ -40,3 +40,9 @@ end
 Quand("je clique sur la référence temporelle {string} avec pour commentaire {string}") do |timecode, comment|
   find(:xpath, "//p[contains(., \"#{timecode}\")]", match: :first).click
 end
+
+Quand("j'essaie d'éditer le bloc {int} avec le texte") do |block_number, markdown|
+  find(".lectern>.row:nth-child(#{block_number + 1})>.scholium>.content>p").click
+  fill_element('textarea', markdown)
+  leave_textarea
+end
