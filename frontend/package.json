@@ -24,8 +24,8 @@
     "yaml": "^2.2.1"
   },
   "scripts": {
-    "start": "npx react-scripts start",
-    "build": "npx react-scripts build",
+    "start": "npx -yes react-scripts@latest start",
+    "build": "npx -yes react-scripts@latest build",
     "preprod": "npx -yes serve@latest -s build -p 3000"
   },
   "eslintConfig": {
