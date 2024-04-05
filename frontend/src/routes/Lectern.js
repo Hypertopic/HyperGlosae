@@ -5,13 +5,8 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { useState, useEffect } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
-import { BookmarkFill } from 'react-bootstrap-icons';
-import Metadata from '../components/Metadata';
+import OpenedDocuments from '../components/OpenedDocuments';
 import DocumentsCards from '../components/DocumentsCards';
-import BrowseTools from '../components/BrowseTools';
-import EditableText from '../components/EditableText';
-import DocumentSources from '../components/DocumentSources';
-import Type, { TypeBadge } from '../components/Type';
 
 function Lectern({backend}) {
 
@@ -97,85 +92,12 @@ function Lectern({backend}) {
         <Col md={2} className="sources">
           <DocumentsCards docs={sourcesOfSourceMetadata} byRow={1} />
         </Col>
-        <Col className="lectern">
-          <Row className ="runningHead">
-            <RunningHeadSource metadata={ sourceMetadata } />
-            <RunningHeadMargin {...{backend}}
-              metadata={ metadata.find(x => (x._id === margin)) }
-            />
-          </Row>
-          {lectern.map(({rubric, source, scholia}, i) =>
-            <Passage key={rubric || i}
-              {...{source, rubric, scholia, margin, backend, setLastUpdate}}
-            />)
-          }
-        </Col>
+        <OpenedDocuments {...{backend, lectern, metadata, sourceMetadata, margin, setLastUpdate}} />
         <References scholiaMetadata={scholiaMetadata} active={!margin}
           createOn={[id]} {...{setLastUpdate, backend}}
         />
       </Row>
     </Container>
-  );
-}
-
-function Passage({source, rubric, scholia, margin, backend, setLastUpdate}) {
-  let scholium = scholia.filter(x => (x.isPartOf === margin)) || {text: ''};
-  return (
-    <Row>
-      <Col className="main">
-        <Container>
-          <Row>
-            <Col>
-              <DocumentSources>
-                {source}
-              </DocumentSources>
-            </Col>
-            <Rubric id={rubric} />
-          </Row>
-        </Container>
-      </Col>
-      <PassageMargin active={!!margin} {...{scholium, rubric, backend, setLastUpdate}} />
-    </Row>
-  );
-}
-
-function Rubric({id}) {
-  if (id) return (
-    <Col xs={1} className="rubric">{id}</Col>
-  );
-}
-
-function PassageMargin({active, scholium, rubric, backend, setLastUpdate}) {
-  if (!active) return;
-  return (
-    <Col xs={5} className="scholium">
-      {scholium.map((x, i) =>
-        <EditableText key={i} text={x.text} id={x.id} rubric={rubric || x.rubric}
-          {...{backend, setLastUpdate}}
-        />
-      )}
-    </Col>
-  );
-}
-
-function RunningHeadSource({metadata}) {
-  return (
-    <Col className="main">
-      <BookmarkFill className="icon" />
-      <Metadata metadata={metadata} />
-      <TypeBadge type={metadata?.type} />
-    </Col>
-  );
-}
-
-function RunningHeadMargin({metadata, backend}) {
-  if (!metadata) return;
-  return (
-    <Col xs={5} className="scholium">
-      <BrowseTools id={metadata._id} closable={true} />
-      <Metadata metadata={metadata} editable={true} {...{backend}} />
-      <Type metadata={metadata} editable={true} {...{backend}}/>
-    </Col>
   );
 }
 
