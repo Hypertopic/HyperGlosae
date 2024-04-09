@@ -54,7 +54,7 @@ function Metadata({metadata = {}, editable, backend}) {
         <span className="edition">
           {format(dc_translator, 'Translated by ', ', ')}
           {dc_isPartOf ? <i>{dc_isPartOf}, </i> : ''}
-          {dc_issued ? `${new Date(dc_issued).getFullYear()}` : ''}
+          {dc_issued ? `${new Date(dc_issued.toString()).getFullYear()}` : ''}
         </span>
         <License metadata={metadata} />
       </span>
