@@ -28,7 +28,9 @@ function Menu({backend}) {
 }
 
 function Authentication({backend}) {
-  const [credentials, setCredentials] = useState();
+  const [credentials, setCredentials] = useState({
+    ...backend.credentials
+  });
 
   let handleSubmit = (e) => {
     e.preventDefault();
@@ -37,7 +39,7 @@ function Authentication({backend}) {
       .then(() => setCredentials(credentials));
   };
 
-  if (credentials) return (
+  if (credentials.name) return (
     <Navbar.Text>
       {credentials.name}
     </Navbar.Text>
