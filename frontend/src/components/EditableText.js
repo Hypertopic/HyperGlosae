@@ -26,9 +26,9 @@ function EditableText({id, text, rubric, backend, setLastUpdate}) {
   };
 
   let handleBlur = () => {
-    setBeingEdited(false);
     backend.putDocument(editedDocument)
       .then(x => setLastUpdate(x.rev))
+      .then(() => setBeingEdited(false))
       .catch(console.error);
   };
 
