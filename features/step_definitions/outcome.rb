@@ -74,3 +74,7 @@ end
 Alors('l\'année de publication est {string}') do |string|
   expect(find('.metadata > .edition', match: :first)).to have_content string
 end
+
+Alors('la glose est ouverte en mode édition') do
+  expect(page).to have_css(".scholium > form")
+end
