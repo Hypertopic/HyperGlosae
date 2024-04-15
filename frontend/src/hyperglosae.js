@@ -6,14 +6,16 @@ function Hyperglosae(logger) {
 
   this.credentials = {};
 
-  this.getView = ({view, id, options = []}) =>
+  this.getView = ({view, startkey, endkey, options = []}) =>
     fetch(`${
       service
     }/_design/app/_view/${
       view
     }?${
-      id ? `startkey=["${id}"]&endkey=["${id}",{}]` : ''
-    }&${
+      startkey ? `startkey=${JSON.stringify(startkey)}&` : ''
+    }${
+      endkey ? `endkey=${JSON.stringify(endkey)}&` : ''
+    }${
       options.map(x => x + '=true').join('&')
     }`)
       .then(x => x.json())
@@ -43,6 +45,7 @@ function Hyperglosae(logger) {
           logger(x.reason);
           throw new Error(x.reason);
         }
+        return x;
       });
 
   this.authenticate = ({name, password}) => {
@@ -62,7 +65,9 @@ function Hyperglosae(logger) {
   };
 
   this.refreshMetadata = (id, callback) => {
-    this.getView({view: 'metadata', id, options: ['include_docs']})
+    const startKey = [id];
+    const endKey = [id, {}];
+    this.getView({view: 'metadata', startkey: startKey, endkey: endKey, id, options: ['include_docs']})
       .then(
         (rows) => {
           let documents = rows.map(x => x.doc);
@@ -72,7 +77,9 @@ function Hyperglosae(logger) {
   };
 
   this.refreshContent = (id, callback) => {
-    this.getView({view: 'content', id, options: ['include_docs']})
+    const startKey = [id];
+    const endKey = [id, {}];
+    this.getView({view: 'content', startkey: startKey, endkey: endKey, id, options: ['include_docs']})
       .then(
         (rows) => {
           callback(rows);
@@ -84,13 +91,12 @@ function Hyperglosae(logger) {
   };
 
   this.refreshDocuments = (callback) => {
-    this.getView({view: 'all_documents', options: ['group']})
-      .then((rows) => {
-        callback(
-          rows.map(
-            ({value}) => ({...value.metadata, referenced: value.referenced})
-          )
-        );
+    const editorKey = this.credentials.name || 'null';
+    const startKey = [editorKey];
+    const endKey = [editorKey, {}];
+    this.getView({view: 'all_documents', startkey: startKey, endkey: endKey, options: ['group']})
+      .then(rows => {
+        callback(rows.map(({value}) => ({...value.metadata, referenced: value.referenced})));
       });
   };
 

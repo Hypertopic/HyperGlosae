@@ -4,13 +4,18 @@ import { useState, useEffect } from 'react';
 import Container from 'react-bootstrap/Container';
 import DocumentsCards from '../components/DocumentsCards';
 
-function Bookshelf({backend}) {
+function Bookshelf({backend, credentials}) {
   const [documents, setDocuments] = useState([]);
   const [lastUpdate, setLastUpdate] = useState();
 
   useEffect(() => {
-    backend.refreshDocuments(setDocuments);
-  }, [lastUpdate]);
+    // This will now re-run when `credentials` changes.
+    backend.refreshDocuments((newDocuments) => {
+      setDocuments(newDocuments);
+    });
+  }, [credentials]);
+
+  console.log('Current user:', backend.credentials.name);
 
   return (
     <Container className="screen bookshelf">

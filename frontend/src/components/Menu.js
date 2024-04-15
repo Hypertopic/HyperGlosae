@@ -8,7 +8,7 @@ import Form from 'react-bootstrap/Form';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 
-function Menu({backend}) {
+function Menu({backend, credentials, setCredentials}) {
   return (
     <Navbar bg="dark" variant="dark">
       <Container>
@@ -21,23 +21,26 @@ function Menu({backend}) {
             />
           </Link>
         </Navbar.Brand>
-        <Authentication {...{backend}} />
+        <Authentication backend={backend} credentials={credentials} setCredentials={setCredentials} />
       </Container>
     </Navbar>
   );
 }
 
-function Authentication({backend}) {
-  const [credentials, setCredentials] = useState();
+function Authentication({backend, credentials, setCredentials}) {
 
   let handleSubmit = (e) => {
     e.preventDefault();
-    let credentials = Object.fromEntries(new FormData(e.target).entries());
-    backend.authenticate(credentials)
-      .then(() => setCredentials(credentials));
+    let formCredentials = Object.fromEntries(new FormData(e.target).entries());
+    backend.authenticate(formCredentials)
+      .then(() => {
+        if (formCredentials.name) {
+          setCredentials(formCredentials);
+        }
+      });
   };
 
-  if (credentials) return (
+  if (credentials && credentials.name) return (
     <Navbar.Text>
       {credentials.name}
     </Navbar.Text>
