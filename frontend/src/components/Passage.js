@@ -3,8 +3,10 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import FormattedText from './FormattedText';
 import EditableText from '../components/EditableText';
+import {useState} from 'react';
 
 function Passage({source, rubric, scholia, margin, backend, setLastUpdate}) {
+  const [beingEdited, setBeingEdited] = useState(false);
   let scholium = scholia.filter(x => (x.isPartOf === margin)) || {text: ''};
   return (
     <Row>
@@ -18,7 +20,7 @@ function Passage({source, rubric, scholia, margin, backend, setLastUpdate}) {
           </Row>
         </Container>
       </Col>
-      <PassageMargin active={!!margin} {...{scholium, rubric, backend, setLastUpdate}} />
+      <PassageMargin active={!!margin} beingEdited={beingEdited} setBeingEdited={setBeingEdited} {...{scholium, rubric, backend, setLastUpdate}} />
     </Row>
   );
 }
@@ -41,12 +43,13 @@ function Rubric({id}) {
   );
 }
 
-function PassageMargin({active, scholium, rubric, backend, setLastUpdate}) {
+function PassageMargin({active, beingEdited, setBeingEdited, scholium, rubric, backend, setLastUpdate}) {
   if (!active) return;
   return (
     <Col xs={5} className="scholium">
       {scholium.map((x, i) =>
         <EditableText key={i} text={x.text} id={x.id} rubric={rubric || x.rubric}
+          beingEdited={beingEdited} setBeingEdited={setBeingEdited}
           {...{backend, setLastUpdate}}
         />
       )}
