@@ -3,8 +3,8 @@ import '../styles/EditableText.css';
 import { useState, useEffect } from 'react';
 import FormattedText from './FormattedText';
 
-function EditableText({id, text, rubric, backend, setLastUpdate}) {
-  const [beingEdited, setBeingEdited] = useState(false);
+function EditableText({id, text, rubric, beingEdited, setBeingEdited, backend, setLastUpdate}) {
+  //const [beingEdited, setBeingEdited] = useState(false);
   const [editedDocument, setEditedDocument] = useState({
     text: (rubric) ? `{${rubric}} ${text}` : text
   });
