@@ -61,3 +61,20 @@ Quand("je survole le texte :") do |text|
   element.hover
 end
 
+Quand("je sélectionne le fragment de texte :") do |markdown|
+  # WARNING: Does work only with one given example!
+  page.execute_script("
+      let node = document.getElementsByClassName('lectern col')[0].getElementsByClassName('main col')[2].getElementsByTagName('p')[0].firstChild;
+      let range = document.createRange();
+      range.setStart(node, 18);
+      range.setEnd(node, 128);
+      let selection = window.getSelection();
+      selection.removeAllRanges();
+      selection.addRange(range);
+      node.dispatchEvent(new Event('mouseup', {bubbles: true}));
+      text = selection.toString();
+  ")
+  expect(page.evaluate_script('text')).to eq(markdown)
+  click_button(class: 'create-fragment')
+end
+

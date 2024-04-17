@@ -96,7 +96,7 @@ Soit('un document en deux passages affiché comme document principal') do
   sign_out
 end
 
-Soit("un autre document, en deux passages, affiché comme glose et dont je suis l'auteur") do
+Soit("un autre document, en plusieurs passages, affiché comme glose et dont je suis l'auteur") do
   sign_in('alice', 'whiterabbit')
   click_on_icon('gloses .create-document')
   click_on_text('content')
