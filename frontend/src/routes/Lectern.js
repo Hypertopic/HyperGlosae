@@ -92,7 +92,7 @@ function Lectern({backend}) {
         <Col md={2} className="sources">
           <DocumentsCards docs={sourcesOfSourceMetadata} byRow={1} />
         </Col>
-        <OpenedDocuments {...{backend, lectern, metadata, sourceMetadata, margin, setLastUpdate}} />
+        <OpenedDocuments {...{backend, lectern, metadata, sourceMetadata, margin, id, setLastUpdate}} />
         <References scholiaMetadata={scholiaMetadata} active={!margin}
           createOn={[id]} {...{setLastUpdate, backend}}
         />

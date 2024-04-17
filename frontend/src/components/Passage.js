@@ -4,8 +4,16 @@ import Col from 'react-bootstrap/Col';
 import FormattedText from './FormattedText';
 import EditableText from '../components/EditableText';
 
-function Passage({source, rubric, scholia, margin, backend, setLastUpdate}) {
-  let scholium = scholia.filter(x => (x.isPartOf === margin)) || {text: ''};
+function Passage({source, rubric, scholia, margin, sourceId, backend, setLastUpdate}) {
+  scholia = scholia.filter(x => (x.isPartOf === margin));
+  if (!scholia.length) {
+    scholia = [{
+      text: '&nbsp;',
+      rubric,
+      isPartOf: margin,
+      links: [{verb: 'relatesTo', object: sourceId}]
+    }];
+  }
   return (
     <Row>
       <Col className="main">
@@ -18,7 +26,7 @@ function Passage({source, rubric, scholia, margin, backend, setLastUpdate}) {
           </Row>
         </Container>
       </Col>
-      <PassageMargin active={!!margin} {...{scholium, rubric, backend, setLastUpdate}} />
+      <PassageMargin active={!!margin} {...{scholia, rubric, backend, setLastUpdate}} />
     </Row>
   );
 }
@@ -41,14 +49,12 @@ function Rubric({id}) {
   );
 }
 
-function PassageMargin({active, scholium, rubric, backend, setLastUpdate}) {
+function PassageMargin({active, scholia, rubric, backend, setLastUpdate}) {
   if (!active) return;
   return (
     <Col xs={5} className="scholium">
-      {scholium.map((x, i) =>
-        <EditableText key={i} text={x.text} id={x.id} rubric={rubric || x.rubric}
-          {...{backend, setLastUpdate}}
-        />
+      {scholia.map((scholium, i) =>
+        <EditableText key={i} {...scholium} {...{backend, setLastUpdate}} />
       )}
     </Col>
   );

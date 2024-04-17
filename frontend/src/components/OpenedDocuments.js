@@ -7,7 +7,7 @@ import Type, { TypeBadge } from './Type';
 import Passage from './Passage';
 import License from './License';
 
-function OpenedDocuments({backend, lectern, metadata, sourceMetadata, margin, setLastUpdate}) {
+function OpenedDocuments({backend, lectern, metadata, sourceMetadata, margin, id, setLastUpdate}) {
   return (
     <Col className="lectern">
       <Row className ="runningHead">
@@ -18,7 +18,7 @@ function OpenedDocuments({backend, lectern, metadata, sourceMetadata, margin, se
       </Row>
       {lectern.map(({rubric, source, scholia}, i) =>
         <Passage key={rubric || i}
-          {...{source, rubric, scholia, margin, backend, setLastUpdate}}
+          {...{source, rubric, scholia, margin, sourceId: id, backend, setLastUpdate}}
         />)
       }
       <Row>

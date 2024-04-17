@@ -2,8 +2,9 @@ import '../styles/EditableText.css';
 
 import { useState, useEffect } from 'react';
 import FormattedText from './FormattedText';
+import {v4 as uuid} from 'uuid';
 
-function EditableText({id, text, rubric, backend, setLastUpdate}) {
+function EditableText({id, text, rubric, isPartOf, links, backend, setLastUpdate}) {
   const [beingEdited, setBeingEdited] = useState(false);
   const [editedDocument, setEditedDocument] = useState();
   const [editedText, setEditedText] = useState();
@@ -25,6 +26,14 @@ function EditableText({id, text, rubric, backend, setLastUpdate}) {
       .then((x) => {
         setEditedDocument(x);
         setEditedText(parsePassage(x.text));
+      })
+      .catch(x => {
+        setEditedDocument({
+          _id: uuid(),
+          text: `{${rubric}} ${text}`,
+          isPartOf,
+          links
+        });
       });
   };
 
@@ -50,7 +59,7 @@ function EditableText({id, text, rubric, backend, setLastUpdate}) {
   if (!beingEdited) return (
     <div className="editable content" onClick={handleClick} title="Edit content...">
       <FormattedText>
-        {editedText || id && text}
+        {editedText || text}
       </FormattedText>
     </div>
   );
