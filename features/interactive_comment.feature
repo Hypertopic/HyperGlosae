@@ -12,7 +12,7 @@ Scénario: d'un commentaire
 
   Soit "Treignes, le 8 septembre 2012 (Christophe Lejeune)" le document principal
   Et "Etage suivant (Christophe Lejeune)" une des gloses ouverte
-  Quand je passe mon curseur sur le texte :
+  Quand je survole le texte :
     """
     Se socialiser
     """
