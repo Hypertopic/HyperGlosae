@@ -40,3 +40,17 @@ end
 Quand("je clique sur la référence temporelle {string} avec pour commentaire {string}") do |timecode, comment|
   find(:xpath, "//p[contains(., \"#{timecode}\")]", match: :first).click
 end
+
+Quand("je sélectionne le fragment de texte :") do |markdown|
+  page.execute_script("
+      var node = document.getElementsByClassName('lectern col')[0].getElementsByClassName('main col')[2].getElementsByTagName('p')[0].firstChild;
+      var range = document.createRange();
+      range.setStart(node, 18);
+      range.setEnd(node, 128);
+      var selection = window.getSelection();
+      selection.removeAllRanges();
+      selection.addRange(range);
+      texte = selection.toString();
+  ")
+  expect(page.evaluate_script("texte")).to eq(markdown)
+end
