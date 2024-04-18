@@ -15,8 +15,6 @@ function Bookshelf({backend, credentials}) {
     });
   }, [credentials]);
 
-  console.log('Current user:', backend.credentials.name);
-
   return (
     <Container className="screen bookshelf">
       <DocumentsCards docs={documents} byRow={4} createOn={[]}

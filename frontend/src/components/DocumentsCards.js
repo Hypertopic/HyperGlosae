@@ -10,7 +10,7 @@ import { TypeBadge } from './Type';
 function DocumentsCards({docs, expandable, byRow, createOn, setLastUpdate, backend}) {
   return (
     <Row className="gy-4">
-      {docs.map(x =>
+      {docs.map(x => x._id &&
         <Col key={x._id} md={ byRow && (12 / byRow) }>
           <DocumentCard doc={x} expandable={expandable} />
         </Col>

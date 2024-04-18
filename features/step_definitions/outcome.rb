@@ -76,3 +76,11 @@ end
 Alors('la vidéo du document principal se lance de {string} secondes à {string} secondes') do |start, ending|
   expect(page).to have_xpath("//iframe[contains(@src, 'start=#{start}&end=#{ending}')]")
 end
+
+Alors("je vois le document intitulé {string}") do |title|
+  expect(page).to have_content(title)
+end
+
+Alors("je ne vois pas le document intitulé {string}") do |title|
+  expect(page).not_to have_content(title)
+end

@@ -65,3 +65,13 @@ end
 Soit('{string} une des gloses ouverte') do |title|
   click_on_icon_next_to('open', title)
 end
+
+Soit("le document intitulé {string} n'est pas affiché") do |title|
+  visit '/'
+  expect(page).not_to have_content(title)
+end
+
+Soit('le document intitulé {string} est affiché') do |title|
+  visit '/'
+  expect(page).to have_content(title)
+end
