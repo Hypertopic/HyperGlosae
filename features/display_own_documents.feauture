@@ -1,0 +1,10 @@
+#language: fr
+
+Fonctionnalité: Retrouver dans sa bibliothèque
+
+Scénario: ses documents en favoris
+
+    Soit "Vestiges (diagramme de classes)" le document principal
+    Quand je me connecte
+    Et j'ai mis le document dans le favoris
+    Alors "Vestiges (diagramme de classes)" est le document mise en oeuvre
