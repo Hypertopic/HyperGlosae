@@ -94,3 +94,7 @@ end
 Soit('{string} une des gloses ouverte') do |title|
   click_on_icon_next_to('open', title)
 end
+
+Soit('je suis déjà placé sur la référence temporelle {string} avec pour commentaire {string}') do |timecode, comment|
+  find(:xpath, "//p[contains(., \"#{timecode}\")]", match: :first).click
+end
