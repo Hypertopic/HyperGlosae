@@ -27,8 +27,8 @@ def click_on_icon(action)
   find(".#{action}").click
 end
 
-def click_on_text(type)
-  find(".editable.#{type}", match: :first).click
+def click_on_text(type, text = '')
+  find(".editable.#{type}", text: text, match: :first).click
 end
 
 def have_image(alternative_text)

@@ -47,7 +47,7 @@ Soit('un document existant contenant :') do |markdown|
   sign_in('bill', 'madhatter')
   click_on_icon('create-document')
   click_on_icon('create-document')
-  click_on_text('content')
+  click_on_text('content', '<TEXT>')
   find('textarea').fill_in with: markdown
   leave_textarea
   click_on_icon('focus')
@@ -59,7 +59,7 @@ Soit('un document en deux passages affiché comme document principal') do
   sign_in('bill', 'madhatter')
   click_on_icon('create-document')
   click_on_icon('create-document')
-  click_on_text('content')
+  click_on_text('content', '<TEXT>')
   find('textarea').fill_in with:
   """
   {1} First passage.
@@ -95,7 +95,7 @@ end
 
 Soit('une glose faisant référence uniquement à la partie une') do
   click_on_icon('create-document')
-  click_on_text('content')
+  click_on_text('content', '<TEXT>')
   find('textarea').fill_in with:
   """
   {1} First side passage
