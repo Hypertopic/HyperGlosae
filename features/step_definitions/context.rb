@@ -26,11 +26,19 @@ Soit('un document existant affiché comme document principal') do
   sign_out
 end
 
+Soit("un document existant affiché comme document principal dont je ne suis pas l'auteur") do
+  visit '/'
+  sign_in('bill', 'madhatter')
+  click_on_icon('create-document')
+  click_on_icon('gloses .create-document')
+  sign_out
+end
+
 Soit("un document dont je suis l'auteur affiché comme glose") do
   visit '/'
   sign_in('alice', 'whiterabbit')
   click_on_icon('create-document')
-  click_on_icon('create-document')
+  click_on_icon('gloses .create-document')
   sign_out
 end
 
@@ -38,7 +46,7 @@ Soit("un document dont je ne suis pas l'auteur affiché comme glose") do
   visit '/'
   sign_in('bill', 'madhatter')
   click_on_icon('create-document')
-  click_on_icon('create-document')
+  click_on_icon('gloses .create-document')
   sign_out
 end
 
@@ -46,7 +54,7 @@ Soit('un document existant contenant :') do |markdown|
   visit '/'
   sign_in('bill', 'madhatter')
   click_on_icon('create-document')
-  click_on_icon('create-document')
+  click_on_icon('gloses .create-document')
   click_on_text('content', '<TEXT>')
   find('textarea').fill_in with: markdown
   leave_textarea
@@ -58,7 +66,7 @@ Soit('un document en deux passages affiché comme document principal') do
   visit '/'
   sign_in('bill', 'madhatter')
   click_on_icon('create-document')
-  click_on_icon('create-document')
+  click_on_icon('gloses .create-document')
   click_on_text('content', '<TEXT>')
   find('textarea').fill_in with:
   """
@@ -72,7 +80,7 @@ end
 
 Soit("un autre document, en deux passages, affiché comme glose et dont je suis l'auteur") do
   sign_in('alice', 'whiterabbit')
-  click_on_icon('create-document')
+  click_on_icon('gloses .create-document')
   click_on_text('content')
   find('textarea').fill_in with:
   """
@@ -85,7 +93,7 @@ end
 
 Soit("un autre document, non découpé, affiché comme glose et dont je suis l'auteur") do
   sign_in('alice', 'whiterabbit')
-  click_on_icon('create-document')
+  click_on_icon('gloses .create-document')
   sign_out
 end
 
@@ -94,7 +102,7 @@ Soit('{string} une des gloses ouverte') do |title|
 end
 
 Soit('une glose faisant référence uniquement à la partie une') do
-  click_on_icon('create-document')
+  click_on_icon('gloses .create-document')
   click_on_text('content', '<TEXT>')
   find('textarea').fill_in with:
   """
@@ -112,4 +120,14 @@ end
 Soit('le document intitulé {string} est affiché') do |title|
   visit '/'
   expect(page).to have_content(title)
+end
+
+Soit('je crée un document avec les métadonnées suivantes:') do |metadata|
+  click_on_text('metadata')
+  fill_element('textarea', metadata)
+  leave_textarea
+end
+
+Soit("un document que l'on consulte") do
+  visit '/146e6e8442f0405b721b79357d00d0a1'
 end

@@ -7,7 +7,7 @@ Quand('je consulte le contenu de {string}') do |title|
 end
 
 Quand("j'essaie de créer un nouveau document") do
-  click_on_icon('create-document')
+  click_on_icon('gloses .create-document, .bookshelf .create-document')
 end
 
 Quand("j'essaie de remplacer les métadonnées de la glose par :") do |metadata|
@@ -51,3 +51,8 @@ Quand("je me connecte") do
   sign_in('alice', 'whiterabbit')
   expect(find('.navbar')).to have_content 'alice'
 end
+
+Quand("j'essaie de créer une référence au document") do
+  click_on_icon('sources .create-document')
+end
+
