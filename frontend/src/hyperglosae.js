@@ -85,7 +85,8 @@ function Hyperglosae(logger) {
   };
 
   this.refreshDocuments = (callback) => {
-    this.getView({view: 'all_documents', options: ['group']})
+    let id = this.credentials.name || 'PUBLIC';
+    this.getView({view: 'all_documents', id, options: ['group']})
       .then((rows) => {
         callback(
           rows.map(

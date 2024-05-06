@@ -20,6 +20,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 
 function App() {
   const [types, setTypes] = React.useState([]);
+  const [user, setUser] = React.useState();
   React.useEffect(() => {
     backend.getView({view: 'types', options: ['include_docs']})
       .then(
@@ -31,11 +32,11 @@ function App() {
   return (
     <React.StrictMode>
       <BrowserRouter>
-        <Menu {...{backend}} />
+        <Menu {...{backend, user, setUser}} />
         <NotificationContainer />
         <TypesContext.Provider value={types}>
           <Routes>
-            <Route path="/" element={<Bookshelf {...{backend}} />} />
+            <Route path="/" element={<Bookshelf {...{backend, user}} />} />
             <Route path="/:id" element={<Lectern {...{backend}} />} />
           </Routes>
         </TypesContext.Provider>

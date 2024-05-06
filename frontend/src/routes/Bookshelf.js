@@ -4,13 +4,13 @@ import { useState, useEffect } from 'react';
 import Container from 'react-bootstrap/Container';
 import DocumentsCards from '../components/DocumentsCards';
 
-function Bookshelf({backend}) {
+function Bookshelf({backend, user}) {
   const [documents, setDocuments] = useState([]);
   const [lastUpdate, setLastUpdate] = useState();
 
   useEffect(() => {
     backend.refreshDocuments(setDocuments);
-  }, [lastUpdate]);
+  }, [lastUpdate, user]);
 
   return (
     <Container className="screen bookshelf">
