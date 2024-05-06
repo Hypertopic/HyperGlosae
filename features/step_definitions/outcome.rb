@@ -76,3 +76,10 @@ end
 Alors('la vidéo du document principal se lance de {string} secondes à {string} secondes') do |start, ending|
   expect(page).to have_xpath("//iframe[contains(@src, 'start=#{start}&end=#{ending}')]")
 end
+
+Alors ("{string} est le document mise en oeuvre") do |title|
+  find('img[src="/logo.png"]').click
+  click_on_icon_next_to('focus', title)
+  expect(find('.main .work')).to have_content title
+  expect(page).to have_title title
+end

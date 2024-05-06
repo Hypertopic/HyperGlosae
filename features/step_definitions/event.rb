@@ -34,3 +34,11 @@ end
 Quand("je clique sur la référence temporelle {string} avec pour commentaire {string}") do |timecode, comment|
   find(:xpath, "//p[contains(., \"#{timecode}\")]", match: :first).click
 end
+
+Quand("je me connecte") do
+  sign_in('alice', 'whiterabbit')
+end
+
+Quand ("j'ai mis le document dans le favoris") do
+  find(".main .icon").click
+end
