@@ -78,3 +78,11 @@ end
 Alors('la glose est ouverte en mode édition') do
   expect(page).to have_css(".scholium > form")
 end
+
+Alors("je vois le document intitulé {string}") do |title|
+  expect(page).to have_content(title)
+end
+
+Alors("je ne vois pas le document intitulé {string}") do |title|
+  expect(page).not_to have_content(title)
+end

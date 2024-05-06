@@ -46,3 +46,8 @@ Quand("j'essaie d'éditer le bloc {int} avec le texte") do |block_number, markdo
   fill_element('textarea', markdown)
   leave_textarea
 end
+
+Quand("je me connecte") do
+  sign_in('alice', 'whiterabbit')
+  expect(find('.navbar')).to have_content 'alice'
+end

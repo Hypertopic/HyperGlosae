@@ -103,3 +103,13 @@ Soit('une glose faisant référence uniquement à la partie une') do
   leave_textarea
   expect(page).to have_content 'First side passage'
 end
+
+Soit("le document intitulé {string} n'est pas affiché") do |title|
+  visit '/'
+  expect(page).not_to have_content(title)
+end
+
+Soit('le document intitulé {string} est affiché') do |title|
+  visit '/'
+  expect(page).to have_content(title)
+end
