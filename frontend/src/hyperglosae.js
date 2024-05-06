@@ -94,6 +94,61 @@ function Hyperglosae(logger) {
       });
   };
 
+  this.getBookmark = (docId, userId) => {
+    // Retrieves specified bookmark based on docId
+    return this.getView({view: 'bookmark', id: userId, options: ['include_docs']})
+      .then(rows => {
+        const bookmark = rows.find(row => row.value === docId); // Assuming row.value.docId is the correct path
+        return bookmark; // Return the found bookmark
+      });
+  };
+
+  this.createBookmark = (docId, userId) => {
+    const bookmarkDoc = {
+      type: 'bookmark',
+      docId,
+      userId,
+      createdAt: new Date().toISOString()
+    };
+    // Use POST to let CouchDB generate the _id
+    return fetch(`${service}`, {
+      method: 'POST',
+      headers: {
+        ...basicAuthentication({force: true}),
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(bookmarkDoc)
+    })
+      .then(response => response.json())
+      .then(data => {
+        if (data.ok) {
+          // Bookmark creation succeeded
+          return data.id;
+        }
+      });
+  };
+
+  this.removeBookmark = (docId, userId) => {
+    return this.getView({view: 'bookmark', id: userId, options: ['include_docs']})
+      .then(rows => {
+        // Find the bookmark for the specific document
+        const bookmark = rows.find(row => row.value === docId);
+        if (bookmark) {
+          // Retrieve the full bookmark document to get its _rev
+          return this.getDocument(bookmark.id);
+        }
+      })
+      .then(bookmarkDoc => {
+        if (bookmarkDoc && bookmarkDoc._id && bookmarkDoc._rev) {
+          // Delete the bookmark document
+          return fetch(`${service}/${bookmarkDoc._id}?rev=${bookmarkDoc._rev}`, {
+            method: 'DELETE',
+            headers: basicAuthentication({ force: true })
+          }).then(res => res.json());
+        }
+      });
+  };
+
   return this;
 }
 

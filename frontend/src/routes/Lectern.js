@@ -13,7 +13,7 @@ import EditableText from '../components/EditableText';
 import DocumentSources from '../components/DocumentSources';
 import Type, { TypeBadge } from '../components/Type';
 
-function Lectern({backend}) {
+function Lectern({backend, user}) {
 
   const [lectern, setLectern] = useState([]);
   const [metadata, setMetadata] = useState([]);
@@ -26,9 +26,31 @@ function Lectern({backend}) {
   let margin = useLocation().hash.slice(1);
   let hasRubrics = (id, rows) => rows.some(x => x.key[1] !== 0 && x.value.isPartOf === id && x.value.text);
   const getCaption = ({dc_title, dc_spatial}) => dc_title + (dc_spatial ? `, ${dc_spatial}` : '');
+  const [isBookmarked, setIsBookmarked] = useState(false);
 
   if (sourceMetadata)
     document.title = `${getCaption(sourceMetadata)} ${sourceMetadata.dc_creator ? `(${sourceMetadata.dc_creator})` : ''}`;
+
+  useEffect(() => {
+    if (user) {
+      backend.getBookmark(id, user)
+        .then(bookmark => setIsBookmarked(!!bookmark))
+        .catch(error => console.error(error));
+    }
+  }, [user, id, backend]);
+
+  const handleBookmark = () => {
+    // This function will toggle the bookmark status
+    if (!isBookmarked) {
+      backend.createBookmark(id, user)
+        .then(() => setIsBookmarked(true))
+        .catch(error => console.error(error));
+    } else {
+      backend.removeBookmark(id, user)
+        .then(() => setIsBookmarked(false))
+        .catch(error => console.error(error));
+    }
+  };
 
   useEffect(() => {
     backend.refreshMetadata(id, setMetadata);
@@ -99,7 +121,7 @@ function Lectern({backend}) {
         </Col>
         <Col className="lectern">
           <Row className ="runningHead">
-            <RunningHeadSource metadata={ sourceMetadata } />
+            <RunningHeadSource metadata={sourceMetadata} onBookmarkToggle={handleBookmark} isBookmarked={isBookmarked} />
             <RunningHeadMargin {...{backend}}
               metadata={ metadata.find(x => (x._id === margin)) }
             />
@@ -156,10 +178,10 @@ function PassageMargin({active, scholium, rubric, backend}) {
   );
 }
 
-function RunningHeadSource({metadata}) {
+function RunningHeadSource({metadata, onBookmarkToggle, isBookmarked}) {
   return (
     <Col className="main">
-      <BookmarkFill className="icon" />
+      <BookmarkFill className={`icon ${isBookmarked ? 'bookmarked' : ''}`} onClick={onBookmarkToggle} />
       <Metadata metadata={metadata} />
       <TypeBadge type={metadata?.type} />
     </Col>
