@@ -7,7 +7,7 @@ Scénario: en étant connecté
   Soit la liste des documents affichée
   Et une session active avec mon compte
   Quand j'essaie de créer un nouveau document
-  Alors "<TITLE>" est le document principal
+  Alors le document principal a le titre par défaut
 
 Scénario: sans être connecté
 
