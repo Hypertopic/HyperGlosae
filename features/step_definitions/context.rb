@@ -41,6 +41,15 @@ Soit('un document existant affiché comme document principal') do
   visit '/'
   sign_in('alice', 'whiterabbit')
   click_on_icon('create-document')
+  click_on_icon('focus')
+  sign_out
+end
+
+Soit('un document existant affiché avec le titre par défaut comme document principal') do
+  visit '/'
+  sign_in('alice', 'whiterabbit')
+  click_on_icon('create-document')
+  click_on_icon('focus')
   sign_out
 end
 
@@ -48,7 +57,7 @@ Soit("un document existant affiché comme document principal dont je ne suis pas
   visit '/'
   sign_in('bill', 'madhatter')
   click_on_icon('create-document')
-  click_on_icon('gloses .create-document')
+  click_on_icon('focus')
   sign_out
 end
 
@@ -56,6 +65,7 @@ Soit("un document dont je suis l'auteur affiché comme glose") do
   visit '/'
   sign_in('alice', 'whiterabbit')
   click_on_icon('create-document')
+  click_on_icon('focus')
   click_on_icon('gloses .create-document')
   sign_out
 end
@@ -64,6 +74,7 @@ Soit("un document dont je ne suis pas l'auteur affiché comme glose") do
   visit '/'
   sign_in('bill', 'madhatter')
   click_on_icon('create-document')
+  click_on_icon('focus')
   click_on_icon('gloses .create-document')
   sign_out
 end
@@ -72,7 +83,6 @@ Soit('un document existant contenant :') do |markdown|
   visit '/'
   sign_in('bill', 'madhatter')
   click_on_icon('create-document')
-  click_on_icon('gloses .create-document')
   click_on_text('content', '<TEXT>')
   find('textarea').fill_in with: markdown
   leave_textarea
@@ -84,7 +94,6 @@ Soit('un document en deux passages affiché comme document principal') do
   visit '/'
   sign_in('bill', 'madhatter')
   click_on_icon('create-document')
-  click_on_icon('gloses .create-document')
   click_on_text('content', '<TEXT>')
   find('textarea').fill_in with:
   """

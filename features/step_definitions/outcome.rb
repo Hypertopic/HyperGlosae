@@ -88,3 +88,7 @@ Alors("le texte du document principal est en surbrillance :") do |highlighted_te
   expect(highlighted_element).not_to be_nil
 end
 
+Alors('le document principal a le titre par défaut') do
+  expect(find('.main .work')).to have_content "<TITLE>"
+end
+

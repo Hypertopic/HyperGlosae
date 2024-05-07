@@ -78,3 +78,6 @@ Quand("je sélectionne le fragment de texte :") do |markdown|
   click_button(class: 'create-fragment')
 end
 
+Quand("j'essaie d'éditer le document") do
+  click_on_icon('edit')
+end
