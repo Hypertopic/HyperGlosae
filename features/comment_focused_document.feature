@@ -12,9 +12,9 @@ Scénario: Une glose dont je suis l'auteur est ouverte
     plusieurs personnes se présentent à moi. Ayant identifié que je suis nouveau, elles me souhaitent la bienvenue
     """
   Alors je peux créer un commentaire
-  Et je peux lire :
+  Et je peux lire:
   """
-  plusieurs personnes se présentent à moi. Ayant identifié que je suis nouveau, elles me souhaitent la bienvenue
-  :<TEXT>
+  plusieurs personnes se présentent à moi. Ayant identifié que je suis nouveau, elles me souhaitent la bienvenue:
+  <TEXT>
   """
   Et la glose est ouverte en mode édition

@@ -66,3 +66,7 @@ end
 Alors('le texte du premier passage de la glose est :') do |text|
   expect(find('.editable.content', match: :first).text).to match /\A#{text}\z/
 end
+
+Alors('la glose est ouverte en mode édition') do
+  expect(page).to have_css(".scholium > form")
+end
