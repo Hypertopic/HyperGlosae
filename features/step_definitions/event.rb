@@ -56,3 +56,8 @@ Quand("j'essaie de créer une référence au document") do
   click_on_icon('sources .create-document')
 end
 
+Quand ("je navigue vers la page suivante") do
+  click_button('Next')
+end
+
+
