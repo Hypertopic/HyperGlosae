@@ -6,7 +6,7 @@ function Hyperglosae(logger) {
 
   this.credentials = {};
 
-  this.getView = ({view, id, options = []}) =>
+  this.getView = ({view, id, options = [], limit, skip}) =>
     fetch(`${
       service
     }/_design/app/_view/${
@@ -15,7 +15,7 @@ function Hyperglosae(logger) {
       id ? `startkey=["${id}"]&endkey=["${id}",{}]` : ''
     }&${
       options.map(x => x + '=true').join('&')
-    }`)
+    }${limit !== undefined ? `&limit=${limit}` : ''}${skip !== undefined ? `&skip=${skip}` : ''}`)
       .then(x => x.json())
       .then(x => x.rows);
 
@@ -84,9 +84,9 @@ function Hyperglosae(logger) {
       );
   };
 
-  this.refreshDocuments = (callback) => {
+  this.refreshDocuments = (callback, limit = 35, skip = 0) => {
     let id = this.credentials.name || 'PUBLIC';
-    this.getView({view: 'all_documents', id, options: ['group']})
+    this.getView({view: 'all_documents', id, options: ['group'], limit, skip})
       .then((rows) => {
         callback(
           rows.map(
