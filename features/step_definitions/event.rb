@@ -46,3 +46,12 @@ Quand("j'essaie d'éditer le bloc {int} avec le texte") do |block_number, markdo
   fill_element('textarea', markdown)
   leave_textarea
 end
+
+
+Quand("j'essaye d'effectuer un rollback") do 
+  find(".content").right_click
+  click_on_icon('rollback')
+  click_on_icon('confirm-rollback')
+end
+
+

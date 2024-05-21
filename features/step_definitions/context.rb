@@ -103,3 +103,20 @@ Soit('une glose faisant référence uniquement à la partie une') do
   leave_textarea
   expect(page).to have_content 'First side passage'
 end
+
+
+Soit("dont le texte du premier passage est {string} dans sa version antérieure la plus récente") do |markdown|
+  sign_in('alice', 'whiterabbit')
+  click_on_text('content')
+  find('textarea').fill_in with: markdown
+  leave_textarea
+  sign_out
+end
+
+Soit("dont le texte du premier passage est {string}") do |markdown|
+  sign_in('alice', 'whiterabbit')
+  click_on_text('content')
+  find('textarea').fill_in with: markdown
+  leave_textarea
+  sign_out
+end
