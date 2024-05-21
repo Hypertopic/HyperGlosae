@@ -49,7 +49,7 @@ function FutureDocumentIcon({relatedTo, verb, setLastUpdate, backend, asSource =
       })
         .then((x) => {
           setLastUpdate(_id);
-          navigate((relatedTo.length ? '#' : '/') + _id);
+          navigate((relatedTo.length ? '#' : '/blank#') + _id);
         })
         .catch(console.error);
     }
