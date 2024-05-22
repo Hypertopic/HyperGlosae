@@ -3,6 +3,7 @@ import remarkUnwrapImages from 'remark-unwrap-images';
 import { remarkDefinitionList, defListHastHandlers } from 'remark-definition-list';
 import CroppedImage from './CroppedImage';
 import VideoComment from './VideoComment';
+import FragmentComment from './FragmentComment';
 
 function FormattedText({children}) {
   return (
@@ -10,7 +11,7 @@ function FormattedText({children}) {
       remarkPlugins={[remarkDefinitionList, remarkUnwrapImages]}
       components={{
         img: (x) => embedVideo(x) || CroppedImage(x),
-        p: (x) => VideoComment(x) || <p>{x.children}</p>,
+        p: (x) => VideoComment(x) || FragmentComment(x) || <p>{x.children}</p>,
         a: ({children, href}) => <a href={href}>{children}</a>
       }}
       remarkRehypeOptions={{

@@ -1,9 +1,9 @@
-.comment:hover{
+.videoComment:hover{
     color:blue;
     cursor: pointer;
 }
 
-.comment {
+.videoComment {
     margin-top: 15px;
     font-weight: bold;
 }

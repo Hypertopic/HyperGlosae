@@ -1,0 +1,14 @@
+.fragmentComment:hover{
+    color:blue;
+    cursor: pointer;
+}
+
+.fragmentComment {
+    margin-top: 15px;
+    font-weight: bold;
+    margin-top: 0;
+}
+
+highlighted {
+    background-color: darkorange;
+}

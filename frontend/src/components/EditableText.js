@@ -2,6 +2,7 @@ import '../styles/EditableText.css';
 
 import { useState, useEffect } from 'react';
 import FormattedText from './FormattedText';
+import { unHighlightAllTextInMainDocument } from './utils';
 
 function EditableText({id, text, rubric, backend, setLastUpdate}) {
   const [beingEdited, setBeingEdited] = useState(false);
@@ -11,6 +12,7 @@ function EditableText({id, text, rubric, backend, setLastUpdate}) {
   const PASSAGE = new RegExp(`\\{${rubric}} ?([^{]+)`);
 
   let handleClick = () => {
+    unHighlightAllTextInMainDocument();
     setBeingEdited(true);
     backend.getDocument(id)
       .then((x) => {
