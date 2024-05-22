@@ -11,7 +11,7 @@ function VideoComment({ children }) {
           playVideoAt(children[0]);
         }
       }
-      className="comment"
+      className="videoComment"
       title="Go to the video excerpt"
     >{children[0]}</p>;
   }
