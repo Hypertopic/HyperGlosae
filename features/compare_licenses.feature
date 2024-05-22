@@ -1,16 +1,24 @@
 #language: fr
 
-Fonctionnalité: Comparer les licences des documents
+Fonctionnalité: Comparer les licences pour les documents
 
-Scénario: entre la source et la glose
+Scénario: de traduction avec licences compatible
 
-    Soit un document dont je suis l'auteur affiché comme glose
-    Et une session active avec mon compte
-    Quand j'essaie de remplacer les métadonnées de la glose par :
-        """
-        dc_title: Comparer licences
-        dc_creator: Alice Liddell
-        dc_issued: 1932
-        dc_license: https://creativecommons.org/licenses/by-sa/4.0/
-        """
+    Soit "Les fées (Charles Perrault)" le document principal
+    Et "Víly (Charles Perrault)" une des gloses
+    Quand je clique sur la glose
+    Alors je ne peux pas lire "Licenses are not compatible"
+
+Scénario: de traduction avec licences non compatible
+
+    Soit "Víly (Charles Perrault)" le document principal
+    Et "Fairies" une des gloses
+    Quand je clique sur la glose
     Alors je peux lire "Licenses are not compatible"
+
+Scénario: de non traduction avec licences non compatible
+
+    Soit "Entretien avec un responsable d'opération" le document principal
+    Et "Étiquetage de l'entretien" une des gloses
+    Quand je clique sur la glose
+    Alors je ne peux pas lire "Licenses are not compatible"
