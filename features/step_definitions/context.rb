@@ -131,3 +131,8 @@ end
 Soit("un document que l'on consulte") do
   visit '/146e6e8442f0405b721b79357d00d0a1'
 end
+
+Soit('la première page de documents est affichée') do
+  visit '/'
+  expect(page).to have_css('.h-100', count: 35)
+end

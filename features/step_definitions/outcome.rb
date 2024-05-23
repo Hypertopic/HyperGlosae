@@ -86,3 +86,7 @@ end
 Alors("je ne vois pas le document intitulé {string}") do |title|
   expect(page).not_to have_content(title)
 end
+
+Alors("la page suivante de documents est affichée") do
+  expect(page).to have_css('.h-100', count: 3)
+end
