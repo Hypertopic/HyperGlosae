@@ -56,3 +56,7 @@ Quand("j'essaie de créer une référence au document") do
   click_on_icon('sources .create-document')
 end
 
+Quand ("j'ai mis le document dans le favoris") do
+  find(".main .icon").click
+end
+

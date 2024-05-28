@@ -86,3 +86,10 @@ end
 Alors("je ne vois pas le document intitulé {string}") do |title|
   expect(page).not_to have_content(title)
 end
+
+Alors ("{string} est le document mise en oeuvre") do |title|
+  find('img[src="/logo.png"]').click
+  click_on_icon_next_to('focus', title)
+  expect(find('.main .work')).to have_content title
+  expect(page).to have_title title
+end
