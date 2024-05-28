@@ -17,6 +17,7 @@
     "react-markdown": "^8.0.4",
     "react-notifications": "^1.7.4",
     "react-router-dom": "^6.4.3",
+    "react-youtube": "^10.1.0",
     "remark-definition-list": "^2.0.0",
     "remark-unwrap-images": "^4.0.0",
     "uuid": "^9.0.0",

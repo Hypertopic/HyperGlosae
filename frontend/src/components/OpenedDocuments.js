@@ -6,7 +6,15 @@ import Metadata from './Metadata';
 import Type, { TypeBadge } from './Type';
 import Passage from './Passage';
 
+import { useState } from 'react';
+
 function OpenedDocuments({backend, lectern, metadata, sourceMetadata, margin, setLastUpdate}) {
+  let [comment, setComment] = useState('');
+
+  function addComment(newText) {
+    setComment(newText);
+  }
+
   return (
     <Col className="lectern">
       <Row className ="runningHead">
@@ -17,7 +25,7 @@ function OpenedDocuments({backend, lectern, metadata, sourceMetadata, margin, se
       </Row>
       {lectern.map(({rubric, source, scholia}, i) =>
         <Passage key={rubric || i}
-          {...{source, rubric, scholia, margin, backend, setLastUpdate}}
+          {...{source, rubric, scholia, margin, backend, setLastUpdate, comment, addComment}}
         />)
       }
     </Col>

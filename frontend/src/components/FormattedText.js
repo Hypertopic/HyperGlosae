@@ -3,13 +3,17 @@ import remarkUnwrapImages from 'remark-unwrap-images';
 import { remarkDefinitionList, defListHastHandlers } from 'remark-definition-list';
 import CroppedImage from './CroppedImage';
 import VideoComment from './VideoComment';
+import TimecodeBuilder from './TimecodeBuilder';
+import YouTube from 'react-youtube';
+import { useState } from 'react';
 
-function FormattedText({children}) {
+function FormattedText({children, addComment}) {
+
   return (
     <ReactMarkdown
       remarkPlugins={[remarkDefinitionList, remarkUnwrapImages]}
       components={{
-        img: (x) => embedVideo(x) || CroppedImage(x),
+        img: (x) => embedVideo({...x, addComment}) || CroppedImage(x),
         p: (x) => VideoComment(x) || <p>{x.children}</p>,
         a: ({children, href}) => <a href={href}>{children}</a>
       }}
@@ -28,12 +32,37 @@ function getId(text) {
   return match ? match[1] : null;
 }
 
-function embedVideo({src}) {
+function embedVideo({src, addComment}) {
   const videoId = getId(src);
+  const [player, setPlayer] = useState(null);
+
+  let resetCount = 0;
+
   if (videoId) {
-    const embedLink = `https://www.youtube.com/embed/${videoId}`;
+
+    const opts = {
+      height: '300',
+      width: '80%',
+      playerVars: {
+        autoplay: 0,
+        allowFullScreen: 1
+      },
+    };
+
+    let onPlayerReady = (event) => {
+      if (event.target.g) {
+        if (resetCount == 1) {
+          setPlayer(event.target);
+        }
+        resetCount++;
+      }
+    };
+
     return (
-      <iframe width="80%" height="300" src={embedLink} frameBorder="0" allowFullScreen></iframe>
+      <div key={videoId} >
+        <YouTube videoId={videoId} opts={opts} onReady={onPlayerReady}/>
+        <TimecodeBuilder player={player} addComment={addComment}></TimecodeBuilder>
+      </div>
     );
   }
   return null;

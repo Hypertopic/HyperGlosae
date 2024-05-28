@@ -3,18 +3,35 @@ import '../styles/EditableText.css';
 import { useState, useEffect } from 'react';
 import FormattedText from './FormattedText';
 
-function EditableText({id, text, rubric, backend, setLastUpdate}) {
+function EditableText({id, text, rubric, backend, setLastUpdate, comment}) {
   const [beingEdited, setBeingEdited] = useState(false);
   const [editedDocument, setEditedDocument] = useState({
     text: (rubric) ? `{${rubric}} ${text}` : text
   });
   const PASSAGE = new RegExp(`\\{${rubric}} ?([^{]+)`);
 
+  useEffect(() => {
+    if (comment != '') {
+      handleTimecode();
+    }
+  }, [comment]);
+
   let handleClick = () => {
     setBeingEdited(true);
     backend.getDocument(id)
       .then((x) => {
         setEditedDocument(x);
+      });
+  };
+
+  let handleTimecode = () => {
+    setBeingEdited(true);
+    backend.getDocument(id)
+      .then((editedDocument) => {
+        let editedText = (rubric)
+          ? editedDocument.text.replace(PASSAGE, `{${rubric}} ${editedDocument.text + comment}`)
+          : editedDocument.text + comment;
+        setEditedDocument({ ...editedDocument, text: editedText });
       });
   };
 
