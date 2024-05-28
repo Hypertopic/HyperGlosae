@@ -1,18 +1,18 @@
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import { BookmarkFill } from 'react-bootstrap-icons';
 import BrowseTools from './BrowseTools';
 import Metadata from './Metadata';
 import Type, { TypeBadge } from './Type';
 import Passage from './Passage';
 import License from './License';
 import More from './More';
+import Bookmark from './Bookmark';
 
 function OpenedDocuments({backend, lectern, metadata, sourceMetadata, margin, hasSources, id, setLastUpdate}) {
   return (
     <Col className="lectern">
       <Row className ="runningHead">
-        <RunningHeadSource metadata={ sourceMetadata } hasSources={hasSources} />
+        <RunningHeadSource metadata={ sourceMetadata } {...{hasSources, backend}} />
         <RunningHeadMargin {...{backend}}
           metadata={ metadata.find(x => (x._id === margin)) }
         />
@@ -36,10 +36,11 @@ function OpenedDocuments({backend, lectern, metadata, sourceMetadata, margin, ha
   );
 }
 
-function RunningHeadSource({metadata, hasSources}) {
+function RunningHeadSource({metadata, hasSources, backend}) {
+  let id = metadata?._id;
   return (
     <Col className="main">
-      <BookmarkFill className="icon" />
+      <Bookmark {...{backend, id}} />
       <BrowseTools id={metadata?._id} editable={!hasSources} focusable={false} />
       <Metadata {...{metadata}} />
       <TypeBadge type={metadata?.type} />

@@ -81,3 +81,7 @@ dd {
   padding-left: 30px;
 }
 
+.icon.bookmarked {
+  color: gold; /* or any color that indicates an active bookmark */
+}
+

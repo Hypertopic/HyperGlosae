@@ -46,6 +46,20 @@ function Hyperglosae(logger) {
         return x;
       });
 
+  this.deleteDocument = ({_id, _rev}) =>
+    fetch(`${service}/${_id}?rev=${_rev}`, {
+      method: 'DELETE',
+      headers: basicAuthentication({ force: false })
+    })
+      .then(x => x.json())
+      .then(x => {
+        if (x.reason) {
+          logger(x.reason);
+          throw new Error(x.reason);
+        }
+        return x;
+      });
+
   this.getDocumentMetadata = (id) =>
     fetch(`${service}/${id}`, {
       method: 'HEAD',
