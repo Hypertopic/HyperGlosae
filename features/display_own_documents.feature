@@ -13,3 +13,9 @@ Scénario: ses propres documents
     Mais je ne vois pas le document intitulé "Mimes Buster Keaton"
     Et je ne vois pas le document intitulé "Script Buster Keaton"
 
+Scénario: ses documents en favoris
+
+    Soit "Vestiges (diagramme de classes)" le document principal
+    Quand je me connecte
+    Et j'ai mis le document dans le favoris
+    Alors "Vestiges (diagramme de classes)" est le document mise en oeuvre
