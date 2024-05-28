@@ -40,3 +40,8 @@ end
 Quand("je clique sur la référence temporelle {string} avec pour commentaire {string}") do |timecode, comment|
   find(:xpath, "//p[contains(., \"#{timecode}\")]", match: :first).click
 end
+
+Quand("j’ajoute un timecode allant de {string} à {string} dans la glose ouverte") do |timecode1, timecode2|
+  find("body").send_keys("A")
+  find("body").send_keys("A")
+end
