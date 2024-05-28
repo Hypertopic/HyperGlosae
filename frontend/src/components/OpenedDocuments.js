@@ -7,11 +7,11 @@ import Type, { TypeBadge } from './Type';
 import Passage from './Passage';
 import License from './License';
 
-function OpenedDocuments({backend, lectern, metadata, sourceMetadata, margin, id, setLastUpdate}) {
+function OpenedDocuments({backend, lectern, metadata, sourceMetadata, margin, id, setLastUpdate, handleBookmark, isBookmarked}) {
   return (
     <Col className="lectern">
       <Row className ="runningHead">
-        <RunningHeadSource metadata={ sourceMetadata } />
+        <RunningHeadSource metadata={sourceMetadata} onBookmarkToggle={handleBookmark} isBookmarked={isBookmarked} />
         <RunningHeadMargin {...{backend}}
           metadata={ metadata.find(x => (x._id === margin)) }
         />
@@ -35,10 +35,10 @@ function OpenedDocuments({backend, lectern, metadata, sourceMetadata, margin, id
   );
 }
 
-function RunningHeadSource({metadata}) {
+function RunningHeadSource({metadata, onBookmarkToggle, isBookmarked}) {
   return (
     <Col className="main">
-      <BookmarkFill className="icon" />
+      <BookmarkFill className={`icon ${isBookmarked ? 'bookmarked' : ''}`} onClick={onBookmarkToggle} />
       <Metadata {...{metadata}} />
       <TypeBadge type={metadata?.type} />
     </Col>

@@ -8,7 +8,7 @@ import { useParams, useLocation } from 'react-router-dom';
 import OpenedDocuments from '../components/OpenedDocuments';
 import DocumentsCards from '../components/DocumentsCards';
 
-function Lectern({backend}) {
+function Lectern({backend, user}) {
 
   const [lectern, setLectern] = useState([]);
   const [metadata, setMetadata] = useState([]);
@@ -21,9 +21,31 @@ function Lectern({backend}) {
   let margin = useLocation().hash.slice(1);
   let hasRubrics = (id, rows) => rows.some(x => x.key[1] !== 0 && x.value.isPartOf === id && x.value.text);
   const getCaption = ({dc_title, dc_spatial}) => dc_title + (dc_spatial ? `, ${dc_spatial}` : '');
+  const [isBookmarked, setIsBookmarked] = useState(false);
 
   if (sourceMetadata)
     document.title = `${getCaption(sourceMetadata)} ${sourceMetadata.dc_creator ? `(${sourceMetadata.dc_creator})` : ''}`;
+
+  useEffect(() => {
+    if (user) {
+      backend.getBookmark(id, user)
+        .then(bookmark => setIsBookmarked(!!bookmark))
+        .catch(error => console.error(error));
+    }
+  }, [user, id, backend]);
+
+  const handleBookmark = () => {
+    // This function will toggle the bookmark status
+    if (!isBookmarked) {
+      backend.createBookmark(id, user)
+        .then(() => setIsBookmarked(true))
+        .catch(error => console.error(error));
+    } else {
+      backend.removeBookmark(id, user)
+        .then(() => setIsBookmarked(false))
+        .catch(error => console.error(error));
+    }
+  };
 
   useEffect(() => {
     backend.refreshMetadata(id, setMetadata);
@@ -92,7 +114,7 @@ function Lectern({backend}) {
         <Col md={2} className="sources">
           <DocumentsCards docs={sourcesOfSourceMetadata} createOn={[id]} asSource={true} byRow={1} {...{setLastUpdate, backend}} />
         </Col>
-        <OpenedDocuments {...{backend, lectern, metadata, sourceMetadata, margin, id, setLastUpdate}} />
+        <OpenedDocuments {...{backend, lectern, metadata, sourceMetadata, margin, id, setLastUpdate, handleBookmark, isBookmarked}} />
         <References scholiaMetadata={scholiaMetadata} active={!margin}
           createOn={[id]} {...{setLastUpdate, backend}}
         />
