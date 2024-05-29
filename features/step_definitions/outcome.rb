@@ -86,3 +86,9 @@ end
 Alors("je ne vois pas le document intitulé {string}") do |title|
   expect(page).not_to have_content(title)
 end
+
+Alors("le texte du document principal est en surbrillance :") do |highlighted_text|
+  highlighted_element = find('highlighted', text: highlighted_text.strip)
+  expect(highlighted_element).not_to be_nil
+end
+

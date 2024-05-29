@@ -56,3 +56,8 @@ Quand("j'essaie de créer une référence au document") do
   click_on_icon('sources .create-document')
 end
 
+Quand("je survole le texte :") do |text|
+  element = find('p[title="Highlight in document"]', text: text.strip)
+  element.hover
+end
+
