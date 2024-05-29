@@ -3,13 +3,17 @@ import '../styles/EditableText.css';
 import { useState, useEffect } from 'react';
 import FormattedText from './FormattedText';
 
-function EditableText({id, text, rubric, beingEdited, setBeingEdited, backend, setLastUpdate}) {
-  //const [beingEdited, setBeingEdited] = useState(false);
+function EditableText({id, text, rubric, isPartOf, beingEdited, setBeingEdited, sourceId, backend, setLastUpdate}) {
   const [editedDocument, setEditedDocument] = useState({
-    text: (rubric) ? `{${rubric}} ${text}` : text
+    text: (rubric) ? `{${rubric}} ${text}` : text,
+    _id: id,
+    isPartOf,
+    links: [{
+      verb: 'refersTo',
+      object: sourceId
+    }]
   });
   const PASSAGE = new RegExp(`\\{${rubric}} ?([^{]+)`);
-
   let handleClick = () => {
     setBeingEdited(true);
     backend.getDocument(id)
@@ -19,14 +23,16 @@ function EditableText({id, text, rubric, beingEdited, setBeingEdited, backend, s
   };
 
   let handleChange = (event) => {
+    console.log('onChange');
     let editedText = (rubric)
       ? editedDocument.text.replace(PASSAGE, `{${rubric}} ${event.target.value}`)
       : event.target.value;
     setEditedDocument({ ...editedDocument, text: editedText });
   };
 
-  let handleBlur = () => {
+  let handleBlur = (e) => {
     setBeingEdited(false);
+    console.log(editedDocument);
     backend.putDocument(editedDocument)
       .then(x => setLastUpdate(x.rev))
       .catch(console.error);

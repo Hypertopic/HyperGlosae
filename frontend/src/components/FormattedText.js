@@ -6,11 +6,10 @@ import VideoComment from './VideoComment';
 import SelectPopUp from './SelectPopUp';
 import {useState} from 'react';
 
-function FormattedText({children}) {
-
+function FormattedText({children, setCommentText, setBeingEditedComment}) {
   const [selectedText, setSelectedText] = useState('');
   return (
-    <div>{selectedText && <SelectPopUp selectedText={selectedText} />}
+    <div>{selectedText && <SelectPopUp selectedText={selectedText} setCommentText={setCommentText} setBeingEditedComment={setBeingEditedComment}/>}
       <ReactMarkdown
         remarkPlugins={[remarkDefinitionList, remarkUnwrapImages]}
         components={{

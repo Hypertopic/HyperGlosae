@@ -17,7 +17,7 @@ function OpenedDocuments({backend, lectern, metadata, sourceMetadata, margin, se
       </Row>
       {lectern.map(({rubric, source, scholia}, i) =>
         <Passage key={rubric || i}
-          {...{source, rubric, scholia, margin, backend, setLastUpdate}}
+          {...{source, rubric, scholia, margin, sourceMetadata, backend, setLastUpdate}}
         />)
       }
     </Col>

@@ -1,14 +1,5 @@
 import React, { useState } from 'react';
 
-function Popup({ x, y, selectedText }) {
-  return (
-    <div style={{ position: 'absolute', left: x, top: y }}>
-      <p>Selected Text: {selectedText}</p>
-      {/* Add more content or components as needed */}
-    </div>
-  );
-}
-
 // function ReturnHighlightText() {
 //   return (
 //     <style>
@@ -20,25 +11,28 @@ function Popup({ x, y, selectedText }) {
 //   )
 // }
 
-function SelectPopUp() {
-  const [popupPosition, setPopupPosition] = useState({ x: 0, y: 0 });
-  const [selectedText, setSelectedText] = useState('');
+function SelectPopUp({selectedText, setCommentText, setBeingEditedComment}) {
+  const [focus, setFocus] = useState(true);
 
-  const handleTextSelection = () => {
-    const selected = window.getSelection().toString();
-    if (selected) {
-      const selection = window.getSelection().getRangeAt(0).getBoundingClientRect();
-      setPopupPosition({ x: selection.x, y: selection.y });
-      setSelectedText(selected);
-    }
+  let handleClick = (e) => {
+    //e.preventDefault();
+    //e.stopPropagation();
+    setCommentText(selectedText);
+    setBeingEditedComment(true);
+  };
+
+  let handleOnBlur = (e) =>{
+    setFocus(false);
   };
 
   return (
-    <div onMouseUp={handleTextSelection}>
-      <button type="button">highlight</button>
-      {selectedText && (
-        <Popup x={popupPosition.x} y={popupPosition.y} selectedText={selectedText}/>
-      )}
+    <div style={{
+      display: focus ? 'inherit' : 'none',
+      position: 'relative',
+      padding: '20px',
+      border: '1px solid gray'
+    }}>
+      <button type="button" onMouseUp={handleClick} onBlur={handleOnBlur} >highlight</button>
     </div>
   );
 }
