@@ -66,3 +66,8 @@ end
 Alors('le texte du premier passage de la glose est :') do |text|
   expect(find('.editable.content', match: :first).text).to match /\A#{text}\z/
 end
+
+Alors("le texte du document principal est en surbrillance :") do |highlighted_text|
+  highlighted_element = find('highlighted', text: highlighted_text.strip)
+  expect(highlighted_element).not_to be_nil
+end

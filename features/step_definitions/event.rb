@@ -40,3 +40,8 @@ end
 Quand("je clique sur la référence temporelle {string} avec pour commentaire {string}") do |timecode, comment|
   find(:xpath, "//p[contains(., \"#{timecode}\")]", match: :first).click
 end
+
+Quand("je survole le texte :") do |text|
+  element = find('p[title="Highlight in document"]', text: text.strip)
+  element.hover
+end
