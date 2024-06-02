@@ -27,16 +27,11 @@ jobs:
         uses: docker://benel/wait-for-response:1
         with:
           args: http://localhost:5984/hyperglosae 401 5000 500
-      - name: Enable CORS and public access in backend
+      - name: Set the backend up
         run: |
           export COUCHDB_USER="TO_BE_CHANGED"
           export COUCHDB_PASSWORD="TO_BE_CHANGED"
-          curl -X PUT -u "${COUCHDB_USER}:${COUCHDB_PASSWORD}" -s localhost:5984/_node/nonode@nohost/_config/chttpd/enable_cors --data '"true"'
-          curl -X PUT -u "${COUCHDB_USER}:${COUCHDB_PASSWORD}" -s localhost:5984/_node/nonode@nohost/_config/cors/origins --data '"*"'
-          curl -X PUT -u "${COUCHDB_USER}:${COUCHDB_PASSWORD}" -s localhost:5984/hyperglosae/_security --data '{"members":{"roles":[]},"admins":{"roles":["_admin"]}}'
-          curl -X PUT -u "${COUCHDB_USER}:${COUCHDB_PASSWORD}" -s localhost:5984/_users
-          curl -X PUT -u "${COUCHDB_USER}:${COUCHDB_PASSWORD}" -s localhost:5984/_users/org.couchdb.user:alice --data '{"name":"alice", "password":"whiterabbit", "roles":[], "type":"user"}'
-          curl -X PUT -u "${COUCHDB_USER}:${COUCHDB_PASSWORD}" -s localhost:5984/_users/org.couchdb.user:bill --data '{"name":"bill", "password":"madhatter", "roles":[], "type":"user"}'
+          ./backend/setup.sh
       - name: Wait for frontend build
         uses: lewagon/wait-on-check-action@v1.3.1
         with:
