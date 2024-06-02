@@ -3,6 +3,9 @@
   "dc_title": "Entretien avec un responsable d'opération",
   "dc_isPartOf": "Archéologie préventive (IF14)",
   "dc_creator": "Diane P.",
+  "editors": [
+    "diane"
+  ],
   "dc_issued": "2014",
   "links": [{
     "verb": "isGroundedIn",
