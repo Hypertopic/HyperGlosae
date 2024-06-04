@@ -1,3 +1,5 @@
+import { useState } from 'react';
+import SelectPopUp from './SelectPopUp';
 import ReactMarkdown from 'react-markdown';
 import remarkUnwrapImages from 'remark-unwrap-images';
 import { remarkDefinitionList, defListHastHandlers } from 'remark-definition-list';
@@ -5,15 +7,24 @@ import CroppedImage from './CroppedImage';
 import VideoComment from './VideoComment';
 import FragmentComment from './FragmentComment';
 
-function FormattedText({children, setHighlightedText}) {
-  return (
+function FormattedText({children, setHighlightedText, selectable, setFragment}) {
+  const [selectedText, setSelectedText] = useState();
+
+  const handleMouseUp = () => {
+    if (selectable) {
+      setSelectedText(window.getSelection().toString());
+    }
+  };
+
+  return (<>
+    <SelectPopUp {...{selectedText, setSelectedText, setFragment}}/>
     <ReactMarkdown
       remarkPlugins={[remarkDefinitionList, remarkUnwrapImages]}
       components={{
         img: (x) => embedVideo(x) || CroppedImage(x),
         p: (x) => VideoComment(x)
           || FragmentComment({...x, setHighlightedText})
-          || <p>{x.children}</p>,
+          || <p onMouseUp={handleMouseUp}>{x.children}</p>,
         a: ({children, href}) => <a href={href}>{children}</a>
       }}
       remarkRehypeOptions={{
@@ -22,7 +33,7 @@ function FormattedText({children, setHighlightedText}) {
     >
       {children}
     </ReactMarkdown>
-  );
+  </>);
 }
 
 function getId(text) {
