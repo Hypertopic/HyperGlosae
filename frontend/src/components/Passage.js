@@ -4,30 +4,30 @@ import Col from 'react-bootstrap/Col';
 import FormattedText from './FormattedText';
 import EditableText from '../components/EditableText';
 
-function Passage({source, rubric, scholia, margin, backend, setLastUpdate}) {
+function Passage({source, rubric, scholia, margin, backend, setLastUpdate, comment, addComment}) {
   let scholium = scholia.filter(x => (x.isPartOf === margin)) || {text: ''};
   return (
     <Row>
       <Col className="main">
         <Container>
           <Row>
-            <PassageSource>
+            <PassageSource addComment={addComment}>
               {source}
             </PassageSource>
             <Rubric id={rubric} />
           </Row>
         </Container>
       </Col>
-      <PassageMargin active={!!margin} {...{scholium, rubric, backend, setLastUpdate}} />
+      <PassageMargin active={!!margin} {...{scholium, rubric, backend, setLastUpdate, comment}} />
     </Row>
   );
 }
 
-function PassageSource({children}) {
+function PassageSource({children, addComment}) {
   return (
     <Col>
       {children.map((chunk, index) =>
-        <FormattedText key={index}>
+        <FormattedText key={index} addComment={addComment}>
           {chunk}
         </FormattedText>
       )}
@@ -41,13 +41,13 @@ function Rubric({id}) {
   );
 }
 
-function PassageMargin({active, scholium, rubric, backend, setLastUpdate}) {
+function PassageMargin({active, scholium, rubric, backend, setLastUpdate, comment}) {
   if (!active) return;
   return (
     <Col xs={5} className="scholium">
       {scholium.map((x, i) =>
         <EditableText key={i} text={x.text} id={x.id} rubric={rubric || x.rubric}
-          {...{backend, setLastUpdate}}
+          {...{backend, setLastUpdate, comment}}
         />
       )}
     </Col>

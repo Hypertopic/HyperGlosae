@@ -42,9 +42,8 @@ Quand("je clique sur la référence temporelle {string} avec pour commentaire {s
 end
 
 Quand("j’ajoute un timecode dans la glose ouverte") do
-  Capybara.using_wait_time(20) do
-    click_on_element('.timecode-ready', '[CTRL + SPACE] Appuyer pour marquer le début')
-  end
+  expect(page).to have_content('Appuyer')
+  click_on_element('.timecode-ready', '[CTRL + SPACE] Appuyer pour marquer le début')
   find("body").send_keys([:control, :space])
   find("body").send_keys([:control, :space])
 end
