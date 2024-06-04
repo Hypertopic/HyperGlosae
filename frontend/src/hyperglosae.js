@@ -31,6 +31,10 @@ function Hyperglosae(logger) {
     });
   };
 
+  this.getDocumentRevisions = (id) =>
+    fetch(`${service}/${id}?revs_info=true`)
+      .then(x => x.json());
+
   this.putDocument = (doc) =>
     fetch(`${service}/${doc._id}`, {
       method: 'PUT',
