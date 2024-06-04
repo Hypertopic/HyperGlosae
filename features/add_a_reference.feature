@@ -2,7 +2,7 @@
 
 Fonctionnalité: Ajouter une référence à un document
 
-Scénario: si j'en ai les droits d'édition
+Scénario: si j'en ai les droits d'édition et que le contenu de mon document est un passage
 
   Soit un document dont je suis l'auteur affiché comme glose
   Et une session active avec mon compte
@@ -12,8 +12,24 @@ Scénario: si j'en ai les droits d'édition
     dc_creator: Alice Liddell
     dc_issued: 1932
     """
-  Quand je me focalise sur "Titouan"
-  Et j'essaie de créer une référence au document
+  Et je fais un focus sur "Titouan"
+  Quand j'essaie de créer une référence au document
+  Alors "<TITLE>" est le document principal
+  Et "Titouan" est une des gloses
+
+Scénario: si j'en ai les droits d'édition et que le contenu de mon document est en plusieurs passages
+
+  Soit un document dont je suis l'auteur affiché comme glose
+  Et une session active avec mon compte
+  Et je crée un document avec les métadonnées suivantes:
+    """
+    dc_title: Titouan
+    dc_creator: Alice Liddell
+    dc_issued: 1932
+    """
+  Et je fais plusieurs passages dans le document
+  Et je fais un focus sur "Titouan"
+  Quand j'essaie de créer une référence au document
   Alors "<TITLE>" est le document principal
   Et "Titouan" est une des gloses
 
