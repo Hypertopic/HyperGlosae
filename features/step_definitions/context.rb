@@ -131,3 +131,19 @@ end
 Soit("un document que l'on consulte") do
   visit '/146e6e8442f0405b721b79357d00d0a1'
 end
+
+Soit("{string} la langue préférée configurée dans le navigateur") do |language|
+  page.driver.add_headers("Accept-Language" => language)
+end
+
+Soit('un texte flottant avec la balise title {string} est présent') do |text|
+  expect(page).to have_selector("title", text: /#{text}/i, visible: false)
+end
+
+Soit('un texte flottant avec l’attribut title {string} est présent') do |text|
+  expect(page).to have_selector("[title='#{text}']")
+end
+
+Soit('un placeholder contenant {string} est présent') do |text|
+  expect(page).to have_selector("input[placeholder='#{text}']")
+end

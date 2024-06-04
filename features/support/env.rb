@@ -2,7 +2,7 @@ require 'capybara/cucumber'
 require 'capybara/cuprite'
 
 Before do
-  Capybara.current_session.driver.add_headers("Accept-Language" => "fr")
+  Capybara.current_session.driver.add_headers("Accept-Language" => "en")
 end
 Capybara.run_server = false
 Capybara.default_driver = :cuprite
@@ -36,10 +36,17 @@ def have_image(alternative_text)
 end
 
 def sign_in(username, password)
-  fill_in placeholder: "Username", with: username
-  fill_in placeholder: 'Password', with: password
-  click_on 'Sign in'
-  expect(page).to have_content username
+  if page.has_content?('Sign in')
+    fill_in placeholder: "Username", with: username
+    fill_in placeholder: 'Password', with: password
+    click_on 'Sign in'
+    expect(page).to have_content username
+  else
+    fill_in placeholder: "Nom d’utilisateur", with: username
+    fill_in placeholder: 'Mot de passe', with: password
+    click_on 'Se connecter'
+    expect(page).to have_content username
+  end
 end
 
 def sign_out

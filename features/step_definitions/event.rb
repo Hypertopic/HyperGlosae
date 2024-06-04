@@ -56,3 +56,15 @@ Quand("j'essaie de créer une référence au document") do
   click_on_icon('sources .create-document')
 end
 
+Quand("je choisis {string} comme langue préférée configurée dans le navigateur et que je rafraichisse la page") do |language|
+  page.driver.add_headers("Accept-Language" => language)
+  visit current_path
+  sleep 2
+end
+
+Quand("je choisis {string} comme langue préférée configurée dans le navigateur, que je rafraichisse la page et que {string} une des gloses ouverte") do |language, title|
+  page.driver.add_headers("Accept-Language" => language)
+  visit current_path
+  sleep 2
+  click_on_icon_next_to('open', title)
+end

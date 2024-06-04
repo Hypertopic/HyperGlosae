@@ -86,3 +86,9 @@ end
 Alors("je ne vois pas le document intitulé {string}") do |title|
   expect(page).not_to have_content(title)
 end
+
+Soit('la page contient') do |table|
+  table.raw.flatten.each do |localization|
+    expect(page).to have_content localization
+  end
+end
