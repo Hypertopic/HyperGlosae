@@ -74,3 +74,11 @@ end
 Alors('l\'année de publication est {string}') do |string|
   expect(find('.metadata > .edition', match: :first)).to have_content string
 end
+
+Alors('le texte à la fin du commentaire contient la nouvelle référence temporelle') do 
+  expect(find('.scholium textarea').text).to match(/[0-9:.]+ --> [0-9:.]+\n<TEXT>/)
+end
+
+Alors('la glose est ouverte en mode édition') do
+  expect(page).to have_css('.scholium textarea')
+end

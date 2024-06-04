@@ -40,3 +40,11 @@ end
 Quand("je clique sur la référence temporelle {string} avec pour commentaire {string}") do |timecode, comment|
   find(:xpath, "//p[contains(., \"#{timecode}\")]", match: :first).click
 end
+
+Quand("j’ajoute un timecode dans la glose ouverte") do
+  Capybara.using_wait_time(20) do
+    click_on_element('.timecode-ready', '[CTRL + SPACE] Appuyer pour marquer le début')
+  end
+  find("body").send_keys([:control, :space])
+  find("body").send_keys([:control, :space])
+end
