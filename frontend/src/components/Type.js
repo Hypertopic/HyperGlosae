@@ -18,11 +18,24 @@ export function TypeBadge({ type, addClassName }) {
 
 function TypeList({ typeSelected, handleUpdate }) {
   const types = useContext(TypesContext);
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const filteredTypes = types.filter(type =>
+    type.doc.type_name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
   return (
     <>
       <h6 style={{ textAlign: 'left' }}>Select a type</h6>
+      <input
+        type="text"
+        id="searchType"
+        placeholder="Filter types..."
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+        style={{ marginBottom: '10px', width: '100%', padding: '5px' }}
+      />
       <ListGroup style={{ textAlign: 'center', paddingTop: 0, paddingBottom: 20 }}>
-        {types.map((type, index) =>
+        {filteredTypes.map((type, index) =>
           <ListGroup.Item action
             key={index}
             style={{ backgroundColor: type === typeSelected ? 'grey' : '' }}
