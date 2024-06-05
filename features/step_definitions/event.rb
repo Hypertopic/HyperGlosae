@@ -81,3 +81,8 @@ end
 Quand("j'essaie d'éditer le document") do
   click_on_icon('edit')
 end
+
+Quand("je cherche le type {string}") do |type|
+  click_on_icon('typeIcon')
+  fill_element('#searchType', type)
+end

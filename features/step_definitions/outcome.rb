@@ -92,3 +92,17 @@ Alors('le document principal a le titre par défaut') do
   expect(find('.main .work')).to have_content "<TITLE>"
 end
 
+Alors('je peux lire {string} dans la liste des types') do |text|
+  expect(find('.list-group')).to have_content text
+end
+
+Alors('je ne peux pas lire {string} ans la liste des types') do |text|
+  expect(find('.list-group')).not_to have_content text
+end
+
+Alors('je ne peux rien lire dans la liste des types') do
+  expect(find('.list-group')).not_to have_content "Ethnography/Report"
+  expect(find('.list-group')).not_to have_content "Ethnography/Analysis"
+  expect(find('.list-group')).not_to have_content "Ethnography/Interview"
+end
+
