@@ -58,7 +58,7 @@ function Rubric({id}) {
   );
 }
 
-function PassageMargin({active, scholia, setHighlightedText, fragment, setFragment, backend, setLastUpdate}) {
+function PassageMargin({active, scholia, backend, setLastUpdate}) {
   if (!active) return;
   return (
     <Col xs={5} className="scholium">

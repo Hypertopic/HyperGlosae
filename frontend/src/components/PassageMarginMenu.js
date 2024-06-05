@@ -1,7 +1,5 @@
-import '../styles/PassageMarginMenu.css';
-
 import { Dropdown } from 'react-bootstrap';
-import {forwardRef, useRef} from 'react';
+import React, { useRef } from 'react';
 import { ThreeDotsVertical } from 'react-bootstrap-icons';
 
 function PassageMarginMenu ({ id, backend, handleImageUrl }) {
@@ -14,7 +12,7 @@ function PassageMarginMenu ({ id, backend, handleImageUrl }) {
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     if (file) backend.putAttachment(id, file, (response) => {
-      handleImageUrl(`![<IMAGE DESCRIPTION>](${response.url})`);
+      handleImageUrl(`![${file.name}](${response.url})`);
     });
   };
 
@@ -37,7 +35,7 @@ function PassageMarginMenu ({ id, backend, handleImageUrl }) {
   );
 }
 
-const BlockMenuButton = forwardRef(({ children, onClick }, ref) => (
+const BlockMenuButton = React.forwardRef(({ children, onClick }, ref) => (
   <ThreeDotsVertical
     onClick={(e) => {
       e.preventDefault();
