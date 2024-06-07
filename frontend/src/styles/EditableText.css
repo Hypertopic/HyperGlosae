@@ -1,4 +1,12 @@
-.editable:hover {
+.content {
+  display: flex;
+}
+
+.formatted-text {
+  flex: 1;
+}
+
+.formatted-text:hover {
   background: lightgray;
   border-color: black;
 }

@@ -46,6 +46,32 @@ function Hyperglosae(logger) {
         return x;
       });
 
+  this.getDocumentMetadata = (id) =>
+    fetch(`${service}/${id}`, {
+      method: 'HEAD',
+      headers: basicAuthentication({ force: false })
+    });
+
+  this.putAttachment = (id, attachment, callback) =>
+    this.getDocumentMetadata(id).then(x => {
+      const reader = new FileReader();
+      reader.readAsArrayBuffer(attachment);
+      reader.onload = () => {
+        const arrayBuffer = reader.result;
+
+        fetch(`${service}/${id}/${attachment.name}`, {
+          method: 'PUT',
+          headers: {
+            ...basicAuthentication({ force: false }),
+            // ETag is the header that carries the current rev.
+            'If-Match': x.headers.get('ETag'),
+            'Content-Type': attachment.type
+          },
+          body: arrayBuffer
+        }).then(response => callback(response));
+      };
+    });
+
   this.authenticate = ({name, password}) => {
     this.credentials = {name, password};
     return fetch(`${service}`, {
