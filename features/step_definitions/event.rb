@@ -42,7 +42,7 @@ Quand("je clique sur la référence temporelle {string} avec pour commentaire {s
 end
 
 Quand("j'essaie d'éditer le bloc {int} avec le texte") do |block_number, markdown|
-  find(".lectern>.row:nth-child(#{block_number + 1})>.scholium>.content>p").click
+  find(".lectern>.row:nth-child(#{block_number + 1})>.scholium>.content>.formatted-text").click
   fill_element('textarea', markdown)
   leave_textarea
 end
@@ -54,6 +54,10 @@ end
 
 Quand("j'essaie de créer une référence au document") do
   click_on_icon('sources .create-document')
+end
+
+Quand("j'essaye d'ajouter une image à une glose") do
+  attach_file("image-input", File.expand_path("./docs/architecture.png"), make_visible: true)
 end
 
 Quand("je survole le texte :") do |text|
