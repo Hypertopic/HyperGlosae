@@ -2,6 +2,7 @@ import '../styles/EditableText.css';
 
 import { useState, useEffect } from 'react';
 import FormattedText from './FormattedText';
+import PassageMarginMenu from './PassageMarginMenu';
 import {v4 as uuid} from 'uuid';
 
 function EditableText({id, text, rubric, isPartOf, links, fragment, setFragment, setHighlightedText, backend, setLastUpdate}) {
@@ -42,12 +43,27 @@ function EditableText({id, text, rubric, isPartOf, links, fragment, setFragment,
   }, [fragment]);
 
   let handleClick = () => {
-    setHighlightedText('');
     setBeingEdited(true);
     updateEditedDocument()
       .then((x) => {
         setEditedText(parsePassage(x.text));
       });
+  };
+
+  let handleImageUrl = (imageTag) => {
+    backend.getDocument(id).then((editedDocument) => {
+      let parsedText = parsePassage(editedDocument.text) + imageTag;
+      let text = (rubric)
+        ? editedDocument.text.replace(PASSAGE, `{${rubric}} ${parsedText}`)
+        : parsedText;
+      backend.putDocument({ ...editedDocument, text })
+        .then(x => {
+          setEditedText(parsedText);
+          return x;
+        })
+        .then(x => setLastUpdate(x.rev))
+        .catch(console.error);
+    });
   };
 
   let handleChange = (event) => {
@@ -70,10 +86,13 @@ function EditableText({id, text, rubric, isPartOf, links, fragment, setFragment,
   };
 
   if (!beingEdited) return (
-    <div className="editable content" onClick={handleClick} title="Edit content...">
-      <FormattedText {...{setHighlightedText}}>
-        {editedText || text}
-      </FormattedText>
+    <div className="editable content" title="Edit content...">
+      <div className="formatted-text" onClick={handleClick}>
+        <FormattedText {...{setHighlightedText}}>
+          {editedText || text}
+        </FormattedText>
+      </div>
+      <PassageMarginMenu {... {id, backend, handleImageUrl}}/>
     </div>
   );
   return (
