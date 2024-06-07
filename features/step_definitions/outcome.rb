@@ -106,3 +106,10 @@ Alors('je ne peux rien lire dans la liste des types') do
   expect(find('.list-group')).not_to have_content "Ethnography/Interview"
 end
 
+Alors("je ne vois pas le document intitulé {string}") do |title|
+  expect(page).not_to have_content(title)
+end
+
+Alors("l'image disparait dans la glose") do
+    pending
+end

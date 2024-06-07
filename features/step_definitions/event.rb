@@ -59,3 +59,7 @@ end
 Quand("j'essaye d'ajouter l'image {string} à une glose") do |image_name|
   attach_file("image-input", File.expand_path("./docs/#{image_name}"), make_visible: true)
 end
+
+Quand("j'essaye de supprimer une image d'une glose") do
+  pending # Write code here that turns the phrase above into concrete actions
+end
