@@ -1,10 +1,16 @@
+import '../styles/Passage.css';
+
+import { useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import { Marker } from 'react-mark.js';
 import FormattedText from './FormattedText';
 import EditableText from '../components/EditableText';
 
 function Passage({source, rubric, scholia, margin, sourceId, backend, setLastUpdate}) {
+  const [highlightedText, setHighlightedText] = useState('');
+
   scholia = scholia.filter(x => (x.isPartOf === margin));
   if (!scholia.length) {
     scholia = [{
@@ -19,25 +25,27 @@ function Passage({source, rubric, scholia, margin, sourceId, backend, setLastUpd
       <Col className="main">
         <Container>
           <Row>
-            <PassageSource>
+            <PassageSource {...{highlightedText, setHighlightedText}}>
               {source}
             </PassageSource>
             <Rubric id={rubric} />
           </Row>
         </Container>
       </Col>
-      <PassageMargin active={!!margin} {...{scholia, rubric, backend, setLastUpdate}} />
+      <PassageMargin active={!!margin} {...{scholia, rubric, setHighlightedText, backend, setLastUpdate}} />
     </Row>
   );
 }
 
-function PassageSource({children}) {
+function PassageSource({children, highlightedText, setHighlightedText}) {
   return (
     <Col>
       {children.map((chunk, index) =>
-        <FormattedText key={index}>
-          {chunk}
-        </FormattedText>
+        <Marker key={index} mark={highlightedText} options={({separateWordSearch: false})}>
+          <FormattedText {...{setHighlightedText}}>
+            {chunk}
+          </FormattedText>
+        </Marker>
       )}
     </Col>
   );
@@ -49,12 +57,12 @@ function Rubric({id}) {
   );
 }
 
-function PassageMargin({active, scholia, rubric, backend, setLastUpdate}) {
+function PassageMargin({active, scholia, setHighlightedText, backend, setLastUpdate}) {
   if (!active) return;
   return (
     <Col xs={5} className="scholium">
       {scholia.map((scholium, i) =>
-        <EditableText key={i} {...scholium} {...{backend, setLastUpdate}} />
+        <EditableText key={i} {...scholium} {...{setHighlightedText, backend, setLastUpdate}} />
       )}
     </Col>
   );

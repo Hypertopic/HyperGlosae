@@ -5,13 +5,15 @@ import CroppedImage from './CroppedImage';
 import VideoComment from './VideoComment';
 import FragmentComment from './FragmentComment';
 
-function FormattedText({children}) {
+function FormattedText({children, setHighlightedText}) {
   return (
     <ReactMarkdown
       remarkPlugins={[remarkDefinitionList, remarkUnwrapImages]}
       components={{
         img: (x) => embedVideo(x) || CroppedImage(x),
-        p: (x) => VideoComment(x) || FragmentComment(x) || <p>{x.children}</p>,
+        p: (x) => VideoComment(x)
+          || FragmentComment({...x, setHighlightedText})
+          || <p>{x.children}</p>,
         a: ({children, href}) => <a href={href}>{children}</a>
       }}
       remarkRehypeOptions={{

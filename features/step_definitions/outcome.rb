@@ -80,7 +80,7 @@ Alors('la glose est ouverte en mode édition') do
 end
 
 Alors("le texte du document principal est en surbrillance :") do |highlighted_text|
-  highlighted_element = find('highlighted', text: highlighted_text.strip)
+  highlighted_element = find('mark', text: highlighted_text.strip)
   expect(highlighted_element).not_to be_nil
 end
 

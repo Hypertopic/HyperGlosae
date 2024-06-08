@@ -1,8 +1,6 @@
 import '../styles/FragmentComment.css';
-import React from 'react';
-import { highlightTextInMainDocument, unHighlightAllTextInMainDocument } from './utils';
 
-function FragmentComment({ children }) {
+function FragmentComment({ children, setHighlightedText }) {
   try {
     const citationRegex = /^\[.*\]\s*\n(.*)$/m;
     if (citationRegex.test(children)) {
@@ -13,22 +11,23 @@ function FragmentComment({ children }) {
           e => {
             e.preventDefault();
             e.stopPropagation();
-            highlightTextInMainDocument(citation);
+            setHighlightedText(citation);
           }
         }
         onMouseLeave={
           e => {
             e.preventDefault();
             e.stopPropagation();
-            unHighlightAllTextInMainDocument();
+            setHighlightedText('');
           }
         }
         className="fragmentComment"
         title="Highlight in document"
       >{comment}</p>;
     }
-  } catch (e) {}
-
+  } catch (e) {
+    console.error(e);
+  }
 }
 
 export default FragmentComment;

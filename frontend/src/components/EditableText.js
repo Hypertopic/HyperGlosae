@@ -3,9 +3,8 @@ import '../styles/EditableText.css';
 import { useState, useEffect } from 'react';
 import FormattedText from './FormattedText';
 import {v4 as uuid} from 'uuid';
-import { unHighlightAllTextInMainDocument } from './utils';
 
-function EditableText({id, text, rubric, isPartOf, links, backend, setLastUpdate}) {
+function EditableText({id, text, rubric, isPartOf, links, setHighlightedText, backend, setLastUpdate}) {
   const [beingEdited, setBeingEdited] = useState(false);
   const [editedDocument, setEditedDocument] = useState();
   const [editedText, setEditedText] = useState();
@@ -22,7 +21,7 @@ function EditableText({id, text, rubric, isPartOf, links, backend, setLastUpdate
   };
 
   let handleClick = () => {
-    unHighlightAllTextInMainDocument();
+    setHighlightedText('');
     setBeingEdited(true);
     backend.getDocument(id)
       .then((x) => {
@@ -60,7 +59,7 @@ function EditableText({id, text, rubric, isPartOf, links, backend, setLastUpdate
 
   if (!beingEdited) return (
     <div className="editable content" onClick={handleClick} title="Edit content...">
-      <FormattedText>
+      <FormattedText {...{setHighlightedText}}>
         {editedText || text}
       </FormattedText>
     </div>
