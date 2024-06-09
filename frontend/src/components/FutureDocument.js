@@ -40,7 +40,8 @@ function FutureDocumentIcon({relatedTo, verb, setLastUpdate, backend, asSource =
         }))
         .then((x) => {
           navigate('/' + _id);
-        });
+        })
+        .catch(console.error);
     } else {
       backend.putDocument({
         ...doc,
@@ -49,7 +50,8 @@ function FutureDocumentIcon({relatedTo, verb, setLastUpdate, backend, asSource =
         .then((x) => {
           setLastUpdate(_id);
           navigate((relatedTo.length ? '#' : '/') + _id);
-        });
+        })
+        .catch(console.error);
     }
   };
 
