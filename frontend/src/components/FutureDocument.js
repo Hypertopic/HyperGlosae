@@ -20,51 +20,36 @@ function FutureDocumentIcon({relatedTo, verb, setLastUpdate, backend, asSource =
 
   let handleClick = async () => {
     let _id = uuid();
-    let editors = [backend.credentials.name];
+    let doc = {
+      _id,
+      editors: [backend.credentials.name],
+      dc_creator: '<CREATOR>',
+      dc_title: '<TITLE>',
+      dc_issued: new Date(),
+      dc_license: '',
+      text: '<TEXT>'
+    };
 
     if (asSource) {
-      let documentId = relatedTo[0];
-      backend.putDocument({
-        _id,
-        editors,
-        dc_creator: '<CREATOR>',
-        dc_title: '<TITLE>',
-        dc_issued: new Date(),
-        dc_license: '',
-        text: '<TEXT>',
-      }).then(() => {
-        setLastUpdate(_id);
-        backend.getDocument(documentId)
-          .then((x) => {
-            let updatedDocument = {
-              ...Object.fromEntries(
-                Object.entries(x)
-              ),
-              links: [{verb: 'refersTo', object: _id}]
-            };
-
-            backend.putDocument(updatedDocument)
-              .then((x) => {
-                setLastUpdate(documentId);
-                navigate('/' + _id);
-              });
-          });
-      });
+      let gloseId = relatedTo[0];
+      backend.putDocument(doc)
+        .then(() => backend.getDocument(gloseId))
+        .then((x) => backend.putDocument({
+          ...x,
+          links: [{verb: 'refersTo', object: _id}]
+        }))
+        .then((x) => {
+          navigate('/' + _id);
+        });
     } else {
-      let links = relatedTo.map(object => ({verb, object}));
       backend.putDocument({
-        _id,
-        editors,
-        dc_creator: '<CREATOR>',
-        dc_title: '<TITLE>',
-        dc_issued: new Date(),
-        dc_license: '',
-        text: '<TEXT>',
-        links
-      }).then((x) => {
-        setLastUpdate(_id);
-        navigate((relatedTo.length ? '#' : '/') + _id);
-      });
+        ...doc,
+        links: relatedTo.map(object => ({verb, object}))
+      })
+        .then((x) => {
+          setLastUpdate(_id);
+          navigate((relatedTo.length ? '#' : '/') + _id);
+        });
     }
   };
 
