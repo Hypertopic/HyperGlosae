@@ -4,11 +4,8 @@ Fonctionnalité: Créer une collection
 
 Scénario: à partir d’une image
 
-  Soit un document existant contenant :
-    ```
-    ![1996_14-17_13_RUS_R_C](https://steatite.utt.fr/optimized/379c510401214c97968b15affb6eba1ed6a03db0)
-    ```
+  Soit un document existant contenant l'image 2019_10-13_16_UKR_R_A
   Et une session active avec mon compte
   Quand je crée une collection à partir de ce document
-  Alors je vois l'image "1996_14-17_13_RUS_R_C" dans la glose
+  Alors je vois l'image "2019_10-13_16_UKR_R_A" dans la glose
 

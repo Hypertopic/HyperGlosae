@@ -62,47 +62,25 @@ Soit("un document existant affiché comme document principal dont je ne suis pas
 end
 
 Soit("un document dont je suis l'auteur affiché comme glose") do
-  visit '/'
+  visit '/4e1a31e14b032f2fa9e161ee9b123456'
   sign_in('alice', 'whiterabbit')
-  click_on_icon('create-document')
-  click_on_icon('focus')
   click_on_icon('gloses .create-document')
   sign_out
 end
 
 Soit("un document dont je ne suis pas l'auteur affiché comme glose") do
-  visit '/'
+  visit '/4e1a31e14b032f2fa9e161ee9b123456'
   sign_in('bill', 'madhatter')
-  click_on_icon('create-document')
-  click_on_icon('focus')
   click_on_icon('gloses .create-document')
   sign_out
 end
 
-Soit('un document existant contenant :') do |markdown|
-  visit '/'
-  sign_in('bill', 'madhatter')
-  click_on_icon('create-document')
-  click_on_text('content', '<TEXT>')
-  find('textarea').fill_in with: markdown
-  leave_textarea
-  click_on_icon('focus')
-  sign_out
+Soit("un document existant contenant l'image 2019_10-13_16_UKR_R_A") do
+  visit '/b33f9568386e11eea7644766f8f7218a'
 end
 
 Soit('un document en deux passages affiché comme document principal') do
-  visit '/'
-  sign_in('bill', 'madhatter')
-  click_on_icon('create-document')
-  click_on_text('content', '<TEXT>')
-  find('textarea').fill_in with:
-  """
-  {1} First passage.
-  {2} Second passage.
-  """
-  leave_textarea
-  click_on_icon('focus')
-  sign_out
+  visit '/05b61f5285c711ed97bf6b9b56808c45'
 end
 
 Soit("un autre document, en plusieurs passages, affiché comme glose et dont je suis l'auteur") do

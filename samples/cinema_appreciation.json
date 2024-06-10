@@ -2,6 +2,7 @@
     "_id": "4e1a31e14b032f2fa9e161ee9b123456",
     "dc_title": "Appréciation",
     "dc_creator": "Aurélien Bénel",
+    "editors": ["benel"],
     "dc_issued": "2023-02-21",
     "text": "14/20",
     "dc_license": "https://creativecommons.org/licenses/by-sa/4.0/",
