@@ -22,6 +22,8 @@ Soit('{string} le document principal') do |title|
       visit '/6b56ee657c870dfacd34e9ae4e0643dd'
     when "Entretien avec un responsable d'opération"
       visit '/05b61f5285c711ed97bf6b9b56808c45'
+    when "Víly (Charles Perrault)"
+      visit '/420ab198674f11eda3b7a3fdd5ea984f'
   end
 end
 
@@ -155,4 +157,8 @@ end
 
 Soit("un document que l'on consulte") do
   visit '/146e6e8442f0405b721b79357d00d0a1'
+end
+
+Soit("je vois que la licence du document principal est {string}") do |text|
+  expect(page).to have_content text
 end

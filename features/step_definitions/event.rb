@@ -81,3 +81,7 @@ end
 Quand("j'essaie d'éditer le document") do
   click_on_icon('edit')
 end
+
+Quand("je clique sur la glose") do
+  click_on_icon('open')
+end

@@ -92,3 +92,7 @@ Alors('le document principal a le titre par défaut') do
   expect(find('.main .work')).to have_content "<TITLE>"
 end
 
+Alors("je vois que l'image de la licence de la glose est {string}") do |image|
+  expect(page).to have_image image
+end
+
