@@ -3,7 +3,7 @@ import '../styles/Metadata.css';
 import { useEffect, useState } from 'react';
 import yaml from 'yaml';
 
-function Metadata({metadata = {}, editable, backend}) {
+function Metadata({metadata = {}, editable, backend, setLastUpdate}) {
   const [beingEdited, setBeingEdited] = useState(false);
   const [editedDocument, setEditedDocument] = useState(metadata);
 
@@ -29,6 +29,7 @@ function Metadata({metadata = {}, editable, backend}) {
     };
     setEditedDocument(updatedDocument);
     backend.putDocument(updatedDocument)
+      .then(x => setLastUpdate(x.rev))
       .catch(console.error);
   };
 
