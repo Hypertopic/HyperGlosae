@@ -22,6 +22,8 @@ Soit('{string} le document principal') do |title|
       visit '/6b56ee657c870dfacd34e9ae4e0643dd'
     when "Entretien avec un responsable d'opération"
       visit '/05b61f5285c711ed97bf6b9b56808c45'
+    when "Víly (Charles Perrault)"
+      visit '/420ab198674f11eda3b7a3fdd5ea984f'
   end
 end
 
@@ -148,3 +150,12 @@ Soit("je fais plusieurs passages dans le document") do
   """
   leave_textarea
 end
+
+Soit("{string} le nom de la licence du document principal") do |license|
+  expect(page).to have_text license
+end
+
+Soit("{string} le code de la licence du document principal") do |license|
+  expect(page).to have_image license
+end
+
