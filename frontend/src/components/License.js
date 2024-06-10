@@ -1,9 +1,13 @@
 import React from 'react';
 
 function License({ license }) {
+  if (license === 'Public domain') return (
+    <div className="license">
+      <span>Public domain</span>
+    </div>
+  );
   let license_uri = license;
-
-  let [license_name] = /BY[\w-]+/i.exec(license_uri) || [];
+  let [license_name] = /(BY[\w-]*)/i.exec(license_uri) || [];
   if (license_name) return (
     <div className="license">
       <a href={license_uri}>
