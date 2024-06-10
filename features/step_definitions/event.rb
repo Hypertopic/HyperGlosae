@@ -56,3 +56,6 @@ Quand("j'essaie de créer une référence au document") do
   click_on_icon('sources .create-document')
 end
 
+Quand("je clique sur la glose") do
+  click_on_icon('open')
+end

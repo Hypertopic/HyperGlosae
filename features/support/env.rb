@@ -24,7 +24,7 @@ def click_on_icon_next_to(action, text)
 end
 
 def click_on_icon(action)
-  find(".#{action}").click
+  first(".#{action}").click
 end
 
 def click_on_text(type, text = '')
