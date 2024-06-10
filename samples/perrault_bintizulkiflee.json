@@ -1,0 +1,14 @@
+{
+    "_id": "96bddee6-24b2-11ef-a1f4-5351a35fcaac",
+    "dc_title": "Fairies",
+    "dc_creator": "Charles Perrault",
+    "dc_translator": "Nizreen Ana Binti Zulkiflee",
+    "dc_issued": "2024-06-07",
+    "dc_language": "eng",
+    "dc_license": "https://creativecommons.org/licenses/by-nc-nd/4.0/",
+    "links": [{
+      "verb": "isTranslationOf",
+      "object": "420ab198674f11eda3b7a3fdd5ea984f"
+    }],
+    "text": "{1} Once upon a time were a widow and her two daughters."
+}

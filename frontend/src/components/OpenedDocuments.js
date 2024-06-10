@@ -6,14 +6,16 @@ import Metadata from './Metadata';
 import Type, { TypeBadge } from './Type';
 import Passage from './Passage';
 import License from './License';
+import LicenseCompatibility from './LicenseCompatibility';
 
 function OpenedDocuments({backend, lectern, metadata, sourceMetadata, margin, hasSources, id, setLastUpdate}) {
+  const marginLicense = margin ? metadata.find(x => x._id === margin)?.dc_license : null;
   return (
     <Col className="lectern">
       <Row className ="runningHead">
         <RunningHeadSource metadata={ sourceMetadata } hasSources={hasSources} />
         <RunningHeadMargin {...{backend}}
-          metadata={ metadata.find(x => (x._id === margin)) }
+          metadata={ metadata.find(x => (x._id === margin)) } setLastUpdate={setLastUpdate}
         />
       </Row>
       {lectern.map(({rubric, source, scholia}, i) =>
@@ -31,6 +33,13 @@ function OpenedDocuments({backend, lectern, metadata, sourceMetadata, margin, ha
           </Col>
         )}
       </Row>
+      {margin && (
+        <Row>
+          <Col>
+            <LicenseCompatibility sourceMetadata={sourceMetadata} marginLicense={marginLicense} />
+          </Col>
+        </Row>
+      )}
     </Col>
   );
 }
@@ -46,12 +55,12 @@ function RunningHeadSource({metadata, hasSources}) {
   );
 }
 
-function RunningHeadMargin({metadata, backend}) {
+function RunningHeadMargin({metadata, backend, setLastUpdate}) {
   if (!metadata) return;
   return (
     <Col xs={5} className="scholium">
       <BrowseTools id={metadata._id} closable={true} />
-      <Metadata editable={true} {...{backend, metadata}} />
+      <Metadata editable={true} {...{backend, metadata, setLastUpdate}} />
       <Type editable={true} {...{backend, metadata}}/>
     </Col>
   );
