@@ -134,3 +134,17 @@ end
 Soit("un document que l'on consulte") do
   visit '/146e6e8442f0405b721b79357d00d0a1'
 end
+
+Soit("je fais un focus sur {string}") do |title|
+  click_on_icon_next_to('focus',title) 
+end
+
+Soit("je fais plusieurs passages dans le document") do
+  click_on_text('content')
+  find('textarea').fill_in with:
+  """
+  {1} First side passage.
+  {2} Second side passage.
+  """
+  leave_textarea
+end
