@@ -3,8 +3,10 @@ import '../styles/EditableText.css';
 import { useState, useEffect } from 'react';
 import FormattedText from './FormattedText';
 import {v4 as uuid} from 'uuid';
+import { useTranslation } from 'react-i18next';
 
 function EditableText({id, text, rubric, isPartOf, links, backend, setLastUpdate}) {
+  const { t } = useTranslation();
   const [beingEdited, setBeingEdited] = useState(false);
   const [editedDocument, setEditedDocument] = useState();
   const [editedText, setEditedText] = useState();
@@ -57,7 +59,7 @@ function EditableText({id, text, rubric, isPartOf, links, backend, setLastUpdate
   };
 
   if (!beingEdited) return (
-    <div className="editable content" onClick={handleClick} title="Edit content...">
+    <div className="editable content" onClick={handleClick} title={`${t('content')}`}>
       <FormattedText>
         {editedText || text}
       </FormattedText>

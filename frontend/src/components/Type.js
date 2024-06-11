@@ -5,6 +5,7 @@ import { TagFill } from 'react-bootstrap-icons';
 import { useState, useContext } from 'react';
 import { ListGroup } from 'react-bootstrap';
 import { TypesContext } from './TypesContext.js';
+import { useTranslation } from 'react-i18next';
 
 export function TypeBadge({ type, addClassName }) {
   if (!type) return null;
@@ -44,6 +45,7 @@ function TypeList({ typeSelected, handleUpdate }) {
 }
 
 function Type({ metadata, editable, backend }) {
+  const { t } = useTranslation();
   const [ beingEdited, setBeingEdited ] = useState(false);
   const [ typeSelected, setTypeSelected ] = useState(metadata.type);
   const [ editedDocument, setEditedDocument ] = useState(metadata);
@@ -68,7 +70,7 @@ function Type({ metadata, editable, backend }) {
     <div style={{ paddingTop: 10, paddingBottom: 30 }}>
       <div style={{ paddingTop: 0, justifyContent: 'flex-end' }}>
         <TypeBadge addClassName="typeSelected" type={typeSelected}/>
-        {editable ? <TagFill onClick={handleEdit} className="icon typeIcon" title="Edit type"/> : null}
+        {editable ? <TagFill onClick={handleEdit} className="icon typeIcon" title={`${t('type')}`}/> : null}
       </div>
       {beingEdited ?
         <TypeList typeSelected={typeSelected} handleUpdate={handleUpdate}/>

@@ -2,8 +2,10 @@ import '../styles/Metadata.css';
 
 import { useEffect, useState } from 'react';
 import yaml from 'yaml';
+import { useTranslation } from 'react-i18next';
 
 function Metadata({metadata = {}, editable, backend}) {
+  const { t } = useTranslation();
   const [beingEdited, setBeingEdited] = useState(false);
   const [editedDocument, setEditedDocument] = useState(metadata);
 
@@ -45,7 +47,7 @@ function Metadata({metadata = {}, editable, backend}) {
   if (!beingEdited) {
     let {dc_title, dc_spatial, dc_creator, dc_translator, dc_isPartOf, dc_issued} = editedMetadata;
     let attributes = (editable)
-      ? {className: 'editable metadata', onClick: handleClick, title: 'Edit metadata...'}
+      ? {className: 'editable metadata', onClick: handleClick, title: t('metadata')}
       : {};
     return (
       <span {...attributes}>

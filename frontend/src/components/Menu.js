@@ -7,6 +7,7 @@ import Row from 'react-bootstrap/Row';
 import Form from 'react-bootstrap/Form';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 function Menu({backend, user, setUser}) {
   return (
@@ -28,6 +29,7 @@ function Menu({backend, user, setUser}) {
 }
 
 function Authentication({backend, user, setUser}) {
+  const { t } = useTranslation();
 
   let handleSubmit = (e) => {
     e.preventDefault();
@@ -46,18 +48,18 @@ function Authentication({backend, user, setUser}) {
     <Form onSubmit={handleSubmit}>
       <Row className="g-1">
         <Col>
-          <input placeholder="Username" name="name"
+          <input placeholder={`${t('username')}`} name="name"
             className="form-control-sm"
           />
         </Col>
         <Col>
-          <input placeholder="Password" name="password" type="password"
+          <input placeholder={`${t('password')}`} name="password" type="password"
             className="form-control-sm"
           />
         </Col>
         <Col>
           <button className="btn btn-outline-light" type="submit">
-            Sign in
+            {t('signin')}
           </button>
         </Col>
       </Row>

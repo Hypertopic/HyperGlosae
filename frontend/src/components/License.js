@@ -1,6 +1,8 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 function License({ license }) {
+  const { t } = useTranslation();
   let license_uri = license;
 
   let [license_name] = /BY[\w-]+/i.exec(license_uri) || [];
@@ -13,7 +15,7 @@ function License({ license }) {
   );
   return (
     <span className="license">
-      All rights reserved
+      {t('rights')}
     </span>
   );
 }

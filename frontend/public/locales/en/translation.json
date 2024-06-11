@@ -1,0 +1,21 @@
+{
+    "document": "Create a document",
+    "glose": "as a glose",
+    "source": "as a source",
+    "scratch": "from scratch",
+    "collection": "Create a collection from this document",
+    "signin": "Sign in",
+    "reference": "referenced by",
+    "username": "Username",
+    "password": "Password",
+    "title": "<TITLE>",
+    "creator": "<CREATOR>",
+    "rights": "All rights reserved",
+    "text": "<TEXT>",
+    "metadata": "Edit metadata...",
+    "content": "Edit content...",
+    "type": "Edit type",
+    "doc_close": "Close this document",
+    "doc_open": "Open this document",
+    "doc_focus": "Focus on this document"
+}

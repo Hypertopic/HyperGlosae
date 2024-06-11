@@ -11,6 +11,8 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { NotificationContainer, NotificationManager } from 'react-notifications';
 import 'react-notifications/lib/notifications.css';
 import { TypesContext } from './components/TypesContext.js';
+import { I18nextProvider } from 'react-i18next';
+import i18n from './i18n';
 
 const backend = new Hyperglosae(
   x => NotificationManager.warning(x, '', 2000)
@@ -45,8 +47,11 @@ function App() {
   );
 }
 
-root.render(<App/>);
-
+root.render(
+  <I18nextProvider i18n={i18n}>
+    <App />
+  </I18nextProvider>
+);
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals

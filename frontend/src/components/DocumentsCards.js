@@ -6,6 +6,7 @@ import Metadata from './Metadata';
 import BrowseTools from './BrowseTools';
 import FutureDocument from './FutureDocument';
 import { TypeBadge } from './Type';
+import { useTranslation } from 'react-i18next';
 
 // asSource is a flag that indicates whether to create a parent (left) or a glose (right)
 function DocumentsCards({docs, expandable, byRow, createOn, setLastUpdate, backend, asSource = false}) {
@@ -48,9 +49,10 @@ function DocumentCard({doc, expandable}) {
 }
 
 function References({doc}) {
+  const { t } = useTranslation();
   if (doc.referenced) return (
     <Card.Footer>
-      referenced by {doc.referenced} document(s)
+      {t('reference')} {doc.referenced} document(s)
     </Card.Footer>
   );
 }

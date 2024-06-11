@@ -1,0 +1,21 @@
+{
+    "document": "Créer un document",
+    "glose": "en tant que glose",
+    "source": "en tant que source",
+    "scratch": "à partir de zéro",
+    "collection": "Créer une collection à partir de ce document",
+    "signin": "Se connecter",
+    "reference": "référencé par",
+    "username": "Nom d’utilisateur",
+    "password": "Mot de passe",
+    "title": "<TITRE>",
+    "creator": "<CRÉATEUR>",
+    "rights": "Tous droits réservés",
+    "text": "<TEXTE>",
+    "metadata": "Éditer les métadonnées...",
+    "content": "Éditer le contenu...",
+    "type": "Éditer le type",
+    "doc_close": "Fermer ce document",
+    "doc_open": "Ouvrir ce document",
+    "doc_focus": "Se concentrer sur ce document"
+}

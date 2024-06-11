@@ -1,4 +1,5 @@
 import '../styles/FutureDocument.css';
+import { useTranslation } from 'react-i18next';
 
 import { useNavigate } from 'react-router-dom';
 import Card from 'react-bootstrap/Card';
@@ -17,6 +18,7 @@ function FutureDocument({relatedTo, verb = 'refersTo', setLastUpdate, backend, a
 
 function FutureDocumentIcon({relatedTo, verb, setLastUpdate, backend, asSource = false}) {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   let handleClick = async () => {
     let _id = uuid();
@@ -27,11 +29,11 @@ function FutureDocumentIcon({relatedTo, verb, setLastUpdate, backend, asSource =
       backend.putDocument({
         _id,
         editors,
-        dc_creator: '<CREATOR>',
-        dc_title: '<TITLE>',
+        dc_creator: t('creator'),
+        dc_title: t('title'),
         dc_issued: new Date(),
         dc_license: '',
-        text: '<TEXT>',
+        text: t('text'),
       }).then(() => {
         setLastUpdate(_id);
         backend.getDocument(documentId)
@@ -55,11 +57,11 @@ function FutureDocumentIcon({relatedTo, verb, setLastUpdate, backend, asSource =
       backend.putDocument({
         _id,
         editors,
-        dc_creator: '<CREATOR>',
-        dc_title: '<TITLE>',
+        dc_creator: t('creator'),
+        dc_title: t('title'),
         dc_issued: new Date(),
         dc_license: '',
-        text: '<TEXT>',
+        text: t('text'),
         links
       }).then((x) => {
         setLastUpdate(_id);
@@ -71,14 +73,13 @@ function FutureDocumentIcon({relatedTo, verb, setLastUpdate, backend, asSource =
   switch (verb) {
     case 'includes':
       return (
-        <FolderPlus title="Create a collection from this document"
+        <FolderPlus title= {`${t('collection')}`}
           className="icon create-collection" onClick={handleClick}
         />
       );
     default:
       return (
-        <PlusLg title={`Create a document ${asSource ? 'as a source' : relatedTo.length ? 'as a glose' : 'from scratch'}`}
-          className="icon create-document" onClick={handleClick}
+        <PlusLg title={`${t('document')} ${asSource ? t('source') : relatedTo.length ? t('glose') : t('scratch')}`} className="icon create-document" onClick={handleClick}
         />
       );
   }
