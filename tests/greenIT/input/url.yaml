@@ -1,0 +1,20 @@
+# Analyse la page d'accueil d'HyperGlosae
+- name : "HyperGlosae - Page d'accueil"
+  url : "http://localhost:3000/"
+  actions:
+    - name : "Scroll auto vers le bas de la page"
+      type : "scroll"
+
+#Analyse d'une page avec un long texte
+- name : "HyperGlosae - Page avec un long texte"
+  url : "http://localhost:3000/02ee00d85cdb11ed834c4fb9e3c972af"
+  actions:
+    - name : "Scroll auto vers le bas de la page"
+      type : "scroll"
+
+#Analyse d'une page avec une photo
+- name : "HyperGlosae - Page avec une photo"
+  url : "http://localhost:3000/4745d83eabc111edb4d7a3e38e32ff69"
+  actions:
+    - name : "Scroll auto vers le bas de la page"
+      type : "scroll"
