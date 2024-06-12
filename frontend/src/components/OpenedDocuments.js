@@ -6,6 +6,7 @@ import Metadata from './Metadata';
 import Type, { TypeBadge } from './Type';
 import Passage from './Passage';
 import License from './License';
+import More from './More';
 
 function OpenedDocuments({backend, lectern, metadata, sourceMetadata, margin, hasSources, id, setLastUpdate}) {
   return (
@@ -51,6 +52,7 @@ function RunningHeadMargin({metadata, backend}) {
   return (
     <Col xs={5} className="scholium">
       <BrowseTools id={metadata._id} closable={true} />
+      <More {...{backend, metadata}} />
       <Metadata editable={true} {...{backend, metadata}} />
       <Type editable={true} {...{backend, metadata}}/>
     </Col>
