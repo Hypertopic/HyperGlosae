@@ -81,3 +81,13 @@ end
 Quand("j'essaie d'éditer le document") do
   click_on_icon('edit')
 end
+
+Quand ("je sélectionne {string} dans le menu déroulant") do |glose_type|
+  element = find(:xpath, "//*[contains(@class, 'icon create-document') and @title='Create a document as a glose']", visible: true)
+  page.execute_script("arguments[0].dispatchEvent(new MouseEvent('mouseenter', { bubbles: true }));", element)
+  screenshot_path = 'tmp/screenshots/screenshot.png'
+  page.save_screenshot(screenshot_path)
+  expect(page).to have_select('Select glose type', visible: true)
+  select glose_type, from: 'Select glose type'
+  first('.create-document', visible: true).click
+end
