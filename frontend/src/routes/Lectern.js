@@ -12,6 +12,7 @@ import BrowseTools from '../components/BrowseTools';
 import EditableText from '../components/EditableText';
 import DocumentSources from '../components/DocumentSources';
 import Type, { TypeBadge } from '../components/Type';
+import More from '../components/More';
 
 function Lectern({backend}) {
 
@@ -99,7 +100,7 @@ function Lectern({backend}) {
         </Col>
         <Col className="lectern">
           <Row className ="runningHead">
-            <RunningHeadSource metadata={ sourceMetadata } />
+            <RunningHeadSource metadata={ sourceMetadata } backend={backend} />
             <RunningHeadMargin {...{backend}}
               metadata={ metadata.find(x => (x._id === margin)) }
             />
@@ -158,12 +159,12 @@ function PassageMargin({active, scholium, rubric, backend, setLastUpdate}) {
   );
 }
 
-function RunningHeadSource({metadata}) {
+function RunningHeadSource({metadata, backend}) {
   return (
     <Col className="main">
-      <BookmarkFill className="icon" />
-      <Metadata metadata={metadata} />
-      <TypeBadge type={metadata?.type} />
+      <BookmarkFill className="icon"/>
+      <Metadata metadata={metadata}/>
+      <TypeBadge type={metadata?.type}/>
     </Col>
   );
 }
@@ -173,6 +174,7 @@ function RunningHeadMargin({metadata, backend}) {
   return (
     <Col xs={5} className="scholium">
       <BrowseTools id={metadata._id} closable={true} />
+      <More metadata={metadata} backend={backend} />
       <Metadata metadata={metadata} editable={true} {...{backend}} />
       <Type metadata={metadata} editable={true} {...{backend}}/>
     </Col>
