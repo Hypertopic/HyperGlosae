@@ -66,3 +66,38 @@ end
 Alors('le texte du premier passage de la glose est :') do |text|
   expect(find('.editable.content', match: :first).text).to match /\A#{text}\z/
 end
+
+Alors('{string} peux modifier le document') do |string|
+    sign_out
+    sign_in(string, 'madhatter')
+    find('.editable.content').click
+    find('textarea').fill_in with: 'content'
+    leave_textarea
+    expect(find('.editable.content', match: :first).text).to match 'content'
+    sign_out
+end
+
+Alors('alice ne peux pas modifier le document') do
+  sign_out
+  sign_in('alice', 'whiterabbit')
+  find('.editable.content').trigger("click")
+  find('textarea').fill_in with: 'content'
+  find('.navbar').click
+  find('.editable.content').trigger("click")
+  find('.navbar').trigger("click")
+  expect(page).not_to have_selector('.editable.content', text: 'content')
+  sign_out
+end
+
+Alors('bill ne peux pas modifier le document') do
+  sign_out
+  sign_in('bill', 'madhatter')
+  find('.editable.content').trigger("click")
+  find('textarea').fill_in with: 'content'
+  find('.navbar').click
+  find('.editable.content').trigger("click")
+  find('.navbar').trigger("click")
+  find('.navbar').trigger("click")
+  expect(page).not_to have_selector('.editable.content', text: 'content')
+  sign_out
+end

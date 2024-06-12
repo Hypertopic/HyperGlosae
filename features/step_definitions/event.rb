@@ -40,3 +40,10 @@ end
 Quand("je clique sur la référence temporelle {string} avec pour commentaire {string}") do |timecode, comment|
   find(:xpath, "//p[contains(., \"#{timecode}\")]", match: :first).click
 end
+
+Quand("j'essaye d'accorder les droits d'édition à {string}") do |userName|
+  find(".more-btn > button").trigger("click")
+  find(".dropdown-item-share").click
+  find(".add-user-input").fill_in with: userName
+  find(".add-user-input-btn").click
+end
