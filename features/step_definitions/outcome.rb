@@ -106,3 +106,30 @@ Alors('je ne peux rien lire dans la liste des types') do
   expect(find('.list-group')).not_to have_content "Ethnography/Interview"
 end
 
+Alors('bill peut modifier le document') do
+  sign_out
+  sign_in('bill', 'madhatter')
+  find('.editable.content').click
+  find('textarea').fill_in with: 'content'
+  leave_textarea
+  expect(find('.editable.content', match: :first).text).to match 'content'
+end
+
+Alors('alice ne peut pas modifier le document') do
+  sign_out
+  sign_in('alice', 'whiterabbit')
+  find('.editable.content').click
+  find('textarea').fill_in with: 'content'
+  leave_textarea
+  expect(page).not_to have_selector('.editable.content', text: 'content')
+end
+
+Alors('bill ne peut pas modifier le document') do
+  sign_out
+  sign_in('bill', 'madhatter')
+  find('.editable.content').click
+  find('textarea').fill_in with: 'content'
+  leave_textarea
+  expect(page).not_to have_selector('.editable.content', text: 'content')
+end
+
