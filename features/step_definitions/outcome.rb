@@ -110,6 +110,6 @@ Alors("je ne vois pas le document intitulé {string}") do |title|
   expect(page).not_to have_content(title)
 end
 
-Alors("l'image disparait dans la glose") do
-    pending
+Alors("je ne vois pas l'image {string}") do |image_name|
+    expect(page)
 end

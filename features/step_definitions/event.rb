@@ -60,6 +60,11 @@ Quand("j'essaye d'ajouter l'image {string} à une glose") do |image_name|
   attach_file("image-input", File.expand_path("./docs/#{image_name}"), make_visible: true)
 end
 
-Quand("j'essaye de supprimer une image d'une glose") do
-  pending # Write code here that turns the phrase above into concrete actions
+Quand("j'essaye de supprimer l'image {string} d'une glose") do |image_name|
+  image = find('img[alt="' + image_name + '"]')
+  delete_button = image.find(:xpath, 'following-sibling::button[contains(@class, "delete-image")]')
+  delete_button.click
+  popup = find('#confirmation-popup', visible: true)
+  yes_button = popup.find('button.confirm-yes')
+  yes_button.click
 end

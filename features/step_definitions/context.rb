@@ -134,3 +134,7 @@ end
 Soit("un document que l'on consulte") do
   visit '/146e6e8442f0405b721b79357d00d0a1'
 end
+
+Soit ("une image {string} dans une glose") do |image_name|
+  attach_file("image-input", File.expand_path("./docs/#{image_name}"), make_visible: true)
+end
