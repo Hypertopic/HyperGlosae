@@ -19,7 +19,7 @@ function FutureDocumentIcon({relatedTo, verb, setLastUpdate, backend, asSource =
   const navigate = useNavigate();
 
   let handleClick = async () => {
-    let _id = uuid();
+    let _id = uuid().replace(/-/g, '');
     let doc = {
       _id,
       editors: [backend.credentials.name],
@@ -34,13 +34,24 @@ function FutureDocumentIcon({relatedTo, verb, setLastUpdate, backend, asSource =
       let gloseId = relatedTo[0];
       backend.putDocument(doc)
         .then(() => backend.getDocument(gloseId))
-        .then((x) => backend.putDocument({
-          ...x,
-          links: [{verb: 'refersTo', object: _id}]
+        .then(metaDocument => backend.putDocument({
+          ...metaDocument,
+          links: [...(metaDocument.links || []), {verb: 'refersTo', object: _id}]
         }))
-        .then((x) => {
-          navigate('/' + _id);
-        })
+        .then(() => backend.getView({view: 'content', gloseId, options: ['include_docs']}))
+        .then(rows => rows
+          .filter(row => row.value.isPartOf === gloseId)
+          .map(row => row.id)
+          .filter((rowId, i, array) => array.indexOf(rowId) === i) // Remove duplicates
+          .map(rowId => backend.getDocument(rowId)
+            .then(contentDocument => backend.putDocument({
+              ...contentDocument,
+              links: [...(contentDocument.links || []), {verb: 'refersTo', object: _id}]
+            }))
+          )
+        )
+        .then(promises => Promise.all(promises)) // Wait for all async operations to complete
+        .then(() => navigate('/' + _id))
         .catch(console.error);
     } else {
       backend.putDocument({
