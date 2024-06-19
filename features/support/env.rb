@@ -43,6 +43,7 @@ def sign_in(username, password)
 end
 
 def sign_out
+  execute_script("localStorage.removeItem('hyperglosae-basic-auth');")
   refresh
 end
 
