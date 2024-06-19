@@ -106,3 +106,6 @@ Alors('je ne peux rien lire dans la liste des types') do
   expect(find('.list-group')).not_to have_content "Ethnography/Interview"
 end
 
+Alors("je ne vois pas l'image {string}") do |image_name|
+    expect(page)
+end
