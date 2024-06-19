@@ -90,3 +90,12 @@ Quand("je cherche le type {string}") do |type|
   click_on_icon('typeIcon')
   fill_element('#searchType', type)
 end
+
+Quand("j'essaye de supprimer l'image {string} d'une glose") do |image_name|
+  image = find('img[alt="' + image_name + '"]')
+  delete_button = image.find(:xpath, 'following-sibling::button[contains(@class, "delete-image")]')
+  delete_button.click
+  popup = find('#confirmation-popup', visible: true)
+  yes_button = popup.find('button.confirm-yes')
+  yes_button.click
+end
