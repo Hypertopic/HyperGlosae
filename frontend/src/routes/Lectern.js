@@ -49,7 +49,7 @@ function Lectern({backend}) {
   }, [id, metadata, lastUpdate]);
 
   let getText = ({doc, value}) => {
-    if (!doc) {
+    if (!doc || !doc.text) {
       return value.text;
     }
     let fragment = (value.inclusion !== 'whole' ? '#' + value.inclusion : '')
