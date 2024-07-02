@@ -1,15 +1,29 @@
 import '../styles/FutureDocument.css';
 
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Card from 'react-bootstrap/Card';
+import { Card, Form} from 'react-bootstrap';
 import { PlusLg, FolderPlus } from 'react-bootstrap-icons';
 import { v4 as uuid } from 'uuid';
 
 function FutureDocument({relatedTo, verb = 'refersTo', setLastUpdate, backend, asSource = false}) {
+  const [selectedVerb, setSelectedVerb] = useState(verb);
+  const fixedType = relatedTo.length === 0 || verb === 'includes' || asSource;
+
+  const handleSelectChange = (event) => {
+    setSelectedVerb(event.target.value);
+  };
+
   return (
     <Card>
-      <Card.Body className="text-center">
-        <FutureDocumentIcon {...{relatedTo, verb, setLastUpdate, backend, asSource}} />
+      <Card.Body className="d-flex justify-content-center align-items-center">
+        {!fixedType && (
+          <Form.Select aria-label="Select document type" onChange={handleSelectChange} defaultValue="refersTo" className="select-form" id="select-dropdown">
+            <option value="refersTo">Commentary</option>
+            <option value="isTranslationOf">Adaptation</option>
+          </Form.Select>
+        )}
+        <FutureDocumentIcon {...{relatedTo, verb: selectedVerb, setLastUpdate, backend, asSource}} />
       </Card.Body>
     </Card>
   );
@@ -76,7 +90,7 @@ function FutureDocumentIcon({relatedTo, verb, setLastUpdate, backend, asSource =
     default:
       return (
         <PlusLg title={`Create a document ${asSource ? 'as a source' : relatedTo.length ? 'as a glose' : 'from scratch'}`}
-          className="icon create-document" onClick={handleClick}
+          className="icon create-document ms-2" onClick={handleClick}
         />
       );
   }
