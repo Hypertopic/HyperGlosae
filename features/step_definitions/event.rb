@@ -98,3 +98,8 @@ Quand("j'essaie d'accorder les droits d'édition à {string}") do |userName|
   find(".add-user-input-btn").click
 end
 
+Quand("je sélectionne {string} dans le menu déroulant") do |option|
+  select option, from: 'select-dropdown'
+  click_on_icon('gloses .create-document')
+end
+
