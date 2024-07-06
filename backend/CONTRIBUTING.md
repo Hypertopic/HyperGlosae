@@ -8,18 +8,10 @@ Production settings will be provided in a different document.
 
 ## Run with test data
 
-1. Start CouchDB and push the code and samples:
+Start CouchDB and push the code and samples:
 
   ```sh
-  export COUCHDB_USER="TO_BE_CHANGED"
-  export COUCHDB_PASSWORD="TO_BE_CHANGED"
-  docker-compose up -d
-  ```
-
-2. Set CouchDB up (with CORS, public access and test users):
-
-  ```sh
-  ./setup.sh
+  docker compose --profile dev up --detach
   ```
 
 ## Contribute to test data
@@ -27,7 +19,7 @@ Production settings will be provided in a different document.
 Update documents in `../samples` and push them to the backend:
 
 ```sh
-docker-compose up updated_samples
+docker compose run updated_samples
 ```
 
 ## Contribute to the code
@@ -35,7 +27,7 @@ docker-compose up updated_samples
 Update code in `src` and push it to the backend:
 
 ```sh
-docker-compose up updated_code
+docker compose run updated_code
 ```
 
 The backend is coded in JavaScript as CouchDB views (see [documentation](https://docs.couchdb.org/en/stable/ddocs/views/)). Documents stored in CouchDB can be created, updated and deleted (esp. by the frontend) using CouchDB REST API (see [documentation](https://docs.couchdb.org/en/stable/api/document/)).

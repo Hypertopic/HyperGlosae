@@ -14,24 +14,13 @@ jobs:
         uses: actions/checkout@v4
       - name: Download tools
         run: |
-          cd backend
-          docker compose pull
+          docker compose --profile test pull
           docker pull benel/cucumber-capybara
       - name: Install and launch backend with test data
         run: |
-          cd backend
           export COUCHDB_USER="TO_BE_CHANGED"
           export COUCHDB_PASSWORD="TO_BE_CHANGED"
-          docker compose up -d
-      - name: Wait for backend
-        uses: docker://benel/wait-for-response:1
-        with:
-          args: http://localhost:5984/hyperglosae 401 5000 500
-      - name: Set the backend up
-        run: |
-          export COUCHDB_USER="TO_BE_CHANGED"
-          export COUCHDB_PASSWORD="TO_BE_CHANGED"
-          ./backend/setup.sh
+          docker compose --profile test up --detach sample_users updated_samples updated_code
       - name: Wait for frontend build
         uses: lewagon/wait-on-check-action@v1.3.1
         with:
@@ -45,13 +34,14 @@ jobs:
           path: frontend/build
       - name: Start frontend
         run: |
-          cd frontend
-          npm run preprod &
+          export COUCHDB_USER="TO_BE_CHANGED"
+          export COUCHDB_PASSWORD="TO_BE_CHANGED"
+          docker compose --profile test up --detach
       - name: Wait for frontend
         uses: docker://benel/wait-for-response:1
         with:
-          args: http://localhost:3000/ 200 30000 500
+          args: http://localhost/ 200 30000 500
       - name: Run tests
         run:
-          docker run --rm -v "$(pwd)":/app --tty --net="host" --env APP_HOST="http://`hostname`:3000" benel/cucumber-capybara --retry 2 --fail-fast --no-source --no-snippets
+          docker run --rm -v "$(pwd)":/app --tty --net="host" --env APP_HOST="http://`hostname`" benel/cucumber-capybara --retry 2 --fail-fast --no-source --no-snippets
         shell: 'script -q -e -c "bash {0}"'

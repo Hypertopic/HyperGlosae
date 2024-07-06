@@ -95,3 +95,18 @@ The folders of the repository will correspond to the main deliverables:
 - `frontend` prototype for reading and writing parallel documents (see instructions for [testing it](./frontend/CONTRIBUTING.md)),
 - `backend` prototype for storing parallel documents (see instructions for [testing it](./backend/CONTRIBUTING.md)),
 - `library` of reusable parts to be integrated in other frontends.
+
+## Testing the latest version
+
+Run the following commands from a terminal:
+
+```shell
+cd frontend
+npm run build
+cd ..
+docker compose --profile test up --detach
+```
+
+Open <http://localhost> in a browser.
+To test edit features, log in as user `alice` with `whiterabbit` as the password.
+

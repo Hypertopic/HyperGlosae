@@ -9,6 +9,7 @@
     "bootstrap": "^5.2.2",
     "buffer": "^6.0.3",
     "events": "^3.3.0",
+    "http-proxy-middleware": "^3.0.0",
     "react": "^18.2.0",
     "react-bootstrap": "^2.5.0",
     "react-bootstrap-icons": "^1.10.2",
@@ -26,8 +27,7 @@
   },
   "scripts": {
     "start": "npx -yes react-scripts@latest start",
-    "build": "npx -yes react-scripts@latest build",
-    "preprod": "npx -yes serve@latest -s build -p 3000"
+    "build": "npx -yes react-scripts@latest build"
   },
   "browserslist": {
     "production": [

@@ -1,0 +1,93 @@
+services:
+
+  backend:
+    image: couchdb:3
+    ports:
+      - 5984:5984
+    environment:
+      - COUCHDB_USER=TO_BE_CHANGED
+      - COUCHDB_PASSWORD=TO_BE_CHANGED
+    healthcheck:
+      test: curl -f http://localhost:5984/_up || exit 1
+      interval: 2s
+      timeout: 3s
+
+  accessible_backend:
+    image: curlimages/curl
+    entrypoint: ["/bin/sh","-c"]
+    command:
+      - |
+        alias put="curl -X PUT -u '${COUCHDB_USER}:${COUCHDB_PASSWORD}'"
+        put backend:5984/_node/nonode@nohost/_config/chttpd/enable_cors --data '"true"'
+        put backend:5984/_node/nonode@nohost/_config/cors/origins --data '"*"'
+        put backend:5984/hyperglosae
+        put backend:5984/hyperglosae/_security --data '{"members":{"roles":[]},"admins":{"roles":["_admin"]}}'
+    depends_on:
+      backend:
+        condition: service_healthy
+
+  sample_users:
+    profiles:
+      - dev
+      - test
+    image: curlimages/curl
+    entrypoint: ["/bin/sh","-c"]
+    command:
+      - |
+        alias put="curl -X PUT -u '${COUCHDB_USER}:${COUCHDB_PASSWORD}'"
+        put backend:5984/_users
+        put backend:5984/_users/org.couchdb.user:alice --data '{"name":"alice", "password":"whiterabbit", "roles":[], "type":"user"}'
+        put backend:5984/_users/org.couchdb.user:bill --data '{"name":"bill", "password":"madhatter", "roles":[], "type":"user"}'
+        put backend:5984/_users/org.couchdb.user:christophe --data '{"name":"christophe", "password":"redqueen", "roles":[], "type":"user"}'
+    depends_on:
+      backend:
+        condition: service_healthy
+    restart: on-failure
+
+  updated_samples:
+    profiles:
+      - dev
+      - test
+    image: benel/couchapp
+    command: pushdocs .
+    environment:
+      - URI=http://${COUCHDB_USER}:${COUCHDB_PASSWORD}@backend:5984/hyperglosae
+    volumes:
+      - ./samples:/app
+    depends_on:
+      backend:
+        condition: service_healthy
+    restart: on-failure
+
+  updated_code:
+    image: benel/couchapp
+    command: push .
+    environment:
+      - URI=http://${COUCHDB_USER}:${COUCHDB_PASSWORD}@backend:5984/hyperglosae
+    volumes:
+      - ./backend/src:/app
+    depends_on:
+      backend:
+        condition: service_healthy
+
+  frontend:
+    profiles:
+      - test
+    #TODO build frontend first
+    image: nginx
+    volumes:
+      - ./frontend/build:/usr/share/nginx/html:ro
+      - ./settings/nginx.conf:/etc/nginx/conf.d/default.conf
+
+  proxy:
+    profiles:
+      - test
+    image: haproxy
+    ports:
+      - 80:80
+    volumes:
+      - ./settings:/usr/local/etc/haproxy:ro
+    depends_on:
+      - backend
+      - frontend
+

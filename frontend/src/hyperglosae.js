@@ -1,6 +1,6 @@
 import {Buffer} from 'buffer';
 
-const service = 'http://localhost:5984/hyperglosae';
+const service = '/api';
 
 function Hyperglosae(logger) {
 
