@@ -4,9 +4,6 @@ services:
     extends:
       file: docker-compose.test.yml
       service: backend
-    environment:
-      - COUCHDB_USER
-      - COUCHDB_PASSWORD
     volumes:
       - ./data:/opt/couchdb/data
 

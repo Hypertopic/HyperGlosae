@@ -11,6 +11,8 @@ Production settings will be provided in a different document.
 Start CouchDB and push the code and samples:
 
   ```sh
+  export COUCHDB_USER="TO_BE_CHANGED"
+  export COUCHDB_PASSWORD="TO_BE_CHANGED"
   docker compose --file docker-compose.dev.yml up --detach
   ```
 

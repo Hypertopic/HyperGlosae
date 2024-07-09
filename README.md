@@ -101,9 +101,9 @@ The folders of the repository will correspond to the main deliverables:
 Run the following commands from a terminal:
 
 ```shell
-cd frontend
-npm run build
-cd ..
+export COUCHDB_USER="TO_BE_CHANGED"
+export COUCHDB_PASSWORD="TO_BE_CHANGED"
+cd frontend && npm install && npm run build && cd ..
 docker compose --file docker-compose.test.yml up --detach
 ```
 
