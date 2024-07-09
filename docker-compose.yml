@@ -8,7 +8,7 @@ services:
       - COUCHDB_USER
       - COUCHDB_PASSWORD
     volumes:
-      - ./data:/opt/couch/data
+      - ./data:/opt/couchdb/data
 
   accessible_backend:
     extends:
