@@ -1,6 +1,9 @@
 name: Acceptance tests
 on:
-  - push
+  push:
+    branches-ignore:
+      - main
+  workflow_call:
 
 jobs:
 

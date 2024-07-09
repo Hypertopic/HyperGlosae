@@ -115,9 +115,6 @@ To test edit features, log in as user `alice` with `whiterabbit` as the password
 Run the following commands from a terminal:
 
 ```shell
-cd frontend
-npm run build
-cd ..
 export COUCHDB_USER="TO_BE_CHANGED"
 export COUCHDB_PASSWORD="TO_BE_CHANGED"
 docker compose up --detach

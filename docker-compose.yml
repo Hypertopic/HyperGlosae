@@ -27,9 +27,7 @@ services:
         condition: service_healthy
   
   frontend:
-    extends:
-      file: docker-compose.test.yml
-      service: frontend
+    image: benel/hyperglosae
 
   proxy:
     extends:
