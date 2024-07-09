@@ -96,23 +96,24 @@ The folders of the repository will correspond to the main deliverables:
 - `backend` prototype for storing parallel documents (see instructions for [testing it](./backend/CONTRIBUTING.md)),
 - `library` of reusable parts to be integrated in other frontends.
 
-## Testing the latest version
+## How to test a development version with sample data?
 
-Run the following commands from a terminal:
+Run the following commands from a terminal (requires Docker and Node.js):
 
 ```shell
 export COUCHDB_USER="TO_BE_CHANGED"
 export COUCHDB_PASSWORD="TO_BE_CHANGED"
-cd frontend && npm install && npm run build && cd ..
-docker compose --file docker-compose.test.yml up --detach
+docker compose --file docker-compose.dev.yml up --detach
+cd frontend && npm install
+npm start
 ```
 
-Open <http://localhost> in a browser.
+Open <http://localhost:3000> in a browser.
 To test edit features, log in as user `alice` with `whiterabbit` as the password.
 
-## Using the latest version in production
+## How to install a clean stable version?
 
-Run the following commands from a terminal:
+Run the following commands from a terminal (requires Docker):
 
 ```shell
 export COUCHDB_USER="TO_BE_CHANGED"
