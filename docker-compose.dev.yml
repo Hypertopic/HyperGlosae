@@ -18,8 +18,6 @@ services:
     command:
       - |
         alias put="curl -X PUT -u '${COUCHDB_USER}:${COUCHDB_PASSWORD}'"
-        put backend:5984/_node/nonode@nohost/_config/chttpd/enable_cors --data '"true"'
-        put backend:5984/_node/nonode@nohost/_config/cors/origins --data '"*"'
         put backend:5984/hyperglosae
         put backend:5984/hyperglosae/_security --data '{"members":{"roles":[]},"admins":{"roles":["_admin"]}}'
     depends_on:
