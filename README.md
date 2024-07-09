@@ -104,9 +104,24 @@ Run the following commands from a terminal:
 cd frontend
 npm run build
 cd ..
-docker compose --profile test up --detach
+docker compose --file docker-compose.test.yml up --detach
 ```
 
 Open <http://localhost> in a browser.
 To test edit features, log in as user `alice` with `whiterabbit` as the password.
+
+## Using the latest version in production
+
+Run the following commands from a terminal:
+
+```shell
+cd frontend
+npm run build
+cd ..
+export COUCHDB_USER="TO_BE_CHANGED"
+export COUCHDB_PASSWORD="TO_BE_CHANGED"
+docker compose up --detach
+```
+
+Open <http://localhost> in a browser.
 

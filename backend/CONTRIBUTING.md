@@ -11,7 +11,7 @@ Production settings will be provided in a different document.
 Start CouchDB and push the code and samples:
 
   ```sh
-  docker compose --profile dev up --detach
+  docker compose --file docker-compose.dev.yml up --detach
   ```
 
 ## Contribute to test data
@@ -19,7 +19,7 @@ Start CouchDB and push the code and samples:
 Update documents in `../samples` and push them to the backend:
 
 ```sh
-docker compose run updated_samples
+docker compose --file docker-compose.dev.yml run updated_samples
 ```
 
 ## Contribute to the code
@@ -27,7 +27,7 @@ docker compose run updated_samples
 Update code in `src` and push it to the backend:
 
 ```sh
-docker compose run updated_code
+docker compose --file docker-compose.dev.yml run updated_code
 ```
 
 The backend is coded in JavaScript as CouchDB views (see [documentation](https://docs.couchdb.org/en/stable/ddocs/views/)). Documents stored in CouchDB can be created, updated and deleted (esp. by the frontend) using CouchDB REST API (see [documentation](https://docs.couchdb.org/en/stable/api/document/)).
@@ -35,6 +35,6 @@ The backend is coded in JavaScript as CouchDB views (see [documentation](https:/
 ## Shut down the backend (and remove data added interactively)
 
 ```sh
-docker-compose down
+docker-compose --file docker-compose.dev.yml down
 ```
 
