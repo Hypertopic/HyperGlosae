@@ -27,7 +27,7 @@ jobs:
       - name: Wait for frontend build
         uses: lewagon/wait-on-check-action@v1.3.1
         with:
-          check-name: build / build
+          check-regexp: .? / build
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
           repo-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Get frontend build
