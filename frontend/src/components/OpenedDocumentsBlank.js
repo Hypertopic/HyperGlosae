@@ -5,6 +5,7 @@ import Metadata from './Metadata';
 import Type from './Type';
 import PassageBlank from './PassageBlank';
 import License from './License';
+import More from './More';
 
 function OpenedDocumentsBlank({ backend, lectern, sourceMetadata, setLastUpdate }) {
   if (!sourceMetadata) return;
@@ -32,6 +33,7 @@ function RunningHeadSource({ metadata, backend }) {
   return (
     <Col className="main">
       <BrowseTools id={metadata._id} />
+      <More {...{backend, metadata}} />
       <Metadata editable={true} {...{ backend, metadata }} />
       <Type editable={true} {...{ backend, metadata }}/>
     </Col>
