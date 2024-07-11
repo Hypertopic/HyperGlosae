@@ -115,9 +115,10 @@ function Hyperglosae(logger) {
     this.getView({view: 'all_documents', id, options: ['group']})
       .then((rows) => {
         callback(
-          rows.map(
-            ({value}) => ({...value.metadata, referenced: value.referenced})
-          )
+          rows.filter(x => !(x.error && (console.error(x.reason) || true)))
+            .map(
+              ({value}) => ({...value.metadata, referenced: value.referenced})
+            )
         );
       });
   };
