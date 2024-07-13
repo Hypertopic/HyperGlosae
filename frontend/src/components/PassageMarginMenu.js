@@ -43,7 +43,7 @@ const BlockMenuButton = forwardRef(({ children, onClick }, ref) => (
       e.preventDefault();
       onClick(e);
     }}
-    ref={ref} class="editable-button">
+    ref={ref} className="editable-button">
     {children}
   </ThreeDotsVertical>
 ));
