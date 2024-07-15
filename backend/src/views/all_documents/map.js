@@ -4,7 +4,7 @@ function (metadata) {
 
   const editors = metadata.editors || ['PUBLIC'];
   editors.forEach(editor => {
-    emit([editor, metadata._id], { metadata });
+    emit([editor, metadata._id]);
   });
 
 }
