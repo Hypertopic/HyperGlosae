@@ -42,16 +42,7 @@ function DocumentCard({doc, expandable}) {
         <Metadata metadata={doc} />
         <TypeBadge type={doc?.type}/>
       </Card.Body>
-      <References doc={doc} />
     </Card>
-  );
-}
-
-function References({doc}) {
-  if (doc.referenced) return (
-    <Card.Footer>
-      referenced by {doc.referenced} document(s)
-    </Card.Footer>
   );
 }
 

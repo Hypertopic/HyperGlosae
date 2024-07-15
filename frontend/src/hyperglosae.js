@@ -112,13 +112,12 @@ function Hyperglosae(logger) {
 
   this.refreshDocuments = (callback) => {
     let id = this.credentials.name || 'PUBLIC';
-    this.getView({view: 'all_documents', id, options: ['group']})
+    this.getView({view: 'all_documents', id})
       .then((rows) => {
         callback(
-          rows.filter(x => !(x.error && (console.error(x.reason) || true)))
-            .map(
-              ({value}) => ({...value.metadata, referenced: value.referenced})
-            )
+          rows.map(
+            ({value}) => ({...value.metadata})
+          )
         );
       });
   };
