@@ -1,3 +1,7 @@
-.icon {
+.icon, .existingDocument {
   cursor: pointer;
+}
+
+.link-icon {
+  font-size: 28px;
 }

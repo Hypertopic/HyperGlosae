@@ -10,7 +10,7 @@ function BrowseTools({id, closable, openable, editable, focusable = true}) {
         </Link>
       }
       {closable &&
-        <Link to="#" className="icon">
+        <Link to="#" className="icon close">
           <ChevronBarDown title="Close this document" />
         </Link>
       }

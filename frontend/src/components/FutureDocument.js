@@ -1,13 +1,16 @@
 import '../styles/FutureDocument.css';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Card, Form} from 'react-bootstrap';
-import { PlusLg, FolderPlus } from 'react-bootstrap-icons';
+import { PlusLg, Link, FolderPlus } from 'react-bootstrap-icons';
 import { v4 as uuid } from 'uuid';
+import DocumentList from './DocumentList';
 
-function FutureDocument({relatedTo, verb = 'refersTo', setLastUpdate, backend, asSource = false}) {
+function FutureDocument({relatedTo, verb = 'refersTo', setLastUpdate, backend, user, asSource = false}) {
   const [selectedVerb, setSelectedVerb] = useState(verb);
+  const [showDocumentList, setShowDocumentList] = useState(false);
+  const [selectedDocument, setSelectedDocument] = useState(null);
   const fixedType = relatedTo.length === 0 || verb === 'includes' || asSource;
 
   const handleSelectChange = (event) => {
@@ -23,8 +26,25 @@ function FutureDocument({relatedTo, verb = 'refersTo', setLastUpdate, backend, a
             <option value="isTranslationOf">Adaptation</option>
           </Form.Select>
         )}
-        <FutureDocumentIcon {...{relatedTo, verb: selectedVerb, setLastUpdate, backend, asSource}} />
+        <FutureDocumentIcon
+          relatedTo={selectedDocument ? [selectedDocument._id] : relatedTo}
+          {...{verb: selectedVerb, setLastUpdate, backend, asSource}}
+        />
+        {!fixedType && (
+          <Link
+            title="Use an existing document as a glose..."
+            className="icon select-document ms-2 link-icon"
+            onClick={() => setShowDocumentList(!showDocumentList)}
+          />
+        )}
       </Card.Body>
+      {showDocumentList && (
+        <Card.Body>
+          <DocumentList {...{ relatedTo, setSelectedDocument,
+            setShowDocumentList, setLastUpdate, backend, user }}
+          />
+        </Card.Body>
+      )}
     </Card>
   );
 }

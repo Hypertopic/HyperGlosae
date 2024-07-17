@@ -8,7 +8,7 @@ import FutureDocument from './FutureDocument';
 import { TypeBadge } from './Type';
 
 // asSource is a flag that indicates whether to create a parent (left) or a glose (right)
-function DocumentsCards({docs, expandable, byRow, createOn, setLastUpdate, backend, asSource = false}) {
+function DocumentsCards({docs, expandable, byRow, createOn, setLastUpdate, backend, user, asSource = false}) {
   return (
     <Row className="gy-4">
       {docs.map(x => x._id &&
@@ -20,7 +20,7 @@ function DocumentsCards({docs, expandable, byRow, createOn, setLastUpdate, backe
         <Col>
           <Row>
             <Col>
-              <FutureDocument relatedTo={createOn} {...{setLastUpdate, backend, asSource}} />
+              <FutureDocument relatedTo={createOn} {...{setLastUpdate, backend, user, asSource}} />
             </Col>
             {(!asSource && createOn.length > 0) &&
               <Col>

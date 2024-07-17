@@ -8,7 +8,7 @@ import { useParams, useLocation } from 'react-router-dom';
 import OpenedDocuments from '../components/OpenedDocuments';
 import DocumentsCards from '../components/DocumentsCards';
 
-function Lectern({backend}) {
+function Lectern({backend, user}) {
 
   const [lectern, setLectern] = useState([]);
   const [metadata, setMetadata] = useState([]);
@@ -90,7 +90,7 @@ function Lectern({backend}) {
     <Container className="screen">
       <Row>
         <Col md={2} className="sources">
-          <DocumentsCards docs={sourcesOfSourceMetadata} createOn={[id]} asSource={true} byRow={1} {...{setLastUpdate, backend}} />
+          <DocumentsCards docs={sourcesOfSourceMetadata} createOn={[id]} asSource={true} byRow={1} {...{setLastUpdate, backend, user}} />
         </Col>
         <OpenedDocuments
           hasSources={sourcesOfSourceMetadata.length > 0}
