@@ -103,3 +103,12 @@ Quand("je sélectionne {string} dans le menu déroulant") do |option|
   click_on_icon('gloses .create-document')
 end
 
+Quand("j'essaie de créer le même commentaire pour {string}") do |title|
+  click_on_icon('close')
+  click_on_icon_next_to('focus', title)
+  click_on_icon('select-document')
+  document_list = all('.documentList', visible: true)
+  document_to_select = document_list.find { |document| document.text.include?("Yulia Commentaire") }
+  document_to_select.click
+end
+
