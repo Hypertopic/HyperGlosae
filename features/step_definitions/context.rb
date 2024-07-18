@@ -159,3 +159,11 @@ Soit("{string} le code de la licence du document principal") do |license|
   expect(page).to have_image license
 end
 
+Soit("un commentaire est créée pour le document principal avec les métadonnées :") do |metadata|
+  click_on_icon('gloses .create-document')
+  click_on_text('metadata')
+  fill_element('textarea', metadata)
+  leave_textarea
+  click_on_icon('close')
+end
+
