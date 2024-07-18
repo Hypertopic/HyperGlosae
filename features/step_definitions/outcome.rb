@@ -137,3 +137,7 @@ Alors('bill ne peut pas modifier le document') do
   expect(page).not_to have_selector('.editable.content', text: 'content')
 end
 
+Alors ("le document {string} est inclus dans la collection {string}") do |image, image_collection|
+  expect(find('.lectern')).to have_content image
+end
+
