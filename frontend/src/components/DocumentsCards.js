@@ -5,10 +5,11 @@ import Row from 'react-bootstrap/Row';
 import Metadata from './Metadata';
 import BrowseTools from './BrowseTools';
 import FutureDocument from './FutureDocument';
+import CollectionList from './CollectionList';
 import { TypeBadge } from './Type';
 
 // asSource is a flag that indicates whether to create a parent (left) or a glose (right)
-function DocumentsCards({docs, expandable, byRow, createOn, setLastUpdate, backend, asSource = false}) {
+function DocumentsCards({docs, expandable, byRow, createOn, setLastUpdate, backend, collections, asSource = false}) {
   return (
     <Row className="gy-4">
       {docs.map(x => x._id &&
@@ -24,7 +25,7 @@ function DocumentsCards({docs, expandable, byRow, createOn, setLastUpdate, backe
             </Col>
             {(!asSource && createOn.length > 0) &&
               <Col>
-                <FutureDocument relatedTo={createOn} verb="includes" {...{setLastUpdate, backend}} />
+                <CollectionList relatedTo={createOn} collections={collections} {...{setLastUpdate, backend}} />
               </Col>
             }
           </Row>
