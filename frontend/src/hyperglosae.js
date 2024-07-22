@@ -1,11 +1,9 @@
 import {Buffer} from 'buffer';
+import Cookies from 'js-cookie';
 
 const service = '/api';
 
 function Hyperglosae(logger) {
-
-  this.credentials = {};
-
   this.getView = ({view, id, options = []}) =>
     fetch(`${
       service
@@ -24,8 +22,9 @@ function Hyperglosae(logger) {
       .then(x => x.json());
 
   let basicAuthentication = ({force}) => {
-    let {name, password} = this.credentials;
-    if (!force && !name && !password) return ({});
+    let name = Cookies.get('name') || '';
+    let password = Cookies.get('password') || '';
+    if (!force && (!name || !password)) return ({});
     return ({
       'Authorization': 'Basic ' + Buffer.from(`${name}:${password}`).toString('base64')
     });
@@ -87,7 +86,6 @@ function Hyperglosae(logger) {
     });
 
   this.authenticate = ({name, password}) => {
-    this.credentials = {name, password};
     return fetch(`${service}`, {
       method: 'GET',
       headers: basicAuthentication({force: true})
@@ -95,7 +93,8 @@ function Hyperglosae(logger) {
       .then(x => x.json())
       .then(x => {
         if (x.reason) {
-          this.credentials = {};
+          Cookies.remove('name');
+          Cookies.remove('password');
           logger(x.reason);
           throw new Error(x.reason);
         }
@@ -125,7 +124,7 @@ function Hyperglosae(logger) {
   };
 
   this.refreshDocuments = (callback) => {
-    let id = this.credentials.name || 'PUBLIC';
+    let id = Cookies.get('name') || 'PUBLIC';
     this.getView({view: 'all_documents', id, options: ['include_docs']})
       .then((rows) => {
         callback(

@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
 import { BookmarkFill } from 'react-bootstrap-icons';
 import { v4 as uuid } from 'uuid';
+import Cookies from 'js-cookie';
 
 function Bookmark({backend, id}) {
   const [isBookmarked, setIsBookmarked] = useState(false);
-  let user = backend.credentials.name;
+  const user = Cookies.get('name');
 
   const getBookmark = (id, user) =>
     backend.getView({view: 'bookmark', id: user, options: ['include_docs']})

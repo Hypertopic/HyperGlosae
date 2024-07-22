@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { Card, Form} from 'react-bootstrap';
 import { PlusLg, FolderPlus } from 'react-bootstrap-icons';
 import { v4 as uuid } from 'uuid';
+import Cookies from 'js-cookie';
 
 function FutureDocument({relatedTo, verb = 'refersTo', setLastUpdate, backend, asSource = false}) {
   const [selectedVerb, setSelectedVerb] = useState(verb);
@@ -31,12 +32,18 @@ function FutureDocument({relatedTo, verb = 'refersTo', setLastUpdate, backend, a
 
 function FutureDocumentIcon({relatedTo, verb, setLastUpdate, backend, asSource = false}) {
   const navigate = useNavigate();
+  const user = Cookies.get('name'); // Get the user from cookies
 
   let handleClick = async () => {
+    if (!user) {
+      alert('Please log in to create a new document.');
+      return; // Exit the function if the user is not logged in
+    }
+
     let _id = uuid().replace(/-/g, '');
     let doc = {
       _id,
-      editors: [backend.credentials.name],
+      editors: [user],
       dc_creator: '<CREATOR>',
       dc_title: '<TITLE>',
       dc_issued: new Date(),
