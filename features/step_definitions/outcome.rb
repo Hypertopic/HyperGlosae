@@ -137,3 +137,7 @@ Alors('bill ne peut pas modifier le document') do
   expect(page).not_to have_selector('.editable.content', text: 'content')
 end
 
+Alors('la glose est ouverte et contient :') do |text|
+  expect(find('.row:not(.runningHead)>.main')).to have_content text
+end
+
