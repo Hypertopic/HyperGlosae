@@ -1,3 +1,21 @@
 mark {
   padding: 0 !important;
 }
+
+.passage-source-wrapper {
+  position: relative;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.rubric {
+  color: red;
+  margin-left: 14px;
+  display: flex;
+  align-items: center;
+}
+
+.editable-button {
+  cursor: pointer;
+}

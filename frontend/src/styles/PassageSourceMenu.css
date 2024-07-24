@@ -1,0 +1,23 @@
+.editable-button {
+    visibility: hidden;
+    margin-top: 0.25rem;
+    color: crimson;
+}
+  
+.editable:hover .editable-button {
+    visibility: visible;
+    cursor: pointer;
+}
+  
+#block-actions .dropdown-item:hover {
+    background-color: lightgray;
+}
+  
+#block-actions .dropdown-item:active {
+    color: black;
+}
+
+.passage-source-wrapper {
+    display: flex;
+    align-items: center;
+}

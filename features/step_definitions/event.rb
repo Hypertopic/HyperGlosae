@@ -103,3 +103,12 @@ Quand("je sélectionne {string} dans le menu déroulant") do |option|
   click_on_icon('gloses .create-document')
 end
 
+Quand('je crée une collection à partir du premier bloc') do
+  first(".rubric.editable").click
+  element = first(".rubric.editable")
+  execute_script("arguments[0].dispatchEvent(new MouseEvent('mouseover', { bubbles: true }));", element.native)
+  sleep 1
+  find(".more-btn .editable-button", visible: true).trigger("click")
+  find(".dropdown-item-share").click
+end
+

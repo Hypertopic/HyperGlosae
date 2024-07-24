@@ -72,7 +72,7 @@ function Lectern({backend}) {
         let text = getText(x);
         let isPartOf = x.value.isPartOf;
         if (isPartOf === id) {
-          part.source.push(text);
+          part.source.push({text, _id: x.id, key: x.key[1]}); // Include text and _id and key
         } else {
           part.scholia = [...part.scholia || [], {id: x.id, rev: x.rev, text, isPartOf, rubric: x.key[1]}];
         }
