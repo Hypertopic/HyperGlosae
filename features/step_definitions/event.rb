@@ -34,6 +34,7 @@ Quand("j'essaie de remplacer le contenu du premier passage de la glose par :") d
 end
 
 Quand('je crée une collection à partir de ce document') do
+  click_on_icon('addCollection')
   click_on_icon('create-collection')
 end
 
@@ -101,5 +102,12 @@ end
 Quand("je sélectionne {string} dans le menu déroulant") do |option|
   select option, from: 'select-dropdown'
   click_on_icon('gloses .create-document')
+end
+
+Quand("j'ajoute \"16e prix - Catégorie 10-13 ans\" à la collection {string}") do |title|
+  click_on_icon('addCollection')
+  collection_list = all('.collectionList', visible: true)
+  random_index = rand(collection_list.length)
+  collection_list[random_index].click
 end
 

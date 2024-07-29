@@ -3,12 +3,12 @@ import '../styles/FutureDocument.css';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Card, Form} from 'react-bootstrap';
-import { PlusLg, FolderPlus } from 'react-bootstrap-icons';
+import { PlusLg } from 'react-bootstrap-icons';
 import { v4 as uuid } from 'uuid';
 
 function FutureDocument({relatedTo, verb = 'refersTo', setLastUpdate, backend, asSource = false}) {
   const [selectedVerb, setSelectedVerb] = useState(verb);
-  const fixedType = relatedTo.length === 0 || verb === 'includes' || asSource;
+  const fixedType = relatedTo.length === 0 || asSource;
 
   const handleSelectChange = (event) => {
     setSelectedVerb(event.target.value);
@@ -80,20 +80,11 @@ function FutureDocumentIcon({relatedTo, verb, setLastUpdate, backend, asSource =
     }
   };
 
-  switch (verb) {
-    case 'includes':
-      return (
-        <FolderPlus title="Create a collection from this document"
-          className="icon create-collection" onClick={handleClick}
-        />
-      );
-    default:
-      return (
-        <PlusLg title={`Create a document ${asSource ? 'as a source' : relatedTo.length ? 'as a glose' : 'from scratch'}`}
-          className="icon create-document ms-2" onClick={handleClick}
-        />
-      );
-  }
+  return (
+    <PlusLg title={`Create a document ${asSource ? 'as a source' : relatedTo.length ? 'as a glose' : 'from scratch'}`}
+      className="icon create-document ms-2" onClick={handleClick}
+    />
+  );
 }
 
 export default FutureDocument;

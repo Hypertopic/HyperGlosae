@@ -17,6 +17,7 @@ function Lectern({backend}) {
   const [scholiaMetadata, setScholiaMetadata] = useState([]);
   const [content, setContent] = useState([]);
   const [lastUpdate, setLastUpdate] = useState();
+  const [collections, setCollections] = useState([]);
   let {id} = useParams();
   let margin = useLocation().hash.slice(1);
   let hasRubrics = (id, rows) => rows.some(x => x.key[1] !== 0 && x.value.isPartOf === id && x.value.text);
@@ -29,6 +30,18 @@ function Lectern({backend}) {
     backend.refreshMetadata(id, setMetadata);
     backend.refreshContent(id, setContent);
   }, [id, lastUpdate]);
+
+  useEffect(() => {
+    backend.getView({view: 'all_collection'})
+      .then(
+        (rows) => {
+          setCollections(rows);
+        },
+        (error) => {
+          console.log(error.message);
+        }
+      );
+  }, []);
 
   useEffect(() => {
     if (metadata.length) {
@@ -90,26 +103,26 @@ function Lectern({backend}) {
     <Container className="screen">
       <Row>
         <Col md={2} className="sources">
-          <DocumentsCards docs={sourcesOfSourceMetadata} createOn={[id]} asSource={true} byRow={1} {...{setLastUpdate, backend}} />
+          <DocumentsCards docs={sourcesOfSourceMetadata} createOn={[id]} asSource={true} byRow={1} {...{collections, setLastUpdate, backend}} />
         </Col>
         <OpenedDocuments
           hasSources={sourcesOfSourceMetadata.length > 0}
           {...{backend, lectern, metadata, sourceMetadata, margin, id, setLastUpdate}}
         />
         <References scholiaMetadata={scholiaMetadata} active={!margin}
-          createOn={[id]} {...{setLastUpdate, backend}}
+          createOn={[id]} {...{collections, setLastUpdate, backend}}
         />
       </Row>
     </Container>
   );
 }
 
-function References({scholiaMetadata, active, createOn, setLastUpdate, backend}) {
+function References({scholiaMetadata, active, createOn, collections, setLastUpdate, backend}) {
   if (!active) return;
   return (
     <Col className="gloses" >
       <DocumentsCards docs={scholiaMetadata} expandable={true} byRow={1}
-        {...{createOn, setLastUpdate, backend}}
+        {...{createOn, collections, setLastUpdate, backend}}
       />
     </Col>
   );
