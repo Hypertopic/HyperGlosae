@@ -43,7 +43,7 @@ def sign_in(username, password)
 end
 
 def sign_out
-  refresh
+  find('a', text: 'Logout', visible: true).click
 end
 
 def leave_textarea
