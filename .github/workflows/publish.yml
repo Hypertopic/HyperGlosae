@@ -9,6 +9,7 @@ jobs:
 
   test:
     uses: ./.github/workflows/tests.yml
+    secrets: inherit
 
   publish:
     needs: test
