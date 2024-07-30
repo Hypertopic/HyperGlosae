@@ -15,10 +15,13 @@ jobs:
     steps:
       - name: Download sources
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Greenframe needs the whole history
       - name: Download tools
         run: |
           docker compose --file docker-compose.test.yml pull
           docker pull benel/cucumber-capybara
+          curl https://assets.greenframe.io/install.sh | bash
       - name: Install and launch backend with test data
         run: |
           export COUCHDB_USER="TO_BE_CHANGED"
@@ -48,3 +51,10 @@ jobs:
         run:
           docker run --rm -v "$(pwd)":/app --tty --net="host" --env APP_HOST="http://`hostname`" benel/cucumber-capybara --retry 2 --fail-fast --no-source --no-snippets
         shell: 'script -q -e -c "bash {0}"'
+      - name: Measure carbon footprint
+        run: |
+          cd requirements
+          greenframe analyze >> $GITHUB_STEP_SUMMARY
+        env:
+          GREENFRAME_SECRET_TOKEN: ${{secrets.GREENFRAME_SECRET_TOKEN}}
+
