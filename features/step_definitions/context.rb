@@ -55,25 +55,17 @@ Soit('un document existant affiché avec le titre par défaut comme document pri
   sign_out
 end
 
-Soit("un document existant affiché comme document principal dont je ne suis pas l'auteur") do
-  visit '/'
-  sign_in('bill', 'madhatter')
-  click_on_icon('create-document')
-  click_on_icon('focus')
-  sign_out
-end
-
 Soit("un document dont je suis l'auteur affiché comme glose") do
   visit '/4e1a31e14b032f2fa9e161ee9b123456'
   sign_in('alice', 'whiterabbit')
-  click_on_icon('gloses .create-document')
+  click_on_icon('create-document')
   sign_out
 end
 
 Soit("un document dont je ne suis pas l'auteur affiché comme glose") do
   visit '/4e1a31e14b032f2fa9e161ee9b123456'
   sign_in('bill', 'madhatter')
-  click_on_icon('gloses .create-document')
+  click_on_icon('create-document')
   sign_out
 end
 
@@ -87,7 +79,7 @@ end
 
 Soit("un autre document, en plusieurs passages, affiché comme glose et dont je suis l'auteur") do
   sign_in('alice', 'whiterabbit')
-  click_on_icon('gloses .create-document')
+  click_on_icon('create-document')
   click_on_text('content')
   find('textarea').fill_in with:
   """
@@ -100,7 +92,7 @@ end
 
 Soit("un autre document, non découpé, affiché comme glose et dont je suis l'auteur") do
   sign_in('alice', 'whiterabbit')
-  click_on_icon('gloses .create-document')
+  click_on_icon('create-document')
   sign_out
 end
 
@@ -109,7 +101,7 @@ Soit('{string} une des gloses ouverte') do |title|
 end
 
 Soit('une glose faisant référence uniquement à la partie une') do
-  click_on_icon('gloses .create-document')
+  click_on_icon('create-document')
   click_on_text('content', '<TEXT>')
   find('textarea').fill_in with:
   """
@@ -127,30 +119,6 @@ Soit('le document intitulé {string} est affiché') do |title|
   expect(page).to have_content(title)
 end
 
-Soit('je crée un document avec les métadonnées suivantes:') do |metadata|
-  click_on_text('metadata')
-  fill_element('textarea', metadata)
-  leave_textarea
-end
-
-Soit("un document que l'on consulte") do
-  visit '/146e6e8442f0405b721b79357d00d0a1'
-end
-
-Soit("je fais un focus sur {string}") do |title|
-  click_on_icon_next_to('focus',title) 
-end
-
-Soit("je fais plusieurs passages dans le document") do
-  click_on_text('content')
-  find('textarea').fill_in with:
-  """
-  {1} First side passage.
-  {2} Second side passage.
-  """
-  leave_textarea
-end
-
 Soit("{string} le nom de la licence du document principal") do |license|
   expect(page).to have_text license
 end
@@ -160,7 +128,7 @@ Soit("{string} le code de la licence du document principal") do |license|
 end
 
 Soit("un commentaire est créée pour le document principal avec les métadonnées :") do |metadata|
-  click_on_icon('gloses .create-document')
+  click_on_icon('create-document')
   click_on_text('metadata')
   fill_element('textarea', metadata)
   leave_textarea

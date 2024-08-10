@@ -90,7 +90,7 @@ function Lectern({backend, user}) {
     <Container className="screen">
       <Row>
         <Col md={2} className="sources">
-          <DocumentsCards docs={sourcesOfSourceMetadata} createOn={[id]} asSource={true} byRow={1} {...{setLastUpdate, backend, user}} />
+          <DocumentsCards docs={sourcesOfSourceMetadata} byRow={1} />
         </Col>
         <OpenedDocuments
           hasSources={sourcesOfSourceMetadata.length > 0}

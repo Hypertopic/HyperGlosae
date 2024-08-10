@@ -7,7 +7,7 @@ Quand('je consulte le contenu de {string}') do |title|
 end
 
 Quand("j'essaie de créer un nouveau document") do
-  click_on_icon('gloses .create-document, .bookshelf .create-document')
+  click_on_icon('create-document')
 end
 
 Quand("j'essaie de remplacer les métadonnées de la glose par :") do |metadata|
@@ -50,10 +50,6 @@ end
 Quand("Christophe se connecte") do
   sign_in('christophe', 'redqueen')
   expect(find('.navbar')).to have_content 'christophe'
-end
-
-Quand("j'essaie de créer une référence au document") do
-  click_on_icon('sources .create-document')
 end
 
 Quand("j'essaye d'ajouter une image à une glose") do
@@ -100,7 +96,7 @@ end
 
 Quand("je sélectionne {string} dans le menu déroulant") do |option|
   select option, from: 'select-dropdown'
-  click_on_icon('gloses .create-document')
+  click_on_icon('create-document')
 end
 
 Quand("j'essaie de créer un commentaire pour {string} avec {string}") do |title1, title2|

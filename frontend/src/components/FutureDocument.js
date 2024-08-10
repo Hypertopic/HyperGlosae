@@ -7,11 +7,11 @@ import { PlusLg, Link, FolderPlus } from 'react-bootstrap-icons';
 import { v4 as uuid } from 'uuid';
 import DocumentList from './DocumentList';
 
-function FutureDocument({relatedTo, verb = 'refersTo', setLastUpdate, backend, user, asSource = false}) {
+function FutureDocument({relatedTo, verb = 'refersTo', setLastUpdate, backend, user}) {
   const [selectedVerb, setSelectedVerb] = useState(verb);
   const [showDocumentList, setShowDocumentList] = useState(false);
   const [selectedDocument, setSelectedDocument] = useState(null);
-  const fixedType = relatedTo.length === 0 || verb === 'includes' || asSource;
+  const fixedType = relatedTo.length === 0 || verb === 'includes';
 
   const handleSelectChange = (event) => {
     setSelectedVerb(event.target.value);
@@ -28,7 +28,7 @@ function FutureDocument({relatedTo, verb = 'refersTo', setLastUpdate, backend, u
         )}
         <FutureDocumentIcon
           relatedTo={selectedDocument ? [selectedDocument._id] : relatedTo}
-          {...{verb: selectedVerb, setLastUpdate, backend, asSource}}
+          {...{verb: selectedVerb, setLastUpdate, backend}}
         />
         {!fixedType && (
           <Link
@@ -49,7 +49,7 @@ function FutureDocument({relatedTo, verb = 'refersTo', setLastUpdate, backend, u
   );
 }
 
-function FutureDocumentIcon({relatedTo, verb, setLastUpdate, backend, asSource = false}) {
+function FutureDocumentIcon({relatedTo, verb, setLastUpdate, backend}) {
   const navigate = useNavigate();
 
   let handleClick = async () => {
@@ -63,41 +63,15 @@ function FutureDocumentIcon({relatedTo, verb, setLastUpdate, backend, asSource =
       dc_license: '',
       text: '<TEXT>'
     };
-
-    if (asSource) {
-      let gloseId = relatedTo[0];
-      backend.putDocument(doc)
-        .then(() => backend.getDocument(gloseId))
-        .then(metaDocument => backend.putDocument({
-          ...metaDocument,
-          links: [...(metaDocument.links || []), {verb: 'refersTo', object: _id}]
-        }))
-        .then(() => backend.getView({view: 'content', gloseId, options: ['include_docs']}))
-        .then(rows => rows
-          .filter(row => row.value.isPartOf === gloseId)
-          .map(row => row.id)
-          .filter((rowId, i, array) => array.indexOf(rowId) === i) // Remove duplicates
-          .map(rowId => backend.getDocument(rowId)
-            .then(contentDocument => backend.putDocument({
-              ...contentDocument,
-              links: [...(contentDocument.links || []), {verb: 'refersTo', object: _id}]
-            }))
-          )
-        )
-        .then(promises => Promise.all(promises)) // Wait for all async operations to complete
-        .then(() => navigate('/' + _id))
-        .catch(console.error);
-    } else {
-      backend.putDocument({
-        ...doc,
-        links: relatedTo.map(object => ({verb, object}))
+    backend.putDocument({
+      ...doc,
+      links: relatedTo.map(object => ({verb, object}))
+    })
+      .then((x) => {
+        setLastUpdate(_id);
+        navigate((relatedTo.length ? '#' : '/blank#') + _id);
       })
-        .then((x) => {
-          setLastUpdate(_id);
-          navigate((relatedTo.length ? '#' : '/blank#') + _id);
-        })
-        .catch(console.error);
-    }
+      .catch(console.error);
   };
 
   switch (verb) {
@@ -109,7 +83,7 @@ function FutureDocumentIcon({relatedTo, verb, setLastUpdate, backend, asSource =
       );
     default:
       return (
-        <PlusLg title={`Create a document ${asSource ? 'as a source' : relatedTo.length ? 'as a glose' : 'from scratch'}`}
+        <PlusLg title={`Create a document ${relatedTo.length ? 'as a glose' : 'from scratch'}`}
           className="icon create-document ms-2" onClick={handleClick}
         />
       );
