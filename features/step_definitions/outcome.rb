@@ -39,10 +39,6 @@ Alors("je ne vois pas l'image {string}") do |alternative_text|
   expect(page).not_to have_image(alternative_text)
 end
 
-Alors("je vois que le nom de la licence {string}") do |license|
-  expect(page).to have_text license
-end
-
 Alors("je vois que le code de la licence est {string}") do |license|
   expect(page).to have_image license
 end
@@ -98,10 +94,6 @@ end
 
 Alors('je peux lire {string} dans la liste des types') do |text|
   expect(find('.list-group')).to have_content text
-end
-
-Alors('je ne peux pas lire {string} ans la liste des types') do |text|
-  expect(find('.list-group')).not_to have_content text
 end
 
 Alors('je ne peux rien lire dans la liste des types') do
