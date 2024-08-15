@@ -6,14 +6,25 @@ function ExistingDocument({ document, relatedTo, setLastUpdate, backend, setShow
   const title = extractSubstring(document.dc_title || 'Untitled Document');
 
   const handleClick = async () => {
-    backend.putDocument({
-      ...document,
-      links: [...document.links || [], { verb: 'refersTo', object: relatedTo[0] }]
-    }).then(() => {
-      setLastUpdate(document._id);
-      navigate('#' + document._id);
-    }).catch(console.error);
-
+    backend.getView({view: 'content', id: document._id, options: ['include_docs']})
+      .then(rows => rows
+        .filter(x => x.value.isPartOf === document._id)
+        .map(x => x.id)
+        .reduce((set, item) => set.includes(item) ? set : [...set, item], [document._id])
+        .map(x =>
+          backend.getDocument(x)
+            .then(chunk => backend.putDocument({
+              ...chunk,
+              links: [...chunk.links || [], { verb: 'refersTo', object: relatedTo[0] }]
+            }))
+        )
+      )
+      .then(x => Promise.all(x))
+      .then(() => {
+        setLastUpdate(document._id);
+        navigate('#' + document._id);
+      })
+      .catch(console.error);
     setShowDocumentList(false);
   };
 
