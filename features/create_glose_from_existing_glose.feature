@@ -1,17 +1,18 @@
 #language: fr
 
-Fonctionnalité: Créer une glose à partir d'une glose existant
+Fonctionnalité: Commentez ou adaptez à l'aide d'un document existant un document
 
-Scénario: Ajouter des gloses existantes à une glose
+Scénario: en un seul morceau
 
-    Soit "Víly (Charles Perrault)" le document principal
-    Et "Fairies (Charles Perrault)" une des gloses
+    Soit "Les fées (Charles Perrault)" le document principal
     Et une session active avec mon compte
-    Et un commentaire est créée pour le document principal avec les métadonnées :
+    Et une glose intitulée "Glossaire" contenant :
         """
-        dc_title: GLOSSAIRE
-        dc_creator: <CREATOR>
-        dc_issued: 2024
+        "Il était une fois"
+        : "Once upon a time" (eng)
+        : "Bolo to raz" (svk)
         """
-    Quand j'essaie de créer un commentaire pour "GLOSSAIRE" avec "Fairies"
-    Alors "Fairies" est la glose ouverte
+    Et je me focalise sur "Glossaire"
+    Quand je réutilise "Fairies" comme glose
+    Alors je peux lire "Once upon a time were a widow and her two daughters"
+
