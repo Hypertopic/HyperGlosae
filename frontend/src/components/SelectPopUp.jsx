@@ -1,8 +1,6 @@
-import React, { useState } from 'react';
-
 function SelectPopUp({selectedText, setSelectedText, setFragment}) {
 
-  let handleClick = (e) => {
+  let handleClick = () => {
     setFragment(`[${selectedText}]\n`);
     setSelectedText();
   };

@@ -6,7 +6,6 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Form from 'react-bootstrap/Form';
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
 
 function Menu({backend, user, setUser}) {
   return (

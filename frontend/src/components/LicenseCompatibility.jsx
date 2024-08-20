@@ -1,5 +1,3 @@
-import React, { useEffect } from 'react';
-
 const licenseCompatibility = {
   'Public domain': ['Public domain', 'by', 'by-sa', 'by-nc', 'by-nc-sa', 'by-nc-nd', 'by-nd', 'All rights reserved'],
   'by': ['by', 'by-sa', 'by-nc', 'by-nc-sa', 'by-nc-nd', 'by-nd', 'All rights reserved'],

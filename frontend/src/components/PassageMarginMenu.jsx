@@ -37,6 +37,7 @@ function PassageMarginMenu ({ id, backend, handleImageUrl }) {
   );
 }
 
+// eslint-disable-next-line react/display-name
 const BlockMenuButton = forwardRef(({ children, onClick }, ref) => (
   <ThreeDotsVertical
     onClick={(e) => {

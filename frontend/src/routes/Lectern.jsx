@@ -97,19 +97,19 @@ function Lectern({backend, user}) {
           {...{backend, lectern, metadata, sourceMetadata, margin, id, setLastUpdate}}
         />
         <References scholiaMetadata={scholiaMetadata} active={!margin}
-          createOn={[id]} {...{setLastUpdate, backend}}
+          createOn={[id]} {...{setLastUpdate, backend, user}}
         />
       </Row>
     </Container>
   );
 }
 
-function References({scholiaMetadata, active, createOn, setLastUpdate, backend}) {
+function References({scholiaMetadata, active, createOn, setLastUpdate, backend, user}) {
   if (!active) return;
   return (
     <Col className="gloses" >
       <DocumentsCards docs={scholiaMetadata} expandable={true} byRow={1}
-        {...{createOn, setLastUpdate, backend}}
+        {...{createOn, setLastUpdate, backend, user}}
       />
     </Col>
   );

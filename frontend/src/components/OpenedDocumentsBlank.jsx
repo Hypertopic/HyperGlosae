@@ -14,7 +14,7 @@ function OpenedDocumentsBlank({ backend, lectern, sourceMetadata, setLastUpdate 
       <Row className="runningHead">
         <RunningHeadSource metadata={sourceMetadata} backend={backend} />
       </Row>
-      {lectern.map(({ rubric, source, scholia }, i) => (
+      {lectern.map(({ rubric, scholia }, i) => (
         <PassageBlank
           key={rubric || i}
           {...{ backend, scholia, setLastUpdate }}

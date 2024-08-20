@@ -5,7 +5,7 @@ function FragmentComment({ children, setHighlightedText }) {
     const citationRegex = /^\[.*\]\s*\n(.*)$/m;
     if (citationRegex.test(children)) {
       let [citation, comment] = children[0].split(/\n/);
-      citation = citation.replace(/[\[\]]/g, '');
+      citation = citation.replace(/[[\]]/g, '');
       return <p
         onMouseEnter={
           e => {

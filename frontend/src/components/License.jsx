@@ -1,5 +1,3 @@
-import React from 'react';
-
 function License({ license }) {
   if (license === 'Public domain') return (
     <div className="license">

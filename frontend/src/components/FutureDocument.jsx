@@ -1,6 +1,6 @@
 import '../styles/FutureDocument.css';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Card, Form} from 'react-bootstrap';
 import { PlusLg, Link, FolderPlus } from 'react-bootstrap-icons';
@@ -67,7 +67,7 @@ function FutureDocumentIcon({relatedTo, verb, setLastUpdate, backend}) {
       ...doc,
       links: relatedTo.map(object => ({verb, object}))
     })
-      .then((x) => {
+      .then(() => {
         setLastUpdate(_id);
         navigate((relatedTo.length ? '#' : '/blank#') + _id);
       })
