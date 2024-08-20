@@ -7,8 +7,8 @@ import { ListGroup } from 'react-bootstrap';
 import { TypesContext } from './TypesContext.js';
 
 export function TypeBadge({ type, addClassName }) {
-  if (!type) return null;
   const types = useContext(TypesContext);
+  if (!type) return null;
   const typeSelected = types.find((t) => t.id === type);
   if (!typeSelected) return;
   return <div style={{backgroundColor: typeSelected.doc.color}} className={`typeBadge ${addClassName ?? ''}`}>

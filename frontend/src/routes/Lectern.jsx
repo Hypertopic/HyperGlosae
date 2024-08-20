@@ -28,7 +28,7 @@ function Lectern({backend, user}) {
   useEffect(() => {
     backend.refreshMetadata(id, setMetadata);
     backend.refreshContent(id, setContent);
-  }, [id, lastUpdate]);
+  }, [id, lastUpdate, backend]);
 
   useEffect(() => {
     if (metadata.length) {
@@ -48,17 +48,17 @@ function Lectern({backend, user}) {
     }
   }, [id, metadata, lastUpdate]);
 
-  let getText = ({doc, value}) => {
-    if (!doc || !doc.text) {
-      return value.text;
-    }
-    let fragment = (value.inclusion !== 'whole' ? '#' + value.inclusion : '')
-      + ` "${getCaption(doc)}"`;
-    let imageReference = /!\[[^\]]*\]\([^)]+/;
-    return doc.text.replace(imageReference, '$&' + fragment);
-  };
-
   useEffect(() => {
+    let getText = ({doc, value}) => {
+      if (!doc || !doc.text) {
+        return value.text;
+      }
+      let fragment = (value.inclusion !== 'whole' ? '#' + value.inclusion : '')
+        + ` "${getCaption(doc)}"`;
+      let imageReference = /!\[[^\]]*\]\([^)]+/;
+      return doc.text.replace(imageReference, '$&' + fragment);
+    };
+
     if (content.length) {
       let shouldBeAligned = hasRubrics(id, content) && (!margin || hasRubrics(margin, content));
       let passages = content.reduce(({whole, part}, x, i, {length}) => {

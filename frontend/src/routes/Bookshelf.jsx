@@ -10,7 +10,7 @@ function Bookshelf({backend, user}) {
 
   useEffect(() => {
     backend.refreshDocuments(setDocuments);
-  }, [lastUpdate, user]);
+  }, [lastUpdate, user, backend]);
 
   return (
     <Container className="screen bookshelf">

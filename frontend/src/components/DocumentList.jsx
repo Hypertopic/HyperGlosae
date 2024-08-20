@@ -16,7 +16,7 @@ function DocumentList({ relatedTo, setSelectedDocument, setShowDocumentList, set
 
   useEffect(() => {
     backend.refreshDocuments(setUserDocuments);
-  }, [user]);
+  }, [user, backend]);
 
   return (
     <>
