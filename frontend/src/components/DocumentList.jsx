@@ -2,7 +2,7 @@ import { Card } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
 import ExistingDocument from './ExistingDocument';
 
-function DocumentList({ relatedTo, setSelectedDocument, setShowDocumentList, setLastUpdate, backend, user }) {
+function DocumentList({ relatedTo, verb, setSelectedDocument, setShowDocumentList, setLastUpdate, backend, user }) {
   const [userDocuments, setUserDocuments] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -33,7 +33,7 @@ function DocumentList({ relatedTo, setSelectedDocument, setShowDocumentList, set
       </Card>
       {filteredDocuments.map(document => (
         <ExistingDocument key={document._id}
-          {...{document, relatedTo, setSelectedDocument, setShowDocumentList,
+          {...{document, relatedTo, verb, setSelectedDocument, setShowDocumentList,
             setLastUpdate, backend}}
         />
       ))}

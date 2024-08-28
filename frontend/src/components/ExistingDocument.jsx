@@ -1,7 +1,7 @@
 import Card from 'react-bootstrap/Card';
 import { useNavigate } from 'react-router-dom';
 
-function ExistingDocument({ document, relatedTo, setLastUpdate, backend, setShowDocumentList }) {
+function ExistingDocument({ document, relatedTo, verb, setLastUpdate, backend, setShowDocumentList }) {
   const navigate = useNavigate();
   const title = extractSubstring(document.dc_title || 'Untitled Document');
 
@@ -15,7 +15,7 @@ function ExistingDocument({ document, relatedTo, setLastUpdate, backend, setShow
           backend.getDocument(x)
             .then(chunk => backend.putDocument({
               ...chunk,
-              links: [...chunk.links || [], { verb: 'refersTo', object: relatedTo[0] }]
+              links: [...chunk.links || [], { verb, object: relatedTo[0] }]
             }))
         )
       )

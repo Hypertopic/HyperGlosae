@@ -20,11 +20,6 @@ function DocumentsCards({docs, expandable, byRow, createOn, setLastUpdate, backe
             <Col>
               <FutureDocument relatedTo={createOn} {...{setLastUpdate, backend, user}} />
             </Col>
-            {(createOn.length > 0) &&
-              <Col>
-                <FutureDocument relatedTo={createOn} verb="includes" {...{setLastUpdate, backend}} />
-              </Col>
-            }
           </Row>
         </Col>
       }

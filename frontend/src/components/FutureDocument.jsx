@@ -3,18 +3,18 @@ import '../styles/FutureDocument.css';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Card, Form} from 'react-bootstrap';
-import { PlusLg, Link, FolderPlus } from 'react-bootstrap-icons';
+import { PlusLg, Link } from 'react-bootstrap-icons';
 import { v4 as uuid } from 'uuid';
 import DocumentList from './DocumentList';
 
-function FutureDocument({relatedTo, verb = 'refersTo', setLastUpdate, backend, user}) {
-  const [selectedVerb, setSelectedVerb] = useState(verb);
+function FutureDocument({relatedTo, setLastUpdate, backend, user}) {
+  const [verb, setVerb] = useState('refersTo');
   const [showDocumentList, setShowDocumentList] = useState(false);
   const [selectedDocument, setSelectedDocument] = useState(null);
-  const fixedType = relatedTo.length === 0 || verb === 'includes';
+  const fixedType = relatedTo.length === 0;
 
   const handleSelectChange = (event) => {
-    setSelectedVerb(event.target.value);
+    setVerb(event.target.value);
   };
 
   return (
@@ -24,11 +24,12 @@ function FutureDocument({relatedTo, verb = 'refersTo', setLastUpdate, backend, u
           <Form.Select aria-label="Select document type" onChange={handleSelectChange} defaultValue="refersTo" className="select-form" id="select-dropdown">
             <option value="refersTo">Commentary</option>
             <option value="isTranslationOf">Adaptation</option>
+            <option value="includes">Quotation</option>
           </Form.Select>
         )}
         <FutureDocumentIcon
           relatedTo={selectedDocument ? [selectedDocument._id] : relatedTo}
-          {...{verb: selectedVerb, setLastUpdate, backend}}
+          {...{verb, setLastUpdate, backend}}
         />
         {!fixedType && (
           <Link
@@ -40,7 +41,7 @@ function FutureDocument({relatedTo, verb = 'refersTo', setLastUpdate, backend, u
       </Card.Body>
       {showDocumentList && (
         <Card.Body>
-          <DocumentList {...{ relatedTo, setSelectedDocument,
+          <DocumentList {...{ relatedTo, verb, setSelectedDocument,
             setShowDocumentList, setLastUpdate, backend, user }}
           />
         </Card.Body>
@@ -74,20 +75,11 @@ function FutureDocumentIcon({relatedTo, verb, setLastUpdate, backend}) {
       .catch(console.error);
   };
 
-  switch (verb) {
-    case 'includes':
-      return (
-        <FolderPlus title="Create a collection from this document"
-          className="icon create-collection" onClick={handleClick}
-        />
-      );
-    default:
-      return (
-        <PlusLg title={`Create a document ${relatedTo.length ? 'as a glose' : 'from scratch'}`}
-          className="icon create-document ms-2" onClick={handleClick}
-        />
-      );
-  }
+  return (
+    <PlusLg title={`Create a document ${relatedTo.length ? 'as a glose' : 'from scratch'}`}
+      className="icon create-document ms-2" onClick={handleClick}
+    />
+  );
 }
 
 export default FutureDocument;

@@ -33,10 +33,6 @@ Quand("j'essaie de remplacer le contenu du premier passage de la glose par :") d
   leave_textarea
 end
 
-Quand('je crée une collection à partir de ce document') do
-  click_on_icon('create-collection')
-end
-
 Quand("je clique sur la référence temporelle {string} avec pour commentaire {string}") do |timecode, comment|
   find(:xpath, "//p[contains(., \"#{timecode}\")]", match: :first).click
 end
