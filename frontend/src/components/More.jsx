@@ -41,7 +41,7 @@ export default function More({metadata, backend}) {
           <ThreeDotsVertical/>
         </Dropdown.Toggle>
         <Dropdown.Menu>
-          <Dropdown.Item as="button" onClick={handleShow} className="dropdown-item-share">Share</Dropdown.Item>
+          <Dropdown.Item as="button" onClick={handleShow} className="dropdown-item-share">Invite editors...</Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown>
 

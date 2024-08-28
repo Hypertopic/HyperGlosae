@@ -20,10 +20,10 @@ function PassageMarginMenu ({ id, backend, handleImageUrl }) {
 
   return (
     <>
-      <Dropdown title="Block actions...">
+      <Dropdown>
         <Dropdown.Toggle as={BlockMenuButton}/>
         <Dropdown.Menu id="block-actions">
-          <Dropdown.Item onClick={handleClick}>Add an image</Dropdown.Item>
+          <Dropdown.Item onClick={handleClick}>Add a picture...</Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown>
       <input

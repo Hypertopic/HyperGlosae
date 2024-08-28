@@ -81,7 +81,7 @@ function Type({ metadata, editable, backend }) {
     <div style={{ paddingTop: 10, paddingBottom: 30 }}>
       <div style={{ paddingTop: 0, justifyContent: 'flex-end' }}>
         <TypeBadge addClassName="typeSelected" type={typeSelected}/>
-        {editable ? <TagFill onClick={handleEdit} className="icon typeIcon" title="Edit type"/> : null}
+        {editable ? <TagFill onClick={handleEdit} className="icon typeIcon" title="Apply a label..."/> : null}
       </div>
       {beingEdited ?
         <TypeList typeSelected={typeSelected} handleUpdate={handleUpdate}/>
