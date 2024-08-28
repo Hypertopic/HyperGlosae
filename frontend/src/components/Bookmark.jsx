@@ -46,6 +46,10 @@ function Bookmark({backend, id}) {
   return (
     <BookmarkFill className={`icon ${isBookmarked && 'bookmarked'}`}
       onClick={onBookmarkToggle}
+      title={isBookmarked
+        ? 'Remove this document from your bookshelf'
+        : 'Add this document to your bookshelf'
+      }
     />
   );
 }
