@@ -9,7 +9,7 @@
   "dc_source": "https://traduxio.org/works/79df781ff8941879f960c6500b3b74cf?open=Diana%20Jamborova%20Lemay%20avec%20les%20étudiants%20de%20slovaque%20à%20l%27Inalco",
   "editors": ["alice"],
   "links": [{
-    "verb": "isTranslationOf",
+    "verb": "adapts",
     "object": "37b4b9ba5cdb11ed887beb5c373fa643"
   }]
 }

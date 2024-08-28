@@ -9,7 +9,7 @@
   "dc_license": "Public domain",
   "dc_source": "https://fr.wikisource.org/wiki/Page:Perrault_-_Contes_des_fées,_1886.djvu/100",
   "links": [{
-    "verb": "isTranslationOf",
+    "verb": "adapts",
     "object": "02ee00d85cdb11ed834c4fb9e3c972af"
   }]
 }

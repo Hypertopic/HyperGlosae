@@ -23,7 +23,7 @@ function FutureDocument({relatedTo, setLastUpdate, backend, user}) {
         {!fixedType && (
           <Form.Select aria-label="Select document type" onChange={handleSelectChange} defaultValue="refersTo" className="select-form" id="select-dropdown">
             <option value="refersTo">Commentary</option>
-            <option value="isTranslationOf">Adaptation</option>
+            <option value="adapts">Adaptation</option>
             <option value="includes">Quotation</option>
           </Form.Select>
         )}

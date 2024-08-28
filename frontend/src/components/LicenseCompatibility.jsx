@@ -11,7 +11,7 @@ const licenseCompatibility = {
 
 function LicenseCompatibility({ sourceMetadata, marginLicense }) {
   const sourceLicense = sourceMetadata?.dc_license;
-  const isTranslation = sourceMetadata?.links && sourceMetadata?.links.some(link => link.verb === 'isTranslationOf');
+  const isAdaptation = sourceMetadata?.links?.some(x => x.verb === 'adapts');
   const getLicenseKey = (licenseUri) => {
     if (!licenseUri) return 'All rights reserved';
     if (licenseUri.toLowerCase() === 'public domain') return 'Public domain';
@@ -21,7 +21,7 @@ function LicenseCompatibility({ sourceMetadata, marginLicense }) {
 
   const sourceKey = getLicenseKey(sourceLicense);
   const marginKey = getLicenseKey(marginLicense);
-  const isCompatible = isTranslation ? licenseCompatibility[sourceKey]?.includes(marginKey) : true;
+  const isCompatible = isAdaptation ? licenseCompatibility[sourceKey]?.includes(marginKey) : true;
 
   const warningStyle = {
     textAlign: 'right'

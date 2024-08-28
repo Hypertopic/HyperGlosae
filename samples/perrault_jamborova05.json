@@ -2,7 +2,7 @@
   "_id": "86470e706c1711ed81a63f680c2e55c2",
   "isPartOf": "420ab198674f11eda3b7a3fdd5ea984f",
   "links": [{
-    "verb": "isTranslationOf",
+    "verb": "adapts",
     "object": "37b4b9ba5cdb11ed887beb5c373fa643"
   }],
   "editors": ["alice"],

@@ -7,7 +7,7 @@
     "dc_language": "eng",
     "dc_license": "https://creativecommons.org/licenses/by-nc-nd/4.0/",
     "links": [{
-      "verb": "isTranslationOf",
+      "verb": "adapts",
       "object": "420ab198674f11eda3b7a3fdd5ea984f"
     }],
     "editors": ["alice"],
