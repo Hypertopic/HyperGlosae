@@ -24,6 +24,8 @@ Soit('{string} le document principal') do |title|
       visit '/05b61f5285c711ed97bf6b9b56808c45'
     when "Víly (Charles Perrault)"
       visit '/420ab198674f11eda3b7a3fdd5ea984f'
+    when "16e prix - Catégorie 10-13 ans, Ukraine (Yelena SOROCHINSKAYA),2019"
+      visit '/b33f9568386e11eea7644766f8f7218a'
   end
 end
 
@@ -135,5 +137,18 @@ Soit("une glose intitulée {string} contenant :") do |title, markdown|
   click_on_text('content')
   fill_element('textarea', markdown)
   leave_textarea
+end
+
+Soit("un document dont je suis l'auteur intitulé {string} et contenant :") do |title, markdown|
+  visit '/'
+  sign_in('alice', 'whiterabbit')
+  click_on_icon('create-document')
+  click_on_text('metadata')
+  fill_element('textarea', "dc_title: #{title}")
+  leave_textarea
+  click_on_text('content')
+  fill_element('textarea', markdown)
+  leave_textarea
+  sign_out
 end
 

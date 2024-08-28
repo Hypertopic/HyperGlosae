@@ -99,7 +99,8 @@ Quand("je sélectionne {string} dans le menu déroulant") do |option|
   click_on_icon('create-document')
 end
 
-Quand("je réutilise {string} comme glose") do |title|
+Quand("je réutilise {string} comme glose de type {string}") do |title, type|
+  select type, from: 'select-dropdown'
   click_on_icon('select-document')
   document_list = all('.documentList', visible: true)
   document_to_select = document_list.find { |document| document.text.include?(title) }
