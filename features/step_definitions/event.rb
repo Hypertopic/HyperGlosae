@@ -71,7 +71,7 @@ Quand("je sélectionne le fragment de texte :") do |markdown|
       text = selection.toString();
   ")
   expect(page.evaluate_script('text')).to eq(markdown)
-  click_button(class: 'create-fragment')
+  click_on_contextual_menu_item('Comment the selected text...', 'main col', 2)
 end
 
 Quand("j'essaie d'éditer le document") do
@@ -84,8 +84,8 @@ Quand("je cherche le type {string}") do |type|
 end
 
 Quand("j'essaie d'accorder les droits d'édition à {string}") do |userName|
-  find(".more-btn > button").trigger("click")
-  find(".dropdown-item-share").click
+  expect(page).to have_css('.scholium')
+  click_on_contextual_menu_item('Invite editors...', 'scholium', 0)
   find(".add-user-input").fill_in with: userName
   find(".add-user-input-btn").click
 end

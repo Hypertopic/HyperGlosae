@@ -22,7 +22,7 @@ function PassageMarginMenu ({ id, backend, handleImageUrl }) {
     <>
       <Dropdown>
         <Dropdown.Toggle as={BlockMenuButton}/>
-        <Dropdown.Menu id="block-actions">
+        <Dropdown.Menu>
           <Dropdown.Item onClick={handleClick}>Add a picture...</Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown>
@@ -44,7 +44,7 @@ const BlockMenuButton = forwardRef(({ children, onClick }, ref) => (
       e.preventDefault();
       onClick(e);
     }}
-    ref={ref} className="editable-button">
+    ref={ref} className="toggle">
     {children}
   </ThreeDotsVertical>
 ));

@@ -5,7 +5,7 @@ import FormattedText from './FormattedText';
 import PassageMarginMenu from './PassageMarginMenu';
 import {v4 as uuid} from 'uuid';
 
-function EditableText({id, text, rubric, isPartOf, links, fragment, setFragment, setHighlightedText, backend, setLastUpdate}) {
+function EditableText({id, text, rubric, isPartOf, links, fragment, setFragment, setHighlightedText, setSelectedText, backend, setLastUpdate}) {
   const [beingEdited, setBeingEdited] = useState(false);
   const [editedDocument, setEditedDocument] = useState();
   const [editedText, setEditedText] = useState();
@@ -82,13 +82,14 @@ function EditableText({id, text, rubric, isPartOf, links, fragment, setFragment,
       })
       .then(x => setLastUpdate(x.rev))
       .then(() => setBeingEdited(false))
+      .then(() => setHighlightedText())
       .catch(console.error);
   };
 
   if (!beingEdited) return (
     <div className="editable content" title="Edit content...">
       <div className="formatted-text" onClick={handleClick}>
-        <FormattedText {...{setHighlightedText}}>
+        <FormattedText {...{setHighlightedText, setSelectedText}}>
           {editedText || text}
         </FormattedText>
       </div>

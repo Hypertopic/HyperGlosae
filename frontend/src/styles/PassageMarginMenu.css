@@ -1,18 +1,14 @@
-.editable-button {
+.dropdown {
   visibility: hidden;
-  margin-top: 0.25rem;
-  color: crimson;
 }
 
-.editable:hover .editable-button {
+:is(.scholium, .main):hover .dropdown {
   visibility: visible;
+}
+
+.toggle {
+  margin-top: 0.25rem;
+  color: crimson;
   cursor: pointer;
 }
 
-#block-actions .dropdown-item:hover {
-  background-color: lightgray;
-}
-
-#block-actions .dropdown-item:active {
-  color: black;
-}
