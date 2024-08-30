@@ -2,7 +2,7 @@
   visibility: hidden;
 }
 
-:is(.scholium, .main):hover .dropdown {
+:is(.runningHead .scholium, .scholium .content, .main):hover .dropdown {
   visibility: visible;
 }
 
