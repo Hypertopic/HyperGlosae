@@ -36,11 +36,9 @@ export default function More({metadata, backend}) {
 
   return (
     <>
-      <DiscreeteDropdown>
-        <DiscreeteDropdown.Item onClick={handleShow}>
-          Invite editors...
-        </DiscreeteDropdown.Item>
-      </DiscreeteDropdown>
+      <DiscreeteDropdown.Item onClick={handleShow}>
+        Invite editors...
+      </DiscreeteDropdown.Item>
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>

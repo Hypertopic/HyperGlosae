@@ -7,7 +7,8 @@ import Col from 'react-bootstrap/Col';
 import { Marker } from 'react-mark.js';
 import FormattedText from './FormattedText';
 import EditableText from '../components/EditableText';
-import PassageSourceMenu from './PassageSourceMenu';
+import DiscreeteDropdown from './DiscreeteDropdown';
+import CommentFragmentAction from './CommentFragmentAction';
 
 function Passage({source, rubric, scholia, margin, sourceId, backend, setLastUpdate}) {
   const [selectedText, setSelectedText] = useState();
@@ -50,7 +51,9 @@ function PassageSource({children, highlightedText, setHighlightedText, setFragme
           </FormattedText>
         </Marker>
       )}
-      <PassageSourceMenu {...{selectedText, setSelectedText, setFragment}}/>
+      <DiscreeteDropdown>
+        <CommentFragmentAction {...{selectedText, setSelectedText, setFragment}}/>
+      </DiscreeteDropdown>
     </Col>
   );
 }

@@ -5,7 +5,8 @@ import Metadata from './Metadata';
 import Type from './Type';
 import PassageBlank from './PassageBlank';
 import License from './License';
-import More from './More';
+import DiscreeteDropdown from './DiscreeteDropdown';
+import InviteEditorsAction from './InviteEditorsAction';
 
 function OpenedDocumentsBlank({ backend, lectern, sourceMetadata, setLastUpdate }) {
   if (!sourceMetadata) return;
@@ -31,9 +32,11 @@ function OpenedDocumentsBlank({ backend, lectern, sourceMetadata, setLastUpdate 
 
 function RunningHeadSource({ metadata, backend }) {
   return (
-    <Col className="main">
+    <Col className="main position-relative">
       <BrowseTools id={metadata._id} />
-      <More {...{backend, metadata}} />
+      <DiscreeteDropdown>
+        <InviteEditorsAction {...{backend, metadata}} />
+      </DiscreeteDropdown>
       <Metadata editable={true} {...{ backend, metadata }} />
       <Type editable={true} {...{ backend, metadata }}/>
     </Col>

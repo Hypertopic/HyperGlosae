@@ -1,7 +1,8 @@
 import { useRef } from 'react';
+
 import DiscreeteDropdown from './DiscreeteDropdown';
 
-function PassageMarginMenu ({ id, backend, handleImageUrl }) {
+function PictureUploadAction ({ id, backend, handleImageUrl }) {
   const fileInputRef = useRef(null);
 
   const handleClick = () => {
@@ -17,11 +18,9 @@ function PassageMarginMenu ({ id, backend, handleImageUrl }) {
 
   return (
     <>
-      <DiscreeteDropdown>
-        <DiscreeteDropdown.Item onClick={handleClick}>
-          Add a picture...
-        </DiscreeteDropdown.Item>
-      </DiscreeteDropdown>
+      <DiscreeteDropdown.Item onClick={handleClick}>
+        Add a picture...
+      </DiscreeteDropdown.Item>
       <input
         id="image-input"
         type="file"
@@ -33,4 +32,4 @@ function PassageMarginMenu ({ id, backend, handleImageUrl }) {
   );
 }
 
-export default PassageMarginMenu;
+export default PictureUploadAction;

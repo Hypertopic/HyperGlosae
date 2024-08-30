@@ -2,7 +2,8 @@ import '../styles/EditableText.css';
 
 import { useState, useEffect, useCallback } from 'react';
 import FormattedText from './FormattedText';
-import PassageMarginMenu from './PassageMarginMenu';
+import DiscreeteDropdown from './DiscreeteDropdown';
+import PictureUploadAction from './PictureUploadAction';
 import {v4 as uuid} from 'uuid';
 
 function EditableText({id, text, rubric, isPartOf, links, fragment, setFragment, setHighlightedText, setSelectedText, backend, setLastUpdate}) {
@@ -93,7 +94,9 @@ function EditableText({id, text, rubric, isPartOf, links, fragment, setFragment,
           {editedText || text}
         </FormattedText>
       </div>
-      <PassageMarginMenu {... {id, backend, handleImageUrl}}/>
+      <DiscreeteDropdown>
+        <PictureUploadAction {... {id, backend, handleImageUrl}}/>
+      </DiscreeteDropdown>
     </div>
   );
   return (

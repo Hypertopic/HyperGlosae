@@ -62,12 +62,16 @@ def click_on_element(class_name, text)
   find(class_name, text: text).click
 end
 
-def click_on_contextual_menu_item(item_locator, context_classes, context_order = 0)
+def click_on_contextual_menu(context_classes, context_order = 0)
   page.execute_script("
     let area = document.getElementsByClassName('#{context_classes}')[#{context_order}];
     let dropdown = area.getElementsByClassName('dropdown')[0];
     dropdown.style.visibility = 'visible';
     dropdown.getElementsByClassName('toggle')[0].dispatchEvent(new Event('click', {bubbles:true}))
   ")
+end
+
+def click_on_contextual_menu_item(item_locator, context_classes, context_order = 0)
+  click_on_contextual_menu(context_classes, context_order)
   click_on(item_locator)
 end

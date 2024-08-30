@@ -5,7 +5,8 @@ import Metadata from './Metadata';
 import Type, { TypeBadge } from './Type';
 import Passage from './Passage';
 import License from './License';
-import More from './More';
+import DiscreeteDropdown from './DiscreeteDropdown';
+import InviteEditorsAction from './InviteEditorsAction';
 import Bookmark from './Bookmark';
 import LicenseCompatibility from './LicenseCompatibility';
 
@@ -63,7 +64,9 @@ function RunningHeadMargin({metadata, backend, setLastUpdate}) {
   return (
     <Col xs={5} className="scholium position-relative">
       <BrowseTools id={metadata._id} closable={true} />
-      <More {...{backend, metadata}} />
+      <DiscreeteDropdown>
+        <InviteEditorsAction {...{backend, metadata}} />
+      </DiscreeteDropdown>
       <Metadata editable={true} {...{backend, metadata, setLastUpdate}} />
       <Type editable={true} {...{backend, metadata}}/>
     </Col>
