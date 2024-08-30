@@ -1,8 +1,5 @@
-import '../styles/PassageMarginMenu.css';
-
-import { Dropdown } from 'react-bootstrap';
-import {forwardRef, useRef} from 'react';
-import { ThreeDotsVertical } from 'react-bootstrap-icons';
+import { useRef } from 'react';
+import DiscreeteDropdown from './DiscreeteDropdown';
 
 function PassageMarginMenu ({ id, backend, handleImageUrl }) {
   const fileInputRef = useRef(null);
@@ -20,12 +17,11 @@ function PassageMarginMenu ({ id, backend, handleImageUrl }) {
 
   return (
     <>
-      <Dropdown>
-        <Dropdown.Toggle as={BlockMenuButton}/>
-        <Dropdown.Menu>
-          <Dropdown.Item onClick={handleClick}>Add a picture...</Dropdown.Item>
-        </Dropdown.Menu>
-      </Dropdown>
+      <DiscreeteDropdown>
+        <DiscreeteDropdown.Item onClick={handleClick}>
+          Add a picture...
+        </DiscreeteDropdown.Item>
+      </DiscreeteDropdown>
       <input
         id="image-input"
         type="file"
@@ -36,17 +32,5 @@ function PassageMarginMenu ({ id, backend, handleImageUrl }) {
     </>
   );
 }
-
-// eslint-disable-next-line react/display-name
-const BlockMenuButton = forwardRef(({ children, onClick }, ref) => (
-  <ThreeDotsVertical
-    onClick={(e) => {
-      e.preventDefault();
-      onClick(e);
-    }}
-    ref={ref} className="toggle">
-    {children}
-  </ThreeDotsVertical>
-));
 
 export default PassageMarginMenu;

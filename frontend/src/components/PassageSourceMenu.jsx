@@ -1,8 +1,4 @@
-import '../styles/PassageMarginMenu.css';
-
-import { forwardRef } from 'react';
-import { Dropdown } from 'react-bootstrap';
-import { ThreeDotsVertical } from 'react-bootstrap-icons';
+import DiscreeteDropdown from './DiscreeteDropdown';
 
 function PassageSourceMenu({selectedText, setSelectedText, setFragment}) {
 
@@ -11,20 +7,12 @@ function PassageSourceMenu({selectedText, setSelectedText, setFragment}) {
     setSelectedText();
   };
 
-  const Toggle = forwardRef(({onClick}, ref) => (
-    <ThreeDotsVertical className="toggle" {...{onClick, ref}} />
-  ));
-  Toggle.displayName = 'Toggle';
-
   return (
-    <Dropdown className="position-absolute top-0 end-0">
-      <Dropdown.Toggle as={Toggle} />
-      <Dropdown.Menu>
-        <Dropdown.Item onClick={handleClick}>
-          Comment the selected text...
-        </Dropdown.Item>
-      </Dropdown.Menu>
-    </Dropdown>
+    <DiscreeteDropdown>
+      <DiscreeteDropdown.Item onClick={handleClick}>
+        Comment the selected text...
+      </DiscreeteDropdown.Item>
+    </DiscreeteDropdown>
   );
 }
 

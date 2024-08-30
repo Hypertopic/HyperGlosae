@@ -87,7 +87,7 @@ function EditableText({id, text, rubric, isPartOf, links, fragment, setFragment,
   };
 
   if (!beingEdited) return (
-    <div className="editable content" title="Edit content...">
+    <div className="editable content position-relative" title="Edit content...">
       <div className="formatted-text" onClick={handleClick}>
         <FormattedText {...{setHighlightedText, setSelectedText}}>
           {editedText || text}

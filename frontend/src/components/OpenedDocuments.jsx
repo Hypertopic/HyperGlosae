@@ -61,7 +61,7 @@ function RunningHeadSource({metadata, hasSources, backend}) {
 function RunningHeadMargin({metadata, backend, setLastUpdate}) {
   if (!metadata) return;
   return (
-    <Col xs={5} className="scholium">
+    <Col xs={5} className="scholium position-relative">
       <BrowseTools id={metadata._id} closable={true} />
       <More {...{backend, metadata}} />
       <Metadata editable={true} {...{backend, metadata, setLastUpdate}} />

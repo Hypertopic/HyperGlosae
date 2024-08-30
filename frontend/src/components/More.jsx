@@ -1,6 +1,6 @@
-import { useState, forwardRef } from 'react';
-import { Button, InputGroup, ListGroup, Modal, Dropdown, Form } from 'react-bootstrap';
-import { ThreeDotsVertical } from 'react-bootstrap-icons';
+import { useState } from 'react';
+import { Button, InputGroup, ListGroup, Modal, Form } from 'react-bootstrap';
+import DiscreeteDropdown from './DiscreeteDropdown';
 
 export default function More({metadata, backend}) {
   const [show, setShow] = useState(false);
@@ -10,11 +10,6 @@ export default function More({metadata, backend}) {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
-  const Toggle = forwardRef(({onClick}, ref) => (
-    <ThreeDotsVertical className="toggle" {...{onClick, ref}} />
-  ));
-  Toggle.displayName = 'Toggle';
 
   let addEditor = () => {
     if (!loading) {
@@ -41,12 +36,11 @@ export default function More({metadata, backend}) {
 
   return (
     <>
-      <Dropdown className="float-end more-btn">
-        <Dropdown.Toggle as={Toggle} />
-        <Dropdown.Menu>
-          <Dropdown.Item as="button" onClick={handleShow} className="dropdown-item-share">Invite editors...</Dropdown.Item>
-        </Dropdown.Menu>
-      </Dropdown>
+      <DiscreeteDropdown>
+        <DiscreeteDropdown.Item onClick={handleShow}>
+          Invite editors...
+        </DiscreeteDropdown.Item>
+      </DiscreeteDropdown>
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
