@@ -22,11 +22,7 @@ Scénario: quand la glose est le commentaire d'un fragment
   Et je peux lire "le matin tu arrives sur le chantier, tu vas fouiller selon le programme que t'as établi"
   Quand je consulte le contenu de "Étiquetage de l'entretien"
   Alors je peux lire "le matin tu arrives sur le chantier, tu vas fouiller selon le programme que t'as établi"
-  Et je peux lire:
-    """
-    fouiller selon le programme
-    Action
-    """
+  Et je peux lire "fouiller selon le programmeAction"
 
 Scénario: quand la glose est un commentaire global
 

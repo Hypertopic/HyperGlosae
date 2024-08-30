@@ -21,9 +21,12 @@ function FragmentComment({ children, setHighlightedText }) {
             setHighlightedText('');
           }
         }
-        className="fragmentComment"
+        className="fragment"
         title="Highlight in document"
-      >{comment}</p>;
+      >
+        <span className="citation">{citation}</span>
+        {comment}
+      </p>;
     }
   } catch (e) {
     console.error(e);

@@ -1,11 +1,14 @@
-.fragmentComment:hover{
-    color:blue;
+.fragment {
+    padding-bottom: .6em;
+}
+
+.fragment:hover {
     cursor: pointer;
 }
 
-.fragmentComment {
-    margin-top: 15px;
+.fragment .citation {
+    margin-right: 1.5em;
+    background-color: rgb(255, 243, 205);
     font-weight: bold;
-    margin-top: 0;
 }
 
