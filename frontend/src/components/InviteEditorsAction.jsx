@@ -5,33 +5,27 @@ import DiscreeteDropdown from './DiscreeteDropdown';
 export default function More({metadata, backend}) {
   const [show, setShow] = useState(false);
   const [userName, setUserName] = useState('');
-  const [loading, setLoading] = useState(false);
   const [document, setDocument] = useState(metadata);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
   let addEditor = () => {
-    if (!loading) {
-      setLoading(true);
-      const payload = {...document, editors: [...(document.editors ?? [])]};
-      const formattedUserName = userName.trim();
+    const payload = {...document, editors: [...(document.editors ?? [])]};
+    const formattedUserName = userName.trim();
 
-      if (payload.editors.includes(formattedUserName) || formattedUserName === '') {
-        setUserName('');
-        setLoading(false);
-        return;
-      }
-
-      payload.editors.push(formattedUserName);
-
-      backend.putDocument(payload).then(({rev}) => {
-        payload._rev = rev;
-        setDocument(payload);
-        setUserName('');
-        setLoading(false);
-      });
+    if (payload.editors.includes(formattedUserName) || formattedUserName === '') {
+      setUserName('');
+      return;
     }
+
+    payload.editors.push(formattedUserName);
+
+    backend.putDocument(payload).then(({rev}) => {
+      payload._rev = rev;
+      setDocument(payload);
+      setUserName('');
+    });
   };
 
   return (
