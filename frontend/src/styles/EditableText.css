@@ -1,5 +1,6 @@
 .content {
   display: flex;
+  padding: 0 12px;
 }
 
 .formatted-text {
