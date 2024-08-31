@@ -17,6 +17,8 @@ function Lectern({backend, user}) {
   const [scholiaMetadata, setScholiaMetadata] = useState([]);
   const [content, setContent] = useState([]);
   const [lastUpdate, setLastUpdate] = useState();
+  const [sourceHasRubrics, setSourceHasRubrics] = useState();
+  const [marginHasRubrics, setMarginHasRubrics] = useState();
   let {id} = useParams();
   let margin = useLocation().hash.slice(1);
   let hasRubrics = (id, rows) => rows.some(x => x.key[1] !== 0 && x.value.isPartOf === id && x.value.text);
@@ -60,7 +62,11 @@ function Lectern({backend, user}) {
     };
 
     if (content.length) {
-      let shouldBeAligned = hasRubrics(id, content) && (!margin || hasRubrics(margin, content));
+      let sourceHasRubrics = hasRubrics(id, content);
+      let marginHasRubrics = hasRubrics(margin, content);
+      setSourceHasRubrics(sourceHasRubrics);
+      setMarginHasRubrics(marginHasRubrics);
+      let shouldBeAligned = sourceHasRubrics && (!margin || marginHasRubrics);
       let passages = content.reduce(({whole, part}, x, i, {length}) => {
         if (part.rubric && (x.key[1] !== part.rubric || !shouldBeAligned && i === length - 1)) {
           whole.push(part);
@@ -94,7 +100,7 @@ function Lectern({backend, user}) {
         </Col>
         <OpenedDocuments
           hasSources={sourcesOfSourceMetadata.length > 0}
-          {...{backend, lectern, metadata, sourceMetadata, margin, id, setLastUpdate}}
+          {...{backend, lectern, metadata, sourceMetadata, margin, id, sourceHasRubrics, marginHasRubrics, setLastUpdate}}
         />
         <References scholiaMetadata={scholiaMetadata} active={!margin}
           createOn={[id]} {...{setLastUpdate, backend, user}}

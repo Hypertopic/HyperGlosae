@@ -7,17 +7,18 @@ import Passage from './Passage';
 import License from './License';
 import DiscreeteDropdown from './DiscreeteDropdown';
 import InviteEditorsAction from './InviteEditorsAction';
+import BreakIntoPassagesAction from './BreakIntoPassagesAction';
 import Bookmark from './Bookmark';
 import LicenseCompatibility from './LicenseCompatibility';
 
-function OpenedDocuments({backend, lectern, metadata, sourceMetadata, margin, hasSources, id, setLastUpdate}) {
+function OpenedDocuments({backend, lectern, metadata, sourceMetadata, margin, hasSources, id, sourceHasRubrics, marginHasRubrics, setLastUpdate}) {
   const marginMetadata = metadata.find(x => x._id === margin);
   const marginLicense = marginMetadata?.dc_license;
   return (
     <Col className="lectern">
       <Row className ="runningHead">
         <RunningHeadSource metadata={ sourceMetadata } {...{hasSources, backend}} />
-        <RunningHeadMargin {...{backend, setLastUpdate}}
+        <RunningHeadMargin {...{lectern, margin, sourceHasRubrics, marginHasRubrics, backend, setLastUpdate}}
           metadata={marginMetadata}
         />
       </Row>
@@ -59,13 +60,14 @@ function RunningHeadSource({metadata, hasSources, backend}) {
   );
 }
 
-function RunningHeadMargin({metadata, backend, setLastUpdate}) {
+function RunningHeadMargin({metadata, lectern, margin, sourceHasRubrics, marginHasRubrics, backend, setLastUpdate}) {
   if (!metadata) return;
   return (
     <Col xs={5} className="scholium position-relative">
       <BrowseTools id={metadata._id} closable={true} />
       <DiscreeteDropdown>
         <InviteEditorsAction {...{backend, metadata}} />
+        <BreakIntoPassagesAction {...{lectern, margin, sourceHasRubrics, marginHasRubrics, backend, setLastUpdate}} />
       </DiscreeteDropdown>
       <Metadata editable={true} {...{backend, metadata, setLastUpdate}} />
       <Type editable={true} {...{backend, metadata}}/>

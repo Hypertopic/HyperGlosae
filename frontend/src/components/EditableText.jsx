@@ -58,10 +58,6 @@ function EditableText({id, text, rubric, isPartOf, links, fragment, setFragment,
         ? editedDocument.text.replace(PASSAGE, `{${rubric}} ${parsedText}`)
         : parsedText;
       backend.putDocument({ ...editedDocument, text })
-        .then(x => {
-          setEditedText(parsedText);
-          return x;
-        })
         .then(x => setLastUpdate(x.rev))
         .catch(console.error);
     });
@@ -77,13 +73,9 @@ function EditableText({id, text, rubric, isPartOf, links, fragment, setFragment,
       ? editedDocument.text.replace(PASSAGE, `{${rubric}} ${parsedText}`)
       : editedText;
     backend.putDocument({ ...editedDocument, text })
-      .then(x => {
-        setEditedText(parsedText);
-        return x;
-      })
       .then(x => setLastUpdate(x.rev))
-      .then(() => setBeingEdited(false))
       .then(() => setHighlightedText())
+      .then(() => setBeingEdited(false))
       .catch(console.error);
   };
 
@@ -91,7 +83,7 @@ function EditableText({id, text, rubric, isPartOf, links, fragment, setFragment,
     <div className="editable content position-relative" title="Edit content...">
       <div className="formatted-text" onClick={handleClick}>
         <FormattedText {...{setHighlightedText, setSelectedText}}>
-          {editedText || text}
+          {text}
         </FormattedText>
       </div>
       <DiscreeteDropdown>
