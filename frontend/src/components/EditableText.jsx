@@ -83,7 +83,7 @@ function EditableText({id, text, rubric, isPartOf, links, fragment, setFragment,
     <div className="editable content position-relative" title="Edit content...">
       <div className="formatted-text" onClick={handleClick}>
         <FormattedText {...{setHighlightedText, setSelectedText}}>
-          {text}
+          {text || '&nbsp;'}
         </FormattedText>
       </div>
       <DiscreeteDropdown>
