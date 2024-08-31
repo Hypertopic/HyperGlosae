@@ -13,7 +13,7 @@ exports.getRelatedDocuments = ({isPartOf, links}) =>
   );
 
 exports.emitPassages = ({text, isPartOf, related}) => {
-  const PASSAGE = /{(.+)} ([^{]+)/g;
+  const PASSAGE = /{([^{]+)} ([^{]+)/g;
   let passages = [...text.matchAll(PASSAGE)];
   passages = (passages.length || !text) ? passages : [[null, null, text]];
   passages.forEach(([_, rubric, passage]) => {
