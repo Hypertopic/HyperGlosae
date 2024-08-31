@@ -74,7 +74,7 @@ function Lectern({backend, user}) {
         if (isPartOf === id) {
           part.source.push(text);
         } else {
-          part.scholia = [...part.scholia || [], {id: x.id, rev: x.rev, text, isPartOf, rubric: x.key[1]}];
+          part.scholia = [...part.scholia || [], {id: x.id, text, isPartOf, rubric: x.key[1]}];
         }
         if (i === length - 1) {
           return [...whole, part];
