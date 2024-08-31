@@ -29,7 +29,7 @@ function Passage({source, rubric, scholia, margin, sourceId, backend, setLastUpd
       <Col className="main">
         <Container>
           <Row>
-            <PassageSource {...{highlightedText, setHighlightedText, setFragment, selectedText, setSelectedText}}>
+            <PassageSource {...{highlightedText, setHighlightedText, setFragment, selectedText, setSelectedText, margin}}>
               {source}
             </PassageSource>
             <Rubric id={rubric} />
@@ -41,7 +41,7 @@ function Passage({source, rubric, scholia, margin, sourceId, backend, setLastUpd
   );
 }
 
-function PassageSource({children, highlightedText, setHighlightedText, setFragment, selectedText, setSelectedText}) {
+function PassageSource({children, highlightedText, setHighlightedText, setFragment, selectedText, setSelectedText, margin}) {
   return (
     <Col className="position-relative">
       {children.map((chunk, index) =>
@@ -52,7 +52,7 @@ function PassageSource({children, highlightedText, setHighlightedText, setFragme
         </Marker>
       )}
       <DiscreeteDropdown>
-        <CommentFragmentAction {...{selectedText, setSelectedText, setFragment}}/>
+        <CommentFragmentAction {...{selectedText, setSelectedText, setFragment, margin}}/>
       </DiscreeteDropdown>
     </Col>
   );
