@@ -31,8 +31,8 @@ function Hyperglosae(logger) {
     });
   };
 
-  this.putDocument = (doc) =>
-    fetch(`${service}/${doc._id}`, {
+  this.putDocument = (doc, uri) =>
+    fetch(`${service}/${uri || doc._id}`, {
       method: 'PUT',
       headers: basicAuthentication({force: false}),
       body: JSON.stringify(doc)

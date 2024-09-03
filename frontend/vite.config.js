@@ -11,6 +11,11 @@ export default defineConfig({
   server: {
     port: 3000,
     proxy: {
+      '/api/_users': {
+        target: 'http://localhost:5984/_users',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api\/_users/, ''),
+      },
       '/api': {
         target: 'http://localhost:5984/hyperglosae',
         changeOrigin: true,

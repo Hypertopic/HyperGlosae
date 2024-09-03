@@ -10,6 +10,7 @@ import { NotificationContainer, NotificationManager } from 'react-notifications'
 import 'react-notifications/lib/notifications.css';
 import { TypesContext } from './components/TypesContext.js';
 import LecternBlank from './routes/LecternBlank';
+import Registration from './routes/Registration';
 
 const backend = new Hyperglosae(
   x => NotificationManager.warning(x, '', 2000)
@@ -35,6 +36,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Bookshelf {...{backend, user}} />} />
             <Route path="/blank" element={<LecternBlank {...{backend}}/>} />
+            <Route path="/registration" element={<Registration {...{backend}}/>} />
             <Route path="/:id" element={<Lectern {...{backend, user}} />} />
           </Routes>
         </TypesContext.Provider>
