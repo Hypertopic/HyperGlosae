@@ -8,6 +8,7 @@ import License from './License';
 import DiscreeteDropdown from './DiscreeteDropdown';
 import InviteEditorsAction from './InviteEditorsAction';
 import BreakIntoPassagesAction from './BreakIntoPassagesAction';
+import DeleteDocumentAction from './DeleteDocumentAction';
 import Bookmark from './Bookmark';
 import LicenseCompatibility from './LicenseCompatibility';
 
@@ -68,6 +69,7 @@ function RunningHeadMargin({metadata, lectern, margin, sourceHasRubrics, marginH
       <DiscreeteDropdown>
         <InviteEditorsAction {...{backend, metadata}} />
         <BreakIntoPassagesAction {...{lectern, margin, sourceHasRubrics, marginHasRubrics, backend, setLastUpdate}} />
+        <DeleteDocumentAction {...{metadata, backend, setLastUpdate}} />
       </DiscreeteDropdown>
       <Metadata editable={true} {...{backend, metadata, setLastUpdate}} />
       <Type editable={true} {...{backend, metadata}}/>
