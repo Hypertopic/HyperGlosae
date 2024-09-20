@@ -2,30 +2,28 @@ import { useState } from 'react';
 import { Button, InputGroup, ListGroup, Modal, Form } from 'react-bootstrap';
 import DiscreeteDropdown from './DiscreeteDropdown';
 
-export default function More({metadata, backend}) {
+export default function InviteEditorsAction({metadata, backend, setLastUpdate}) {
   const [show, setShow] = useState(false);
   const [userName, setUserName] = useState('');
-  const [document, setDocument] = useState(metadata);
+  const [grantedEditors, setGrantedEditors] = useState(metadata.editors || []);
 
   const handleClose = () => setShow(false);
+
   const handleShow = () => setShow(true);
 
   let addEditor = () => {
-    const payload = {...document, editors: [...(document.editors ?? [])]};
     const formattedUserName = userName.trim();
-
-    if (payload.editors.includes(formattedUserName) || formattedUserName === '') {
-      setUserName('');
-      return;
-    }
-
-    payload.editors.push(formattedUserName);
-
-    backend.putDocument(payload).then(({rev}) => {
-      payload._rev = rev;
-      setDocument(payload);
-      setUserName('');
-    });
+    let editors;
+    backend.getDocument(metadata._id)
+      .then(x => {
+        editors = [...(x.editors || []), formattedUserName];
+        return backend.putDocument({...x, editors});
+      })
+      .then(x => setLastUpdate(x.rev))
+      .then(() => {
+        setGrantedEditors(editors);
+        setUserName('');
+      });
   };
 
   return (
@@ -54,7 +52,7 @@ export default function More({metadata, backend}) {
         <Modal.Body>
           <h5>Editors</h5>
           <ListGroup>
-            {(document && document.editors ? document.editors : []).map((user) => (
+            {grantedEditors.map((user) => (
               <ListGroup.Item key={user}>{user}</ListGroup.Item>
             ))}
           </ListGroup>

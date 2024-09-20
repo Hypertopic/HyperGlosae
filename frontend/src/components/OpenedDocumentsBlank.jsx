@@ -13,7 +13,7 @@ function OpenedDocumentsBlank({ backend, lectern, sourceMetadata, setLastUpdate 
   return (
     <Col className="lectern">
       <Row className="runningHead">
-        <RunningHeadSource metadata={sourceMetadata} backend={backend} />
+        <RunningHeadSource metadata={sourceMetadata} {...{backend, setLastUpdate}} />
       </Row>
       {lectern.map(({ rubric, scholia }, i) => (
         <PassageBlank
@@ -30,12 +30,12 @@ function OpenedDocumentsBlank({ backend, lectern, sourceMetadata, setLastUpdate 
   );
 }
 
-function RunningHeadSource({ metadata, backend }) {
+function RunningHeadSource({ metadata, backend, setLastUpdate }) {
   return (
     <Col className="main position-relative">
       <BrowseTools id={metadata._id} />
       <DiscreeteDropdown>
-        <InviteEditorsAction {...{backend, metadata}} />
+        <InviteEditorsAction {...{backend, metadata, setLastUpdate}} />
       </DiscreeteDropdown>
       <Metadata editable={true} {...{ backend, metadata }} />
       <Type editable={true} {...{ backend, metadata }}/>

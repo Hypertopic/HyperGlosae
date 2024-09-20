@@ -67,7 +67,7 @@ function RunningHeadMargin({metadata, lectern, margin, sourceHasRubrics, marginH
     <Col xs={5} className="scholium position-relative">
       <BrowseTools id={metadata._id} closable={true} />
       <DiscreeteDropdown>
-        <InviteEditorsAction {...{backend, metadata}} />
+        <InviteEditorsAction {...{backend, metadata, setLastUpdate}} />
         <BreakIntoPassagesAction {...{lectern, margin, sourceHasRubrics, marginHasRubrics, backend, setLastUpdate}} />
         <DeleteDocumentAction {...{metadata, backend, setLastUpdate}} />
       </DiscreeteDropdown>
