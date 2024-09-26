@@ -5,16 +5,14 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { useState, useEffect } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
+import Context from '../context';
 import OpenedDocuments from '../components/OpenedDocuments';
 import DocumentsCards from '../components/DocumentsCards';
 
 function Lectern({backend, user}) {
 
   const [lectern, setLectern] = useState([]);
-  const [metadata, setMetadata] = useState([]);
-  const [sourceMetadata, setSourceMetadata] = useState();
-  const [sourcesOfSourceMetadata, setSourcesOfSourceMetadata] = useState([]);
-  const [scholiaMetadata, setScholiaMetadata] = useState([]);
+  const [metadata, setMetadata] = useState(new Context());
   const [content, setContent] = useState([]);
   const [lastUpdate, setLastUpdate] = useState();
   const [sourceHasRubrics, setSourceHasRubrics] = useState();
@@ -24,31 +22,15 @@ function Lectern({backend, user}) {
   let hasRubrics = (id, rows) => rows.some(x => x.key[1] !== 0 && x.value.isPartOf === id && x.value.text);
   const getCaption = ({dc_title, dc_spatial}) => dc_title + (dc_spatial ? `, ${dc_spatial}` : '');
 
-  if (sourceMetadata)
+  if (metadata) {
+    const sourceMetadata = metadata.focusedDocument;
     document.title = `${getCaption(sourceMetadata)} ${sourceMetadata.dc_creator ? `(${sourceMetadata.dc_creator})` : ''}`;
+  }
 
   useEffect(() => {
-    backend.refreshMetadata(id, setMetadata);
+    backend.refreshMetadata(id, x => setMetadata(new Context(id, x)));
     backend.refreshContent(id, setContent);
   }, [id, lastUpdate, backend]);
-
-  useEffect(() => {
-    if (metadata.length) {
-      let focusedDocument = metadata.find(x => (x._id === id));
-      if (focusedDocument) {
-        setSourceMetadata(focusedDocument);
-        let forwardLinks = (focusedDocument.links || [])
-          .map(({subject, object}) => (subject && (subject !== id)) ? subject : object)
-          .map(x => x.split('#')[0]);
-        let forwardLinkedDocuments = metadata.filter(x => forwardLinks.includes(x._id));
-        setSourcesOfSourceMetadata(forwardLinkedDocuments);
-        let reverseLinkedDocuments = metadata.filter(
-          x => !forwardLinks.includes(x._id) && x._id !== id
-        );
-        setScholiaMetadata(reverseLinkedDocuments);
-      };
-    }
-  }, [id, metadata, lastUpdate]);
 
   useEffect(() => {
     let getText = ({doc, value}) => {
@@ -96,25 +78,25 @@ function Lectern({backend, user}) {
     <Container className="screen">
       <Row>
         <Col md={2} className="sources">
-          <DocumentsCards docs={sourcesOfSourceMetadata} byRow={1} />
+          <DocumentsCards docs={metadata.forwardLinkedDocuments} byRow={1} />
         </Col>
         <OpenedDocuments
-          hasSources={sourcesOfSourceMetadata.length > 0}
-          {...{backend, lectern, metadata, sourceMetadata, margin, id, sourceHasRubrics, marginHasRubrics, setLastUpdate}}
+          hasSources={metadata.forwardLinkedDocuments.length > 0}
+          {...{backend, lectern, metadata, margin, id, sourceHasRubrics, marginHasRubrics, setLastUpdate}}
         />
-        <References scholiaMetadata={scholiaMetadata} active={!margin}
-          createOn={[id]} {...{setLastUpdate, backend, user}}
+        <References active={!margin} createOn={[id]}
+          {...{metadata, user, setLastUpdate, backend}}
         />
       </Row>
     </Container>
   );
 }
 
-function References({scholiaMetadata, active, createOn, setLastUpdate, backend, user}) {
+function References({metadata, active, createOn, setLastUpdate, backend, user}) {
   if (!active) return;
   return (
     <Col className="gloses" >
-      <DocumentsCards docs={scholiaMetadata} expandable={true} byRow={1}
+      <DocumentsCards docs={metadata.reverseLinkedDocuments} expandable={true} byRow={1}
         {...{createOn, setLastUpdate, backend, user}}
       />
     </Col>

@@ -12,9 +12,10 @@ import DeleteDocumentAction from './DeleteDocumentAction';
 import Bookmark from './Bookmark';
 import LicenseCompatibility from './LicenseCompatibility';
 
-function OpenedDocuments({backend, lectern, metadata, sourceMetadata, margin, hasSources, id, sourceHasRubrics, marginHasRubrics, setLastUpdate}) {
-  const marginMetadata = metadata.find(x => x._id === margin);
+function OpenedDocuments({backend, lectern, metadata, margin, hasSources, id, sourceHasRubrics, marginHasRubrics, setLastUpdate}) {
+  const marginMetadata = metadata.getDocument(margin);
   const marginLicense = marginMetadata?.dc_license;
+  const sourceMetadata = metadata.focusedDocument;
   return (
     <Col className="lectern">
       <Row className ="runningHead">
@@ -34,7 +35,7 @@ function OpenedDocuments({backend, lectern, metadata, sourceMetadata, margin, ha
         </Col>
         {margin && (
           <Col className="license-container">
-            <License key={margin} license={metadata.find(x => x._id === margin)?.dc_license} />
+            <License key={margin} license={marginLicense} />
           </Col>
         )}
       </Row>
@@ -62,8 +63,7 @@ function RunningHeadSource({metadata, hasSources, backend}) {
 }
 
 function RunningHeadMargin({metadata, lectern, margin, sourceHasRubrics, marginHasRubrics, backend, setLastUpdate}) {
-  if (!metadata) return;
-  return (
+  if (Object.keys(metadata).length) return (
     <Col xs={5} className="scholium position-relative">
       <BrowseTools id={metadata._id} closable={true} />
       <DiscreeteDropdown>
