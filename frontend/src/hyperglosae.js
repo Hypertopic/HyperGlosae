@@ -106,7 +106,7 @@ function Hyperglosae(logger) {
     this.getView({view: 'metadata', id, options: ['include_docs']})
       .then(
         (rows) => {
-          let documents = rows.map(x => x.doc);
+          let documents = rows.map(x => x.doc).filter(x => x);
           callback(documents);
         }
       );
