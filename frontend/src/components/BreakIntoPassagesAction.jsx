@@ -1,19 +1,19 @@
 import DiscreeteDropdown from './DiscreeteDropdown';
 
-function BreakIntoPassagesAction({lectern, margin, sourceHasRubrics, marginHasRubrics, backend, setLastUpdate}) {
+function BreakIntoPassagesAction({content, margin, backend, setLastUpdate}) {
 
   let disabled = true;
   let scholium;
 
   // disabled if margin has already rubrics
-  if (!marginHasRubrics) {
-    let scholia = lectern[0].scholia.filter(x => x.isPartOf === margin);
+  if (!content.doesMarginHaveRubrics()) {
+    let scholia = content.getPassages()[0].scholia.filter(x => x.isPartOf === margin);
     // disabled if different chunks
     let hasChunks = scholia.length > 1;
     if (!hasChunks) {
       scholium = scholia[0];
       // disabled if source has rubrics and margin is not empty
-      disabled = sourceHasRubrics && scholium.text !== '<TEXT>' && !!scholium.text;
+      disabled = content.doesSourceHaveRubrics() && scholium.text !== '<TEXT>' && !!scholium.text;
     }
   }
 

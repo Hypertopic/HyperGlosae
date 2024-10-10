@@ -12,19 +12,19 @@ import DeleteDocumentAction from './DeleteDocumentAction';
 import Bookmark from './Bookmark';
 import LicenseCompatibility from './LicenseCompatibility';
 
-function OpenedDocuments({backend, lectern, metadata, margin, hasSources, id, sourceHasRubrics, marginHasRubrics, setLastUpdate}) {
+function OpenedDocuments({id, margin, metadata, content, hasSources, backend, setLastUpdate}) {
   const marginMetadata = metadata.getDocument(margin);
   const marginLicense = marginMetadata?.dc_license;
   const sourceMetadata = metadata.focusedDocument;
   return (
     <Col className="lectern">
       <Row className ="runningHead">
-        <RunningHeadSource metadata={ sourceMetadata } {...{hasSources, backend}} />
-        <RunningHeadMargin {...{lectern, margin, sourceHasRubrics, marginHasRubrics, backend, setLastUpdate}}
+        <RunningHeadSource {...{id, metadata, hasSources, backend}} />
+        <RunningHeadMargin {...{content, margin, backend, setLastUpdate}}
           metadata={marginMetadata}
         />
       </Row>
-      {lectern.map(({rubric, source, scholia}, i) =>
+      {content.getPassages().map(({rubric, source, scholia}, i) =>
         <Passage key={rubric || i}
           {...{source, rubric, scholia, margin, sourceId: id, backend, setLastUpdate}}
         />)
@@ -50,25 +50,25 @@ function OpenedDocuments({backend, lectern, metadata, margin, hasSources, id, so
   );
 }
 
-function RunningHeadSource({metadata, hasSources, backend}) {
-  let id = metadata?._id;
+function RunningHeadSource({id, metadata, hasSources, backend}) {
+  metadata = metadata.focusedDocument;
   return (
     <Col className="main">
       <Bookmark {...{backend, id}} />
-      <BrowseTools id={metadata?._id} editable={!hasSources} focusable={false} />
+      <BrowseTools {...{id}} editable={!hasSources} focusable={false} />
       <Metadata {...{metadata}} />
       <TypeBadge type={metadata?.type} />
     </Col>
   );
 }
 
-function RunningHeadMargin({metadata, lectern, margin, sourceHasRubrics, marginHasRubrics, backend, setLastUpdate}) {
+function RunningHeadMargin({metadata, content, margin, backend, setLastUpdate}) {
   if (Object.keys(metadata).length) return (
     <Col xs={5} className="scholium position-relative">
       <BrowseTools id={metadata._id} closable={true} />
       <DiscreeteDropdown>
         <InviteEditorsAction {...{backend, metadata, setLastUpdate}} />
-        <BreakIntoPassagesAction {...{lectern, margin, sourceHasRubrics, marginHasRubrics, backend, setLastUpdate}} />
+        <BreakIntoPassagesAction {...{content, margin, backend, setLastUpdate}} />
         <DeleteDocumentAction {...{metadata, backend, setLastUpdate}} />
       </DiscreeteDropdown>
       <Metadata editable={true} {...{backend, metadata, setLastUpdate}} />
