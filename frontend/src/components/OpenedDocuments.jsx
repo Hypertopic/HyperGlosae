@@ -12,7 +12,7 @@ import DeleteDocumentAction from './DeleteDocumentAction';
 import Bookmark from './Bookmark';
 import LicenseCompatibility from './LicenseCompatibility';
 
-function OpenedDocuments({id, margin, metadata, content, hasSources, backend, setLastUpdate}) {
+function OpenedDocuments({id, margin, metadata, parallelDocuments, hasSources, backend, setLastUpdate}) {
   const marginMetadata = metadata.getDocument(margin);
   const marginLicense = marginMetadata?.dc_license;
   const sourceMetadata = metadata.focusedDocument;
@@ -20,11 +20,11 @@ function OpenedDocuments({id, margin, metadata, content, hasSources, backend, se
     <Col className="lectern">
       <Row className ="runningHead">
         <RunningHeadSource {...{id, metadata, hasSources, backend}} />
-        <RunningHeadMargin {...{content, margin, backend, setLastUpdate}}
+        <RunningHeadMargin {...{parallelDocuments, margin, backend, setLastUpdate}}
           metadata={marginMetadata}
         />
       </Row>
-      {content.getPassages().map(({rubric, source, scholia}, i) =>
+      {parallelDocuments.passages.map(({rubric, source, scholia}, i) =>
         <Passage key={rubric || i}
           {...{source, rubric, scholia, margin, sourceId: id, backend, setLastUpdate}}
         />)
@@ -62,13 +62,13 @@ function RunningHeadSource({id, metadata, hasSources, backend}) {
   );
 }
 
-function RunningHeadMargin({metadata, content, margin, backend, setLastUpdate}) {
+function RunningHeadMargin({metadata, parallelDocuments, margin, backend, setLastUpdate}) {
   if (Object.keys(metadata).length) return (
     <Col xs={5} className="scholium position-relative">
       <BrowseTools id={metadata._id} closable={true} />
       <DiscreeteDropdown>
         <InviteEditorsAction {...{backend, metadata, setLastUpdate}} />
-        <BreakIntoPassagesAction {...{content, margin, backend, setLastUpdate}} />
+        <BreakIntoPassagesAction {...{parallelDocuments, margin, backend, setLastUpdate}} />
         <DeleteDocumentAction {...{metadata, backend, setLastUpdate}} />
       </DiscreeteDropdown>
       <Metadata editable={true} {...{backend, metadata, setLastUpdate}} />

@@ -13,7 +13,8 @@ import DocumentsCards from '../components/DocumentsCards';
 function Lectern({backend, user}) {
 
   const [metadata, setMetadata] = useState(new Context());
-  const [content, setContent] = useState(new ParallelDocuments());
+  const [content, setContent] = useState([]);
+  const [parallelDocuments, setParallelDocuments] = useState(new ParallelDocuments());
   const [lastUpdate, setLastUpdate] = useState();
   let {id} = useParams();
   let margin = useLocation().hash.slice(1);
@@ -26,12 +27,12 @@ function Lectern({backend, user}) {
 
   useEffect(() => {
     backend.refreshMetadata(id, x => setMetadata(new Context(id, x)));
-    backend.refreshContent(id, x => setContent(new ParallelDocuments(id, x)));
+    backend.refreshContent(id, x => setContent(x));
   }, [id, lastUpdate, backend]);
 
   useEffect(() => {
-    content.setMargin(margin);
-  }, [content, margin, lastUpdate]);
+    setParallelDocuments(new ParallelDocuments(id, content, margin));
+  }, [id, content, margin, lastUpdate]);
 
   return (
     <Container className="screen">
@@ -41,7 +42,7 @@ function Lectern({backend, user}) {
         </Col>
         <OpenedDocuments
           hasSources={metadata.forwardLinkedDocuments.length > 0}
-          {...{id, margin, metadata, content, backend, setLastUpdate}}
+          {...{id, margin, metadata, parallelDocuments, backend, setLastUpdate}}
         />
         <References active={!margin} createOn={[id]}
           {...{metadata, user, setLastUpdate, backend}}
