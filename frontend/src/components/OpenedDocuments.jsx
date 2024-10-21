@@ -19,7 +19,7 @@ function OpenedDocuments({id, margin, metadata, parallelDocuments, hasSources, b
   return (
     <Col className="lectern">
       <Row className ="runningHead">
-        <RunningHeadSource {...{id, metadata, hasSources, backend}} />
+        <RunningHeadSource {...{id, metadata, hasSources, parallelDocuments, backend}} />
         <RunningHeadMargin {...{parallelDocuments, margin, backend, setLastUpdate}}
           metadata={marginMetadata}
         />
@@ -33,7 +33,7 @@ function OpenedDocuments({id, margin, metadata, parallelDocuments, hasSources, b
         <Col className="license-container">
           <License key={sourceMetadata?._id} license={sourceMetadata?.dc_license} />
         </Col>
-        {margin && (
+        {margin && !parallelDocuments.isFromScratch && (
           <Col className="license-container">
             <License key={margin} license={marginLicense} />
           </Col>
@@ -50,8 +50,11 @@ function OpenedDocuments({id, margin, metadata, parallelDocuments, hasSources, b
   );
 }
 
-function RunningHeadSource({id, metadata, hasSources, backend}) {
+function RunningHeadSource({id, metadata, hasSources, parallelDocuments, backend}) {
   metadata = metadata.focusedDocument;
+  if (parallelDocuments.isFromScratch) return (
+    <Col className="main" />
+  );
   return (
     <Col className="main">
       <Bookmark {...{backend, id}} />
@@ -63,13 +66,14 @@ function RunningHeadSource({id, metadata, hasSources, backend}) {
 }
 
 function RunningHeadMargin({metadata, parallelDocuments, margin, backend, setLastUpdate}) {
+  const isFromScratch = parallelDocuments.isFromScratch;
   if (Object.keys(metadata).length) return (
     <Col xs={5} className="scholium position-relative">
-      <BrowseTools id={metadata._id} closable={true} />
+      <BrowseTools id={metadata._id} closable={!parallelDocuments.isFromScratch} />
       <DiscreeteDropdown>
         <InviteEditorsAction {...{backend, metadata, setLastUpdate}} />
         <BreakIntoPassagesAction {...{parallelDocuments, margin, backend, setLastUpdate}} />
-        <DeleteDocumentAction {...{metadata, backend, setLastUpdate}} />
+        <DeleteDocumentAction {...{metadata, isFromScratch, backend, setLastUpdate}} />
       </DiscreeteDropdown>
       <Metadata editable={true} {...{backend, metadata, setLastUpdate}} />
       <Type editable={true} {...{backend, metadata}}/>

@@ -9,7 +9,6 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { NotificationContainer, NotificationManager } from 'react-notifications';
 import 'react-notifications/lib/notifications.css';
 import { TypesContext } from './components/TypesContext.js';
-import LecternBlank from './routes/LecternBlank';
 import Registration from './routes/Registration';
 
 const backend = new Hyperglosae(
@@ -35,7 +34,6 @@ function App() {
         <TypesContext.Provider value={types}>
           <Routes>
             <Route path="/" element={<Bookshelf {...{backend, user}} />} />
-            <Route path="/blank" element={<LecternBlank {...{backend}}/>} />
             <Route path="/registration" element={<Registration {...{backend}}/>} />
             <Route path="/:id" element={<Lectern {...{backend, user}} />} />
           </Routes>

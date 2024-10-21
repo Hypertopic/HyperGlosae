@@ -70,7 +70,7 @@ function FutureDocumentIcon({relatedTo, verb, setLastUpdate, backend}) {
     })
       .then(() => {
         setLastUpdate(_id);
-        navigate((relatedTo.length ? '#' : '/blank#') + _id);
+        navigate((relatedTo.length ? '#' : `/${_id}#`) + _id);
       })
       .catch(console.error);
   };

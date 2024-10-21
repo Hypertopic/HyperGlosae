@@ -15,6 +15,10 @@ Alors('{string} est la glose ouverte') do |title|
   expect(find('.runningHead .scholium')).to have_content title
 end
 
+Alors('la glose ouverte a le titre par défaut') do
+  expect(find('.runningHead .scholium')).to have_content "<TITLE>"
+end
+
 Alors('je peux lire {string}') do |text|
   expect(page).to have_content text
 end
@@ -86,10 +90,6 @@ end
 Alors("le texte du document principal est en surbrillance :") do |highlighted_text|
   highlighted_element = find('mark', text: highlighted_text.strip)
   expect(highlighted_element).not_to be_nil
-end
-
-Alors('le document principal a le titre par défaut') do
-  expect(find('.main .work')).to have_content "<TITLE>"
 end
 
 Alors('je peux lire {string} dans la liste des types') do |text|

@@ -17,6 +17,8 @@ function ParallelDocuments(id, content = [], margin) {
     return doc?.text.replace(imageReference, '$&' + includedImage);
   };
 
+  this.isFromScratch = id === margin;
+
   const shouldBeAligned = this.doesSourceHaveRubrics
     && (!margin || this.doesMarginHaveRubrics);
 
@@ -30,10 +32,16 @@ function ParallelDocuments(id, content = [], margin) {
     }
     let text = getText(x);
     let isPartOf = x.value.isPartOf;
-    if (isPartOf === id) {
-      part.source.push(text);
+    if (!this.isFromScratch) {
+      if (isPartOf === id) {
+        part.source.push(text);
+      } else {
+        part.scholia.push({id: x.id, text, isPartOf, rubric: x.key[1]});
+      }
     } else {
-      part.scholia.push({id: x.id, text, isPartOf, rubric: x.key[1]});
+      if (isPartOf === id) {
+        part.scholia.push({id: x.id, text, isPartOf, rubric: x.key[1]});
+      }
     }
     if (i === length - 1) {
       return [...whole, part];

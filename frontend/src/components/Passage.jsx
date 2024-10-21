@@ -14,6 +14,7 @@ function Passage({source, rubric, scholia, margin, sourceId, backend, setLastUpd
   const [selectedText, setSelectedText] = useState();
   const [highlightedText, setHighlightedText] = useState('');
   const [fragment, setFragment] = useState();
+  const isFromScratch = margin === sourceId;
 
   scholia = scholia.filter(x => (x.isPartOf === margin));
   if (!scholia.length) {
@@ -27,14 +28,16 @@ function Passage({source, rubric, scholia, margin, sourceId, backend, setLastUpd
   return (
     <Row>
       <Col className="main">
-        <Container>
-          <Row>
-            <PassageSource {...{highlightedText, setHighlightedText, setFragment, selectedText, setSelectedText, margin}}>
-              {source}
-            </PassageSource>
-            <Rubric id={rubric} />
-          </Row>
-        </Container>
+        {!isFromScratch &&
+          <Container>
+            <Row>
+              <PassageSource {...{highlightedText, setHighlightedText, setFragment, selectedText, setSelectedText, margin}}>
+                {source}
+              </PassageSource>
+              <Rubric id={rubric} />
+            </Row>
+          </Container>
+        }
       </Col>
       <PassageMargin active={!!margin} {...{scholia, rubric, setHighlightedText, fragment, setFragment, setSelectedText, backend, setLastUpdate}} />
     </Row>

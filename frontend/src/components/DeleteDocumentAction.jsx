@@ -3,14 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import { Modal, Button } from 'react-bootstrap';
 import DiscreeteDropdown from './DiscreeteDropdown';
 
-function DeleteDocumentAction({metadata, backend, setLastUpdate}) {
-  const focus = useNavigate('#');
+function DeleteDocumentAction({metadata, isFromScratch, backend, setLastUpdate}) {
+  const navigate = useNavigate();
   const [show, setShow] = useState(false);
 
   const handleClick = () => {
     backend.deleteDocument(metadata)
       .then(x => setLastUpdate(x._rev))
-      .then(focus);
+      .then(() => navigate(isFromScratch ? '/' : '#'));
   };
 
   return (

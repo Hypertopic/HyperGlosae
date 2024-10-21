@@ -5,7 +5,7 @@ function BrowseTools({id, closable, openable, editable, focusable = true}) {
   return (
     <>
       {editable &&
-        <Link to={`../blank#${id}`} className="icon edit">
+        <Link to={`../${id}#${id}`} className="icon edit">
           <PencilSquare title="Edit this document" />
         </Link>
       }
