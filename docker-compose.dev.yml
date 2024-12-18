@@ -53,14 +53,11 @@ services:
     restart: on-failure
 
   updated_code:
-    image: benel/couchapp
-    command: push .
-    environment:
-      - URI=http://${COUCHDB_USER}:${COUCHDB_PASSWORD}@backend:5984/hyperglosae
+    image: node:22-slim
+    command: npx couchdb-push http://${COUCHDB_USER}:${COUCHDB_PASSWORD}@backend:5984/hyperglosae app
     volumes:
       - ./backend/src:/app
     depends_on:
       backend:
         condition: service_healthy
-    restart: on-failure
 
