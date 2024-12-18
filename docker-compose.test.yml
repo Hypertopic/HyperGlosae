@@ -13,14 +13,6 @@ services:
       backend:
         condition: service_healthy
 
-  sample_users:
-    extends:
-      file: docker-compose.dev.yml
-      service: sample_users
-    depends_on:
-      backend:
-        condition: service_healthy
-
   updated_samples:
     extends:
       file: docker-compose.dev.yml
