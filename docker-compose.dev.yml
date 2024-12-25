@@ -9,8 +9,8 @@ services:
       - COUCHDB_PASSWORD
     healthcheck:
       test: curl -f http://localhost:5984/_up || exit 1
-      interval: 2s
-      timeout: 3s
+      start_period: 5s
+      start_interval: 2s
 
   accessible_backend:
     image: curlimages/curl
@@ -21,6 +21,7 @@ services:
         put backend:5984/hyperglosae
         put backend:5984/hyperglosae/_security --data '{"members":{"roles":[]},"admins":{"roles":["_admin"]}}'
         put backend:5984/_node/nonode@nohost/_config/couchdb/users_db_security_editable --data '"true"'
+        put backend:5984/_users
         put backend:5984/_users/_security --data '{"members":{"roles":[]},"admins":{"roles":["_admin"]}}'
     depends_on:
       backend:
