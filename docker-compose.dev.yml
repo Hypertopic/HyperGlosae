@@ -12,21 +12,6 @@ services:
       start_period: 5s
       start_interval: 2s
 
-  accessible_backend:
-    image: curlimages/curl
-    entrypoint: ["/bin/sh","-c"]
-    command:
-      - |
-        alias put="curl -X PUT -u '${COUCHDB_USER}:${COUCHDB_PASSWORD}'"
-        put backend:5984/hyperglosae
-        put backend:5984/hyperglosae/_security --data '{"members":{"roles":[]},"admins":{"roles":["_admin"]}}'
-        put backend:5984/_node/nonode@nohost/_config/couchdb/users_db_security_editable --data '"true"'
-        put backend:5984/_users
-        put backend:5984/_users/_security --data '{"members":{"roles":[]},"admins":{"roles":["_admin"]}}'
-    depends_on:
-      backend:
-        condition: service_healthy
-
   updated_samples:
     image: node:22-slim
     command: npx couchdb-bootstrap http://${COUCHDB_USER}:${COUCHDB_PASSWORD}@backend:5984 samples
@@ -38,9 +23,9 @@ services:
 
   updated_code:
     image: node:22-slim
-    command: npx couchdb-push http://${COUCHDB_USER}:${COUCHDB_PASSWORD}@backend:5984/hyperglosae app
+    command: npx couchdb-bootstrap http://${COUCHDB_USER}:${COUCHDB_PASSWORD}@backend:5984 app
     volumes:
-      - ./backend/src:/app
+      - ./backend:/app
     depends_on:
       backend:
         condition: service_healthy

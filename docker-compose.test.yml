@@ -5,14 +5,6 @@ services:
       file: docker-compose.dev.yml
       service: backend
 
-  accessible_backend:
-    extends:
-      file: docker-compose.dev.yml
-      service: accessible_backend
-    depends_on:
-      backend:
-        condition: service_healthy
-
   updated_samples:
     extends:
       file: docker-compose.dev.yml
@@ -39,7 +31,7 @@ services:
       start_period: 5s
       start_interval: 2s
     depends_on:
-      accessible_backend:
+      updated_code:
         condition: service_completed_successfully
 
   proxy:

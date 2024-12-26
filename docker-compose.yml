@@ -7,14 +7,6 @@ services:
     volumes:
       - ./data:/opt/couchdb/data
 
-  accessible_backend:
-    extends:
-      file: docker-compose.test.yml
-      service: accessible_backend
-    depends_on:
-      backend:
-        condition: service_healthy
-
   updated_code:
     extends:
       file: docker-compose.test.yml
