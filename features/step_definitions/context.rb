@@ -71,10 +71,6 @@ Soit("un document dont je ne suis pas l'auteur affiché comme glose") do
   sign_out
 end
 
-Soit("un document existant contenant l'image 2019_10-13_16_UKR_R_A") do
-  visit '/b33f9568386e11eea7644766f8f7218a'
-end
-
 Soit('un document en deux passages affiché comme document principal') do
   visit '/05b61f5285c711ed97bf6b9b56808c45'
 end

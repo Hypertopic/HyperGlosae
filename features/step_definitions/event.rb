@@ -6,10 +6,6 @@ Quand('je consulte le contenu de {string}') do |title|
   click_on_icon_next_to('open', title)
 end
 
-Quand("j'essaie de créer un nouveau document") do
-  click_on_icon('create-document')
-end
-
 Quand("j'essaie de remplacer les métadonnées de la glose par :") do |metadata|
   click_on_text('metadata')
   fill_element('textarea', metadata)
@@ -89,11 +85,6 @@ Quand("j'essaie d'accorder les droits d'édition à {string}") do |userName|
   click_on_contextual_menu_item('Invite editors...', 'scholium', 0)
   find(".add-user-input").fill_in with: userName
   find(".add-user-input-btn").click
-end
-
-Quand("je sélectionne {string} dans le menu déroulant") do |option|
-  select option, from: 'select-dropdown'
-  click_on_icon('create-document')
 end
 
 Quand("je réutilise {string} comme glose de type {string}") do |title, type|
