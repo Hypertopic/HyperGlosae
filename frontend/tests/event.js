@@ -9,3 +9,7 @@ Quand("j'essaie de créer un glose de type {string}", (option) => {
   cy.get('.create-document').click();
 });
 
+Quand("je me focalise sur {string}", (title) => {
+  cy.contains('span', title).parent().prev('a.focus').first().click();
+});
+

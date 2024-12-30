@@ -1,16 +1,3 @@
-Alors('{string} est le document principal') do |title|
-  expect(find('.main .work')).to have_content title
-  expect(page).to have_title title
-end
-
-Alors('{string} est une des sources') do |title|
-  expect(find('.sources')).to have_content title
-end
-
-Alors('{string} est une des gloses') do |title|
-  expect(find('.gloses')).to have_content title
-end
-
 Alors('{string} est la glose ouverte') do |title|
   expect(find('.runningHead .scholium')).to have_content title
 end
