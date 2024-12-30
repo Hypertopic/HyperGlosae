@@ -6,12 +6,6 @@ Quand('je consulte le contenu de {string}') do |title|
   click_on_icon_next_to('open', title)
 end
 
-Quand("j'essaie de remplacer les métadonnées de la glose par :") do |metadata|
-  click_on_text('metadata')
-  fill_element('textarea', metadata)
-  leave_textarea
-end
-
 Quand("j'attache le type {string}") do |type|
   click_on_icon('typeIcon')
   click_on_element('.typeBadge', type)

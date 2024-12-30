@@ -13,3 +13,8 @@ Quand("je me focalise sur {string}", (title) => {
   cy.contains('span', title).parent().prev('a.focus').first().click();
 });
 
+Quand("j'essaie de remplacer les métadonnées de la glose par :", (metadata) => {
+  cy.click_on_text('metadata');
+  cy.get('textarea').type('{selectAll}' + metadata).blur();
+});
+

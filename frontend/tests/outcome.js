@@ -1,7 +1,11 @@
-import { Then as Alors } from '@badeball/cypress-cucumber-preprocessor';
+import { Then as Alors, Step } from '@badeball/cypress-cucumber-preprocessor';
 
 Alors("la glose ouverte a le titre par défaut", () => {
-  cy.get('.runningHead .scholium').should('contain', '<TITLE>');
+  Step(this, "'<TITLE>' est la glose ouverte");
+});
+
+Alors("{string} est la glose ouverte", (title) => {
+  cy.get('.runningHead .scholium').should('contain', title);
 });
 
 Alors("je peux lire {string}", (text) => {
@@ -23,5 +27,13 @@ Alors("{string} une des gloses", (title) => {
 
 Alors("{string} une des sources", (title) => {
   cy.get('.sources').should('contain', title);
+});
+
+Alors("le créateur est {string}", (name) => {
+  cy.get('.metadata > .work').first().should('contain', name);
+});
+
+Alors("l'année de publication est {string}", (year) => {
+  cy.get('.metadata > .edition').first().should('contain', year);
 });
 

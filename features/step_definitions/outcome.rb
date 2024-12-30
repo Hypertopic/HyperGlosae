@@ -1,7 +1,3 @@
-Alors('{string} est la glose ouverte') do |title|
-  expect(find('.runningHead .scholium')).to have_content title
-end
-
 Alors('la glose ouverte a le titre par défaut') do
   expect(find('.runningHead .scholium')).to have_content "<TITLE>"
 end
@@ -56,14 +52,6 @@ end
 
 Alors('le texte du premier passage de la glose est :') do |text|
   expect(find('.editable.content', match: :first).text).to match /\A#{text}\z/
-end
-
-Alors('le créateur est {string}') do |string|
-  expect(find('.metadata > .work', match: :first)).to have_content string
-end
-
-Alors('l\'année de publication est {string}') do |string|
-  expect(find('.metadata > .edition', match: :first)).to have_content string
 end
 
 Alors('la glose est ouverte en mode édition') do

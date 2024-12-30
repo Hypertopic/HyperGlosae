@@ -29,3 +29,11 @@ Soit("{string} le document principal", (title) => {
   cy.visit(uris[title]);
 });
 
+Soit("un document dont je suis l'auteur affiché comme glose", () => {
+  cy.create_glose('4e1a31e14b032f2fa9e161ee9b123456', 'alice', 'whiterabbit');
+});
+
+Soit("un document dont je ne suis pas l'auteur affiché comme glose", () => {
+  cy.create_glose('4e1a31e14b032f2fa9e161ee9b123456', 'bill', 'madhatter');
+});
+
