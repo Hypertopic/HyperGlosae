@@ -39,34 +39,3 @@ Scénario: sans être connecté
   Alors je peux lire "Before editing this document, please log in first"
   Et la glose est ouverte en mode édition
 
-Scénario: dont les annotations sont manquantes ou inexistantes
-
-  Soit un document en deux passages affiché comme document principal
-  Et une session active avec mon compte
-  Et une glose faisant référence uniquement à la partie une
-  Quand j'essaie d'éditer le bloc 2 avec le texte
-    """
-    Diane
-    : Acteurs
-    """
-  Alors je peux lire:
-    """
-    Diane
-    Acteurs
-    """
-
-Scénario: dont les annotations sont présentes
-
-  Soit un document en deux passages affiché comme document principal
-  Et une session active avec mon compte
-  Et une glose faisant référence uniquement à la partie une
-  Quand j'essaie d'éditer le bloc 1 avec le texte
-    """
-    Diane
-    : Acteurs
-    """
-  Alors je peux lire:
-    """
-    Diane
-    Acteurs
-    """

@@ -37,3 +37,16 @@ Soit("un document dont je ne suis pas l'auteur affiché comme glose", () => {
   cy.create_glose('4e1a31e14b032f2fa9e161ee9b123456', 'bill', 'madhatter');
 });
 
+Soit("un document en deux passages affiché comme document principal", () => {
+  cy.visit('/05b61f5285c711ed97bf6b9b56808c45');
+});
+
+Soit("une glose dont je suis l'auteur faisant référence uniquement au premier passage", () => {
+  cy.sign_in('alice', 'whiterabbit');
+  cy.get('.create-document').click();
+  cy.click_on_text('content', '<TEXT>');
+  cy.get('textarea').type('{selectAll}{{}1{}} First side passage').blur(); // Braces are escaped for Cypress.
+  cy.contains('First side passage').should('exist');
+  cy.sign_out();
+});
+

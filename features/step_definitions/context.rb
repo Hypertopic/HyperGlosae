@@ -94,17 +94,6 @@ Soit('{string} une des gloses ouverte') do |title|
   click_on_icon_next_to('open', title)
 end
 
-Soit('une glose faisant référence uniquement à la partie une') do
-  click_on_icon('create-document')
-  click_on_text('content', '<TEXT>')
-  find('textarea').fill_in with:
-  """
-  {1} First side passage
-  """
-  leave_textarea
-  expect(page).to have_content 'First side passage'
-end
-
 Soit("le document intitulé {string} n'est pas affiché") do |title|
   expect(page).not_to have_content(title)
 end

@@ -9,8 +9,13 @@ Cypress.Commands.add('sign_out', () => {
   cy.reload();
 });
 
-Cypress.Commands.add('click_on_text', (type) => {
-  cy.get(`.editable.${type}`).first().click();
+Cypress.Commands.add('click_on_text', (type, text) => {
+  let elements = text
+    ? cy.contains(`.editable.${type}`, text)
+    : cy.get(`.editable.${type}`);
+  cy.intercept('GET', '/api/*').as('getDocument');
+  elements.first().click();
+  cy.wait('@getDocument');
 });
 
 Cypress.Commands.add('create_glose', (source, login, password) => {

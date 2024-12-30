@@ -6,10 +6,6 @@ Alors('je peux lire {string}') do |text|
   expect(page).to have_content text
 end
 
-Alors('je peux lire:') do |text|
-  expect(page).to have_content text
-end
-
 Alors('je ne peux pas lire {string}') do |text|
   expect(page).not_to have_content text
 end

@@ -18,3 +18,11 @@ Quand("j'essaie de remplacer les métadonnées de la glose par :", (metadata) =>
   cy.get('textarea').type('{selectAll}' + metadata).blur();
 });
 
+Quand("j'essaie de remplacer l'annotation du passage {int} par :", (block_number, markdown) => {
+  let element = cy.get(`.lectern>.row:nth-child(${block_number + 1})>.scholium>.content>.formatted-text`);
+  cy.intercept('GET', '/api/*').as('getDocument');
+  element.click();
+  cy.wait('@getDocument');
+  cy.get('textarea').type('{selectAll}' + markdown).blur();
+});
+
