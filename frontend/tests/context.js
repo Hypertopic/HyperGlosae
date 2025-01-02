@@ -1,4 +1,4 @@
-import { Given as Soit } from '@badeball/cypress-cucumber-preprocessor';
+import { Given as Soit, Step } from '@badeball/cypress-cucumber-preprocessor';
 
 Soit("un document existant affiché comme document principal", () => {
   cy.visit('/');
@@ -44,8 +44,7 @@ Soit("un document en deux passages affiché comme document principal", () => {
 Soit("une glose dont je suis l'auteur faisant référence uniquement au premier passage", () => {
   cy.sign_in('alice', 'whiterabbit');
   cy.get('.create-document').click();
-  cy.click_on_text('content', '<TEXT>');
-  cy.get('textarea').type('{selectAll}{{}1{}} First side passage').blur(); // Braces are escaped for Cypress.
+  Step(this, "j'essaie de remplacer le contenu de la glose par :", '{1} First side passage');
   cy.contains('First side passage').should('exist');
   cy.sign_out();
 });

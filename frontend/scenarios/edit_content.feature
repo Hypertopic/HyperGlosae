@@ -12,7 +12,7 @@ Scénario: dont on est l'auteur
     poème du recueil, les "shapes" sont clairement ce qui apparaît en allumant
     une lampe dans les ténèbres.
     """
-  Alors je peux lire "Nous traduisons ici"
+  Alors la glose contient "Nous traduisons ici"
 
 Scénario: dont on n'est pas l'auteur
 

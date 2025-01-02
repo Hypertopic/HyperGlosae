@@ -41,3 +41,7 @@ Alors("la glose contient {string}", (text) => {
   cy.get('.scholium .formatted-text').contains(text).should('exist');
 });
 
+Alors("la glose est ouverte en mode édition", () => {
+  cy.get('.scholium').should('have.descendants', 'form');
+});
+

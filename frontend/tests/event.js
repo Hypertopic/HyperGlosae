@@ -26,3 +26,8 @@ Quand("j'essaie de remplacer l'annotation du passage {int} par :", (block_number
   cy.get('textarea').type('{selectAll}' + markdown).blur();
 });
 
+Quand("j'essaie de remplacer le contenu de la glose par :", (markdown) => {
+  cy.click_on_text('content', '<TEXT>');
+  cy.get('textarea').type('{selectAll}' + markdown.replaceAll(/[{}]/g, (x)=>`{${x}}`)).blur();
+});
+

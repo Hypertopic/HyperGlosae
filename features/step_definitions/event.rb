@@ -53,10 +53,6 @@ Quand("je sélectionne le fragment de texte :") do |markdown|
   click_on_contextual_menu_item('Comment the selected text...', 'main col', 2)
 end
 
-Quand("j'essaie d'éditer le document") do
-  click_on_icon('edit')
-end
-
 Quand("je cherche le type {string}") do |type|
   click_on_icon('typeIcon')
   fill_element('#searchType', type)

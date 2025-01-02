@@ -45,14 +45,6 @@ Soit('un document existant affiché comme document principal') do
   sign_out
 end
 
-Soit('un document existant affiché avec le titre par défaut comme document principal') do
-  visit '/'
-  sign_in('alice', 'whiterabbit')
-  click_on_icon('create-document')
-  click_on_icon('focus')
-  sign_out
-end
-
 Soit("un document dont je suis l'auteur affiché comme glose") do
   visit '/4e1a31e14b032f2fa9e161ee9b123456'
   sign_in('alice', 'whiterabbit')
