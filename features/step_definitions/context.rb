@@ -1,7 +1,3 @@
-Soit('la liste des documents affichée') do
-  visit '/'
-end
-
 Soit('{string} le document principal') do |title|
   case title
     when "Les fées (Charles Perrault)"
@@ -84,14 +80,6 @@ end
 
 Soit('{string} une des gloses ouverte') do |title|
   click_on_icon_next_to('open', title)
-end
-
-Soit("le document intitulé {string} n'est pas affiché") do |title|
-  expect(page).not_to have_content(title)
-end
-
-Soit('le document intitulé {string} est affiché') do |title|
-  expect(page).to have_content(title)
 end
 
 Soit("{string} le nom de la licence du document principal") do |license|

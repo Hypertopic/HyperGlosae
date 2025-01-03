@@ -1,10 +1,15 @@
 import { Given as Soit, Step } from '@badeball/cypress-cucumber-preprocessor';
 
 Soit("un document existant affiché comme document principal", () => {
-  cy.visit('/');
-  cy.sign_in('alice', 'whiterabbit');
-  cy.get('.create-document').click();
-  cy.get('.lectern').should('exist');
+  cy.create_document_from_scratch('alice', 'whiterabbit');
+  cy.get('.focus').click();
+  cy.sign_out();
+});
+
+Soit("un document dont je ne suis pas l'auteur affiché comme document principal", function() {
+  cy.create_document_from_scratch('bill', 'madhatter')
+  this.randomName = [...Array(30)].map(() => Math.random().toString(36)[2]).join('');
+  Step(this, "j'essaie de remplacer les métadonnées de la glose par :", `dc_title: ${this.randomName}`);
   cy.get('.focus').click();
   cy.sign_out();
 });

@@ -45,3 +45,7 @@ Alors("la glose est ouverte en mode édition", () => {
   cy.get('.scholium').should('have.descendants', 'form');
 });
 
+Alors("le document apparaît dans ma bibliothèque", function() {
+  cy.get('[alt="Index"]').click();
+  cy.get('.bookshelf').contains(this.randomName);
+});

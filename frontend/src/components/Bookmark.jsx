@@ -44,7 +44,7 @@ function Bookmark({backend, id}) {
   };
 
   return (
-    <BookmarkFill className={`icon ${isBookmarked && 'bookmarked'}`}
+    <BookmarkFill className={`icon bookmark ${isBookmarked && 'bookmarked'}`}
       onClick={onBookmarkToggle}
       title={isBookmarked
         ? 'Remove this document from your bookshelf'

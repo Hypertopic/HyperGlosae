@@ -26,3 +26,9 @@ Cypress.Commands.add('create_glose', (source, login, password) => {
   cy.sign_out();
 });
 
+Cypress.Commands.add('create_document_from_scratch', (login, password) => {
+  cy.visit('/');
+  cy.sign_in(login, password);
+  cy.get('.create-document').click();
+  cy.get('.lectern').should('exist');
+});

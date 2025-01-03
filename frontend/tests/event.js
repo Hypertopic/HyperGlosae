@@ -31,3 +31,7 @@ Quand("j'essaie de remplacer le contenu de la glose par :", (markdown) => {
   cy.get('textarea').type('{selectAll}' + markdown.replaceAll(/[{}]/g, (x)=>`{${x}}`)).blur();
 });
 
+Quand("j'ajoute le document principal à ma bibliothèque", () => {
+  cy.get('.bookmark').click();
+});
+

@@ -21,11 +21,6 @@ Quand("je clique sur la référence temporelle {string} avec pour commentaire {s
   find(:xpath, "//p[contains(., \"#{timecode}\")]", match: :first).click
 end
 
-Quand("Christophe se connecte") do
-  sign_in('christophe', 'redqueen')
-  expect(find('.navbar')).to have_content 'christophe'
-end
-
 Quand("j'essaye d'ajouter une image à une glose") do
   click_on_contextual_menu('scholium', 1)
   attach_file("image-input", File.expand_path("./docs/architecture.png"), make_visible: true)
