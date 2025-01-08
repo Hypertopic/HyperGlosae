@@ -17,7 +17,7 @@ function DocumentList({ relatedTo, verb, setSelectedDocument, setShowDocumentLis
   useEffect(() => {
     backend.refreshDocuments(
       x => setUserDocuments(
-        x.filter(y => y._id !== relatedTo)
+        x.filter(y => y && y._id !== relatedTo[0])
       )
     );
   }, [user, backend, relatedTo]);
