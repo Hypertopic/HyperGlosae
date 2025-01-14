@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState, useEffect, StrictMode } from 'react';
 import './styles/index.css';
 import Menu from './components/Menu';
 import Lectern from './routes/Lectern';
@@ -16,9 +16,9 @@ const backend = new Hyperglosae(
 );
 
 function App() {
-  const [types, setTypes] = React.useState([]);
-  const [user, setUser] = React.useState();
-  React.useEffect(() => {
+  const [types, setTypes] = useState([]);
+  const [user, setUser] = useState();
+  useEffect(() => {
     backend.getView({view: 'types', options: ['include_docs']})
       .then(
         (rows) => {
@@ -27,7 +27,7 @@ function App() {
       );
   }, []);
   return (
-    <React.StrictMode>
+    <StrictMode>
       <BrowserRouter>
         <Menu {...{backend, user, setUser}} />
         <NotificationContainer />
@@ -39,7 +39,7 @@ function App() {
           </Routes>
         </TypesContext.Provider>
       </BrowserRouter>
-    </React.StrictMode>
+    </StrictMode>
   );
 }
 

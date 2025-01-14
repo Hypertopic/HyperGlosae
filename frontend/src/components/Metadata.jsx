@@ -1,7 +1,7 @@
 import '../styles/Metadata.css';
 
 import { useEffect, useState } from 'react';
-import yaml from 'yaml';
+import { parse, stringify } from 'yaml';
 
 function Metadata({metadata = {}, editable, backend, setLastUpdate}) {
   const [beingEdited, setBeingEdited] = useState(false);
@@ -25,7 +25,7 @@ function Metadata({metadata = {}, editable, backend, setLastUpdate}) {
       ...Object.fromEntries(
         Object.entries(editedDocument).filter(([key, _]) => !key.startsWith('dc_'))
       ),
-      ...yaml.parse(event.target.value)
+      ...parse(event.target.value)
     };
     setEditedDocument(updatedDocument);
     backend.putDocument(updatedDocument)
@@ -64,7 +64,7 @@ function Metadata({metadata = {}, editable, backend, setLastUpdate}) {
   return (
     <form>
       <textarea className="form-control" type="text" rows="5" autoFocus
-        defaultValue={yaml.stringify(editedMetadata)} onBlur={handleBlur}
+        defaultValue={stringify(editedMetadata)} onBlur={handleBlur}
       />
     </form>
   );
