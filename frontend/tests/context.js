@@ -6,10 +6,9 @@ Soit("un document existant affiché comme document principal", () => {
   cy.sign_out();
 });
 
-Soit("un document dont je ne suis pas l'auteur affiché comme document principal", function() {
+Soit("un document dont je ne suis pas l'auteur affiché comme document principal", () => {
   cy.create_document_from_scratch('bill', 'madhatter')
-  this.randomName = [...Array(30)].map(() => Math.random().toString(36)[2]).join('');
-  Step(this, "j'essaie de remplacer les métadonnées de la glose par :", `dc_title: ${this.randomName}`);
+  cy.set_random_name();
   cy.get('.focus').click();
   cy.sign_out();
 });
@@ -35,7 +34,7 @@ Soit("{string} le document principal", (title) => {
 });
 
 Soit("un document dont je suis l'auteur affiché comme glose", () => {
-  cy.create_glose('4e1a31e14b032f2fa9e161ee9b123456', 'alice', 'whiterabbit');
+  cy.create_glose('4e1a31e14b032f2fa9e161ee9b123456', 'alice', 'whiterabbit', true);
 });
 
 Soit("un document dont je ne suis pas l'auteur affiché comme glose", () => {

@@ -53,13 +53,6 @@ Quand("je cherche le type {string}") do |type|
   fill_element('#searchType', type)
 end
 
-Quand("j'essaie d'accorder les droits d'édition à {string}") do |userName|
-  expect(page).to have_css('.scholium')
-  click_on_contextual_menu_item('Invite editors...', 'scholium', 0)
-  find(".add-user-input").fill_in with: userName
-  find(".add-user-input-btn").click
-end
-
 Quand("je réutilise {string} comme glose de type {string}") do |title, type|
   select type, from: 'select-dropdown'
   click_on_icon('select-document')

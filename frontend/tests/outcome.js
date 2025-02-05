@@ -49,3 +49,22 @@ Alors("le document apparaît dans ma bibliothèque", function() {
   cy.get('[alt="Index"]').click();
   cy.get('.bookshelf').contains(this.randomName);
 });
+
+Alors("je vois {string} dans la liste des éditeurs", (userName) => {
+  cy.get('.modal-dialog .list-group').should('contain', userName);
+});
+
+Alors("{string} peut modifier le document", (userName) => {
+  cy.sign_out();
+  cy.sign_in('christophe');
+  cy.edit_content('My own');
+  cy.contains('.formatted-text', 'My own');
+});
+
+Alors("le document apparaît dans la bibliothèque de {string}", function(userName) {
+  cy.sign_out();
+  cy.sign_in(userName);
+  cy.get('[alt="Index"]').click();
+  cy.get('.bookshelf').contains(this.randomName);
+});
+

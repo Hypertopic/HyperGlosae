@@ -23,7 +23,8 @@ export default function InviteEditorsAction({metadata, backend, setLastUpdate}) 
       .then(() => {
         setGrantedEditors(editors);
         setUserName('');
-      });
+      })
+      .catch(console.error);
   };
 
   return (

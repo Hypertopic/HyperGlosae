@@ -14,8 +14,7 @@ Quand("je me focalise sur {string}", (title) => {
 });
 
 Quand("j'essaie de remplacer les métadonnées de la glose par :", (metadata) => {
-  cy.click_on_text('metadata');
-  cy.get('textarea').type('{selectAll}' + metadata).blur();
+  cy.edit_metadata(metadata);
 });
 
 Quand("j'essaie de remplacer l'annotation du passage {int} par :", (block_number, markdown) => {
@@ -35,3 +34,8 @@ Quand("j'ajoute le document principal à ma bibliothèque", () => {
   cy.get('.bookmark').click();
 });
 
+Quand("j'essaie d'accorder les droits d'édition à {string}", (userName) => {
+  cy.click_on_contextual_menu_item('.scholium', 'Invite editors...');
+  cy.get('.modal-dialog input').type(userName);
+  cy.contains('button', 'Invite').click();
+});
