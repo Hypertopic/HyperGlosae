@@ -1,8 +1,10 @@
 projectName: Hyperglosae
 baseURL: http://localhost
 scenarios:
-  - name: Public browsing
-    path: ./scenario.js
+  - name: Bookshelf
+    path: ./impact_of_bookshelf.js
+  - name: Parallel texts
+    path: ./impact_of_parallel_texts.js
 containers:
   - hyperglosae-proxy-1
 databaseContainers:
