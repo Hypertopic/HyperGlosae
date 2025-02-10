@@ -5,6 +5,8 @@
   "type": "module",
   "dependencies": {
     "bootstrap": "^5.2.2",
+    "d3": "^7.9.0",
+    "d3-svg-legend": "^2.25.6",
     "events": "^3.3.0",
     "react": "^18.2.0",
     "react-bootstrap": "^2.5.0",

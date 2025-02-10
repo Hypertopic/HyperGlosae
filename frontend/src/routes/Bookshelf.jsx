@@ -1,23 +1,32 @@
 import '../styles/Bookshelf.css';
-
 import { useState, useEffect } from 'react';
 import Container from 'react-bootstrap/Container';
-import DocumentsCards from '../components/DocumentsCards';
+import FutureDocument from '../components/FutureDocument.jsx';
+import Graph from '../components/Graph.jsx';
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
 
-function Bookshelf({backend, user}) {
-  const [documents, setDocuments] = useState([]);
+function Bookshelf({ backend, user }) {
+  const [documents, setDocuments] = useState();
   const [lastUpdate, setLastUpdate] = useState();
 
   useEffect(() => {
     backend.getAllDocuments(user)
       .then(setDocuments);
   }, [lastUpdate, user, backend]);
+  const docs = documents?.map((key) => [key._id, key.dc_title, key.links]);
+  const displayedDocs = docs?.flatMap(d => d[0]);
 
   return (
     <Container className="screen bookshelf">
-      <DocumentsCards docs={documents} byRow={4} createOn={[]}
-        {...{setLastUpdate, backend, user}}
-      />
+      <Row>
+        <Col className="col-10">
+          <Graph rawDocs={docs} {...{displayedDocs}} />
+        </Col>
+        <Col>
+          <FutureDocument relatedTo={[]} {...{setLastUpdate, backend, user}} />
+        </Col>
+      </Row>
     </Container>
   );
 }
