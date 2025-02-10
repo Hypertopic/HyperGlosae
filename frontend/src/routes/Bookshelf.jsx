@@ -2,7 +2,7 @@ import '../styles/Bookshelf.css';
 
 import { useState, useEffect } from 'react';
 import Container from 'react-bootstrap/Container';
-import DocumentsCards from '../components/DocumentsCards';
+import GraphContainer from '../components/GraphContainer';
 
 function Bookshelf({backend, user}) {
   const [documents, setDocuments] = useState([]);
@@ -11,12 +11,9 @@ function Bookshelf({backend, user}) {
   useEffect(() => {
     backend.refreshDocuments(setDocuments);
   }, [lastUpdate, user, backend]);
-
   return (
     <Container className="screen bookshelf">
-      <DocumentsCards docs={documents} byRow={4} createOn={[]}
-        {...{setLastUpdate, backend}}
-      />
+      <GraphContainer data={documents} createOn={[]} {...{setLastUpdate, backend, user}}/>
     </Container>
   );
 }
