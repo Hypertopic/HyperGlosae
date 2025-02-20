@@ -80,14 +80,13 @@ function Graph({ docs, displayedDocs }) {
       .attr('stroke-width', 1.5)
       .attr('r', 4);
 
-    node.append('text') // Creates the name of each node
-      .attr('x', 8)
-      .attr('y', '0.31em')
+    node.append('a') // Creates the name of each node
+      .attr('href', d => `../${d.id}`) // Links to the document page
+      .attr('style', 'text-decoration: none; color: black !important;')
+      .append('text') // Adds the text to the node
       .text(d => d.title)
-      .clone(true).lower() // Sets a white background for the text
-      .attr('fill', 'none')
-      .attr('stroke', 'white')
-      .attr('stroke-width', 3);
+      .attr('x', 8)
+      .attr('y', '0.31em');
 
     //Create the legend
     svg.append('g')
