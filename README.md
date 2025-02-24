@@ -43,8 +43,8 @@ Hence the meaning of a document is indeed in the whole graph of direct or indire
 A *forward link* is similar to a bibliographical reference: because a document (in the center) has been written after reading a prior document (on the left margin), it refers to it.
 
 In this hypertext system, contrary to the Web:
-- the reference of the link does not depend of a host (see [format](https://github.com/Hypertopic/HyperGlosae/blob/47e401e57c62756edfbdedb3172e49f87f18b532/samples/perrault_jamborova.json#L11-L12)),
-- the system resolves the identifier and gets bibliographical data (see [format](https://github.com/Hypertopic/HyperGlosae/blob/47e401e57c62756edfbdedb3172e49f87f18b532/samples/perrault_1886.json#L2-L7)).
+- the reference of the link does not depend of a host (see [format](https://github.com/Hypertopic/HyperGlosae/blob/main/samples/hyperglosae/perrault_jamborova.json#L12-L13)),
+- the system resolves the identifier and gets bibliographical data (see [format](https://github.com/Hypertopic/HyperGlosae/blob/main/samples/hyperglosae/perrault_1886.json#L3-L9)).
 
 ### Reverse links
 
@@ -68,14 +68,14 @@ Opening one of the reverse links, side by side with its source, is like reviving
 ![](docs/screenshot_analyst_parallel.png)
 Translations, *scholia* (comments on a term), qualitative analysis "codes", are typical *parallel linked documents* of a source.
 It means that every part of the derived document is linked to a specific part of the source document, using:
-- a mandatory *rubric*, *i.e.* the "red-printed" identifier of a passage (see [format](https://github.com/Hypertopic/HyperGlosae/blob/47e401e57c62756edfbdedb3172e49f87f18b532/samples/perrault_jamborova03.json#L8)), already defined in the source (see [format](https://github.com/Hypertopic/HyperGlosae/blob/47e401e57c62756edfbdedb3172e49f87f18b532/samples/perrault_1886_content.json#L4)), and that follows the same order as the passages,
-- an optional quote from this passage (see [format](https://github.com/Hypertopic/HyperGlosae/blob/6a1b4a56dea8d3d0fb2a3de3e49d972c503b3848/samples/inrap_D0.json#L12) and commit message).
+- a mandatory *rubric*, *i.e.* the "red-printed" identifier of a passage (see [format](https://github.com/Hypertopic/HyperGlosae/blob/main/samples/hyperglosae/perrault_jamborova03.json#L9)), already defined in the source (see [format](https://github.com/Hypertopic/HyperGlosae/blob/main/samples/hyperglosae/perrault_1886_content.json#L4)), and that follows the same order as the passages,
+- an optional quote from this passage (see [format](https://github.com/Hypertopic/HyperGlosae/blob/main/samples/hyperglosae/inrap_D.json#L13) and commit message).
 
 ### Transclusion (inclusion by reference)
 
 ![](docs/screenshot_historian_transclusion_links.png)
 
-A new document can be made by *transcluding* (i.e. "virtually including") the content of existing documents or parts of them (see [format](https://github.com/Hypertopic/HyperGlosae/blob/92a029c3a5e636769243d571ef977a5505e5a7b3/samples/revelation_stars.json#L9-L19)).
+A new document can be made by *transcluding* (i.e. "virtually including") the content of existing documents or parts of them (see [format](https://github.com/Hypertopic/HyperGlosae/blob/main/samples/hyperglosae/revelation_stars.json#L9-L18)).
 
 The resulting collection can be used to compare documents (e.g. related works of art, alternative translations, etc.).
 It can also be used to present selected documents to an audience in a meaningful order (chronological, narrative, argumentative, etc.).
@@ -88,13 +88,11 @@ Because transclusion is also a *link*:
 
 ## Deliverables
 
-The folders of the repository will correspond to the main deliverables:
+The folders of the repository correspond to the main deliverables:
 
-- `samples` of parallel documents, meaningful for stakeholders of our existing software,
-- `features` specification through usage scenarios,
-- `frontend` prototype for reading and writing parallel documents (see instructions for [testing it](./frontend/CONTRIBUTING.md)),
-- `backend` prototype for storing parallel documents (see instructions for [testing it](./backend/CONTRIBUTING.md)),
-- `library` of reusable parts to be integrated in other frontends.
+- `samples` of parallel documents, meaningful for stakeholders,
+- `frontend` prototype for reading and writing parallel documents, along with `scenarios` as user-centered specifications,
+- `backend` prototype for storing parallel documents.
 
 ## How to test a development version with sample data?
 
