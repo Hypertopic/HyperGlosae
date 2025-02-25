@@ -2,7 +2,7 @@
   "_id": "6b56ee657c870dfacd34e9ae4e05dbd2",
   "links": [
     {
-      "verb": "isGroundedIn",
+      "verb": "refersTo",
       "object": "6b56ee657c870dfacd34e9ae4e050fcc"
     }
   ],

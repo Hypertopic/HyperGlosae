@@ -6,7 +6,7 @@
     "text": "Ce qui m'a fait rire :\n\n00:09:40.000 --> 00:10:15.000\n\nIl tombe dans son propre piège (peau de banane).",
     "dc_license": "https://creativecommons.org/licenses/by-sa/4.0/",
     "links": [{
-        "verb": "isGroundedIn",
+        "verb": "refersTo",
         "object": "4e1a31e14b032f2fa9e161ee9b009125"
     }]
 }

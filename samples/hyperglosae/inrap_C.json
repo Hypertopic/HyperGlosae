@@ -8,7 +8,7 @@
   ],
   "dc_issued": "2014",
   "links": [{
-    "verb": "isGroundedIn",
+    "verb": "refersTo",
     "object": "564cf7f485c411edba2c6fe0f6ec7a8f"
   }],
   "dc_language": "fra",

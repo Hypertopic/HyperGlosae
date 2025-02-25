@@ -7,7 +7,7 @@
     "text": "14/20",
     "dc_license": "https://creativecommons.org/licenses/by-sa/4.0/",
     "links": [{
-        "verb": "isGroundedIn",
+        "verb": "refersTo",
         "object": "4e1a31e14b032f2fa9e161ee9b009122"
     }]
 }

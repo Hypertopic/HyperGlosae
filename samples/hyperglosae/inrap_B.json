@@ -6,7 +6,7 @@
   "dc_issued": "2019-09-10T15:14:40.577Z",
   "text": "- Depuis la réforme de 2003, de nombreux opérateurs ont le droit de faire de l'archéologie préventive. Cependant,nous préfèrons faire notre entretien à l'**INRAP**, car il est national, c'est le plus ancien et la plus important.\n- Le métier le plus représentatif est probablement celui de fouilleur, mais nous décidons d'interviewer un **responsable d'opération**, car, tout en restant proche de la fouille, il semble occuper un rôle clef dans la production des documents produits par l'INRAP.",
   "links": [{
-    "verb": "isGroundedIn",
+    "verb": "refersTo",
     "object": "f413206cef01d9b99ebb3b6de2007ca7"
   }],
   "dc_language": "fra",

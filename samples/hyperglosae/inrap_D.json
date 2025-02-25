@@ -5,7 +5,7 @@
   "dc_creator": "Aurélien Bénel",
   "dc_issued": "2019-09-24",
   "links": [{
-    "verb": "isGroundedIn",
+    "verb": "refersTo",
     "object": "05b61f5285c711ed97bf6b9b56808c45"
   }],
   "dc_language": "fra",

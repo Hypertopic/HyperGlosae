@@ -6,7 +6,7 @@
     "text": "Exemple de suite d'extrait\n## Titre : Sherlock Jr.\n\n**Scène 1 :** Le rêve de Sherlock Jr.\nSherlock Jr. est un projectionniste de cinéma qui aspire à devenir un grand détective privé. Il s'endort dans la cabine de projection et rêve qu'il est en train de résoudre un mystère compliqué.\n\n**Scène 2 :** Le vol du médaillon\nSherlock Jr. est réveillé par un client qui lui demande de retrouver un médaillon volé. Le client soupçonne la petite amie de Sherlock Jr. d'avoir commis le vol. Sherlock Jr. refuse d'accepter l'affaire, mais son rival, le détective Brent, prend le cas à sa place.\n\n**Scène 3 :** La poursuite\nSherlock Jr. est déterminé à prouver l'innocence de sa petite amie et décide de mener sa propre enquête. Il suit le véritable voleur, un homme mystérieux, et entreprend une poursuite dangereuse à travers la ville. Le voleur, ayant remarqué qu'il est suivi, commence à semer des pièges sur le chemin de Sherlock Jr. qui doit les éviter habilement.\n\n**Scène 4 :** La confrontation finale\nLa poursuite se termine dans une usine abandonnée où le voleur a pris refuge. Sherlock Jr. le confronte et découvre que le véritable coupable est en fait le détective Brent, le rival jaloux qui voulait s'attribuer la résolution de l'affaire. Brent révèle que c'était un plan diabolique pour salir la réputation de la petite amie de Sherlock Jr. et l'empêcher de devenir un détective privé renommé.",
     "dc_license": "https://creativecommons.org/licenses/by-sa/4.0/",
     "links": [{
-        "verb": "isGroundedIn",
+        "verb": "adapts",
         "object": "4e1a31e14b032f2fa9e161ee9b009125"
     }]
 }

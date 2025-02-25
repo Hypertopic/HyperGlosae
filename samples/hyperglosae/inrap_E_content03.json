@@ -4,7 +4,7 @@
   "text": "## Actions\nOn remarque que les actions sont principalement de deux ordres :\n- celles liées à la matérialité de la fouille, de la terre, des vestiges ([décaper], [creuser], [tamiser], [prélever], nettoyer, [mettre en sac], étiqueter),\n- celles liées à la production de documents (faire le relevé, [photographier], [dessiner les plans], rédiger).\n",
   "dc_source": "https://cassandre.utt.fr/memo/f413206cef01d9b99ebb3b6de20559fb",
   "links": [{
-    "verb": "isGroundedIn",
+    "verb": "refersTo",
     "object": "6327c5008d1f11ed9aa8e7ae771dee2e"
   }]
 }

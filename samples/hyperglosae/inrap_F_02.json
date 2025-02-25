@@ -7,7 +7,7 @@
   "dc_title": "Flux de l'Institut (diagramme d'activité)",
   "dc_creator": "Aurélien Bénel",
   "links": [{
-    "verb": "isGroundedIn",
+    "verb": "refersTo",
     "object": "c2b9f52285ce11edbd0aff9b25defbab"
   }],
   "text": "![](http://localhost:5984/hyperglosae/146e6e8442f0405b721b79357d00d0a1/picture.png)",
