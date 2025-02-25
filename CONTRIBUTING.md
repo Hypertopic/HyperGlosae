@@ -30,7 +30,7 @@ npm install
 
 ## Launching software
 
-Launch the backend:
+From the root folder of Hyperglosae, launch the backend:
 
 ```shell
 export COUCHDB_USER="TO_BE_CHANGED"
@@ -40,7 +40,7 @@ docker compose --file docker-compose.dev.yml up --detach
 
 Open <http://localhost:5984/_utils> to view its Web console.
 
-Compile and launch the frontend:
+From the `frontend` folder of Hyperglosae, compile and launch the frontend:
 
 ```
 npm start
@@ -51,35 +51,15 @@ Don't close the terminal or interrupt the command unless you want to "kill" the 
 Open <http://localhost:3000> to browse sample data in the application.
 To test edit features, log in as user `alice` with `whiterabbit` as the password.
 
-## Installing test tools
-
-Get the name of your shell (`bash`, `zsh`, etc.):
-
-```shell
-ps
-```
-
-Depending on your shell, add this function to `~/.bashrc`, `~/.zshrc`, or other:
-
-```shell
-function cucumber() {
-  (docker run --rm -v "$(pwd)":/app --tty --net="host" --env APP_HOST="http://host.docker.internal:3000" benel/cucumber-capybara "$@")
-}
-```
-
-Start a new terminal and test the following command:
-
-```shell
-cucumber --help
-```
-
 ## Running tests
 
-From the main folder of Hyperglosae, type the following command:
+From the `frontend` folder of Hyperglosae, type the following command:
 
 ```shell
-cucumber --fail-fast --quiet --retry 2
+npm run test2
 ```
+
+Select `E2E testting`, `Electron`, and then the tests you want to run.
 
 ## Developping
 
@@ -94,9 +74,9 @@ You may also see any lint errors in the console.
 
 The backend is coded in JavaScript as CouchDB views (see [documentation](https://docs.couchdb.org/en/stable/ddocs/views/)). Documents stored in CouchDB can be created, updated and deleted (esp. by the frontend) using CouchDB REST API (see [documentation](https://docs.couchdb.org/en/stable/api/document/)).
 
-Everytime you update code in `backend/src`, please push it to the backend with:
+Everytime you update code or settings in `backend`, please push them to the backend with:
 
-```sh
+```shell
 docker compose --file docker-compose.dev.yml run updated_code
 ```
 
@@ -105,7 +85,8 @@ And then refresh the frontend (or backend) page.
 ### Samples writing
 
 Everytime you update sample data in `samples`, please push them to the backend with:
-```sh
+
+```shell
 docker compose --file docker-compose.dev.yml run updated_samples
 ```
 
@@ -113,7 +94,7 @@ docker compose --file docker-compose.dev.yml run updated_samples
 
 If (and only if) you want to remove ANY DATA added by hand or through automated tests, launch the following command:
 
-```sh
+```shell
 docker-compose --file docker-compose.dev.yml down
 docker compose --file docker-compose.dev.yml up --detach
 ```
