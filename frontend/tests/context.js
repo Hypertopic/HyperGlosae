@@ -49,7 +49,7 @@ Soit("une glose dont je suis l'auteur faisant référence uniquement au premier 
   cy.sign_in('alice', 'whiterabbit');
   cy.get('.create-document').click();
   Step(this, "j'essaie de remplacer le contenu de la glose par :", '{1} First side passage');
-  cy.contains('First side passage').should('exist');
+  cy.contains('.formatted-text', 'First side passage');
   cy.sign_out();
 });
 

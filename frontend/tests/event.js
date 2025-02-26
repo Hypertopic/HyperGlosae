@@ -22,12 +22,13 @@ Quand("j'essaie de remplacer l'annotation du passage {int} par :", (block_number
   cy.intercept('GET', '/api/*').as('getDocument');
   element.click();
   cy.wait('@getDocument');
-  cy.get('textarea').type('{selectAll}' + markdown).blur();
+  cy.wait(1000);
+  cy.get('textarea').type('{selectAll} ' + markdown).blur();
 });
 
 Quand("j'essaie de remplacer le contenu de la glose par :", (markdown) => {
   cy.click_on_text('content', '<TEXT>');
-  cy.get('textarea').type('{selectAll}' + markdown.replaceAll(/[{}]/g, (x)=>`{${x}}`)).blur();
+  cy.get('textarea').type('{selectAll} ' + markdown.replaceAll(/[{}]/g, (x)=>`{${x}}`)).blur();
 });
 
 Quand("j'ajoute le document principal à ma bibliothèque", () => {

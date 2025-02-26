@@ -42,6 +42,7 @@ Cypress.Commands.add('create_document_from_scratch', (login, password) => {
 Cypress.Commands.add('edit_metadata', (metadata) => {
   cy.click_on_text('metadata');
   cy.get('textarea').type('{selectAll}' + metadata).blur();
+  cy.get('.scholium .metadata').should('exist');
 });
 
 Cypress.Commands.add('edit_content', (metadata) => {
