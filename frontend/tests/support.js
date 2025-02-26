@@ -1,6 +1,16 @@
-Cypress.Commands.add('sign_in', (username, password = '') => {
-  if (!password) switch (username) {
-    case 'christophe': password = 'redqueen';
+Cypress.Commands.add('sign_in', (username, page = '') => {
+  if (page)
+    cy.visit(page);
+  switch (username) {
+    case 'alice':
+      password = 'whiterabbit';
+      break;
+    case 'bill':
+      password = 'madhatter';
+      break;
+    case 'christophe':
+      password = 'redqueen';
+      break;
   }
   cy.get('[placeholder="Username"]').type(username);
   cy.get('[placeholder="Password"]').type(password);
@@ -21,20 +31,15 @@ Cypress.Commands.add('click_on_text', (type, text) => {
   cy.wait('@getDocument');
 });
 
-Cypress.Commands.add('create_glose', (source, login, password, random = false) => {
-  cy.visit('/' + source);
-  cy.sign_in(login, password);
+Cypress.Commands.add('create_glose', (random = false) => {
   cy.get('.create-document').click();
   cy.url().should('contain', '#');
   if (random) {
     cy.set_random_name();
   }
-  cy.sign_out();
 });
 
-Cypress.Commands.add('create_document_from_scratch', (login, password) => {
-  cy.visit('/');
-  cy.sign_in(login, password);
+Cypress.Commands.add('create_document_from_scratch', () => {
   cy.get('.create-document').click();
   cy.get('.lectern').should('exist');
 });

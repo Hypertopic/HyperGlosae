@@ -1,20 +1,22 @@
 import { Given as Soit, Step } from '@badeball/cypress-cucumber-preprocessor';
 
 Soit("un document existant affiché comme document principal", () => {
-  cy.create_document_from_scratch('alice', 'whiterabbit');
+  cy.sign_in('alice', '/');
+  cy.create_document_from_scratch();
   cy.get('.focus').click();
   cy.sign_out();
 });
 
 Soit("un document dont je ne suis pas l'auteur affiché comme document principal", () => {
-  cy.create_document_from_scratch('bill', 'madhatter')
+  cy.sign_in('bill', '/');
+  cy.create_document_from_scratch();
   cy.set_random_name();
   cy.get('.focus').click();
   cy.sign_out();
 });
 
 Soit("une session active avec mon compte", () => {
-  cy.sign_in('alice', 'whiterabbit');
+  cy.sign_in('alice');
 });
 
 Soit("la liste des documents affichée", () => {
@@ -34,11 +36,15 @@ Soit("{string} le document principal", (title) => {
 });
 
 Soit("un document dont je suis l'auteur affiché comme glose", () => {
-  cy.create_glose('4e1a31e14b032f2fa9e161ee9b123456', 'alice', 'whiterabbit', true);
+  cy.sign_in('alice', '/4e1a31e14b032f2fa9e161ee9b123456');
+  cy.create_glose(true);
+  cy.sign_out();
 });
 
 Soit("un document dont je ne suis pas l'auteur affiché comme glose", () => {
-  cy.create_glose('4e1a31e14b032f2fa9e161ee9b123456', 'bill', 'madhatter');
+  cy.sign_in('bill', '/4e1a31e14b032f2fa9e161ee9b123456');
+  cy.create_glose();
+  cy.sign_out();
 });
 
 Soit("un document en deux passages affiché comme document principal", () => {
@@ -46,7 +52,7 @@ Soit("un document en deux passages affiché comme document principal", () => {
 });
 
 Soit("une glose dont je suis l'auteur faisant référence uniquement au premier passage", () => {
-  cy.sign_in('alice', 'whiterabbit');
+  cy.sign_in('alice');
   cy.get('.create-document').click();
   Step(this, "j'essaie de remplacer le contenu de la glose par :", '{1} First side passage');
   cy.contains('.formatted-text', 'First side passage');
