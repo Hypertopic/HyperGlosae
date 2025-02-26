@@ -6,11 +6,6 @@ Quand('je consulte le contenu de {string}') do |title|
   click_on_icon_next_to('open', title)
 end
 
-Quand("j'attache le type {string}") do |type|
-  click_on_icon('typeIcon')
-  click_on_element('.typeBadge', type)
-end
-
 Quand("j'essaie de remplacer le contenu de la glose par :") do |markdown|
   click_on_text('content')
   fill_element('textarea', markdown)
@@ -46,11 +41,6 @@ Quand("je sélectionne le fragment de texte :") do |markdown|
   ")
   expect(page.evaluate_script('text')).to eq(markdown)
   click_on_contextual_menu_item('Comment the selected text...', 'main col', 2)
-end
-
-Quand("je cherche le type {string}") do |type|
-  click_on_icon('typeIcon')
-  fill_element('#searchType', type)
 end
 
 Quand("je réutilise {string} comme glose de type {string}") do |title, type|

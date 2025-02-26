@@ -68,3 +68,11 @@ Alors("le document apparaît dans la bibliothèque de {string}", function(userNa
   cy.get('.bookshelf').contains(this.randomName);
 });
 
+Alors("le type {string} est le type de la glose", (name) => {
+  cy.contains('.typeSelected', name);
+});
+
+Alors("la glose n'a pas de type", () => {
+  cy.get('.typeSelected').should('not.exist');
+});
+

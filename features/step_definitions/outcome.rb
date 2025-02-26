@@ -30,10 +30,6 @@ Alors("l'image intégrée en source {string} est légendée par son titre : {str
   expect(find('.sources')).to have_content image_caption
 end
 
-Alors('le type {string} est le type de la glose ouverte') do |type| 
-  expect(find('.typeBadge')).to have_content type
-end
-
 Alors('le document comporte la vidéo {string}') do |uri|
   expect(page).to have_xpath("//iframe[contains(@src, '#{uri}')]")
 end
@@ -53,15 +49,5 @@ end
 Alors("le texte du document principal est en surbrillance :") do |highlighted_text|
   highlighted_element = find('mark', text: highlighted_text.strip)
   expect(highlighted_element).not_to be_nil
-end
-
-Alors('je peux lire {string} dans la liste des types') do |text|
-  expect(find('.list-group')).to have_content text
-end
-
-Alors('je ne peux rien lire dans la liste des types') do
-  expect(find('.list-group')).not_to have_content "Ethnography/Report"
-  expect(find('.list-group')).not_to have_content "Ethnography/Analysis"
-  expect(find('.list-group')).not_to have_content "Ethnography/Interview"
 end
 

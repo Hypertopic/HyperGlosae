@@ -40,3 +40,10 @@ Quand("j'essaie d'accorder les droits d'édition à {string}", (userName) => {
   cy.get('.modal-dialog input').type(userName);
   cy.contains('button', 'Invite').click();
 });
+
+Quand("je choisis {string} comme type de glose", (pattern) => {
+  cy.get('.typeIcon').click();
+  cy.get('#searchType').type(pattern);
+  cy.get('.list-group-item').first().click();
+});
+
