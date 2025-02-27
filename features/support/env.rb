@@ -43,7 +43,13 @@ def sign_in(username, password)
 end
 
 def sign_out
-  refresh
+  page.execute_script("
+    document.getElementsByClassName('navbar')[0]
+      .getElementsByClassName('dropdown')[0]
+      .getElementsByClassName('dropdown-toggle')[0]
+      .dispatchEvent(new Event('click', {bubbles:true}))
+  ")
+  click_on "Sign out"
 end
 
 def leave_textarea

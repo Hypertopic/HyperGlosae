@@ -1,12 +1,12 @@
-.dropdown {
+.discreete-dropdown {
   visibility: hidden;
 }
 
-:is(.runningHead .scholium, .scholium .content, .main):hover .dropdown {
+:is(.runningHead .scholium, .scholium .content, .main):hover .discreete-dropdown {
   visibility: visible;
 }
 
-.toggle {
+.discreete-dropdown .toggle {
   margin-top: 0.25rem;
   color: crimson;
   cursor: pointer;

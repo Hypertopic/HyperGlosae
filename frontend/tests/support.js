@@ -19,7 +19,8 @@ Cypress.Commands.add('sign_in', (username, page = '') => {
 });
 
 Cypress.Commands.add('sign_out', () => {
-  cy.reload();
+  cy.get('.navbar .dropdown-toggle').click();
+  cy.contains('.dropdown-item', 'Sign out').click();
 });
 
 Cypress.Commands.add('click_on_text', (type, text) => {

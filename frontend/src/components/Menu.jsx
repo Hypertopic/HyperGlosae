@@ -5,11 +5,13 @@ import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Form from 'react-bootstrap/Form';
+import Dropdown from 'react-bootstrap/Dropdown';
 import { Link } from 'react-router-dom';
+import SignOutAction from './SignOutAction';
 
 function Menu({backend, user, setUser}) {
   return (
-    <Navbar bg="dark" variant="dark">
+    <Navbar bg="dark">
       <Container>
         <Navbar.Brand>
           <Link to="/">
@@ -37,9 +39,14 @@ function Authentication({backend, user, setUser}) {
   };
 
   if (user) return (
-    <Navbar.Text>
-      {user}
-    </Navbar.Text>
+    <Dropdown>
+      <Dropdown.Toggle variant="dark">
+        {user}
+      </Dropdown.Toggle>
+      <Dropdown.Menu>
+        <SignOutAction/>
+      </Dropdown.Menu>
+    </Dropdown>
   );
   return (
     <Form onSubmit={handleSubmit}>

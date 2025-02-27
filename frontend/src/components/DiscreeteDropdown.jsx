@@ -12,7 +12,7 @@ function DiscreeteDropdown({children}) {
   Toggle.displayName = 'Toggle';
 
   return (
-    <Dropdown className="position-absolute top-0 end-0">
+    <Dropdown className="discreete-dropdown position-absolute top-0 end-0">
       <Dropdown.Toggle as={Toggle} />
       <Dropdown.Menu>
         {children}

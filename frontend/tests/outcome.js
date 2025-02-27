@@ -52,6 +52,7 @@ Alors("le document apparaît dans ma bibliothèque", function() {
 
 Alors("je vois {string} dans la liste des éditeurs", (userName) => {
   cy.get('.modal-dialog .list-group').should('contain', userName);
+  cy.get('.modal-dialog .btn-close').click();
 });
 
 Alors("{string} peut modifier le document", (userName) => {
