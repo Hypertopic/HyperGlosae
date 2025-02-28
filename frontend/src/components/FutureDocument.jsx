@@ -57,7 +57,7 @@ function FutureDocumentIcon({relatedTo, verb, setLastUpdate, backend}) {
     let _id = uuid().replace(/-/g, '');
     let doc = {
       _id,
-      editors: [backend.credentials.name],
+      editors: [backend.user],
       dc_creator: '<CREATOR>',
       dc_title: '<TITLE>',
       dc_issued: new Date(),

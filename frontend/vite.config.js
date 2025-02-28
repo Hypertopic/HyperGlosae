@@ -16,6 +16,11 @@ export default defineConfig({
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api\/_users/, ''),
       },
+      '/api/_session': {
+        target: 'http://localhost:5984/_session',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api\/_session/, ''),
+      },
       '/api': {
         target: 'http://localhost:5984/hyperglosae',
         changeOrigin: true,

@@ -1,8 +1,14 @@
 import Dropdown from 'react-bootstrap/Dropdown';
 
-function SignOutAction() {
+function SignOutAction({setUser, backend}) {
+
+  const handleSignOut = () => {
+    backend.deleteSession();
+    setUser();
+  };
+
   return (
-    <Dropdown.Item onClick={() => window.location.reload()}>
+    <Dropdown.Item onClick={handleSignOut}>
       Sign out
     </Dropdown.Item>
   );

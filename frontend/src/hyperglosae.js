@@ -1,10 +1,6 @@
-import {Buffer} from 'buffer';
-
 const service = '/api';
 
 function Hyperglosae(logger) {
-
-  this.credentials = {};
 
   this.getView = ({view, id, options = []}) =>
     fetch(`${
@@ -23,18 +19,9 @@ function Hyperglosae(logger) {
     fetch(`${service}/${id}`)
       .then(x => x.json());
 
-  let basicAuthentication = ({force}) => {
-    let {name, password} = this.credentials;
-    if (!force && !name && !password) return ({});
-    return ({
-      'Authorization': 'Basic ' + Buffer.from(`${name}:${password}`).toString('base64')
-    });
-  };
-
   this.putDocument = (doc, uri) =>
     fetch(`${service}/${uri || doc._id}`, {
       method: 'PUT',
-      headers: basicAuthentication({force: false}),
       body: JSON.stringify(doc)
     })
       .then(x => x.json())
@@ -49,7 +36,6 @@ function Hyperglosae(logger) {
   this.deleteDocument = ({_id, _rev}) =>
     fetch(`${service}/${_id}?rev=${_rev}`, {
       method: 'DELETE',
-      headers: basicAuthentication({ force: false })
     })
       .then(x => x.json())
       .then(x => {
@@ -63,7 +49,6 @@ function Hyperglosae(logger) {
   this.getDocumentMetadata = (id) =>
     fetch(`${service}/${id}`, {
       method: 'HEAD',
-      headers: basicAuthentication({ force: false })
     });
 
   this.putAttachment = (id, attachment, callback) =>
@@ -76,7 +61,6 @@ function Hyperglosae(logger) {
         fetch(`${service}/${id}/${attachment.name}`, {
           method: 'PUT',
           headers: {
-            ...basicAuthentication({ force: false }),
             // ETag is the header that carries the current rev.
             'If-Match': x.headers.get('ETag'),
             'Content-Type': attachment.type
@@ -86,19 +70,34 @@ function Hyperglosae(logger) {
       };
     });
 
-  this.authenticate = ({name, password}) => {
-    this.credentials = {name, password};
-    return fetch(`${service}`, {
-      method: 'GET',
-      headers: basicAuthentication({force: true})
+  this.getSession = () =>
+    fetch(`${service}/_session`)
+      .then(x => x.json())
+      .then(x => {
+        this.user = x.userCtx?.name;
+        return this.user;
+      });
+
+  this.postSession = ({name, password}) =>
+    fetch(`${service}/_session`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: `name=${name}&password=${password}`
     })
       .then(x => x.json())
       .then(x => {
-        if (x.reason) {
-          this.credentials = {};
-          logger(x.reason);
-          throw new Error(x.reason);
-        }
+        if (!x.reason) return this.user = name;
+        logger(x.reason);
+      });
+
+  this.deleteSession = () => {
+    fetch(`${service}/_session`, {
+      method: 'DELETE'
+    })
+      .then(() => {
+        this.user = null;
       });
   };
 
@@ -125,7 +124,7 @@ function Hyperglosae(logger) {
   };
 
   this.refreshDocuments = (callback) => {
-    let id = this.credentials.name || 'PUBLIC';
+    let id = this.user || 'PUBLIC';
     this.getView({view: 'all_documents', id, options: ['include_docs']})
       .then((rows) => {
         callback(

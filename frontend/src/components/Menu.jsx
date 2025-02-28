@@ -33,9 +33,12 @@ function Authentication({backend, user, setUser}) {
   let handleSubmit = (e) => {
     e.preventDefault();
     let credentials = Object.fromEntries(new FormData(e.target).entries());
-    backend.authenticate(credentials)
-      .then(() => setUser(credentials.name))
-      .catch(console.error);
+    backend.postSession(credentials)
+      .then((x) => {
+        if (x) {
+          setUser(x);
+        }
+      });
   };
 
   if (user) return (
@@ -44,7 +47,7 @@ function Authentication({backend, user, setUser}) {
         {user}
       </Dropdown.Toggle>
       <Dropdown.Menu>
-        <SignOutAction/>
+        <SignOutAction {...{setUser, backend}} />
       </Dropdown.Menu>
     </Dropdown>
   );

@@ -4,7 +4,7 @@ import { v4 as uuid } from 'uuid';
 
 function Bookmark({backend, id}) {
   const [isBookmarked, setIsBookmarked] = useState(false);
-  let user = backend.credentials.name;
+  let user = backend.user;
 
   const getBookmark = useCallback((id, user) =>
     backend.getView({view: 'bookmark', id: user, options: ['include_docs']})

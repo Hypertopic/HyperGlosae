@@ -25,6 +25,8 @@ function App() {
           setTypes(rows);
         }
       );
+    backend.getSession()
+      .then(setUser);
   }, []);
   return (
     <StrictMode>
