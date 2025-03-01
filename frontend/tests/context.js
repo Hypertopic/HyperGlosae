@@ -30,9 +30,12 @@ Soit("le document contenant l'image 2019_10-13_16_UKR_R_A affiché comme documen
 Soit("{string} le document principal", (title) => {
   const uris = {
     'Les fées (Charles Perrault)': '/37b4b9ba5cdb11ed887beb5c373fa643',
+    'Vidéo Sherlock Jr. (Buster Keaton)': '/4e1a31e14b032f2fa9e161ee9b009125',
+    'Treignes, le 8 septembre 2012 (Christophe Lejeune)': '/6b56ee657c870dfacd34e9ae4e0643dd',
   };
-  expect(uris).to.have.keys(title);
+  expect(uris).to.contain.key(title);
   cy.visit(uris[title]);
+  cy.get('body').should('contain', title);
 });
 
 Soit("un document dont je suis l'auteur affiché comme glose", () => {
@@ -65,5 +68,9 @@ Soit("un document dont je suis l'auteur affiché comme glose et dont le type est
   cy.get('.typeIcon').click();
   cy.contains('.list-group-item', name).click();
   cy.sign_out();
+});
+
+Soit("{string} la glose ouverte", (title) => {
+  cy.contains('span:not(.work)', title).prevAll('a.open').click();
 });
 

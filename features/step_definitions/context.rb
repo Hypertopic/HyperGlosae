@@ -78,10 +78,6 @@ Soit("un autre document, non découpé, affiché comme glose et dont je suis l'a
   sign_out
 end
 
-Soit('{string} une des gloses ouverte') do |title|
-  click_on_icon_next_to('open', title)
-end
-
 Soit("{string} le nom de la licence du document principal") do |license|
   expect(page).to have_text license
 end

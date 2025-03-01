@@ -77,3 +77,11 @@ Alors("la glose n'a pas de type", () => {
   cy.get('.typeSelected').should('not.exist');
 });
 
+Alors("le texte du document principal est en surbrillance :", (text) => {
+  cy.contains('mark', text.trim()).should('exist');
+});
+
+Alors("la vidéo du document principal se lance de {int} à {int} secondes", (start, end) => {
+  cy.get(`iframe[src*="start=${start}&end=${end}"]`).should('exist');
+});
+

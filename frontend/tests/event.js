@@ -47,3 +47,12 @@ Quand("je choisis {string} comme type de glose", (pattern) => {
   cy.get('.list-group-item').first().click();
 });
 
+Quand("je survole le texte :", (text) => {
+  cy.contains('p[title="Highlight in document"]', text.trim())
+    .trigger('mouseover');
+});
+
+Quand("je clique sur la référence temporelle {string} annotée", (timecode) => {
+  cy.contains('p', timecode).click();
+});
+

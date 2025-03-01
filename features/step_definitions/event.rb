@@ -12,18 +12,9 @@ Quand("j'essaie de remplacer le contenu de la glose par :") do |markdown|
   leave_textarea
 end
 
-Quand("je clique sur la référence temporelle {string} avec pour commentaire {string}") do |timecode, comment|
-  find(:xpath, "//p[contains(., \"#{timecode}\")]", match: :first).click
-end
-
 Quand("j'essaye d'ajouter une image à une glose") do
   click_on_contextual_menu('scholium', 1)
   attach_file("image-input", File.expand_path("./docs/architecture.png"), make_visible: true)
-end
-
-Quand("je survole le texte :") do |text|
-  element = find('p[title="Highlight in document"]', text: text.strip)
-  element.hover
 end
 
 Quand("je sélectionne le fragment de texte :") do |markdown|
