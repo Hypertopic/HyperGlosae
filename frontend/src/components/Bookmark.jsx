@@ -2,9 +2,8 @@ import { useState, useEffect, useCallback } from 'react';
 import { BookmarkFill } from 'react-bootstrap-icons';
 import { v4 as uuid } from 'uuid';
 
-function Bookmark({backend, id}) {
+function Bookmark({backend, user, id}) {
   const [isBookmarked, setIsBookmarked] = useState(false);
-  let user = backend.user;
 
   const getBookmark = useCallback((id, user) =>
     backend.getView({view: 'bookmark', id: user, options: ['include_docs']})
@@ -17,27 +16,17 @@ function Bookmark({backend, id}) {
         .then(bookmark => setIsBookmarked(!!bookmark))
         .catch(console.error);
     }
-  }, [user, id, backend, getBookmark]);
-
-  const createBookmark = () =>
-    backend.putDocument({
-      _id: uuid(),
-      editors: [user],
-      bookmark: id
-    });
-
-  const removeBookmark = () =>
-    getBookmark(id, user)
-      .then(bookmark => bookmark.doc)
-      .then(backend.deleteDocument);
+  }, [user, id, getBookmark]);
 
   const onBookmarkToggle = () => {
     if (!isBookmarked) {
-      createBookmark(user, id)
+      backend.putDocument({ _id: uuid(), editors: [user], bookmark: id })
         .then(() => setIsBookmarked(true))
         .catch(console.error);
     } else {
-      removeBookmark(id, user)
+      getBookmark(id, user)
+        .then(x => x.doc)
+        .then(backend.deleteDocument)
         .then(() => setIsBookmarked(false))
         .catch(console.error);
     }

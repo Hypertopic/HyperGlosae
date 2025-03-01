@@ -9,13 +9,14 @@ function Bookshelf({backend, user}) {
   const [lastUpdate, setLastUpdate] = useState();
 
   useEffect(() => {
-    backend.refreshDocuments(setDocuments);
+    backend.getAllDocuments(user)
+      .then(setDocuments);
   }, [lastUpdate, user, backend]);
 
   return (
     <Container className="screen bookshelf">
       <DocumentsCards docs={documents} byRow={4} createOn={[]}
-        {...{setLastUpdate, backend}}
+        {...{setLastUpdate, backend, user}}
       />
     </Container>
   );

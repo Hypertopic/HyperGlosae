@@ -42,7 +42,7 @@ function Lectern({backend, user}) {
         </Col>
         <OpenedDocuments
           hasSources={metadata.forwardLinkedDocuments.length > 0}
-          {...{id, margin, metadata, parallelDocuments, backend, setLastUpdate}}
+          {...{id, margin, metadata, parallelDocuments, user, backend, setLastUpdate}}
         />
         <References active={!margin} createOn={[id]}
           {...{metadata, user, setLastUpdate, backend}}

@@ -12,14 +12,14 @@ import DeleteDocumentAction from './DeleteDocumentAction';
 import Bookmark from './Bookmark';
 import LicenseCompatibility from './LicenseCompatibility';
 
-function OpenedDocuments({id, margin, metadata, parallelDocuments, hasSources, backend, setLastUpdate}) {
+function OpenedDocuments({id, margin, metadata, parallelDocuments, hasSources, backend, user, setLastUpdate}) {
   const marginMetadata = metadata.getDocument(margin);
   const marginLicense = marginMetadata?.dc_license;
   const sourceMetadata = metadata.focusedDocument;
   return (
     <Col className="lectern">
       <Row className ="runningHead">
-        <RunningHeadSource {...{id, metadata, hasSources, parallelDocuments, backend}} />
+        <RunningHeadSource {...{id, metadata, hasSources, parallelDocuments, backend, user}} />
         <RunningHeadMargin {...{parallelDocuments, margin, backend, setLastUpdate}}
           metadata={marginMetadata}
         />
@@ -50,14 +50,14 @@ function OpenedDocuments({id, margin, metadata, parallelDocuments, hasSources, b
   );
 }
 
-function RunningHeadSource({id, metadata, hasSources, parallelDocuments, backend}) {
+function RunningHeadSource({id, metadata, hasSources, parallelDocuments, backend, user}) {
   metadata = metadata.focusedDocument;
   if (parallelDocuments.isFromScratch) return (
     <Col className="main" />
   );
   return (
     <Col className="main">
-      <Bookmark {...{backend, id}} />
+      <Bookmark {...{backend, user, id}} />
       <BrowseTools {...{id}} editable={!hasSources} focusable={false} />
       <Metadata {...{metadata}} />
       <TypeBadge type={metadata?.type} />

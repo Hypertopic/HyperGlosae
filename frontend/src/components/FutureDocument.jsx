@@ -29,7 +29,7 @@ function FutureDocument({relatedTo, setLastUpdate, backend, user}) {
         )}
         <FutureDocumentIcon
           relatedTo={selectedDocument ? [selectedDocument._id] : relatedTo}
-          {...{verb, setLastUpdate, backend}}
+          {...{verb, setLastUpdate, backend, user}}
         />
         {!fixedType && (
           <Link
@@ -50,14 +50,14 @@ function FutureDocument({relatedTo, setLastUpdate, backend, user}) {
   );
 }
 
-function FutureDocumentIcon({relatedTo, verb, setLastUpdate, backend}) {
+function FutureDocumentIcon({relatedTo, verb, setLastUpdate, backend, user}) {
   const navigate = useNavigate();
 
   let handleClick = async () => {
     let _id = uuid().replace(/-/g, '');
     let doc = {
       _id,
-      editors: [backend.user],
+      editors: [user],
       dc_creator: '<CREATOR>',
       dc_title: '<TITLE>',
       dc_issued: new Date(),

@@ -15,11 +15,12 @@ function DocumentList({ relatedTo, verb, setSelectedDocument, setShowDocumentLis
   );
 
   useEffect(() => {
-    backend.refreshDocuments(
-      x => setUserDocuments(
-        x.filter(y => y && y._id !== relatedTo[0])
-      )
-    );
+    backend.getAllDocuments(user)
+      .then(x =>
+        setUserDocuments(
+          x.filter(y => y && y._id !== relatedTo[0])
+        )
+      );
   }, [user, backend, relatedTo]);
 
   return (

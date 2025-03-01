@@ -73,10 +73,7 @@ function Hyperglosae(logger) {
   this.getSession = () =>
     fetch(`${service}/_session`)
       .then(x => x.json())
-      .then(x => {
-        this.user = x.userCtx?.name;
-        return this.user;
-      });
+      .then(x => x.userCtx?.name);
 
   this.postSession = ({name, password}) =>
     fetch(`${service}/_session`, {
@@ -87,19 +84,12 @@ function Hyperglosae(logger) {
       body: `name=${name}&password=${password}`
     })
       .then(x => x.json())
-      .then(x => {
-        if (!x.reason) return this.user = name;
-        logger(x.reason);
-      });
+      .then(x => x.reason ? logger(x.reason) : name);
 
-  this.deleteSession = () => {
+  this.deleteSession = () =>
     fetch(`${service}/_session`, {
       method: 'DELETE'
-    })
-      .then(() => {
-        this.user = null;
-      });
-  };
+    });
 
   this.refreshMetadata = (id, callback) => {
     this.getView({view: 'metadata', id, options: ['include_docs']})
@@ -123,15 +113,9 @@ function Hyperglosae(logger) {
       );
   };
 
-  this.refreshDocuments = (callback) => {
-    let id = this.user || 'PUBLIC';
-    this.getView({view: 'all_documents', id, options: ['include_docs']})
-      .then((rows) => {
-        callback(
-          rows.map(x => x.doc)
-        );
-      });
-  };
+  this.getAllDocuments = (user) =>
+    this.getView({view: 'all_documents', id: user || 'PUBLIC', options: ['include_docs']})
+      .then((rows) => rows.map(x => x.doc));
 
   return this;
 }
