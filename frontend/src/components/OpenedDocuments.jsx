@@ -6,9 +6,9 @@ import Type, { TypeBadge } from './Type';
 import Passage from './Passage';
 import License from './License';
 import DiscreeteDropdown from './DiscreeteDropdown';
-import InviteEditorsAction from './InviteEditorsAction';
-import BreakIntoPassagesAction from './BreakIntoPassagesAction';
-import DeleteDocumentAction from './DeleteDocumentAction';
+import InviteEditorsAction from '../menu-items/InviteEditorsAction';
+import BreakIntoPassagesAction from '../menu-items/BreakIntoPassagesAction';
+import DeleteDocumentAction from '../menu-items/DeleteDocumentAction';
 import Bookmark from './Bookmark';
 import LicenseCompatibility from './LicenseCompatibility';
 

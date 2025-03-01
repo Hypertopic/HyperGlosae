@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Modal, Button } from 'react-bootstrap';
-import DiscreeteDropdown from './DiscreeteDropdown';
+import DiscreeteDropdown from '../components/DiscreeteDropdown';
 
 function DeleteDocumentAction({metadata, isFromScratch, backend, setLastUpdate}) {
   const navigate = useNavigate();

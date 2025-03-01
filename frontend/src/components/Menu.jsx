@@ -7,7 +7,7 @@ import Row from 'react-bootstrap/Row';
 import Form from 'react-bootstrap/Form';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { Link } from 'react-router-dom';
-import SignOutAction from './SignOutAction';
+import SignOutAction from '../menu-items/SignOutAction';
 
 function Menu({backend, user, setUser}) {
   return (

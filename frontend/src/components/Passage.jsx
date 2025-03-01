@@ -8,7 +8,7 @@ import { Marker } from 'react-mark.js';
 import FormattedText from './FormattedText';
 import EditableText from '../components/EditableText';
 import DiscreeteDropdown from './DiscreeteDropdown';
-import CommentFragmentAction from './CommentFragmentAction';
+import CommentFragmentAction from '../menu-items/CommentFragmentAction';
 
 function Passage({source, rubric, scholia, margin, sourceId, backend, setLastUpdate}) {
   const [selectedText, setSelectedText] = useState();

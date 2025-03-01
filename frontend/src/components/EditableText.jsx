@@ -3,7 +3,7 @@ import '../styles/EditableText.css';
 import { useState, useEffect, useCallback } from 'react';
 import FormattedText from './FormattedText';
 import DiscreeteDropdown from './DiscreeteDropdown';
-import PictureUploadAction from './PictureUploadAction';
+import PictureUploadAction from '../menu-items/PictureUploadAction';
 import {v4 as uuid} from 'uuid';
 
 function EditableText({id, text, rubric, isPartOf, links, fragment, setFragment, setHighlightedText, setSelectedText, backend, setLastUpdate}) {

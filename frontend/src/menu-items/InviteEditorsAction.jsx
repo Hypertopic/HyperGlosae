@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Button, InputGroup, ListGroup, Modal, Form } from 'react-bootstrap';
-import DiscreeteDropdown from './DiscreeteDropdown';
+import DiscreeteDropdown from '../components/DiscreeteDropdown';
 
 export default function InviteEditorsAction({metadata, backend, setLastUpdate}) {
   const [show, setShow] = useState(false);

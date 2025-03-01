@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 
-import DiscreeteDropdown from './DiscreeteDropdown';
+import DiscreeteDropdown from '../components/DiscreeteDropdown';
 
 function PictureUploadAction ({ id, backend, handleImageUrl }) {
   const fileInputRef = useRef(null);

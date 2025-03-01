@@ -1,4 +1,4 @@
-import DiscreeteDropdown from './DiscreeteDropdown';
+import DiscreeteDropdown from '../components/DiscreeteDropdown';
 
 function BreakIntoPassagesAction({parallelDocuments, margin, backend, setLastUpdate}) {
 

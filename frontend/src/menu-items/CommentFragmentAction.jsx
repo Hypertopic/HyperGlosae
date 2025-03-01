@@ -1,4 +1,4 @@
-import DiscreeteDropdown from './DiscreeteDropdown';
+import DiscreeteDropdown from '../components/DiscreeteDropdown';
 
 function CommentFragmentAction({selectedText, setSelectedText, setFragment, margin}) {
 
