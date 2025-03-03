@@ -10,7 +10,8 @@ Source: [routes/Bookshelf.js](https://github.com/Hypertopic/HyperGlosae/blob/mai
 
 Parts:
 
-- [DocumentsCards](#documentscards)
+- Graph
+- [FutureDocument](#futuredocument)
 
 
 ## Lectern
@@ -27,7 +28,6 @@ Parts:
 
 ## DocumentsCards
 
-<img src="../../docs/component_bookshelf.png" />
 <img src="../../docs/component_documentscards.png" width="15%" />
 <img src="../../docs/component_documentscards2.png" width="40%" />
 

@@ -37,6 +37,8 @@ A modern version of this (see figure below) will be achieved with CouchDB filter
 The concept of *literature* (*e.g.* "scientific literature") is that *reading* a document results in *writing* new ones (highlights, annotations, analyses, translations, critics, etc.).
 Hence the meaning of a document is indeed in the whole graph of direct or indirect sources and offsprings.
 
+![](docs/component_graph.png)
+
 ### Forward links
 
 ![](docs/screenshot_translator_forwardlink.png)
