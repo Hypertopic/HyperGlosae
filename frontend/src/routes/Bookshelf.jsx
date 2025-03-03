@@ -14,7 +14,8 @@ function Bookshelf({ backend, user }) {
     backend.getAllDocuments(user)
       .then(setDocuments);
   }, [lastUpdate, user, backend]);
-  const docs = documents?.map((key) => [key._id, key.dc_title, key.links]);
+  const docs = documents?.filter(x => !!x)
+    .map(({_id, dc_title, links}) => [_id, dc_title, links]);
   const displayedDocs = docs?.flatMap(d => d[0]);
 
   return (
