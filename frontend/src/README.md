@@ -76,7 +76,8 @@ Parts: **none**
 ## FutureDocument
 
 <img src="../../docs/component_futuredocument.png" width="20%" />
-<img src="../../docs/component_futuredocument2.png" width="20%" />
+<img src="../../docs/component_futuredocument2.png" width="35%" />
+<img src="../../docs/component_futuredocument3.png" width="35%" />
 
 Source: [components/FutureDocument.js](https://github.com/Hypertopic/HyperGlosae/blob/main/frontend/src/components/FutureDocument.js)
 
