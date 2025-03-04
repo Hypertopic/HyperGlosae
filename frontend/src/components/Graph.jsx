@@ -16,12 +16,12 @@ function Graph({ rawDocs, displayedDocs }) {
     ));
     const typeColorScale = scaleOrdinal(types, schemeCategory10);
     const nodes = docs.map(([id, title]) => ({id, title}));
-    const links = docs.filter(d => d[2] !== undefined && d[2].map(l => l.object).every(o => displayedDocs.includes(o)))
+    const links = docs.filter(d => d[2] !== undefined && d[2].map(l => l.object).every(o => displayedDocs.includes(o.split('#')[0])))
       .flatMap(d =>
         d[2].map(l => ({
           source: d[0],
           type: l.verb,
-          target: l.object
+          target: l.object.split('#')[0]
         }))
       );
 
