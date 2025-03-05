@@ -81,7 +81,7 @@ function Hyperglosae(logger) {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
       },
-      body: `name=${name}&password=${password}`
+      body: `name=${name}&password=${encodeURIComponent(password)}`
     })
       .then(x => x.json())
       .then(x => x.reason ? logger(x.reason) : name);
