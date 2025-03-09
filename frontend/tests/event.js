@@ -36,7 +36,7 @@ Quand("j'ajoute le document principal à ma bibliothèque", () => {
 });
 
 Quand("j'essaie d'accorder les droits d'édition à {string}", (userName) => {
-  cy.click_on_contextual_menu_item('.scholium', 'Invite editors...');
+  cy.click_on_contextual_menu_item('.runningHead .scholium', 'Invite editors...');
   cy.get('.modal-dialog input').type(userName);
   cy.contains('button', 'Invite').click();
 });
@@ -54,5 +54,12 @@ Quand("je survole le texte :", (text) => {
 
 Quand("je clique sur la référence temporelle {string} annotée", (timecode) => {
   cy.contains('p', timecode).click();
+});
+
+Quand("je sélectionne le fragment de texte :", (text) => {
+  text = text.trim();
+  cy.contains('p', text).setSelection(text);
+  let paragraph = cy.contains('.main', text);
+  cy.click_on_contextual_menu_item(paragraph, 'Comment the selected text...');
 });
 

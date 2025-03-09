@@ -1,8 +1,8 @@
 #language: fr
 
-Fonctionnalité: Créer un commentaire à partir d'un fragment de document en cours de focus
+Fonctionnalité: Créer un commentaire à partir d'un fragment
 
-Scénario: Une glose dont je suis l'auteur est ouverte
+Scénario: de texte
 
   Soit "Treignes, le 8 septembre 2012 (Christophe Lejeune)" le document principal
   Et un autre document, en plusieurs passages, affiché comme glose et dont je suis l'auteur

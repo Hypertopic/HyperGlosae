@@ -17,23 +17,6 @@ Quand("j'essaye d'ajouter une image à une glose") do
   attach_file("image-input", File.expand_path("./docs/architecture.png"), make_visible: true)
 end
 
-Quand("je sélectionne le fragment de texte :") do |markdown|
-  # WARNING: Does work only with one given example!
-  page.execute_script("
-      let node = document.getElementsByClassName('lectern col')[0].getElementsByClassName('main col')[2].getElementsByTagName('p')[0].firstChild;
-      let range = document.createRange();
-      range.setStart(node, 18);
-      range.setEnd(node, 128);
-      let selection = window.getSelection();
-      selection.removeAllRanges();
-      selection.addRange(range);
-      node.dispatchEvent(new Event('mouseup', {bubbles: true}));
-      text = selection.toString();
-  ")
-  expect(page.evaluate_script('text')).to eq(markdown)
-  click_on_contextual_menu_item('Comment the selected text...', 'main col', 2)
-end
-
 Quand("je réutilise {string} comme glose de type {string}") do |title, type|
   select type, from: 'select-dropdown'
   click_on_icon('select-document')

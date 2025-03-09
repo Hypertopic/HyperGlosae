@@ -59,19 +59,6 @@ Soit('un document en deux passages affiché comme document principal') do
   visit '/05b61f5285c711ed97bf6b9b56808c45'
 end
 
-Soit("un autre document, en plusieurs passages, affiché comme glose et dont je suis l'auteur") do
-  sign_in('alice', 'whiterabbit')
-  click_on_icon('create-document')
-  click_on_text('content')
-  find('textarea').fill_in with:
-  """
-  {1} First side passage.
-  {2} Second side passage.
-  """
-  leave_textarea
-  sign_out
-end
-
 Soit("un autre document, non découpé, affiché comme glose et dont je suis l'auteur") do
   sign_in('alice', 'whiterabbit')
   click_on_icon('create-document')

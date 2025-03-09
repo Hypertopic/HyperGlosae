@@ -62,7 +62,66 @@ Cypress.Commands.add('set_random_name', function() {
 });
 
 Cypress.Commands.add('click_on_contextual_menu_item', (context, item_name) => {
-  cy.get(`${context} > .dropdown > .toggle`).click({force: true});
+  if (typeof context === 'string') {
+    context = cy.get(context);
+  }
+  context.find('.dropdown > .toggle').click({force: true});
   cy.contains(item_name).click({force: true});
 });
+
+// From: https://github.com/decaporg/decap-cms/blob/a4b7481a99f58b9abe85ab5712d27593cde20096/cypress/support/commands.js#L374
+
+Cypress.Commands.add('setSelection', { prevSubject: true }, (subject, query, endQuery) => {
+  return cy.wrap(subject).selection($el => {
+    if (typeof query === 'string') {
+      const anchorNode = getTextNode($el[0], query);
+      const focusNode = endQuery ? getTextNode($el[0], endQuery) : anchorNode;
+      const anchorOffset = anchorNode.wholeText.indexOf(query);
+      const focusOffset = endQuery
+        ? focusNode.wholeText.indexOf(endQuery) + endQuery.length
+        : anchorOffset + query.length;
+      setBaseAndExtent(anchorNode, anchorOffset, focusNode, focusOffset);
+    } else if (typeof query === 'object') {
+      const el = $el[0];
+      const anchorNode = getTextNode(el.querySelector(query.anchorQuery));
+      const anchorOffset = query.anchorOffset || 0;
+      const focusNode = query.focusQuery
+        ? getTextNode(el.querySelector(query.focusQuery))
+        : anchorNode;
+      const focusOffset = query.focusOffset || 0;
+      setBaseAndExtent(anchorNode, anchorOffset, focusNode, focusOffset);
+    }
+  });
+});
+
+// Used by setSelection
+Cypress.Commands.add('selection', { prevSubject: true }, (subject, fn) => {
+  cy.wrap(subject)
+    .trigger('mousedown')
+    .then(fn)
+    .trigger('mouseup');
+  cy.document().trigger('selectionchange');
+  return cy.wrap(subject);
+});
+
+// Used by setSelection
+function getTextNode(el, match) {
+  const walk = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null, false);
+  if (!match) {
+    return walk.nextNode();
+  }
+  let node;
+  while ((node = walk.nextNode())) {
+    if (node.wholeText.includes(match)) {
+      return node;
+    }
+  }
+}
+
+// Used by setSelection
+function setBaseAndExtent(...args) {
+  const document = args[0].ownerDocument;
+  document.getSelection().removeAllRanges();
+  document.getSelection().setBaseAndExtent(...args);
+}
 

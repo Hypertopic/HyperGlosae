@@ -85,3 +85,7 @@ Alors("la vidéo du document principal se lance de {int} à {int} secondes", (st
   cy.get(`iframe[src*="start=${start}&end=${end}"]`).should('exist');
 });
 
+Alors("la glose est ouverte en mode édition et contient :", (text) => {
+  cy.get('.scholium textarea').should('contain', text);
+});
+

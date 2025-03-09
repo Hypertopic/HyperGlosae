@@ -74,3 +74,11 @@ Soit("{string} la glose ouverte", (title) => {
   cy.contains('span:not(.work)', title).prevAll('a.open').click();
 });
 
+Soit("un autre document, en plusieurs passages, affiché comme glose et dont je suis l'auteur", () => {
+  cy.sign_in('alice');
+  cy.get('.create-document').click();
+  cy.click_on_contextual_menu_item('.runningHead .scholium', 'Break into numbered passages');
+  cy.get('.lectern .row:not(.runningHead) .scholium').should('have.length.greaterThan', 1);
+  cy.sign_out();
+});
+
