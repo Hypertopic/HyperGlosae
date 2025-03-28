@@ -38,7 +38,11 @@ Alors("l'année de publication est {string}", (year) => {
 });
 
 Alors("la glose contient {string}", (text) => {
-  cy.get('.scholium .formatted-text').contains(text).should('exist');
+  cy.contains('.scholium .formatted-text', text).should('exist');
+});
+
+Alors("la glose contient :", (text) => {
+  cy.contains('.scholium .formatted-text', text.replaceAll('\n', ' ')).should('exist');
 });
 
 Alors("la glose est ouverte en mode édition", () => {

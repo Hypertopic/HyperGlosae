@@ -63,3 +63,9 @@ Quand("je sélectionne le fragment de texte :", (text) => {
   cy.click_on_contextual_menu_item(paragraph, 'Comment the selected text...');
 });
 
+Quand("je réutilise {string} comme glose", function (title) {
+  cy.get('.select-document').click();
+  cy.get('input[placeholder="Search documents"]').type(title);
+  cy.get('.existingDocument').first().click();
+});
+

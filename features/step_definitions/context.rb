@@ -73,26 +73,3 @@ Soit("{string} le code de la licence du document principal") do |license|
   expect(page).to have_image license
 end
 
-Soit("une glose intitulée {string} contenant :") do |title, markdown|
-  click_on_icon('create-document')
-  click_on_text('metadata')
-  fill_element('textarea', "dc_title: #{title}")
-  leave_textarea
-  click_on_text('content')
-  fill_element('textarea', markdown)
-  leave_textarea
-end
-
-Soit("un document dont je suis l'auteur intitulé {string} et contenant :") do |title, markdown|
-  visit '/'
-  sign_in('alice', 'whiterabbit')
-  click_on_icon('create-document')
-  click_on_text('metadata')
-  fill_element('textarea', "dc_title: #{title}")
-  leave_textarea
-  click_on_text('content')
-  fill_element('textarea', markdown)
-  leave_textarea
-  sign_out
-end
-

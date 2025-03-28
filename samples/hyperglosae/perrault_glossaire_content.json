@@ -1,0 +1,13 @@
+{
+  "_id": "66c32c560c0011f086923bf64fdf201f",
+  "isPartOf": "4c81f14e0bfe11f08335ab98f4298b8a",
+  "editors": ["alice"],
+  "text": "\"Il était une fois\"\n: \"Once upon a time\" (eng)\n: \"Bolo to raz\" (svk)",
+  "links": [{
+    "verb": "refersTo",
+    "object": "420ab198674f11eda3b7a3fdd5ea984f"
+  }, {
+    "verb": "refersTo",
+    "object": "09c906c6732b11ed89466ba197585f87"
+  }]
+}
