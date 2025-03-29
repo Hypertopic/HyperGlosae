@@ -14,7 +14,7 @@ function ParallelDocuments(id, content = [], margin) {
     let includedImage = (value.inclusion !== 'whole' ? '#' + value.inclusion : '')
       + ` "${doc ? getCaption(doc) : ''}"`;
     let imageReference = /!\[[^\]]*\]\([^)]+/;
-    return doc?.text.replace(imageReference, '$&' + includedImage);
+    return doc?.text?.replace(imageReference, '$&' + includedImage);
   };
 
   this.isFromScratch = id === margin;
