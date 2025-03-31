@@ -88,3 +88,10 @@ Soit("un autre document, en plusieurs passages, affiché comme glose et dont je 
   cy.sign_out();
 });
 
+Soit("un document dont je suis l'auteur affiché comme glose et contenant :", (text) => {
+  cy.sign_in('alice', '/');
+  cy.create_document_from_scratch();
+  cy.edit_content(text);
+  cy.sign_out();
+});
+

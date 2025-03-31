@@ -33,14 +33,6 @@ Soit('une session active avec mon compte') do
   sign_in('alice', 'whiterabbit')
 end
 
-Soit('un document existant affiché comme document principal') do
-  visit '/'
-  sign_in('alice', 'whiterabbit')
-  click_on_icon('create-document')
-  click_on_icon('focus')
-  sign_out
-end
-
 Soit("un document dont je suis l'auteur affiché comme glose") do
   visit '/4e1a31e14b032f2fa9e161ee9b123456'
   sign_in('alice', 'whiterabbit')
@@ -51,16 +43,6 @@ end
 Soit("un document dont je ne suis pas l'auteur affiché comme glose") do
   visit '/4e1a31e14b032f2fa9e161ee9b123456'
   sign_in('bill', 'madhatter')
-  click_on_icon('create-document')
-  sign_out
-end
-
-Soit('un document en deux passages affiché comme document principal') do
-  visit '/05b61f5285c711ed97bf6b9b56808c45'
-end
-
-Soit("un autre document, non découpé, affiché comme glose et dont je suis l'auteur") do
-  sign_in('alice', 'whiterabbit')
   click_on_icon('create-document')
   sign_out
 end

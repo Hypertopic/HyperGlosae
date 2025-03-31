@@ -69,3 +69,13 @@ Quand("je réutilise {string} comme glose", function (title) {
   cy.get('.existingDocument').first().click();
 });
 
+Quand("je découpe la glose en passages numérotés et que je me focalise sur la glose", () => {
+  cy.click_on_contextual_menu_item('.runningHead .scholium', 'Break into numbered passages');
+  cy.get('.focus').click();
+});
+
+Quand("je remplace le contenu de la glose par ce qui suit et que je me focalise sur la glose :", (markdown) => {
+  cy.click_on_text('content', '<TEXT>');
+  cy.get('textarea').type('{selectAll} ' + markdown.replaceAll(/[{}]/g, (x)=>`{${x}}`)).blur();
+  cy.get('.focus').click();
+});

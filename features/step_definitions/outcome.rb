@@ -34,7 +34,3 @@ Alors('le document comporte la vidéo {string}') do |uri|
   expect(page).to have_xpath("//iframe[contains(@src, '#{uri}')]")
 end
 
-Alors('le texte du premier passage de la glose est :') do |text|
-  expect(find('.editable.content', match: :first).text).to match /\A#{text}\z/
-end
-

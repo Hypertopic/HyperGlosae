@@ -93,3 +93,7 @@ Alors("la glose est ouverte en mode édition et contient :", (text) => {
   cy.get('.scholium textarea').should('contain', text);
 });
 
+Alors("la rubrique {string} est associée au passage {string}", (rubric, text) => {
+  cy.contains('.row', text).contains('.rubric', rubric);
+});
+
