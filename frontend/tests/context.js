@@ -39,7 +39,13 @@ Soit("{string} le document principal", (title) => {
 });
 
 Soit("un document dont je suis l'auteur affiché comme glose", () => {
-  cy.sign_in('alice', '/4e1a31e14b032f2fa9e161ee9b123456');
+  cy.sign_in('alice', '/');
+  cy.create_glose();
+  cy.sign_out();
+});
+
+Soit("un document reconnaissable dont je suis l'auteur affiché comme glose", () => {
+  cy.sign_in('alice', '/');
   cy.create_glose(true);
   cy.sign_out();
 });
