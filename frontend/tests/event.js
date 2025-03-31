@@ -79,3 +79,7 @@ Quand("je remplace le contenu de la glose par ce qui suit et que je me focalise 
   cy.get('textarea').type('{selectAll} ' + markdown.replaceAll(/[{}]/g, (x)=>`{${x}}`)).blur();
   cy.get('.focus').click();
 });
+
+Quand("j'essaie d'ouvrir l'URI {string} reçue par courriel", (uri) => {
+  cy.visit(uri);
+});
