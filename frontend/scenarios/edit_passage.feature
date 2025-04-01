@@ -24,3 +24,15 @@ Scénario: quand celle-ci pré-existe
     """
   Alors la glose contient "Passage intéressant !"
 
+Scénario: avec une mise en forme
+
+  Quand j'essaie de remplacer l'annotation du passage 2 par :
+    """
+    [plusieurs personnes se présentent à moi. Ayant identifié que je suis nouveau, elles me souhaitent la bienvenue]
+    Se **socialiser**
+    """
+  Alors l'annotation affichée est  :
+    """
+    [plusieurs personnes se présentent à moi. Ayant identifié que je suis nouveau, elles me souhaitent la bienvenue]
+    Se **socialiser**
+    """
