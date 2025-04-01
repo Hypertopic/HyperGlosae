@@ -16,3 +16,8 @@ Scénario: d'un document en regard d'une de ses gloses
   Alors "Analyse de l'entretien" est le document principal
   Et "Flux de l'Institut (diagramme d'activité)" est la glose ouverte
 
+Scénario: d'un document avec une URI invalide
+
+  Quand j'essaie d'ouvrir l'URI "/inexistant123456" partagé avec lui
+  Alors une page d'erreur dédiée s'affiche indiquant qu'aucun document n'a été trouvé
+  Et je peux lire "le document que vous cherchez a été supprimé par les co-éditeurs ou l'URI fournie est incorrecte"
