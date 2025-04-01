@@ -23,6 +23,13 @@ Scénario: en tant que collection
   Quand j'essaie de créer un glose de type "Quotation"
   Alors je vois l'image "2019_10-13_16_UKR_R_A" dans la glose
 
+Scénario: en tant que composition partielle de texte
+
+  Soit le document contenant le texte de perrault_1886 affiché comme document principal
+  Et une session active avec mon compte
+  Quand j'essaie de créer une glose de type "Quotation"
+  Alors je vois le texte du document dans la glose
+
 Scénario: à partir de zéro
 
   Soit la liste des documents affichée
