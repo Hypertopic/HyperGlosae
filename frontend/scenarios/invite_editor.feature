@@ -6,7 +6,7 @@ Scénario: dont on est l'auteur
 
   Soit un document reconnaissable dont je suis l'auteur affiché comme glose
   Et une session active avec mon compte
-  Quand j'essaie d'accorder les droits d'édition à "christophe"
+  Quand j'essaie d'accorder les droits d'édition à "Christophe"
   Alors je vois "christophe" dans la liste des éditeurs
   Et "christophe" peut modifier le document
   Et le document apparaît dans la bibliothèque de "christophe"
