@@ -31,7 +31,8 @@ Soit("{string} le document principal", (title) => {
   const uris = {
     'Les fées (Charles Perrault)': '/37b4b9ba5cdb11ed887beb5c373fa643',
     'Vidéo Sherlock Jr. (Buster Keaton)': '/4e1a31e14b032f2fa9e161ee9b009125',
-    'Treignes, le 8 septembre 2012 (Christophe Lejeune)': '/6b56ee657c870dfacd34e9ae4e0643dd',
+    'Treignes, le 8 septembre 2012 (Christophe Lejeune)': '/6b56ee657c870dfacd34e9ae4e0643dd',    
+    'Restaurer la vapeur': '/6b56ee657c870dfacd34e9ae4e050fcc',
   };
   expect(uris).to.contain.key(title);
   cy.visit(uris[title]);
@@ -95,3 +96,10 @@ Soit("un document dont je suis l'auteur affiché comme glose et contenant :", (t
   cy.sign_out();
 });
 
+Soit ("qui n'a pas de document source", () => {
+  cy.get('.sources').find('.card-body').should('not.exist');
+});
+
+Soit ("qui a un document source", () => {
+  cy.get('.sources').find('.card-body').should('exist');
+});
