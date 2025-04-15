@@ -12,7 +12,7 @@ import DeleteDocumentAction from '../menu-items/DeleteDocumentAction';
 import Bookmark from './Bookmark';
 import LicenseCompatibility from './LicenseCompatibility';
 
-function OpenedDocuments({id, margin, metadata, parallelDocuments, hasSources, backend, user, setLastUpdate}) {
+function OpenedDocuments({id, margin, metadata, parallelDocuments, backend, user, setLastUpdate}) {
   const marginMetadata = metadata.getDocument(margin);
   const marginLicense = marginMetadata?.dc_license;
   const sourceMetadata = metadata.focusedDocument;
@@ -20,7 +20,7 @@ function OpenedDocuments({id, margin, metadata, parallelDocuments, hasSources, b
   return (
     <Col className="lectern" {...{xs}} >
       <Row className ="runningHead">
-        <RunningHeadSource {...{id, metadata, hasSources, parallelDocuments, backend, user}} />
+        <RunningHeadSource {...{id, metadata, parallelDocuments, backend, user}} />
         <RunningHeadMargin {...{parallelDocuments, margin, backend, setLastUpdate}}
           metadata={marginMetadata}
         />
@@ -51,7 +51,7 @@ function OpenedDocuments({id, margin, metadata, parallelDocuments, hasSources, b
   );
 }
 
-function RunningHeadSource({id, metadata, hasSources, parallelDocuments, backend, user}) {
+function RunningHeadSource({id, metadata, parallelDocuments, backend, user}) {
   metadata = metadata.focusedDocument;
   if (parallelDocuments.isFromScratch) return (
     <Col className="main" />
@@ -59,7 +59,7 @@ function RunningHeadSource({id, metadata, hasSources, parallelDocuments, backend
   return (
     <Col className="main">
       <Bookmark {...{backend, user, id}} />
-      <BrowseTools {...{id}} editable={!hasSources} focusable={false} />
+      <BrowseTools {...{id}} editable={true} focusable={false} />
       <Metadata {...{metadata}} />
       <TypeBadge type={metadata?.type} />
     </Col>
