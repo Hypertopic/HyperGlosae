@@ -83,3 +83,8 @@ Quand("je remplace le contenu de la glose par ce qui suit et que je me focalise 
 Quand("j'essaie d'ouvrir l'URI {string} reçue par courriel", (uri) => {
   cy.visit(uri);
 });
+
+Quand("je souhaite modifier le contenu du document principal", () => {
+  cy.get('.icon.edit').click();
+  cy.click_on_text('content');
+});
