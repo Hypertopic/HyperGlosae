@@ -97,3 +97,7 @@ Alors("la rubrique {string} est associée au passage {string}", (rubric, text) =
   cy.contains('.row', text).contains('.rubric', rubric);
 });
 
+Alors("{string} est la glose ouverte en mode édition", (title) => {
+  cy.get('.runningHead .scholium').should('contain', title);
+  cy.get('.scholium').should('have.descendants', 'form');
+});
