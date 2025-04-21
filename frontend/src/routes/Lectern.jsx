@@ -40,13 +40,17 @@ function Lectern({backend, user}) {
         <Col md={2} className="sources">
           <DocumentsCards docs={metadata.forwardLinkedDocuments} byRow={1} />
         </Col>
-        <OpenedDocuments
-          hasSources={metadata.forwardLinkedDocuments.length > 0}
-          {...{id, margin, metadata, parallelDocuments, user, backend, setLastUpdate}}
-        />
-        <References active={!margin} createOn={[id]}
-          {...{metadata, user, setLastUpdate, backend}}
-        />
+        <Col>
+          <Row>
+            <OpenedDocuments
+              hasSources={metadata.forwardLinkedDocuments.length > 0}
+              {...{id, margin, metadata, parallelDocuments, user, backend, setLastUpdate}}
+            />
+            <References active={!margin} createOn={[id]}
+              {...{metadata, user, setLastUpdate, backend}}
+            />
+          </Row>
+        </Col>
       </Row>
     </Container>
   );

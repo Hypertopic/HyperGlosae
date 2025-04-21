@@ -16,8 +16,9 @@ function OpenedDocuments({id, margin, metadata, parallelDocuments, hasSources, b
   const marginMetadata = metadata.getDocument(margin);
   const marginLicense = marginMetadata?.dc_license;
   const sourceMetadata = metadata.focusedDocument;
+  const xs = margin ? 12 : 7;
   return (
-    <Col className="lectern">
+    <Col className="lectern" {...{xs}} >
       <Row className ="runningHead">
         <RunningHeadSource {...{id, metadata, hasSources, parallelDocuments, backend, user}} />
         <RunningHeadMargin {...{parallelDocuments, margin, backend, setLastUpdate}}
