@@ -6,7 +6,7 @@ Hyperglosae frontend is composed of the following React components:
 
 ![screenshot](../../docs/component_bookshelf.png)
 
-Source: [routes/Bookshelf.js](https://github.com/Hypertopic/HyperGlosae/blob/main/frontend/src/routes/Bookshelf.js)
+Source: [routes/Bookshelf.jsx](https://github.com/Hypertopic/HyperGlosae/blob/main/frontend/src/routes/Bookshelf.jsx)
 
 Parts:
 
@@ -19,7 +19,7 @@ Parts:
 ![screenshot](../../docs/component_lectern.png)
 ![screenshot](../../docs/component_lectern2.png)
 
-Source: [routes/Lectern.js](https://github.com/Hypertopic/HyperGlosae/blob/main/frontend/src/routes/Lectern.js)
+Source: [routes/Lectern.jsx](https://github.com/Hypertopic/HyperGlosae/blob/main/frontend/src/routes/Lectern.jsx)
 
 Parts:
 
@@ -31,7 +31,7 @@ Parts:
 <img src="../../docs/component_documentscards.png" width="15%" />
 <img src="../../docs/component_documentscards2.png" width="40%" />
 
-Source: [components/DocumentsCards.js](https://github.com/Hypertopic/HyperGlosae/blob/main/frontend/src/components/DocumentsCards.js)
+Source: [components/DocumentsCards.jsx](https://github.com/Hypertopic/HyperGlosae/blob/main/frontend/src/components/DocumentsCards.jsx)
 
 Parts:
 
@@ -45,7 +45,7 @@ Parts:
 <img src="../../docs/component_openeddocuments.png" width="50%" />
 <img src="../../docs/component_openeddocuments2.png" />
 
-Source: [components/OpenedDocuments.js](https://github.com/Hypertopic/HyperGlosae/blob/main/frontend/src/components/OpenedDocuments.js)
+Source: [components/OpenedDocuments.jsx](https://github.com/Hypertopic/HyperGlosae/blob/main/frontend/src/components/OpenedDocuments.jsx)
 
 Parts:
 
@@ -60,7 +60,7 @@ Parts:
 <img src="../../docs/component_browsetools.png" width="5%" />
 <img src="../../docs/component_browsetools2.png" width="5%" />
 
-Source: [components/BrowseTools.js](https://github.com/Hypertopic/HyperGlosae/blob/main/frontend/src/components/BrowseTools.js)
+Source: [components/BrowseTools.jsx](https://github.com/Hypertopic/HyperGlosae/blob/main/frontend/src/components/BrowseTools.jsx)
 
 Parts: **none**
 
@@ -69,7 +69,7 @@ Parts: **none**
 <img src="../../docs/component_metadata.png" width="10%" />
 <img src="../../docs/component_metadata2.png" width="30%" />
 
-Source: [components/Metadata.js](https://github.com/Hypertopic/HyperGlosae/blob/main/frontend/src/components/Metadata.js)
+Source: [components/Metadata.jsx](https://github.com/Hypertopic/HyperGlosae/blob/main/frontend/src/components/Metadata.jsx)
 
 Parts: **none**
 
@@ -79,7 +79,7 @@ Parts: **none**
 <img src="../../docs/component_futuredocument2.png" width="35%" />
 <img src="../../docs/component_futuredocument3.png" width="35%" />
 
-Source: [components/FutureDocument.js](https://github.com/Hypertopic/HyperGlosae/blob/main/frontend/src/components/FutureDocument.js)
+Source: [components/FutureDocument.jsx](https://github.com/Hypertopic/HyperGlosae/blob/main/frontend/src/components/FutureDocument.jsx)
 
 Parts: **none**
 
@@ -90,7 +90,7 @@ Parts: **none**
 <img src="../../docs/component_passage2.png" />
 <img src="../../docs/component_passage3.png" />
 
-Source: [components/Passage.js](https://github.com/Hypertopic/HyperGlosae/blob/main/frontend/src/components/Passage.js)
+Source: [components/Passage.jsx](https://github.com/Hypertopic/HyperGlosae/blob/main/frontend/src/components/Passage.jsx)
 
 Parts:
 
@@ -99,7 +99,7 @@ Parts:
 
 ## FormattedText
 
-Source: [components/FormattedText.js](https://github.com/Hypertopic/HyperGlosae/blob/main/frontend/src/components/FormattedText.js)
+Source: [components/FormattedText.jsx](https://github.com/Hypertopic/HyperGlosae/blob/main/frontend/src/components/FormattedText.jsx)
 
 Parts:
 
@@ -107,7 +107,7 @@ Parts:
 
 ## EditableText
 
-Source: [components/EditableText.js](https://github.com/Hypertopic/HyperGlosae/blob/main/frontend/src/components/EditableText.js)
+Source: [components/EditableText.jsx](https://github.com/Hypertopic/HyperGlosae/blob/main/frontend/src/components/EditableText.jsx)
 
 Parts:
 
@@ -116,12 +116,12 @@ Parts:
 
 ## CroppedImage
 
-Source: [components/CroppedImage.js](https://github.com/Hypertopic/HyperGlosae/blob/main/frontend/src/components/CroppedImage.js)
+Source: [components/CroppedImage.jsx](https://github.com/Hypertopic/HyperGlosae/blob/main/frontend/src/components/CroppedImage.jsx)
 
 Parts: **none**
 
 ## VideoCommment
 
-Source: [components/VideoComment.js](https://github.com/Hypertopic/HyperGlosae/blob/main/frontend/src/components/VideoComment.js)
+Source: [components/VideoComment.jsx](https://github.com/Hypertopic/HyperGlosae/blob/main/frontend/src/components/VideoComment.jsx)
 
 Parts: **none**
