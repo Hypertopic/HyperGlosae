@@ -43,7 +43,7 @@ export default function InviteEditorsAction({metadata, backend, setLastUpdate}) 
             <Form.Control
               className="add-user-input"
               value={userName}
-              onInput={(event) => setUserName(event.target.value)}
+              onInput={(event) => setUserName(event.target.value.toLowerCase())}
             />
             <Button variant="primary" onClick={addEditor} className="add-user-input-btn">
               Invite

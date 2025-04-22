@@ -7,7 +7,7 @@ function Registration({backend}) {
   const handleSubmit = (e) => {
     e.preventDefault();
     let user = {
-      name: e.target[0].value,
+      name: e.target[0].value.toLowerCase(),
       password: e.target[1].value,
       type: 'user',
       roles: [],
