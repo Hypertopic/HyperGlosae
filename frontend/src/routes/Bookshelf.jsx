@@ -33,7 +33,9 @@ function Bookshelf({ backend, user }) {
               <Graph rawDocs={docs} {...{displayedDocs}} />
             </Col>
             <Col>
-              <FutureDocument relatedTo={[]} {...{setLastUpdate, backend, user}} />
+              <FutureDocument relatedTo={[]} documentSubPartsIds={[]}
+                {...{setLastUpdate, backend, user}}
+              />
             </Col>
           </Row>
         );
