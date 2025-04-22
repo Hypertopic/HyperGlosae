@@ -66,7 +66,7 @@ function FutureDocumentIcon({relatedTo, verb, setLastUpdate, backend, user}) {
     };
     backend.putDocument({
       ...doc,
-      links: relatedTo.map(object => ({verb, object}))
+      links: relatedTo.map(object => ({verb, object }))
     })
       .then(() => {
         setLastUpdate(_id);
