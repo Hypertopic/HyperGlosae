@@ -34,9 +34,15 @@ function Lectern({backend, user}) {
     setParallelDocuments(new ParallelDocuments(id, content, margin));
   }, [id, content, margin, lastUpdate]);
 
+<<<<<<< HEAD
   const createOn = [...new Set([...content
     .filter(object => object.value.isPartOf == id)
     .map((object) => (object.doc == null) ? object.id : object.doc._id), id])];
+=======
+  const documentSubPartsIds = [...new Set(content
+    .filter(object => object.value.isPartOf == id)
+    .map((object) => (object.doc == null) ? object.id : object.doc._id))];
+>>>>>>> ef4fa24 (FIX: A document that quotes another should include all of its contents (fixes #260).)
 
   return (
     <Container className="screen">
@@ -60,12 +66,12 @@ function Lectern({backend, user}) {
   );
 }
 
-function References({metadata, active, createOn, setLastUpdate, backend, user}) {
+function References({metadata, active, createOn, setLastUpdate, backend, user, documentSubPartsIds}) {
   if (!active) return;
   return (
     <Col className="gloses" >
       <DocumentsCards docs={metadata.reverseLinkedDocuments} expandable={true} byRow={1}
-        {...{createOn, setLastUpdate, backend, user}}
+        {...{createOn, setLastUpdate, backend, user, documentSubPartsIds}}
       />
     </Col>
   );
