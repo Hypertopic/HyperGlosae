@@ -16,14 +16,14 @@ function Graph({ rawDocs, displayedDocs }) {
     ));
     const typeColorScale = scaleOrdinal(types, schemeCategory10);
     const nodes = docs.map(([id, title]) => ({id, title}));
-    const links = docs.filter(d => d[2] !== undefined && d[2].map(l => l.object).every(o => displayedDocs.includes(o.split('#')[0])))
-      .flatMap(d =>
-        d[2].map(l => ({
-          source: d[0],
-          type: l.verb,
-          target: l.object.split('#')[0]
-        }))
-      );
+    const links = docs.flatMap(d =>(d[2] || [])
+      .filter(l => displayedDocs.includes(l.object.split('#')[0]))
+      .map(l => ({
+        source: d[0],
+        type: l.verb,
+        target: l.object.split('#')[0]
+      }))
+    );
 
     const simulation = forceSimulation(nodes)
       .force('link', forceLink(links).id(d => d.id))
