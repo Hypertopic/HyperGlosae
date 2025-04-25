@@ -1,3 +1,11 @@
 .bookshelf .card {
   background-color: ghostwhite;
 }
+.bookshelf .btn {
+  color: rgb(81, 81, 81);
+}
+.bookshelf .btn-check:checked + .btn {
+  color: black;
+  font-weight: bold;
+  background-color: #de940a;
+}
