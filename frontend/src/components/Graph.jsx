@@ -9,19 +9,20 @@ function Graph({ rawDocs, displayedDocs }) {
 
   useEffect(() => {
     let docs = rawDocs || [];
-    const types = Array.from(new Set(docs
-      .flatMap(d => d[2])
-      .filter(x => x !== undefined)
-      .map(x => x.verb)
-    ));
-    const typeColorScale = scaleOrdinal(types, schemeCategory10);
+    const types = {
+      adapts: 'is adapted as',
+      refersTo: 'is referred by',
+      includes: 'is included in',
+    };
+    const typeColorScale = scaleOrdinal(Object.values(types), schemeCategory10);
     const nodes = docs.map(([id, title]) => ({id, title}));
     const links = docs.flatMap(d =>(d[2] || [])
       .filter(l => displayedDocs.includes(l.object.split('#')[0]))
       .map(l => ({
-        source: d[0],
+        source: l.object.split('#')[0],
+        target: d[0],
         type: l.verb,
-        target: l.object.split('#')[0]
+        inverseType: types[l.verb] || `${l.verb} (inverse)`
       }))
     );
 
@@ -40,9 +41,9 @@ function Graph({ rawDocs, displayedDocs }) {
       .attr('style', 'font: 12px sans-serif;');
 
     svg.append('defs').selectAll('marker')
-      .data(types)
+      .data(links)
       .join('marker')
-      .attr('id', d => `arrow-${d}`)
+      .attr('id', d => `arrow-${d.type}-inverse`)
       .attr('viewBox', '0 -5 10 10')
       .attr('refX', 15)
       .attr('refY', -0.5)
@@ -50,7 +51,7 @@ function Graph({ rawDocs, displayedDocs }) {
       .attr('markerHeight', 6)
       .attr('orient', 'auto')
       .append('path')
-      .attr('fill', typeColorScale)
+      .attr('fill', d => typeColorScale(d.inverseType))
       .attr('d', 'M0,-5L10,0L0,5');
 
     const link = svg.append('g')
@@ -59,8 +60,8 @@ function Graph({ rawDocs, displayedDocs }) {
       .selectAll('path')
       .data(links)
       .join('path')
-      .attr('stroke', d => typeColorScale(d.type))
-      .attr('marker-end', d => `url(${new URL(`#arrow-${d.type}`, window.location)})`);
+      .attr('stroke', d => typeColorScale(d.inverseType))
+      .attr('marker-end', d => `url(${new URL(`#arrow-${d.type}-inverse`, window.location)})`);
 
     const node = svg.append('g')
       .attr('fill', 'currentColor')
@@ -90,7 +91,8 @@ function Graph({ rawDocs, displayedDocs }) {
     let legendLinear = legendColor()
       .shapeWidth(30)
       .orient('vertical')
-      .scale(typeColorScale);
+      .scale(typeColorScale)
+      .labels(Object.values(types));
     svg.select('.legendLinear')
       .call(legendLinear);
 
