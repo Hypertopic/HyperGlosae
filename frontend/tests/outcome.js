@@ -101,3 +101,18 @@ Alors("{string} est la glose ouverte en mode édition", (title) => {
   cy.get('.runningHead .scholium').should('contain', title);
   cy.get('.scholium').should('have.descendants', 'form');
 });
+
+Alors("la glose ouverte a {string} parmi les éditeurs par défaut", (userName) => {
+  cy.get('.icon.edit').click()
+  cy.click_on_contextual_menu_item('.runningHead .scholium', 'Invite editors...');
+
+  cy.get('.list-group').should('contain', userName);
+});
+
+Alors("la glose ouverte a {string} et {string} parmi les éditeurs par défaut", (userName1, userName2) => {
+  cy.get('.icon.edit').click()
+  cy.click_on_contextual_menu_item('.runningHead .scholium', 'Invite editors...');
+
+  cy.get('.list-group').should('contain', userName1);
+  cy.get('.list-group').should('contain', userName2);
+});

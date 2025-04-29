@@ -31,7 +31,7 @@ Soit("{string} le document principal", (title) => {
   const uris = {
     'Les fées (Charles Perrault)': '/37b4b9ba5cdb11ed887beb5c373fa643',
     'Vidéo Sherlock Jr. (Buster Keaton)': '/4e1a31e14b032f2fa9e161ee9b009125',
-    'Treignes, le 8 septembre 2012 (Christophe Lejeune)': '/6b56ee657c870dfacd34e9ae4e0643dd',    
+    'Treignes, le 8 septembre 2012 (Christophe Lejeune)': '/6b56ee657c870dfacd34e9ae4e0643dd',
     'Restaurer la vapeur': '/6b56ee657c870dfacd34e9ae4e050fcc',
   };
   expect(uris).to.contain.key(title);
@@ -102,4 +102,20 @@ Soit ("qui n'a pas de document source", () => {
 
 Soit ("qui a un document source", () => {
   cy.get('.sources').find('.card-body').should('exist');
+});
+
+Soit("ayant parmi les éditeurs {string} et {string}", (userName1, userName2) => {
+  cy.get('.icon.edit').click()
+  cy.click_on_contextual_menu_item('.runningHead .scholium', 'Invite editors...');
+
+  cy.get('.modal-dialog input').type(userName1);
+  cy.contains('button', 'Invite').click();
+  cy.get('.list-group').should('contain', userName1);
+
+  cy.get('.modal-dialog input').type(userName2);
+  cy.contains('button', 'Invite').click();
+  cy.get('.list-group').should('contain', userName2);
+
+  cy.get('.btn-close').click();
+  cy.get('.icon.focus').click()
 });
