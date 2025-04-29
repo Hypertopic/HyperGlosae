@@ -17,9 +17,19 @@ exports.emitPassages = ({text, isPartOf, related}) => {
   let passages = [...text.matchAll(PASSAGE)];
   passages = (passages.length) ? passages : [[null, null, text]];
   passages.forEach(([_, rubric, passage]) => {
- 	  related.forEach(x => {
- 	    emit([x, Number(rubric)], {text: passage, isPartOf, _id: null});
- 	  });
+    let rubic_part;
+    if (rubric) {
+     rubic_part = rubric.match( /(?:(\d+)[:\.,])?(\d+)([a-z]?)/ )
+    } else {
+      rubic_part = '';
+    }
+    if (rubic_part && rubic_part.length > 0) {
+      rubic_part = rubic_part.slice(1)
+      .map(x => Number(x) || x)  
+    }
+      related.forEach(x => {
+        emit([x, rubic_part], {text: passage, isPartOf, _id: null});
+      });
   });
 }
 
