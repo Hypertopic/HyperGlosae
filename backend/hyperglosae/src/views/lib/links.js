@@ -19,8 +19,6 @@ exports.emitPassages = ({ text, isPartOf, related }) => {
   passages = passages.length ? passages : [[null, null, text]];
   passages.forEach(([_, rubric, passage]) => {
     let rubic_part;
-    log("iciiiiiiiiiiiiiiiiiiiiiiiiiii");
-    log(rubic_part);
     if (rubric) {
       rubic_part = rubric.match(/(?:(\d+)[:\.,])?(\d+)([a-z]?)/);
       if (rubic_part && rubic_part.length > 0) {
@@ -28,8 +26,6 @@ exports.emitPassages = ({ text, isPartOf, related }) => {
       }
     } else {
       rubic_part = Number(rubric);
-      log("2iciiiiiiiiiiiiiiiiiiiiiiiiiii");
-      log(rubic_part);
     }
 
     related.forEach((x) => {
