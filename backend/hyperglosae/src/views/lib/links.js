@@ -1,46 +1,59 @@
 exports.parseReference = parseReference = (reference) => {
-  let [id, fragment] = reference.split('#');
-  return {id, fragment};
-}
+  let [id, fragment] = reference.split("#");
+  return { id, fragment };
+};
 
 // Note: The result set includes also the document itself or its main document
-exports.getRelatedDocuments = ({isPartOf, links}) =>
+exports.getRelatedDocuments = ({ isPartOf, links }) =>
   new Set(
-    links.reduce((l, {object, subject}) => [...l, subject, object], [])
-      .filter(x => !!x)
+    links
+      .reduce((l, { object, subject }) => [...l, subject, object], [])
+      .filter((x) => !!x)
       .concat(isPartOf)
-      .map(x => parseReference(x).id)
+      .map((x) => parseReference(x).id)
   );
 
-exports.emitPassages = ({text, isPartOf, related}) => {
+exports.emitPassages = ({ text, isPartOf, related }) => {
   const PASSAGE = /{([^{]+)} ([^{]*)/g;
   let passages = [...text.matchAll(PASSAGE)];
-  passages = (passages.length) ? passages : [[null, null, text]];
+  passages = passages.length ? passages : [[null, null, text]];
   passages.forEach(([_, rubric, passage]) => {
     let rubic_part;
+    log("iciiiiiiiiiiiiiiiiiiiiiiiiiii");
+    log(rubic_part);
     if (rubric) {
-     rubic_part = rubric.match( /(?:(\d+)[:\.,])?(\d+)([a-z]?)/ )
+      rubic_part = rubric.match(/(?:(\d+)[:\.,])?(\d+)([a-z]?)/);
+      if (rubic_part && rubic_part.length > 0) {
+        rubic_part = rubic_part.slice(1).map((x) => Number(x) || x);
+      }
     } else {
-      rubic_part = '';
+      rubic_part = Number(rubric);
+      log("2iciiiiiiiiiiiiiiiiiiiiiiiiiii");
+      log(rubic_part);
     }
-    if (rubic_part && rubic_part.length > 0) {
-      rubic_part = rubic_part.slice(1)
-      .map(x => Number(x) || x)  
-    }
-      related.forEach(x => {
-        emit([x, rubic_part], {text: passage, isPartOf, _id: null});
-      });
-  });
-}
 
-exports.emitIncludedDocuments = ({isPartOf, links}) => {
-  let includedDocuments = links
-    .filter(x => x.verb === 'includes')
-    .map(x => parseReference(x.object));
-  includedDocuments.forEach((x, i) => {
-    emit([isPartOf, i], {inclusion: x.fragment || 'whole', isPartOf, _id: x.id});
-    includedDocuments.forEach((y, j) => {
-      emit([x.id, j], {inclusion: y.fragment || 'whole', isPartOf, _id: y.id});
+    related.forEach((x) => {
+      emit([x, rubic_part], { text: passage, isPartOf, _id: null });
     });
   });
-}
+};
+
+exports.emitIncludedDocuments = ({ isPartOf, links }) => {
+  let includedDocuments = links
+    .filter((x) => x.verb === "includes")
+    .map((x) => parseReference(x.object));
+  includedDocuments.forEach((x, i) => {
+    emit([isPartOf, i], {
+      inclusion: x.fragment || "whole",
+      isPartOf,
+      _id: x.id,
+    });
+    includedDocuments.forEach((y, j) => {
+      emit([x.id, j], {
+        inclusion: y.fragment || "whole",
+        isPartOf,
+        _id: y.id,
+      });
+    });
+  });
+};
