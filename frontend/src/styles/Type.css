@@ -13,3 +13,28 @@
     display: inline-block;
     word-break: break-word;
 }
+
+.typeIcon {
+    opacity: 1 !important;
+    cursor: pointer;
+    transition: filter 0.3s ease;
+    display: inline-block !important;
+    visibility: visible !important;
+}
+
+.typeIcon:hover {
+    filter: brightness(1.5);
+}
+
+.dropdown-toggle::after,
+.dropdown-toggle .three-dots {
+    opacity: 1 !important;
+    visibility: visible !important;
+    display: inline-block !important;
+}
+
+.always-visible {
+    opacity: 1 !important;
+    visibility: visible !important;
+    display: inline-block !important;
+}

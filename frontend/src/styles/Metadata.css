@@ -15,3 +15,38 @@
 .license a:hover {
   color: inherit;
 }
+
+.icon {
+  opacity: 1 !important;
+  cursor: pointer;
+  transition: filter 0.3s ease;
+}
+
+.icon:hover {
+  filter: brightness(1.5);
+}
+
+.dropdown-menu-icon, .dropdown-toggle-icon {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.always-visible {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.discreete-dropdown-toggle,
+.discreete-dropdown .dropdown-toggle {
+    opacity: 1 !important;
+    visibility: visible !important;
+    display: inline-block !important;
+}
+
+.discreete-dropdown .three-dots-icon,
+.discreete-dropdown .dropdown-icon {
+    opacity: 1 !important;
+    visibility: visible !important;
+    display: inline-block !important;
+}
+

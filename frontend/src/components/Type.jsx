@@ -3,7 +3,7 @@ import '../styles/Type.css';
 
 import { TagFill } from 'react-bootstrap-icons';
 import { useState, useContext } from 'react';
-import { ListGroup } from 'react-bootstrap';
+import { ListGroup, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { TypesContext } from './TypesContext.js';
 
 export function TypeBadge({ type, addClassName }) {
@@ -81,7 +81,17 @@ function Type({ metadata, editable, backend }) {
     <div style={{ paddingTop: 10, paddingBottom: 30 }}>
       <div style={{ paddingTop: 0, justifyContent: 'flex-end' }}>
         <TypeBadge addClassName="typeSelected" type={typeSelected}/>
-        {editable ? <TagFill onClick={handleEdit} className="icon typeIcon" title="Apply a label..."/> : null}
+        {editable ? (
+          <OverlayTrigger
+            placement="top"
+            overlay={<Tooltip id="tooltip-apply-label">Apply a label...</Tooltip>}
+          >
+            <TagFill
+              onClick={handleEdit}
+              className="icon typeIcon always-visible"
+            />
+          </OverlayTrigger>
+        ) : null}
       </div>
       {beingEdited ?
         <TypeList typeSelected={typeSelected} handleUpdate={handleUpdate}/>

@@ -1,14 +1,11 @@
-.discreete-dropdown {
-  visibility: hidden;
-}
-
-:is(.runningHead .scholium, .scholium .content, .main):hover .discreete-dropdown {
-  visibility: visible;
-}
-
 .discreete-dropdown .toggle {
   margin-top: 0.25rem;
   color: crimson;
   cursor: pointer;
+  transition: filter 0.3s ease, color 0.3s ease;
 }
 
+.discreete-dropdown .toggle:hover {
+  filter: brightness(1.6);
+  color: crimson;
+}
