@@ -2,7 +2,7 @@ import '../styles/FutureDocument.css';
 
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Card, Nav, Form, Button } from 'react-bootstrap';
+import { Card, Nav, Form, Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { PlusLg, Link } from 'react-bootstrap-icons';
 import { v4 as uuid } from 'uuid';
 import DocumentList from './DocumentList';
@@ -59,11 +59,14 @@ const FutureDocument = ({ relatedTo, setLastUpdate, backend, user }) => {
   return relatedTo.length === 0 ? (
     <Card>
       <Card.Body className="d-flex justify-content-center align-items-center">
-        <PlusLg
-          title="Create a document from scratch"
-          className="icon create-document ms-2"
-          onClick={handleCreateDocument}
-        />
+        <OverlayTrigger placement="top" overlay={
+          <Tooltip id="tooltip-bookmark"> Create a document from scratch </Tooltip>
+        }>
+          <PlusLg
+            className="icon create-document ms-2"
+            onClick={handleCreateDocument}
+          />
+        </OverlayTrigger>
       </Card.Body>
     </Card>
   ) : (
@@ -73,14 +76,12 @@ const FutureDocument = ({ relatedTo, setLastUpdate, backend, user }) => {
           <Nav.Item>
             <Nav.Link eventKey="create_glose">
               <PlusLg
-                title="Create a document as a glose"
                 className="icon ms-2"
               /></Nav.Link>
           </Nav.Item>
           <Nav.Item>
             <Nav.Link eventKey="use_existing_document">
               <Link
-                title="Use an existing document as a glose..."
                 className="icon select-document ms-2 link-icon"
               />
             </Nav.Link>
@@ -90,7 +91,7 @@ const FutureDocument = ({ relatedTo, setLastUpdate, backend, user }) => {
       <Card.Body>
         {activeTab === 'create_glose' && (
           <>
-            <div>Create a document as a glose</div>
+            <div>Create a document as a...</div>
             <Form.Select
               id="select-dropdown"
               className="select-form mt-3"
@@ -123,7 +124,7 @@ const FutureDocument = ({ relatedTo, setLastUpdate, backend, user }) => {
         )}
         {activeTab === 'use_existing_document' && (
           <>
-            <div>Use an existing document as a glose...</div>
+            <div>Use an existing document as a...</div>
             <Form.Select
               id="select-dropdown"
               className="select-form mt-3 mb-3"
