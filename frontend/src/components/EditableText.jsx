@@ -5,6 +5,7 @@ import FormattedText from './FormattedText';
 import DiscreeteDropdown from './DiscreeteDropdown';
 import PictureUploadAction from '../menu-items/PictureUploadAction';
 import {v4 as uuid} from 'uuid';
+import { NotificationManager } from 'react-notifications';
 
 function EditableText({id, text, rubric, isPartOf, links, fragment, setFragment, setHighlightedText, setSelectedText, backend, setLastUpdate}) {
   const [beingEdited, setBeingEdited] = useState(false);
@@ -73,7 +74,11 @@ function EditableText({id, text, rubric, isPartOf, links, fragment, setFragment,
       ? editedDocument.text.replace(PASSAGE, `{${rubric}} ${parsedText}`)
       : editedText;
     backend.putDocument({ ...editedDocument, text })
-      .then(x => setLastUpdate(x.rev))
+      .then(x => {
+        setLastUpdate(x.rev);
+        // Notification après découpage
+        NotificationManager.info('Découpage en passage effectué avec succès.');
+      })
       .then(() => setHighlightedText())
       .then(() => setBeingEdited(false))
       .catch(console.error);
