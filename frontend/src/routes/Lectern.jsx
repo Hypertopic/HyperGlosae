@@ -35,10 +35,6 @@ function Lectern({backend, user}) {
     setParallelDocuments(new ParallelDocuments(id, content, margin, rawEditMode));
   }, [id, content, margin, rawEditMode, lastUpdate]);
 
-  const documentSubPartsIds = [...new Set(content
-    .filter(object => object.value.isPartOf == id)
-    .map((object) => (object.doc == null) ? object.id : object.doc._id))];
-
   return (
     <Container className="screen">
       <Row>
@@ -52,7 +48,7 @@ function Lectern({backend, user}) {
               {...{id, margin, metadata, parallelDocuments, user, rawEditMode, setRawEditMode, backend, setLastUpdate}}
             />
             <References active={!margin} createOn={[id]}
-              {...{metadata, user, setLastUpdate, backend, documentSubPartsIds}}
+              {...{metadata, user, setLastUpdate, backend}}
             />
           </Row>
         </Col>
@@ -61,12 +57,12 @@ function Lectern({backend, user}) {
   );
 }
 
-function References({metadata, active, createOn, setLastUpdate, backend, user, documentSubPartsIds}) {
+function References({metadata, active, createOn, setLastUpdate, backend, user}) {
   if (!active) return;
   return (
     <Col className="gloses" >
       <DocumentsCards docs={metadata.reverseLinkedDocuments} expandable={true} byRow={1}
-        {...{createOn, setLastUpdate, backend, user, documentSubPartsIds}}
+        {...{createOn, setLastUpdate, backend, user}}
       />
     </Col>
   );

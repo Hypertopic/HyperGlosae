@@ -7,7 +7,7 @@ import { PlusLg, Link } from 'react-bootstrap-icons';
 import { v4 as uuid } from 'uuid';
 import DocumentList from './DocumentList';
 
-function FutureDocument({relatedTo, setLastUpdate, backend, user, documentSubPartsIds}) {
+function FutureDocument({relatedTo, setLastUpdate, backend, user}) {
   const [verb, setVerb] = useState('refersTo');
   const [showDocumentList, setShowDocumentList] = useState(false);
   const [selectedDocument, setSelectedDocument] = useState(null);
@@ -29,7 +29,7 @@ function FutureDocument({relatedTo, setLastUpdate, backend, user, documentSubPar
         )}
         <FutureDocumentIcon
           relatedTo={selectedDocument ? [selectedDocument._id] : relatedTo}
-          {...{verb, setLastUpdate, backend, user, documentSubPartsIds}}
+          {...{verb, setLastUpdate, backend, user}}
         />
         {!fixedType && (
           <Link
@@ -50,7 +50,7 @@ function FutureDocument({relatedTo, setLastUpdate, backend, user, documentSubPar
   );
 }
 
-function FutureDocumentIcon({relatedTo, verb, setLastUpdate, backend, user, documentSubPartsIds}) {
+function FutureDocumentIcon({relatedTo, verb, setLastUpdate, backend, user}) {
   const navigate = useNavigate();
 
   let handleClick = async () => {
@@ -66,7 +66,7 @@ function FutureDocumentIcon({relatedTo, verb, setLastUpdate, backend, user, docu
     };
     backend.putDocument({
       ...doc,
-      links: documentSubPartsIds.map(object => ({verb, object }))
+      links: relatedTo.map(object => ({verb, object}))
     })
       .then(() => {
         setLastUpdate(_id);

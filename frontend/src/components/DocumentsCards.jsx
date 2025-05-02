@@ -6,7 +6,7 @@ import BrowseTools from './BrowseTools';
 import FutureDocument from './FutureDocument';
 import { TypeBadge } from './Type';
 
-function DocumentsCards({docs, expandable, byRow, createOn, setLastUpdate, backend, user, documentSubPartsIds}) {
+function DocumentsCards({docs, expandable, byRow, createOn, setLastUpdate, backend, user}) {
   return (
     <Row className="gy-4">
       {docs.map(x => x?._id &&
@@ -18,7 +18,7 @@ function DocumentsCards({docs, expandable, byRow, createOn, setLastUpdate, backe
         <Col>
           <Row>
             <Col>
-              <FutureDocument relatedTo={createOn} {...{setLastUpdate, backend, user, documentSubPartsIds}} />
+              <FutureDocument relatedTo={createOn} {...{setLastUpdate, backend, user}} />
             </Col>
           </Row>
         </Col>
