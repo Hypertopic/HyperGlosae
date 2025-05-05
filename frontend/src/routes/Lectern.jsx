@@ -16,6 +16,7 @@ function Lectern({backend, user}) {
   const [content, setContent] = useState([]);
   const [parallelDocuments, setParallelDocuments] = useState(new ParallelDocuments());
   const [lastUpdate, setLastUpdate] = useState();
+  const [rawEditMode, setRawEditMode] = useState(false);
   let {id} = useParams();
   let margin = useLocation().hash.slice(1);
   const getCaption = ({dc_title, dc_spatial}) => [dc_title, dc_spatial].filter(Boolean).join(', ');
@@ -31,8 +32,8 @@ function Lectern({backend, user}) {
   }, [id, lastUpdate, backend]);
 
   useEffect(() => {
-    setParallelDocuments(new ParallelDocuments(id, content, margin));
-  }, [id, content, margin, lastUpdate]);
+    setParallelDocuments(new ParallelDocuments(id, content, margin, rawEditMode));
+  }, [id, content, margin, rawEditMode, lastUpdate]);
 
   const documentSubPartsIds = [...new Set(content
     .filter(object => object.value.isPartOf == id)
@@ -48,7 +49,7 @@ function Lectern({backend, user}) {
           <Row>
             <OpenedDocuments
               hasSources={metadata.forwardLinkedDocuments.length > 0}
-              {...{id, margin, metadata, parallelDocuments, user, backend, setLastUpdate}}
+              {...{id, margin, metadata, parallelDocuments, user, rawEditMode, setRawEditMode, backend, setLastUpdate}}
             />
             <References active={!margin} createOn={[id]}
               {...{metadata, user, setLastUpdate, backend, documentSubPartsIds}}

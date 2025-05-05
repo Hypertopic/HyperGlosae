@@ -9,10 +9,11 @@ import DiscreeteDropdown from './DiscreeteDropdown';
 import InviteEditorsAction from '../menu-items/InviteEditorsAction';
 import BreakIntoPassagesAction from '../menu-items/BreakIntoPassagesAction';
 import DeleteDocumentAction from '../menu-items/DeleteDocumentAction';
+import EditRawDocumentAction from '../menu-items/EditRawDocumentAction';
 import Bookmark from './Bookmark';
 import LicenseCompatibility from './LicenseCompatibility';
 
-function OpenedDocuments({id, margin, metadata, parallelDocuments, backend, user, setLastUpdate}) {
+function OpenedDocuments({id, margin, metadata, parallelDocuments, rawEditMode, setRawEditMode, backend, user, setLastUpdate}) {
   const marginMetadata = metadata.getDocument(margin);
   const marginLicense = marginMetadata?.dc_license;
   const sourceMetadata = metadata.focusedDocument;
@@ -21,13 +22,13 @@ function OpenedDocuments({id, margin, metadata, parallelDocuments, backend, user
     <Col className="lectern" {...{xs}} >
       <Row className ="runningHead">
         <RunningHeadSource {...{id, metadata, parallelDocuments, backend, user}} />
-        <RunningHeadMargin {...{parallelDocuments, margin, backend, setLastUpdate}}
+        <RunningHeadMargin {...{parallelDocuments, margin, setRawEditMode, backend, setLastUpdate}}
           metadata={marginMetadata}
         />
       </Row>
       {parallelDocuments.passages.map(({rubric, source, scholia}, i) =>
         <Passage key={rubric || i}
-          {...{source, rubric, scholia, margin, sourceId: id, backend, setLastUpdate}}
+          {...{source, rubric, scholia, margin, sourceId: id, rawEditMode, setRawEditMode, backend, setLastUpdate}}
         />)
       }
       <Row>
@@ -66,7 +67,7 @@ function RunningHeadSource({id, metadata, parallelDocuments, backend, user}) {
   );
 }
 
-function RunningHeadMargin({metadata, parallelDocuments, margin, backend, setLastUpdate}) {
+function RunningHeadMargin({metadata, parallelDocuments, margin, setRawEditMode, backend, setLastUpdate}) {
   const isFromScratch = parallelDocuments.isFromScratch;
   if (Object.keys(metadata).length) return (
     <Col xs={5} className="scholium position-relative">
@@ -74,6 +75,7 @@ function RunningHeadMargin({metadata, parallelDocuments, margin, backend, setLas
       <DiscreeteDropdown>
         <InviteEditorsAction {...{backend, metadata, setLastUpdate}} />
         <BreakIntoPassagesAction {...{parallelDocuments, margin, backend, setLastUpdate}} />
+        <EditRawDocumentAction {...{setRawEditMode}} />
         <DeleteDocumentAction {...{metadata, isFromScratch, backend, setLastUpdate}} />
       </DiscreeteDropdown>
       <Metadata editable={true} {...{backend, metadata, setLastUpdate}} />

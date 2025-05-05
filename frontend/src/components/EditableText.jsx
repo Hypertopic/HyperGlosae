@@ -6,7 +6,7 @@ import DiscreeteDropdown from './DiscreeteDropdown';
 import PictureUploadAction from '../menu-items/PictureUploadAction';
 import {v4 as uuid} from 'uuid';
 
-function EditableText({id, text, rubric, isPartOf, links, fragment, setFragment, setHighlightedText, setSelectedText, backend, setLastUpdate}) {
+function EditableText({id, text, rubric, isPartOf, links, fragment, setFragment, setHighlightedText, setSelectedText, rawEditMode, setRawEditMode, backend, setLastUpdate}) {
   const [beingEdited, setBeingEdited] = useState(false);
   const [editedDocument, setEditedDocument] = useState();
   const [editedText, setEditedText] = useState();
@@ -45,6 +45,16 @@ function EditableText({id, text, rubric, isPartOf, links, fragment, setFragment,
     }
   }, [fragment, parseFirstPassage, setFragment, updateEditedDocument]);
 
+  useEffect(() => {
+    if (rawEditMode) {
+      updateEditedDocument()
+        .then((x) => {
+          setEditedText(x.text);
+          setBeingEdited(true);
+        });
+    }
+  }, [rawEditMode, updateEditedDocument]);
+
   let handleClick = () => {
     setBeingEdited(true);
     updateEditedDocument()
@@ -72,12 +82,14 @@ function EditableText({id, text, rubric, isPartOf, links, fragment, setFragment,
 
   let handleBlur = () => {
     if (!hasBeenChanged) {
-      setHighlightedText();
-      setBeingEdited(false);
+      if (!rawEditMode) {
+        setHighlightedText();
+        setBeingEdited(false);
+      }
       return;
     }
     let parsedText = parseFirstPassage(editedText);
-    let text = (rubric)
+    let text = (rubric && !rawEditMode)
       ? editedDocument.text.replace(PASSAGE, `{${rubric}} ${parsedText}`)
       : editedText;
     backend.putDocument({ ...editedDocument, text })
@@ -85,6 +97,7 @@ function EditableText({id, text, rubric, isPartOf, links, fragment, setFragment,
       .then(() => setHighlightedText())
       .then(() => setBeingEdited(false))
       .then(() => setHasBeenChanged(false))
+      .then(() => setRawEditMode(false))
       .catch(console.error);
   };
 
