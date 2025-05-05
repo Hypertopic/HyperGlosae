@@ -22,6 +22,8 @@ function ParallelDocuments(id, content = [], margin) {
   const shouldBeAligned = this.doesSourceHaveRubrics
     && (!margin || this.doesMarginHaveRubrics);
 
+  const xor = (x, y) => x !== y;
+
   this.passages = content.reduce(({whole, part}, x, i, {length}) => {
     if (part.rubric && x.key[1] !== part.rubric) {
       whole.push(part);
@@ -33,16 +35,11 @@ function ParallelDocuments(id, content = [], margin) {
     let text = getText(x);
     if (text) {
       let isPartOf = x.value.isPartOf;
-      if (!this.isFromScratch) {
-        if (isPartOf === id) {
-          part.source.push(text);
-        } else {
-          part.scholia.push({id: x.id, text, isPartOf, rubric: x.key[1]});
-        }
-      } else {
-        if (isPartOf === id) {
-          part.scholia.push({id: x.id, text, isPartOf, rubric: x.key[1]});
-        }
+      if (!this.isFromScratch && isPartOf === id) {
+        part.source.push(text);
+      }
+      if (xor(!this.isFromScratch, isPartOf === id)) {
+        part.scholia.push({id: x.id, text, isPartOf, rubric: x.key[1]});
       }
     }
     if (i === length - 1) {
