@@ -31,16 +31,18 @@ function ParallelDocuments(id, content = [], margin) {
       part.rubric = x.key[1];
     }
     let text = getText(x);
-    let isPartOf = x.value.isPartOf;
-    if (!this.isFromScratch) {
-      if (isPartOf === id) {
-        part.source.push(text);
+    if (text) {
+      let isPartOf = x.value.isPartOf;
+      if (!this.isFromScratch) {
+        if (isPartOf === id) {
+          part.source.push(text);
+        } else {
+          part.scholia.push({id: x.id, text, isPartOf, rubric: x.key[1]});
+        }
       } else {
-        part.scholia.push({id: x.id, text, isPartOf, rubric: x.key[1]});
-      }
-    } else {
-      if (isPartOf === id) {
-        part.scholia.push({id: x.id, text, isPartOf, rubric: x.key[1]});
+        if (isPartOf === id) {
+          part.scholia.push({id: x.id, text, isPartOf, rubric: x.key[1]});
+        }
       }
     }
     if (i === length - 1) {
