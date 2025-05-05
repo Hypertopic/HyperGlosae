@@ -23,7 +23,7 @@ function ParallelDocuments(id, content = [], margin) {
     && (!margin || this.doesMarginHaveRubrics);
 
   this.passages = content.reduce(({whole, part}, x, i, {length}) => {
-    if (part.rubric && (x.key[1] !== part.rubric || !shouldBeAligned && i === length - 1)) {
+    if (part.rubric && x.key[1] !== part.rubric) {
       whole.push(part);
       part = {source: [], scholia: []};
     }
