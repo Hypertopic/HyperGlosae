@@ -1,7 +1,7 @@
 import Card from 'react-bootstrap/Card';
 import { useNavigate } from 'react-router-dom';
 
-function ExistingDocument({ document, relatedTo, verb, setLastUpdate, backend, setShowDocumentList }) {
+function ExistingDocument({ document, relatedTo, verb, setLastUpdate, backend }) {
   const navigate = useNavigate();
   const title = extractSubstring(document.dc_title || 'Untitled Document');
 
@@ -25,7 +25,6 @@ function ExistingDocument({ document, relatedTo, verb, setLastUpdate, backend, s
         navigate('#' + document._id);
       })
       .catch(console.error);
-    setShowDocumentList(false);
   };
 
   return (
