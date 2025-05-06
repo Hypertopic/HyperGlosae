@@ -10,6 +10,7 @@ function EditableText({id, text, rubric, isPartOf, links, fragment, setFragment,
   const [beingEdited, setBeingEdited] = useState(false);
   const [editedDocument, setEditedDocument] = useState();
   const [editedText, setEditedText] = useState();
+  const [hasBeenChanged, setHasBeenChanged] = useState(false);
   const PASSAGE = new RegExp(`\\{${rubric}} ?([^{]*)`);
 
   let parsePassage = (rawText) => (rubric)
@@ -39,6 +40,7 @@ function EditableText({id, text, rubric, isPartOf, links, fragment, setFragment,
           setEditedText((existingText && `${existingText}\n\n`) + fragment + '<COMMENT>');
           setBeingEdited(true);
           setFragment();
+          setHasBeenChanged(true);
         });
     }
   }, [fragment, parseFirstPassage, setFragment, updateEditedDocument]);
@@ -64,10 +66,16 @@ function EditableText({id, text, rubric, isPartOf, links, fragment, setFragment,
   };
 
   let handleChange = (event) => {
+    setHasBeenChanged(true);
     setEditedText(event.target.value);
   };
 
   let handleBlur = () => {
+    if (!hasBeenChanged) {
+      setHighlightedText();
+      setBeingEdited(false);
+      return;
+    }
     let parsedText = parseFirstPassage(editedText);
     let text = (rubric)
       ? editedDocument.text.replace(PASSAGE, `{${rubric}} ${parsedText}`)
@@ -76,6 +84,7 @@ function EditableText({id, text, rubric, isPartOf, links, fragment, setFragment,
       .then(x => setLastUpdate(x.rev))
       .then(() => setHighlightedText())
       .then(() => setBeingEdited(false))
+      .then(() => setHasBeenChanged(false))
       .catch(console.error);
   };
 
