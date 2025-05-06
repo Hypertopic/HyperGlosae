@@ -12,4 +12,34 @@
   border-color: black;
 }
 
+.trash-overlay {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background-color: rgba(0, 0, 0, 0.6);
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  z-index: 10;
+}
 
+figure.has-trash-overlay:hover .trash-overlay {
+  opacity: 1;
+}
+
+.trash-overlay .bi-trash {
+  font-size: 22px;
+  color: white;
+  display: block;
+}
+
+
+figure:hover .trash-overlay,
+.trash-overlay:focus {
+  opacity: 1;
+}

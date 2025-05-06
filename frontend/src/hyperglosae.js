@@ -70,6 +70,17 @@ function Hyperglosae(logger) {
       };
     });
 
+  this.deleteAttachment = (id, attachmentName, callback) =>
+    this.getDocumentMetadata(id).then(headRes => {
+      fetch(`${service}/${id}/${encodeURIComponent(attachmentName)}`, {
+        method: 'DELETE',
+        headers: {
+          'If-Match': headRes.headers.get('ETag'),
+          'Accept': 'application/json'
+        }
+      }).then(response => callback(response));
+    });
+
   this.getSession = () =>
     fetch(`${service}/_session`)
       .then(x => x.json())
