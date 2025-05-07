@@ -119,3 +119,21 @@ Soit("ayant parmi les éditeurs {string} et {string}", (userName1, userName2) =>
   cy.get('.btn-close').click();
   cy.get('.icon.focus').click()
 });
+
+Soit("un document sans champ {string} affiché comme document principal", (field) => {
+  cy.sign_in('alice', '/');
+  cy.create_document_from_scratch();
+  cy.url().then((url) => {
+    const id = url.split('#')[1];
+    cy.request(`/api/${id}`)
+      .then(({ body: doc }) => {
+        delete doc[field];
+        cy.request('PUT', `/api/${id}`, doc)
+          .then(() => {
+            cy.visit(`/${id}`);
+          });
+      });
+  });
+  cy.get('.lectern').should('exist');
+  cy.sign_out();
+});

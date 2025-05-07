@@ -116,3 +116,18 @@ Alors("la glose ouverte a {string} et {string} parmi les éditeurs par défaut",
   cy.get('.list-group').should('contain', userName1);
   cy.get('.list-group').should('contain', userName2);
 });
+
+Alors("je peux voir les informations de création du document {string} et une date", (text) => {
+  cy.get('.text-document-creation')
+    .should('contain.text', text + ' on');
+  cy.get('.text-document-creation').invoke('text')
+    .then((fullText) => {
+      const date = new Date(fullText.split('on')[1].trim());
+      expect(date).not.to.be.NaN;
+    });
+});
+
+Alors("je ne vois aucune information de création du document", () => {
+  cy.get('.text-document-creation')
+    .should('contain.text', 'No information about the creator and creation date of this document');
+});

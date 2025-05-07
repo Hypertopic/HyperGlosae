@@ -100,3 +100,8 @@ Quand("j'essaie de créer une glose en gardant tous les éditeurs", () => {
   cy.get(`#select-all`).click();
   cy.get(".create-document").click();
 });
+
+Quand("je consulte les informations de création du document", function () {
+  cy.get('.info-icon-container').trigger('mouseover');
+});
+
