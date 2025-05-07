@@ -50,8 +50,8 @@ function Bookshelf({ backend, user }) {
 
   return (
     <Container className="screen bookshelf">
-      <h4>My documents</h4>
-      <ButtonGroup className="mb-2">
+      <p id="title">My documents</p>
+      <ButtonGroup size="sm" className="mb-2 mt-1">
         {displayModesList.map((display, idx) => (
           <ToggleButton
             key={idx}
@@ -66,7 +66,7 @@ function Bookshelf({ backend, user }) {
               localStorage.setItem('displayMode', e.currentTarget.value);
             }}
           >
-            As a {display}
+            as a {display}
           </ToggleButton>
         ))}
       </ButtonGroup>
