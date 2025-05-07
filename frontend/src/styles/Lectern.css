@@ -19,7 +19,7 @@
   background-color: ghostwhite;
 }
 
-.lectern .runningHead div {
+.lectern .runningHead > div {
   padding-top: 17px;
   padding-bottom: 17px;
 }

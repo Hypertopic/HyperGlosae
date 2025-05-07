@@ -1,0 +1,29 @@
+.info-container {
+  display: flex;
+  justify-content: flex-end;
+  padding-bottom: 0;
+}
+
+.info-icon-container {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  color: crimson;
+}
+
+.text-document-creation {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 100%;
+  z-index: 10;
+  white-space: nowrap;
+  background-color: white;
+  border: 1px solid #ccc;
+  padding: 6px 12px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.info-icon-container:hover .text-document-creation {
+  display: block;
+}

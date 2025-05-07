@@ -20,17 +20,19 @@ function Hyperglosae(logger) {
       .then(x => x.json());
 
   this.putDocument = (doc, uri) =>
-    fetch(`${service}/${uri || doc._id}`, {
+    fetch(`${service}/_design/app/_update/document/${uri || doc._id}`, {
       method: 'PUT',
       body: JSON.stringify(doc)
     })
-      .then(x => x.json())
       .then(x => {
-        if (x.reason) {
-          logger(x.reason);
-          throw new Error(x.reason);
-        }
-        return x;
+        const rev = x.headers.get('X-Couch-Update-NewRev');
+        return x.json().then(o => {
+          if (o.reason) {
+            logger(o.reason);
+            throw new Error(o.reason);
+          }
+          return { ...o, rev };
+        });
       });
 
   this.deleteDocument = ({_id, _rev}) =>
