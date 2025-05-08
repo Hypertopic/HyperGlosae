@@ -1,4 +1,5 @@
 import '../styles/Lectern.css';
+import DocumentNotFound from '../components/DocumentNotFound';
 
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -34,6 +35,10 @@ function Lectern({backend, user}) {
   useEffect(() => {
     setParallelDocuments(new ParallelDocuments(id, content, margin, rawEditMode));
   }, [id, content, margin, rawEditMode, lastUpdate]);
+
+  if (!metadata?.focusedDocument?._id) {
+    return <DocumentNotFound />;
+  }
 
   return (
     <Container className="screen">
