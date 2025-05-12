@@ -20,7 +20,7 @@ function Hyperglosae(logger) {
       .then(x => x.json());
 
   this.putDocument = (doc, uri) =>
-    fetch(`${service}/_design/app/_update/document/${uri || doc._id}`, {
+    fetch(`${service}/` + (uri || `_design/app/_update/document/${doc._id}`), {
       method: 'PUT',
       body: JSON.stringify(doc)
     })
