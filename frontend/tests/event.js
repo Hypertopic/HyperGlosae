@@ -121,3 +121,12 @@ Quand("je supprime le lien entre le document principal et la référence", () =>
   cy.click_on_contextual_menu_item('.runningHead .scholium', 'Delete reference...');
   cy.get(".modal-dialog").get(".btn-primary").click();
 });
+
+Quand("j'essaie d'ajouter une image à une glose", () => {
+  context = cy.get('.scholium').eq(1);
+  cy.click_on_contextual_menu_item(context, 'Add a picture...');
+  cy.get('[id="image-input"]').selectFile('../docs/architecture.png', {
+    force: true,
+  });
+});
+
