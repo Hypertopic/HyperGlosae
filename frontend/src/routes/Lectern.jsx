@@ -40,6 +40,10 @@ function Lectern({backend, user}) {
     return <DocumentNotFound />;
   }
 
+  const createOn = [...new Set([...content
+    .filter(object => object.value.isPartOf == id)
+    .map((object) => (object.doc == null) ? object.id : object.doc._id), id])];
+
   return (
     <Container className="screen">
       <Row>
@@ -52,8 +56,8 @@ function Lectern({backend, user}) {
               hasSources={metadata.forwardLinkedDocuments.length > 0}
               {...{id, margin, metadata, parallelDocuments, user, rawEditMode, setRawEditMode, backend, setLastUpdate}}
             />
-            <References active={!margin} createOn={[id]}
-              {...{metadata, user, setLastUpdate, backend}}
+            <References active={!margin}
+              {...{metadata, user, createOn, setLastUpdate, backend}}
             />
           </Row>
         </Col>
