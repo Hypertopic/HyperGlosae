@@ -103,3 +103,19 @@ Soit ("qui n'a pas de document source", () => {
 Soit ("qui a un document source", () => {
   cy.get('.sources').find('.card-body').should('exist');
 });
+
+Soit("le document contenant l'image {string} affiché comme document principal", () => {
+  cy.visit('/d0acc5d2744b47fc85a052a46a7cbf70#d0acc5d2744b47fc85a052a46a7cbf70'); 
+  
+});
+
+Soit("une glose qui contient l'image {string}", (altText) => {
+
+  context = cy.get('.scholium').eq(1);
+  cy.click_on_contextual_menu_item(context, 'Add a picture...');
+  cy.get('[id="image-input"]').selectFile('../docs/architecture.png', {
+    force: true,
+  });
+
+});
+

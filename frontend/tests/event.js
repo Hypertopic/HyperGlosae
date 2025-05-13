@@ -96,4 +96,11 @@ Quand("j'essaye d'ajouter une image à une glose", () => {
     force: true,
   });
 });
+
+Quand("j'essaie de supprimer l'image {string}", (alt) => {
+  cy.get(`img[alt="${alt}"]`).scrollIntoView().should('be.visible')
+    .parents('figure')
+    .find('.trash-overlay')
+    .click({ force: true }); 
+  cy.contains('button', 'Supprimer').click()
 });
