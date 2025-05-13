@@ -7,8 +7,8 @@ Scénario: dont je suis l'auteur
   Soit un document reconnaissable dont je suis l'auteur affiché comme glose
   Et une session active avec mon compte
   Quand je supprime le lien entre le document principal et la référence
-  Alors "le nom random" est la glose ouverte
-  et il n'y a aucun document principal affiché
+  Alors la glose ouverte est le document reconnaissable
+  Et il n'y a aucun document principal affiché
 
 Scénario: dont je ne suis pas l'auteur
 
