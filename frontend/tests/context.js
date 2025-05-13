@@ -15,6 +15,14 @@ Soit("un document dont je ne suis pas l'auteur affiché comme document principal
   cy.sign_out();
 });
 
+Soit("un document dont je suis l'auteur affiché comme document principal", () => {
+  cy.sign_in('alice', '/');
+  cy.create_document_from_scratch();
+  cy.set_random_name();
+  cy.get('.focus').click();
+  cy.sign_out();
+});
+
 Soit("une session active avec mon compte", () => {
   cy.sign_in('alice');
 });
@@ -46,7 +54,25 @@ Soit("un document dont je suis l'auteur affiché comme glose", () => {
 });
 
 Soit("un document reconnaissable dont je suis l'auteur affiché comme glose", () => {
-  cy.sign_in('alice', '/');
+  cy.sign_in('alice','/');
+  cy.create_glose(true);
+  cy.sign_out();
+});
+
+Soit("un document reconnaissable dont je suis pas l'auteur affiché comme glose", () => {
+  cy.sign_in('bill','/');
+  cy.create_glose(true);
+  cy.sign_out();
+});
+
+Soit("avec un document reconnaissable dont je suis l'auteur affiché comme glose", () => {
+  cy.sign_in('alice');
+  cy.create_glose(true);
+  cy.sign_out();
+});
+
+Soit("avec un document reconnaissable dont je suis pas l'auteur affiché comme glose", () => {
+  cy.sign_in('bill');
   cy.create_glose(true);
   cy.sign_out();
 });

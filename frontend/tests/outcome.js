@@ -131,3 +131,10 @@ Alors("je ne vois aucune information de création du document", () => {
   cy.get('.text-document-creation')
     .should('contain.text', 'No information about the creator and creation date of this document');
 });
+
+Alors("la glose ouverte est le document reconnaissable", (title) => {
+  cy.get('.runningHead .scholium').should('contain', this.randomName);
+});
+Alors("il n'y a aucun document principal affiché", () => {
+  cy.get('.main col').not().contain('info-container');
+});
