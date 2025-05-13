@@ -103,3 +103,37 @@ Soit ("qui n'a pas de document source", () => {
 Soit ("qui a un document source", () => {
   cy.get('.sources').find('.card-body').should('exist');
 });
+
+Soit("le document contenant l'image {string} affiché comme document principal", (alt) => {
+  cy.sign_in('alice','/');
+  cy.create_glose();
+
+  context = cy.get('.scholium').eq(1);
+  cy.click_on_contextual_menu_item(context, 'Add a picture...');
+  cy.get('[id="image-input"]').selectFile('../docs/component_bookshelf.png', {
+    force: true,
+  })
+
+  cy.get('img[alt="<IMAGE DESCRIPTION>"]',{ timeout: 10000 }) 
+  .should('be.visible')
+
+  cy.click_on_text('content');
+  cy.get('textarea') 
+      .invoke('val')
+      .then((text) => {
+        const updatedText = text.replace(/\!\[.*?\]/, `![${alt}]`);
+        cy.get('textarea').clear().type(updatedText, { delay: 0 });
+      });
+  cy.sign_out()
+});
+
+Soit("une glose qui contient l'image {string}", (altText) => {
+
+  context = cy.get('.scholium').eq(1);
+  cy.click_on_contextual_menu_item(context, 'Add a picture...');
+  cy.get('[id="image-input"]').selectFile('../docs/architecture.png', {
+    force: true,
+  });
+
+});
+

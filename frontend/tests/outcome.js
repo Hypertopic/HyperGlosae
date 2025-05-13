@@ -101,3 +101,7 @@ Alors("{string} est la glose ouverte en mode édition", (title) => {
   cy.get('.runningHead .scholium').should('contain', title);
   cy.get('.scholium').should('have.descendants', 'form');
 });
+
+Alors("je ne vois plus l'image {string} dans la glose", (alt) => {
+  cy.get('.row:not(.runningHead)>.scholium').should('not.have.descendants', `img[alt='${alt}']`);
+});
