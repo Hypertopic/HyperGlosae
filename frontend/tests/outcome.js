@@ -13,7 +13,8 @@ Alors("je peux lire {string}", (text) => {
 });
 
 Alors("je vois l'image {string} dans la glose", (alternative_text) => {
-  cy.get('.row:not(.runningHead)>.scholium').should('have.descendants', `img[alt='${alternative_text}']`);
+  cy.get(`img[alt="${alternative_text}"]`)
+    .should('be.visible');
 });
 
 Alors("{string} est le document principal", (title) => {

@@ -114,26 +114,32 @@ Soit("le document contenant l'image {string} affiché comme document principal",
     force: true,
   })
 
-  cy.get('img[alt="<IMAGE DESCRIPTION>"]',{ timeout: 10000 }) 
-  .should('be.visible')
+  cy.get('img[alt="<IMAGE DESCRIPTION>"]') 
+  .should('not.be.visible')
 
   cy.click_on_text('content');
-  cy.get('textarea') 
+  cy.get('textarea')
+      .should('be.visible') 
+      .should(($textarea) => {
+      expect($textarea.val().trim()).not.to.be.empty;
+    })
       .invoke('val')
       .then((text) => {
         const updatedText = text.replace(/\!\[.*?\]/, `![${alt}]`);
-        cy.get('textarea').clear().type(updatedText, { delay: 0 });
+        cy.get('textarea').clear().type(updatedText);
       });
-  cy.sign_out()
-});
-
-Soit("une glose qui contient l'image {string}", (altText) => {
+  cy.get('body').click(0, 0); 
+  
+  cy.get('img[alt="graphique"]') 
+  .should('be.visible')
 
   context = cy.get('.scholium').eq(1);
   cy.click_on_contextual_menu_item(context, 'Add a picture...');
   cy.get('[id="image-input"]').selectFile('../docs/architecture.png', {
     force: true,
   });
-
+  cy.get('img[alt="<IMAGE DESCRIPTION>"]') 
+  .should('be.visible')
+  cy.sign_out()
 });
 

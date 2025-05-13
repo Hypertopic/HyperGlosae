@@ -103,6 +103,9 @@ Quand("j'essaie de supprimer l'image {string}", (alt) => {
   cy.get(`img[alt="${alt}"]`).scrollIntoView().should('be.visible')
     .parents('figure')
     .find('.trash-overlay')
+    .then($el => {
+    $el[0].addEventListener('click', e => e.stopPropagation(), { once: true });
+  })
     .click({ force: true }); 
-  cy.contains('button', 'Supprimer').click()
+  cy.contains('button', 'Supprimer').click()  
 });
