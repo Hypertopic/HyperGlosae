@@ -88,3 +88,12 @@ Quand("je souhaite modifier le contenu du document principal", () => {
   cy.get('.icon.edit').click();
   cy.click_on_text('content');
 });
+
+Quand("j'essaye d'ajouter une image à une glose", () => {
+  context = cy.get('.scholium').eq(1);
+  cy.click_on_contextual_menu_item(context, 'Add a picture...');
+  cy.get('[id="image-input"]').selectFile('../docs/architecture.png', {
+    force: true,
+  });
+});
+});
