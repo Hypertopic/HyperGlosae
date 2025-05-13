@@ -23,6 +23,19 @@ Scénario: en tant que collection
   Quand j'essaie de créer un glose de type "Quotation"
   Alors je vois l'image "2019_10-13_16_UKR_R_A" dans la glose
 
+
+Scénario: en tant que composition partielle de texte
+
+  Soit 'Les fées (Charles Perrault)' le document principal
+  Et une session active avec mon compte
+  Quand j'essaie de créer un glose de type "Quotation"
+  Alors la glose contient :
+    """
+    Peuvent beaucoup sur les Esprits ;
+    Cependant les douces paroles
+    Ont encore plus de force, et sont d'un plus grand prix.
+    """
+
 Scénario: à partir de zéro
 
   Soit la liste des documents affichée
