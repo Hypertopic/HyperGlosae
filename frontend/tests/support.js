@@ -40,6 +40,15 @@ Cypress.Commands.add('create_glose', (random = false) => {
   }
 });
 
+Cypress.Commands.add('create_glose_of_type', (random = false, option = "Adaptation") => {
+  cy.get('#select-dropdown').select(option);
+  cy.get('.create-document').click();
+  cy.url().should('contain', '#');
+  if (random) {
+    cy.set_random_name();
+  }
+});
+
 Cypress.Commands.add('create_document_from_scratch', () => {
   cy.get('.create-document').click();
   cy.get('.lectern').should('exist');

@@ -15,6 +15,14 @@ Soit("un document dont je ne suis pas l'auteur affiché comme document principal
   cy.sign_out();
 });
 
+Soit("un document dont je suis l'auteur affiché comme document principal", () => {
+  cy.sign_in('alice', '/');
+  cy.create_document_from_scratch();
+  cy.set_random_name();
+  cy.get('.focus').click();
+  cy.sign_out();
+});
+
 Soit("une session active avec mon compte", () => {
   cy.sign_in('alice');
 });
@@ -33,6 +41,7 @@ Soit("{string} le document principal", (title) => {
     'Vidéo Sherlock Jr. (Buster Keaton)': '/4e1a31e14b032f2fa9e161ee9b009125',
     'Treignes, le 8 septembre 2012 (Christophe Lejeune)': '/6b56ee657c870dfacd34e9ae4e0643dd',    
     'Restaurer la vapeur': '/6b56ee657c870dfacd34e9ae4e050fcc',
+    'Vestiges (diagramme de classes)': '/146e6e8442f0405b721b79357d0021e3',
   };
   expect(uris).to.contain.key(title);
   cy.visit(uris[title]);
@@ -46,7 +55,25 @@ Soit("un document dont je suis l'auteur affiché comme glose", () => {
 });
 
 Soit("un document reconnaissable dont je suis l'auteur affiché comme glose", () => {
-  cy.sign_in('alice', '/');
+  cy.sign_in('alice','/');
+  cy.create_glose(true);
+  cy.sign_out();
+});
+
+Soit("un document reconnaissable dont je suis pas l'auteur affiché comme glose", () => {
+  cy.sign_in('bill','/');
+  cy.create_glose(true);
+  cy.sign_out();
+});
+
+Soit("avec un document reconnaissable dont je suis l'auteur affiché comme glose", () => {
+  cy.sign_in('alice');
+  cy.create_glose(true);
+  cy.sign_out();
+});
+
+Soit("avec un document reconnaissable dont je suis pas l'auteur affiché comme glose", () => {
+  cy.sign_in('bill');
   cy.create_glose(true);
   cy.sign_out();
 });
@@ -77,6 +104,12 @@ Soit("un document dont je suis l'auteur affiché comme glose et dont le type est
   cy.sign_out();
 });
 
+Soit("un document reconnaissable dont je suis l'auteur affiché comme glose et dont le type est {string}", (option) => {
+  cy.sign_in('alice', '/420ab198674f11eda3b7a3fdd5ea984f');
+  cy.create_glose_of_type(true,option);
+  cy.sign_out();
+});
+
 Soit("{string} la glose ouverte", (title) => {
   cy.contains('span:not(.work)', title).prevAll('a.open').click();
 });
@@ -102,4 +135,60 @@ Soit ("qui n'a pas de document source", () => {
 
 Soit ("qui a un document source", () => {
   cy.get('.sources').find('.card-body').should('exist');
+});
+
+Soit("ayant parmi les éditeurs {string} et {string}", (userName1, userName2) => {
+  cy.get('.icon.edit').click()
+  cy.click_on_contextual_menu_item('.runningHead .scholium', 'Invite editors...');
+
+  cy.get('.modal-dialog input').type(userName1);
+  cy.contains('button', 'Invite').click();
+  cy.get('.list-group').should('contain', userName1);
+
+  cy.get('.modal-dialog input').type(userName2);
+  cy.contains('button', 'Invite').click();
+  cy.get('.list-group').should('contain', userName2);
+
+  cy.get('.btn-close').click();
+  cy.get('.icon.focus').click()
+});
+
+Soit("un document sans champ {string} affiché comme document principal", (field) => {
+  cy.sign_in('alice', '/');
+  cy.create_document_from_scratch();
+  cy.url().then((url) => {
+    const id = url.split('#')[1];
+    cy.request(`/api/${id}`)
+      .then(({ body: doc }) => {
+        delete doc[field];
+        cy.request('PUT', `/api/${id}`, doc)
+          .then(() => {
+            cy.visit(`/${id}`);
+          });
+      });
+  });
+  cy.get('.lectern').should('exist');
+  cy.sign_out();
+});
+
+Soit("ayant les métadonnées", (metadata) => {
+  cy.get('.icon.edit').click();
+  cy.get('.editable.metadata').click();
+  cy.get('form textarea').invoke('val').then(actual => {
+    const parseStrToObject = str => {
+      const lines = str.trim().split('\n');
+      const result = {};
+      lines.forEach(line => {
+        const [key, value] = line.split(':').map(part => part.trim());
+        if (key !== undefined && value !== undefined) {
+          result[key] = value;
+        }
+      });
+      return result;
+    };
+    const expectedMetadata = parseStrToObject(metadata);
+    const actualMetadata = parseStrToObject(actual);
+    expect(actualMetadata).to.deep.equal(expectedMetadata);
+  });
+  cy.get('.scholium>.icon.focus').click();
 });
