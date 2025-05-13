@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { BookmarkFill } from 'react-bootstrap-icons';
 import { v4 as uuid } from 'uuid';
+import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 
 function Bookmark({backend, user, id}) {
   const [isBookmarked, setIsBookmarked] = useState(false);
@@ -33,13 +34,22 @@ function Bookmark({backend, user, id}) {
   };
 
   return (
-    <BookmarkFill className={`icon bookmark ${isBookmarked && 'bookmarked'}`}
-      onClick={onBookmarkToggle}
-      title={isBookmarked
-        ? 'Remove this document from your bookshelf'
-        : 'Add this document to your bookshelf'
+    <OverlayTrigger
+      placement="top"
+      overlay={
+        <Tooltip id="tooltip-bookmark">
+          {isBookmarked
+            ? 'Remove this document from your bookshelf'
+            : 'Add this document to your bookshelf'}
+        </Tooltip>
       }
-    />
+    >
+      <BookmarkFill
+        className={`icon bookmark ${isBookmarked && 'bookmarked'}`}
+        onClick={onBookmarkToggle}
+        style={{ cursor: 'pointer' }}
+      />
+    </OverlayTrigger>
   );
 }
 

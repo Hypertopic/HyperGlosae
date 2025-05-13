@@ -3,5 +3,30 @@
 }
 
 .link-icon {
-  font-size: 28px;
+  font-size: 18px;
+}
+
+.gloses .card-header {
+  background-color: rgb(210, 210, 210);
+}
+
+.gloses .nav-link.active {
+  background-color: gainsboro !important;
+  border-color: var(--bs-card-border-color) !important;
+  border-bottom-color: gainsboro !important;
+}
+
+.nav-tabs .nav-link:focus, .nav-tabs .nav-link:hover {
+  border-color: var(--bs-card-border-color) !important;
+  border-bottom-color: transparent !important;
+}
+
+.form-check-input:checked {
+  background-color: gray !important;
+  border-color: gray !important;
+}
+
+.document-list-container {
+  max-height: 400px;
+  overflow-y: auto;
 }

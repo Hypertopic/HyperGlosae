@@ -1,3 +1,4 @@
+import '../styles/CreationInfo.css';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import BrowseTools from './BrowseTools';
@@ -12,6 +13,7 @@ import DeleteDocumentAction from '../menu-items/DeleteDocumentAction';
 import EditRawDocumentAction from '../menu-items/EditRawDocumentAction';
 import Bookmark from './Bookmark';
 import LicenseCompatibility from './LicenseCompatibility';
+import { InfoCircle } from 'react-bootstrap-icons';
 
 function OpenedDocuments({id, margin, metadata, parallelDocuments, rawEditMode, setRawEditMode, backend, user, setLastUpdate}) {
   const marginMetadata = metadata.getDocument(margin);
@@ -52,6 +54,26 @@ function OpenedDocuments({id, margin, metadata, parallelDocuments, rawEditMode, 
   );
 }
 
+function CreationInfo({ metadata }) {
+  const hasHistory = Array.isArray(metadata?.history) && metadata.history.length > 0;
+  return (
+    <div className="info-container">
+      <div className="info-icon-container">
+        <InfoCircle className="info-icon" />
+        <div className="text-document-creation bg-light border rounded p-2 shadow">
+          {hasHistory ? (
+            <>
+              Created by <b>{metadata.history[0].user}</b> on <b>{metadata.history[0].date.split('T')[0]}</b>
+            </>
+          ) : (
+            'No information about the creator and creation date of this document'
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function RunningHeadSource({id, metadata, parallelDocuments, backend, user}) {
   metadata = metadata.focusedDocument;
   if (parallelDocuments.isFromScratch) return (
@@ -59,6 +81,7 @@ function RunningHeadSource({id, metadata, parallelDocuments, backend, user}) {
   );
   return (
     <Col className="main">
+      <CreationInfo metadata={metadata} />
       <Bookmark {...{backend, user, id}} />
       <BrowseTools {...{id}} editable={true} focusable={false} />
       <Metadata {...{metadata}} />

@@ -88,3 +88,20 @@ Quand("je souhaite modifier le contenu du document principal", () => {
   cy.get('.icon.edit').click();
   cy.click_on_text('content');
 });
+
+Quand("j'essaie de créer une glose en gardant {string} comme éditeur", (userName) => {
+  cy.get('.open-editor-list').click();
+  cy.get(`#editor-${userName}`).click();
+  cy.get(".create-document").click();
+});
+
+Quand("j'essaie de créer une glose en gardant tous les éditeurs", () => {
+  cy.get('.open-editor-list').click();
+  cy.get(`#select-all`).click();
+  cy.get(".create-document").click();
+});
+
+Quand("je consulte les informations de création du document", function () {
+  cy.get('.info-icon-container').trigger('mouseover');
+});
+

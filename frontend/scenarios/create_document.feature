@@ -36,3 +36,18 @@ Scénario: sans être connecté
   Quand j'essaie de créer un nouveau document
   Alors je peux lire "Before editing this document, please log in first"
 
+Scénario: en gardant certains éditeurs
+
+  Soit un document existant affiché comme document principal
+  Et une session active avec mon compte
+  Et ayant parmi les éditeurs "bill" et "christophe"
+  Quand j'essaie de créer une glose en gardant "bill" comme éditeur
+  Alors la glose ouverte a "bill" parmi les éditeurs par défaut
+
+Scénario: en gardant tous les éditeurs
+
+  Soit un document existant affiché comme document principal
+  Et une session active avec mon compte
+  Et ayant parmi les éditeurs "bill" et "christophe"
+  Quand j'essaie de créer une glose en gardant tous les éditeurs
+  Alors la glose ouverte a "bill" et "christophe" parmi les éditeurs par défaut

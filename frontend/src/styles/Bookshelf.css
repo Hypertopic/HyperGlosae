@@ -6,6 +6,11 @@
 }
 .bookshelf .btn-check:checked + .btn {
   color: black;
-  font-weight: bold;
-  background-color: #de940a;
+  font-weight: 600;
+  background-color: #d5aa40;
+}
+
+.bookshelf #title {
+  font-size: 20px;
+  font-weight: 600;
 }
