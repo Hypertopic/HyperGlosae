@@ -17,8 +17,18 @@ exports.emitPassages = ({text, isPartOf, related}) => {
   let passages = [...text.matchAll(PASSAGE)];
   passages = (passages.length) ? passages : [[null, null, text]];
   passages.forEach(([_, rubric, passage]) => {
- 	  related.forEach(x => {
- 	    emit([x, Number(rubric)], {text: passage, isPartOf, _id: null});
+    let rubric_part;
+    if (rubric) {
+      rubric_part = rubric.match(/(?:(\d+)[:\.,])?(\d+)([a-z]?)/);
+      if (rubric_part && rubric_part.length > 0) {
+        rubric_part = rubric_part.slice(2).map((x) => Number(x) || x);
+        if (rubric_part.includes("")) rubric_part = Number(rubric);
+      }
+    } else {
+      rubric_part = Number(rubric);
+    }
+    related.forEach((x) => {
+      emit([x, rubric_part], { text: passage, isPartOf, _id: null });
  	  });
   });
 }
