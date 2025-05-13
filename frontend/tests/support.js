@@ -1,106 +1,112 @@
-Cypress.Commands.add('sign_in', (username, page = '') => {
-  if (page)
-    cy.visit(page);
+Cypress.Commands.add("sign_in", (username, page = "") => {
+  if (page) cy.visit(page);
   switch (username) {
-    case 'alice':
-      password = 'whiterabbit';
+    case "alice":
+      password = "whiterabbit";
       break;
-    case 'bill':
-      password = 'madhatter';
+    case "bill":
+      password = "madhatter";
       break;
-    case 'christophe':
-      password = 'redqueen';
+    case "christophe":
+      password = "redqueen";
       break;
   }
   cy.get('[placeholder="Username"]').type(username);
   cy.get('[placeholder="Password"]').type(password);
-  cy.contains('button', 'Sign in').click();
-  cy.get('.navbar').should('contain', username);
+  cy.contains("button", "Sign in").click();
+  cy.get(".navbar").should("contain", username);
 });
 
-Cypress.Commands.add('sign_out', () => {
-  cy.get('.navbar .dropdown-toggle').click();
-  cy.contains('.dropdown-item', 'Sign out').click();
+Cypress.Commands.add("sign_out", () => {
+  cy.get(".navbar .dropdown-toggle").click();
+  cy.contains(".dropdown-item", "Sign out").click();
 });
 
-Cypress.Commands.add('click_on_text', (type, text) => {
+Cypress.Commands.add("click_on_text", (type, text) => {
   let elements = text
     ? cy.contains(`.editable.${type}`, text)
     : cy.get(`.editable.${type}`);
-  cy.intercept('GET', '/api/*').as('getDocument');
+  cy.intercept("GET", "/api/*").as("getDocument");
   elements.first().click();
-  cy.wait('@getDocument');
+  cy.wait("@getDocument");
 });
 
-Cypress.Commands.add('create_glose', (random = false) => {
-  cy.get('.create-document').click();
-  cy.url().should('contain', '#');
+Cypress.Commands.add("create_glose", (random = false) => {
+  cy.get(".create-document").click();
+  cy.url().should("contain", "#");
   if (random) {
     cy.set_random_name();
   }
 });
 
-Cypress.Commands.add('create_document_from_scratch', () => {
-  cy.get('.create-document').click();
-  cy.get('.lectern').should('exist');
+Cypress.Commands.add("create_document_from_scratch", () => {
+  cy.get(".create-document").click();
+  cy.get(".lectern").should("exist");
 });
 
-Cypress.Commands.add('edit_metadata', (metadata) => {
-  cy.click_on_text('metadata');
-  cy.get('textarea').type('{selectAll}' + metadata).blur();
-  cy.get('.scholium .metadata').should('exist');
+Cypress.Commands.add("edit_metadata", (metadata) => {
+  cy.click_on_text("metadata");
+  cy.get("textarea")
+    .type("{selectAll}" + metadata)
+    .blur();
+  cy.get(".scholium .metadata").should("exist");
 });
 
-Cypress.Commands.add('edit_content', (metadata) => {
-  cy.click_on_text('content');
-  cy.get('textarea').type('{selectAll}' + metadata).blur();
+Cypress.Commands.add("edit_content", (metadata) => {
+  cy.click_on_text("content");
+  cy.get("textarea")
+    .type("{selectAll}" + metadata)
+    .blur();
 });
 
-Cypress.Commands.add('set_random_name', function() {
-  this.randomName = [...Array(30)].map(() => Math.random().toString(36)[2]).join('');
+Cypress.Commands.add("set_random_name", function () {
+  this.randomName = [...Array(30)]
+    .map(() => Math.random().toString(36)[2])
+    .join("");
   cy.edit_metadata(`dc_title: ${this.randomName}`);
 });
 
-Cypress.Commands.add('click_on_contextual_menu_item', (context, item_name) => {
-  if (typeof context === 'string') {
+Cypress.Commands.add("click_on_contextual_menu_item", (context, item_name) => {
+  if (typeof context === "string") {
     context = cy.get(context);
   }
-  context.find('.dropdown > .toggle').click({force: true});
-  cy.contains(item_name).click({force: true});
+  context.find(".dropdown > .toggle").click({ force: true });
+  cy.contains(item_name).click({ force: true });
 });
 
 // From: https://github.com/decaporg/decap-cms/blob/a4b7481a99f58b9abe85ab5712d27593cde20096/cypress/support/commands.js#L374
 
-Cypress.Commands.add('setSelection', { prevSubject: true }, (subject, query, endQuery) => {
-  return cy.wrap(subject).selection($el => {
-    if (typeof query === 'string') {
-      const anchorNode = getTextNode($el[0], query);
-      const focusNode = endQuery ? getTextNode($el[0], endQuery) : anchorNode;
-      const anchorOffset = anchorNode.wholeText.indexOf(query);
-      const focusOffset = endQuery
-        ? focusNode.wholeText.indexOf(endQuery) + endQuery.length
-        : anchorOffset + query.length;
-      setBaseAndExtent(anchorNode, anchorOffset, focusNode, focusOffset);
-    } else if (typeof query === 'object') {
-      const el = $el[0];
-      const anchorNode = getTextNode(el.querySelector(query.anchorQuery));
-      const anchorOffset = query.anchorOffset || 0;
-      const focusNode = query.focusQuery
-        ? getTextNode(el.querySelector(query.focusQuery))
-        : anchorNode;
-      const focusOffset = query.focusOffset || 0;
-      setBaseAndExtent(anchorNode, anchorOffset, focusNode, focusOffset);
-    }
-  });
-});
+Cypress.Commands.add(
+  "setSelection",
+  { prevSubject: true },
+  (subject, query, endQuery) => {
+    return cy.wrap(subject).selection(($el) => {
+      if (typeof query === "string") {
+        const anchorNode = getTextNode($el[0], query);
+        const focusNode = endQuery ? getTextNode($el[0], endQuery) : anchorNode;
+        const anchorOffset = anchorNode.wholeText.indexOf(query);
+        const focusOffset = endQuery
+          ? focusNode.wholeText.indexOf(endQuery) + endQuery.length
+          : anchorOffset + query.length;
+        setBaseAndExtent(anchorNode, anchorOffset, focusNode, focusOffset);
+      } else if (typeof query === "object") {
+        const el = $el[0];
+        const anchorNode = getTextNode(el.querySelector(query.anchorQuery));
+        const anchorOffset = query.anchorOffset || 0;
+        const focusNode = query.focusQuery
+          ? getTextNode(el.querySelector(query.focusQuery))
+          : anchorNode;
+        const focusOffset = query.focusOffset || 0;
+        setBaseAndExtent(anchorNode, anchorOffset, focusNode, focusOffset);
+      }
+    });
+  }
+);
 
 // Used by setSelection
-Cypress.Commands.add('selection', { prevSubject: true }, (subject, fn) => {
-  cy.wrap(subject)
-    .trigger('mousedown')
-    .then(fn)
-    .trigger('mouseup');
-  cy.document().trigger('selectionchange');
+Cypress.Commands.add("selection", { prevSubject: true }, (subject, fn) => {
+  cy.wrap(subject).trigger("mousedown").then(fn).trigger("mouseup");
+  cy.document().trigger("selectionchange");
   return cy.wrap(subject);
 });
 
@@ -125,3 +131,6 @@ function setBaseAndExtent(...args) {
   document.getSelection().setBaseAndExtent(...args);
 }
 
+Cypress.Commands.add("create_empty_reference", () => {
+  cy.get(".create-document").click();
+});
