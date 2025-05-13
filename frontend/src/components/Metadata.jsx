@@ -44,7 +44,7 @@ function Metadata({metadata = {}, editable, backend, setLastUpdate}) {
   let getCaption = ({dc_title, dc_spatial}) => dc_title + (dc_spatial ? `, ${dc_spatial}` : '');
 
   if (!beingEdited) {
-    let {dc_title, dc_spatial, dc_creator, dc_translator, dc_isPartOf, dc_issued} = editedMetadata;
+    let {dc_title, dc_spatial, dc_creator, dc_translator, dc_isPartOf, dc_issued, dc_language} = editedMetadata;
     let attributes = (editable)
       ? {className: 'editable metadata', onClick: handleClick, title: 'Edit metadata...'}
       : {};
@@ -53,10 +53,11 @@ function Metadata({metadata = {}, editable, backend, setLastUpdate}) {
         <span className="work">
           {getCaption({dc_title, dc_spatial})} {format(dc_creator, '(', ')')},
         </span>
-        <span className="edition">
+        <span className={`edition${dc_language ? ' language' : ''}`}>
           {format(dc_translator, 'Translated by ', ', ')}
           {dc_isPartOf ? <i>{dc_isPartOf}, </i> : ''}
           {dc_issued ? `${new Date(dc_issued.toString()).getFullYear()}` : ''}
+          {dc_language ? `, ${dc_language.charAt(0).toUpperCase() + dc_language.slice(1).toLowerCase()}` : ''}
         </span>
       </span>
     );

@@ -62,6 +62,7 @@ function FutureDocumentIcon({relatedTo, verb, setLastUpdate, backend, user}) {
       dc_title: '<TITLE>',
       dc_issued: new Date(),
       dc_license: '',
+      dc_language: '',
       text: '<TEXT>'
     };
     backend.putDocument({
