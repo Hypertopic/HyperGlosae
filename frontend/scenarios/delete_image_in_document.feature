@@ -2,24 +2,10 @@
 
 Fonctionnalité: Supprimer à l'intérieur d'un document une image
 
-  Scénario: qui existe
+  Scénario:
 
-    Soit un document existant affiché comme document principal
-    Et contient l'image "diagramme de classe"
+    Soit le document contenant l'image "graphique" affiché comme document principal
     Et une session active avec mon compte
-    Quand j'essaie de supprimer l'image "diagramme de classe"
-    Alors je ne vois plus l'image "diagramme de classe" dans la glose
-  
-  Scénario: qui n'existe pas
-
-    Soit un document existant affiché comme document principal
-    Et contient l'image "diagramme de classe" 
-    Et contient l'image "graphique"
-    Et une session active avec mon compte
-    Quand j'essaie de supprimer l'image "diagramme de classe"
-    Alors je ne vois plus l'image "diagramme de classe" dans la glose
-    Et je vois toujours l'image "graphique" dans la glose
-
-
-
-  
+    Quand j'essaie de supprimer l'image "<IMAGE DESCRIPTION>"
+    Alors je ne vois plus l'image "<IMAGE DESCRIPTION>" dans la glose
+    Et je vois l'image "graphique" dans la glose

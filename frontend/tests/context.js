@@ -103,3 +103,43 @@ Soit ("qui n'a pas de document source", () => {
 Soit ("qui a un document source", () => {
   cy.get('.sources').find('.card-body').should('exist');
 });
+
+Soit("le document contenant l'image {string} affiché comme document principal", (alt) => {
+  cy.sign_in('alice','/');
+  cy.create_glose();
+
+  context = cy.get('.scholium').eq(1);
+  cy.click_on_contextual_menu_item(context, 'Add a picture...');
+  cy.get('[id="image-input"]').selectFile('../docs/component_bookshelf.png', {
+    force: true,
+  })
+
+  cy.get('img[alt="<IMAGE DESCRIPTION>"]') 
+  .should('not.be.visible')
+
+  cy.click_on_text('content');
+  cy.get('textarea')
+      .should('be.visible') 
+      .should(($textarea) => {
+      expect($textarea.val().trim()).not.to.be.empty;
+    })
+      .invoke('val')
+      .then((text) => {
+        const updatedText = text.replace(/\!\[.*?\]/, `![${alt}]`);
+        cy.get('textarea').clear().type(updatedText);
+      });
+  cy.get('body').click(0, 0); 
+  
+  cy.get('img[alt="graphique"]') 
+  .should('be.visible')
+
+  context = cy.get('.scholium').eq(1);
+  cy.click_on_contextual_menu_item(context, 'Add a picture...');
+  cy.get('[id="image-input"]').selectFile('../docs/architecture.png', {
+    force: true,
+  });
+  cy.get('img[alt="<IMAGE DESCRIPTION>"]') 
+  .should('be.visible')
+  cy.sign_out()
+});
+

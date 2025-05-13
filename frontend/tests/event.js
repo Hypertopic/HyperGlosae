@@ -95,5 +95,12 @@ Quand("j'essaye d'ajouter une image à une glose", () => {
   cy.get('[id="image-input"]').selectFile('../docs/architecture.png', {
     force: true,
   });
+  cy.get('img[alt="<IMAGE DESCRIPTION>"]',{ timeout: 10000 }) 
+  .should('be.visible')
 });
+
+Quand("j'essaie de supprimer l'image {string}", (alt) => {
+  cy.get(`button.trash-overlay[aria-label="Delete image ${alt}"]`).scrollIntoView().click({ force: true });
+  cy.contains('button', 'Delete').click();
 });
+

@@ -13,7 +13,8 @@ Alors("je peux lire {string}", (text) => {
 });
 
 Alors("je vois l'image {string} dans la glose", (alternative_text) => {
-  cy.get('.row:not(.runningHead)>.scholium').should('have.descendants', `img[alt='${alternative_text}']`);
+  cy.get(`img[alt="${alternative_text}"]`)
+    .should('be.visible');
 });
 
 Alors("{string} est le document principal", (title) => {
@@ -100,4 +101,8 @@ Alors("la rubrique {string} est associée au passage {string}", (rubric, text) =
 Alors("{string} est la glose ouverte en mode édition", (title) => {
   cy.get('.runningHead .scholium').should('contain', title);
   cy.get('.scholium').should('have.descendants', 'form');
+});
+
+Alors("je ne vois plus l'image {string} dans la glose", (alt) => {
+  cy.get('.row:not(.runningHead)>.scholium').should('not.have.descendants', `img[alt='${alt}']`);
 });
