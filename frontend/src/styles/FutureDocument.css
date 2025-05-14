@@ -30,3 +30,7 @@
   max-height: 400px;
   overflow-y: auto;
 }
+
+.checkbox-label {
+  word-break: break-word;
+}

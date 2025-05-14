@@ -6,20 +6,27 @@ import { Card, Nav, Form, Button, OverlayTrigger, Tooltip } from 'react-bootstra
 import { PlusLg, Link } from 'react-bootstrap-icons';
 import { v4 as uuid } from 'uuid';
 import DocumentList from './DocumentList';
-import EditorList from './EditorList';
+import CheckboxList from './CheckboxList';
 
 const FutureDocument = ({ relatedTo, setLastUpdate, backend, user }) => {
   const [activeTab, setActiveTab] = useState('create_glose');
   const [verb, setVerb] = useState('refersTo');
+
   const [showEditorList, setShowEditorList] = useState(false);
   const [availableEditors, setAvailableEditors] = useState([]);
   const [selectedEditors, setSelectedEditors] = useState([]);
+
+  const [showMetadataList, setShowMetadataList] = useState(false);
+  const [availableMetadata, setAvailableMetadata] = useState([]);
+  const [selectedMetadata, setSelectedMetadata] = useState([]);
 
   const navigate = useNavigate();
 
   useEffect(() => {
     backend.getDocument(relatedTo[0]).then((document) => {
       const filteredEditors = (document.editors || []).filter((editor) => editor !== user);
+      const metadata = Object.entries(document).filter(([key, _]) => key.startsWith('dc_'));
+      setAvailableMetadata(metadata);
       setAvailableEditors(filteredEditors);
     });
   }, [backend, relatedTo, user]);
@@ -42,6 +49,7 @@ const FutureDocument = ({ relatedTo, setLastUpdate, backend, user }) => {
       dc_issued: new Date(),
       dc_license: '',
       text: '<TEXT>',
+      ...Object.fromEntries(selectedMetadata),
     };
 
     try {
@@ -103,6 +111,18 @@ const FutureDocument = ({ relatedTo, setLastUpdate, backend, user }) => {
               <option value="adapts">Adaptation</option>
               <option value="includes">Quotation</option>
             </Form.Select>
+            <>
+              <Form.Switch
+                className="open-metadata-list mt-3 mb-1"
+                id="switch-metadata"
+                label="Re use metadata"
+                checked={showMetadataList}
+                onChange={() => setShowMetadataList(!showMetadataList)}
+              />
+              {showMetadataList && (
+                <CheckboxList availableItems={availableMetadata} selectedItems={selectedMetadata} setSelectedItems={setSelectedMetadata} type="metadata" />
+              )}
+            </>
             {
               availableEditors.length !== 0 && (
                 <>
@@ -114,7 +134,7 @@ const FutureDocument = ({ relatedTo, setLastUpdate, backend, user }) => {
                     onChange={() => setShowEditorList(!showEditorList)}
                   />
                   {showEditorList && (
-                    <EditorList {...{ availableEditors, selectedEditors, setSelectedEditors }} />
+                    <CheckboxList availableItems={availableEditors} selectedItems={selectedEditors} setSelectedItems={setSelectedEditors} type="editor"/>
                   )}
                 </>
               )
