@@ -131,3 +131,26 @@ Alors("je ne vois aucune information de création du document", () => {
   cy.get('.text-document-creation')
     .should('contain.text', 'No information about the creator and creation date of this document');
 });
+
+Alors("la glose ouverte a les métadonnées", (metadata) => {
+  cy.get('.icon.edit').click();
+  cy.get('.editable.metadata').click();
+  cy.get('form textarea').invoke('val').then(actual => {
+    const parseStrToObject = str => {
+      const lines = str.trim().split('\n');
+      const result = {};
+      lines.forEach(line => {
+        const [key, value] = line.split(':').map(part => part.trim());
+        if (key !== undefined && value !== undefined) {
+          result[key] = value;
+        }
+      });
+      return result;
+    };
+    const expectedMetadata = parseStrToObject(metadata);
+    const actualMetadata = parseStrToObject(actual);
+    Object.entries(expectedMetadata).forEach(([key, value]) => {
+      expect(actualMetadata).to.have.property(key, value);
+    });
+  });
+});
