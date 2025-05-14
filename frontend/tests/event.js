@@ -97,7 +97,19 @@ Quand("j'essaie de créer une glose en gardant {string} comme éditeur", (userNa
 
 Quand("j'essaie de créer une glose en gardant tous les éditeurs", () => {
   cy.get('.open-editor-list').click();
-  cy.get(`#select-all`).click();
+  cy.get(`#select-all-editor`).click();
+  cy.get(".create-document").click();
+});
+
+Quand("j'essaie de créer une glose en gardant les métadonnées du document source", () => {
+  cy.get('.open-metadata-list').click();
+  cy.get(`#select-all-metadata`).click();
+  cy.get(".create-document").click();
+});
+
+Quand("j'essaie de créer une glose en gardant la {string} du document source", (metadata) => {
+  cy.get('.open-metadata-list').click();
+  cy.get(`#metadata-${metadata}`).click();
   cy.get(".create-document").click();
 });
 
