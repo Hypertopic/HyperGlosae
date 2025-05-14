@@ -15,7 +15,7 @@ function ExistingDocument({ document, relatedTo, verb, setLastUpdate, backend })
           backend.getDocument(x)
             .then(chunk => backend.putDocument({
               ...chunk,
-              links: [...chunk.links || [], { verb, object: relatedTo[0] }]
+              links: [...chunk.links || [], ...relatedTo.map(x =>({ verb, object: x}))]
             }))
         )
       )
