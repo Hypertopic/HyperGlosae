@@ -26,7 +26,7 @@ function Passage({source, rubric, scholia, margin, sourceId, backend, setLastUpd
     }];
   }
   return (
-    <Row>
+    <Row className={`passage ${rubric ? 'numbered-passage' : ''}`}>
       <Col className="main">
         {!isFromScratch &&
           <Container>
