@@ -76,8 +76,9 @@ function EditableText({id, text, rubric, isPartOf, links, fragment, setFragment,
     backend.putDocument({ ...editedDocument, text })
       .then(x => {
         setLastUpdate(x.rev);
-        // Notification après découpage
-        NotificationManager.info('Découpage en passage effectué avec succès.');
+        if (!fragment) {
+          NotificationManager.info('The splitting into sections was successfully completed.');
+        }
       })
       .then(() => setHighlightedText())
       .then(() => setBeingEdited(false))
