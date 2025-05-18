@@ -37,6 +37,10 @@ Alors("l'année de publication est {string}", (year) => {
   cy.get('.metadata > .edition').first().should('contain', year);
 });
 
+Alors("la langue est {string}", (language) => {
+  cy.get('.metadata > .edition').first().should('contain', language);
+});
+
 Alors("la glose contient {string}", (text) => {
   cy.contains('.scholium .formatted-text', text).should('exist');
 });
