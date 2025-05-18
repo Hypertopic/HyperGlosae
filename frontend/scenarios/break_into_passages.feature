@@ -14,18 +14,18 @@ Scénario: en fonction du numéro de paragraphe
   Alors la rubrique "1" est associée au passage "Les hommes naissent et demeurent libres"
   Et la rubrique "2" est associée au passage "Le but de toute association politique"
 
-Scénario: en indiquant des rubriques numériques dans le texte
+Scénario: en indiquant des rubriques alpha-numériques dans le texte
 
   Soit un document dont je suis l'auteur affiché comme glose
   Et une session active avec mon compte
   Quand je remplace le contenu de la glose par ce qui suit et que je me focalise sur la glose :
     """
-    {2.7} Ainsi donc, le mot genre a trois significations
-    et c'est de la troisième qu'il s'agit en philosophie.
-    {2.8} Et c'est pour définir le genre en ce sens qu'on a dit
-    qu'il est l'attribut essentiel applicable à plusieurs espèces différentes entre elles,
-    comme l'attribut animal.
-    """
-  Alors la rubrique "2.7" est associée au passage "Ainsi donc, le mot genre"
-  Et la rubrique "2.8" est associée au passage "Et c'est pour définir le genre"
+    {447a} CALLICLÈS. C'est ainsi, dit-on, qu'il faut arriver à la guerre et à une bataille.
+    SOCRATE. Comment ! sommes-bous en retard, et arrivons-nous, comme on dit, après la fête ?
+    CALLICLÈS. Et même après une fête tout à fait agréable ; car Gorgias vient de nous faire entendre une infinité de belles choses.
+    SOCRATE. Eh bien, Calliclès, c'est pourtant Chéréphon qui est cause de cela, pour nous avoir obligés de nous arrêter sur la place publique.
 
+    {447b} CHÉRÉPHON. Il n'y a pas de mal, Socrate ; car j'y remédierai bien. Gorgias est mon ami, et par conséquent il se fera entendre à nous à l'instant même, si tu le désires, ou, si tu l'aimes mieux, une autre fois.
+    """
+  Alors la rubrique "447a" est associée au passage "CALLICLÈS. C'est ainsi, dit-on, qu'il faut arriver à la guerre et à une bataille."
+  Et la rubrique "447b" est associée au passage "CHÉRÉPHON. Il n'y a pas de mal, Socrate ; car j'y remédierai bien. Gorgias"
