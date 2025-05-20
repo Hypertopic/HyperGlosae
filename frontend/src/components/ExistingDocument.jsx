@@ -4,6 +4,9 @@ import { useNavigate } from 'react-router-dom';
 function ExistingDocument({ document, relatedTo, verb, setLastUpdate, backend }) {
   const navigate = useNavigate();
   const title = extractSubstring(document.dc_title || 'Untitled Document');
+  const sourceChunksToBeLinked = (verb !== 'includes' && relatedTo.length)
+    ? [{ verb, object: relatedTo[0] }]
+    : relatedTo.map(object =>({ verb, object }));
 
   const handleClick = async () => {
     backend.getView({view: 'content', id: document._id, options: ['include_docs']})
@@ -15,7 +18,7 @@ function ExistingDocument({ document, relatedTo, verb, setLastUpdate, backend })
           backend.getDocument(x)
             .then(chunk => backend.putDocument({
               ...chunk,
-              links: [...chunk.links || [], ...relatedTo.map(x =>({ verb, object: x}))]
+              links: [...chunk.links || [], ...sourceChunksToBeLinked]
             }))
         )
       )

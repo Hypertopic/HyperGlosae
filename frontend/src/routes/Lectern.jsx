@@ -40,9 +40,12 @@ function Lectern({backend, user}) {
     return <DocumentNotFound />;
   }
 
-  const createOn = [...new Set([...content
-    .filter(object => object.value.isPartOf == id)
-    .map((object) => (object.doc == null) ? object.id : object.doc._id), id])];
+  const createOn = [...new Set([
+    id,
+    ...content
+      .filter(({value}) => value.isPartOf === id)
+      .map(({id, value}) => value._id || id)
+  ])];
 
   return (
     <Container className="screen">

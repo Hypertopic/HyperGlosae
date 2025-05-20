@@ -56,7 +56,9 @@ const FutureDocument = ({ relatedTo, setLastUpdate, backend, user }) => {
     try {
       await backend.putDocument({
         ...doc,
-        links: relatedTo.map((object) => ({ verb, object })),
+        links: (verb !== 'includes' && relatedTo.length)
+          ? [{ verb, object: relatedTo[0] }]
+          : relatedTo.map((object) => ({ verb, object }))
       });
       setLastUpdate(_id);
       navigate((relatedTo.length ? '#' : `/${_id}#`) + _id);
