@@ -23,6 +23,7 @@ const FutureDocument = ({ relatedTo, setLastUpdate, backend, user }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    if (!relatedTo.length) return;
     backend.getDocument(relatedTo[0]).then((document) => {
       const filteredEditors = (document.editors || []).filter((editor) => editor !== user);
       const metadata = Object.entries(document).filter(([key, _]) => key.startsWith('dc_'));
