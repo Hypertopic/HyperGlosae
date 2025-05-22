@@ -1,7 +1,11 @@
 function ParallelDocuments(id, content = [], margin, raw = false) {
 
+  const filteredContent = content.filter(
+    x => [x.id, x.value.isPartOf].includes(id) || margin && [x.id, x.value.isPartOf].includes(margin)
+  );
+
   const hasRubrics = (doc_id) =>
-    content.some(x => x.value.rubric !== '0' && x.value.isPartOf === doc_id && x.value.text);
+    filteredContent.some(x => x.value.rubric !== '0' && x.value.isPartOf === doc_id && x.value.text);
 
   this.doesSourceHaveRubrics = hasRubrics(id);
 
@@ -25,7 +29,7 @@ function ParallelDocuments(id, content = [], margin, raw = false) {
 
   const xor = (x, y) => x !== y;
 
-  this.passages = content.reduce(({whole, part}, x, i, {length}) => {
+  this.passages = filteredContent.reduce(({whole, part}, x, i, {length}) => {
     if (part.rubric && x.value.rubric !== part.rubric) {
       whole.push(part);
       part = {source: [], scholia: []};
