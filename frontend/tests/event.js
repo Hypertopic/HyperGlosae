@@ -27,7 +27,7 @@ Quand("j'essaie de remplacer l'annotation du passage {int} par :", (block_number
 });
 
 Quand("j'essaie de remplacer le contenu de la glose par :", (markdown) => {
-  cy.click_on_text('content', '<TEXT>');
+  cy.click_on_text('content', '…');
   cy.get('textarea').type('{selectAll} ' + markdown.replaceAll(/[{}]/g, (x)=>`{${x}}`)).blur();
 });
 
@@ -75,7 +75,7 @@ Quand("je découpe la glose en passages numérotés et que je me focalise sur la
 });
 
 Quand("je remplace le contenu de la glose par ce qui suit et que je me focalise sur la glose :", (markdown) => {
-  cy.click_on_text('content', '<TEXT>');
+  cy.click_on_text('content', '…');
   cy.get('textarea').type('{selectAll} ' + markdown.replaceAll(/[{}]/g, (x)=>`{${x}}`)).blur();
   cy.get('.focus').click();
 });

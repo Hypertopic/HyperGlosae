@@ -1,7 +1,7 @@
 import { Then as Alors, Step } from '@badeball/cypress-cucumber-preprocessor';
 
 Alors("la glose ouverte a le titre par défaut", () => {
-  Step(this, "'<TITLE>' est la glose ouverte");
+  Step(this, "'…' est la glose ouverte");
 });
 
 Alors("{string} est la glose ouverte", (title) => {

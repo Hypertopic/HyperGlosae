@@ -45,12 +45,16 @@ const FutureDocument = ({ relatedTo, setLastUpdate, backend, user }) => {
     const doc = {
       _id,
       editors: [user, ...selectedEditors],
-      dc_creator: '<CREATOR>',
-      dc_title: '<TITLE>',
+      dc_creator: '…',
+      dc_title: '…',
       dc_issued: new Date(),
-      dc_license: '',
-      dc_language: '',
-      text: '<TEXT>',
+      dc_isPartOf: null,
+      dc_license: null,
+      dc_translator: null,
+      dc_language: null,
+      dc_publisher: null,
+      dc_spatial: null,
+      text: '…',
       ...Object.fromEntries(selectedMetadata),
     };
 
