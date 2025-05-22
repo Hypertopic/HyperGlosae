@@ -5,6 +5,7 @@ import FormattedText from './FormattedText';
 import DiscreeteDropdown from './DiscreeteDropdown';
 import PictureUploadAction from '../menu-items/PictureUploadAction';
 import {v4 as uuid} from 'uuid';
+import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 
 function EditableText({id, text, rubric, isPartOf, links, fragment, setFragment, setHighlightedText, setSelectedText, rawEditMode, setRawEditMode, backend, setLastUpdate}) {
   const [beingEdited, setBeingEdited] = useState(false);
@@ -102,12 +103,17 @@ function EditableText({id, text, rubric, isPartOf, links, fragment, setFragment,
   };
 
   if (!beingEdited) return (
-    <div className="editable content position-relative" title="Edit content...">
-      <div className="formatted-text" onClick={handleClick}>
-        <FormattedText {...{setHighlightedText, setSelectedText}}>
-          {text || '&nbsp;'}
-        </FormattedText>
-      </div>
+    <div className="editable content position-relative">
+      <OverlayTrigger
+        placement="top"
+        overlay={<Tooltip id={`tooltip-${id}`}>Edit content...</Tooltip>}
+      >
+        <div className="formatted-text" onClick={handleClick}>
+          <FormattedText {...{setHighlightedText, setSelectedText}}>
+            {text || '&nbsp;'}
+          </FormattedText>
+        </div>
+      </OverlayTrigger>
       <DiscreeteDropdown>
         <PictureUploadAction {... {id, backend, handleImageUrl}}/>
       </DiscreeteDropdown>
