@@ -9,19 +9,23 @@ function ExistingDocument({ document, relatedTo, verb, setLastUpdate, backend })
     : relatedTo.map(object =>({ verb, object }));
 
   const handleClick = async () => {
-    backend.getView({view: 'content', id: document._id, options: ['include_docs']})
-      .then(rows => rows
-        .filter(x => x.value.isPartOf === document._id)
-        .map(x => x.id)
-        .reduce((set, item) => set.includes(item) ? set : [...set, item], [document._id])
-        .map(x =>
-          backend.getDocument(x)
-            .then(chunk => backend.putDocument({
-              ...chunk,
-              links: [...chunk.links || [], ...sourceChunksToBeLinked]
-            }))
-        )
+    const gloseChunksToBeLinked = (verb === 'includes')
+      ? Promise.resolve([document._id])
+      : backend.getView({view: 'content', id: document._id})
+        .then(rows => rows
+          .filter(x => x.value.isPartOf === document._id)
+          .map(x => x.id)
+          .reduce((set, item) => set.includes(item) ? set : [...set, item], [document._id])
+        );
+    gloseChunksToBeLinked.then(l =>
+      l.map(x =>
+        backend.getDocument(x)
+          .then(chunk => backend.putDocument({
+            ...chunk,
+            links: [...chunk.links || [], ...sourceChunksToBeLinked]
+          }))
       )
+    )
       .then(x => Promise.all(x))
       .then(() => {
         setLastUpdate(document._id);
