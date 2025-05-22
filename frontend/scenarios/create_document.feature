@@ -74,7 +74,7 @@ Scénario: en gardant toutes les métadonnées du document source
     dc_creator: Aurélien Bénel
     dc_isPartOf: Archéologie préventive (IF14)
     dc_issued: 2019-10-01T15:50:42.624Z
-    dc_language: fra
+    dc_language: french
     dc_license: https://creativecommons.org/licenses/by/4.0/
     dc_title: Vestiges (diagramme de classes)
   """
@@ -84,7 +84,7 @@ Scénario: en gardant toutes les métadonnées du document source
     dc_creator: Aurélien Bénel
     dc_isPartOf: Archéologie préventive (IF14)
     dc_issued: 2019-10-01T15:50:42.624Z
-    dc_language: fra
+    dc_language: french
     dc_license: https://creativecommons.org/licenses/by/4.0/
     dc_title: Vestiges (diagramme de classes)
   """
@@ -98,7 +98,7 @@ Scénario: en gardant certaines des métadonnées du document source
     dc_creator: Aurélien Bénel
     dc_isPartOf: Archéologie préventive (IF14)
     dc_issued: 2019-10-01T15:50:42.624Z
-    dc_language: fra
+    dc_language: french
     dc_license: https://creativecommons.org/licenses/by/4.0/
     dc_title: Vestiges (diagramme de classes)
   """

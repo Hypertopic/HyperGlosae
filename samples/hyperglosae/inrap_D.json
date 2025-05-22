@@ -8,7 +8,7 @@
     "verb": "refersTo",
     "object": "05b61f5285c711ed97bf6b9b56808c45"
   }],
-  "dc_language": "fra",
+  "dc_language": "french",
   "editors": ["benel"],
   "text":"{1} [responsable d'opération]\nActeur{5} [fouiller selon le programme]\nAction{7} [recherches historiques sur la zone balisée]\nFlux{9} [coupes]\nFlux\n\n[structures]\nFlux\n\n[tamisage]\nAction\n\n[relever les coupes]\nAction{15} [objets]\nFlux\n\n[sacs]\nFlux\n\n[terre]\nFlux\n\n[relevé topographique]\nFlux\n\n[photos]\nFlux\n\n[creuser]\nAction\n\n[prendre en photo]\nAction\n\n[dessiner les plans]\nAction\n\n[archiver tous les sacs]\nAction\n\n[décapage du terrain]\nAction\n\n[prélever la terre, les objets, les mettre en sac]\nAction{17} [mobilier]\nFlux\n\n[rapport]\nFlux\n\n[fiche d'enregistrement]\nFlux\n\n[interpréter]\nAction\n\n[lavage]\nAction\n\n[scannés et redessinés sur ordinateur]\nAction\n\n{19}[graines]\nFlux\n\n[charbons]\nFlux\n\n[faire des prélèvements]\nAction{21}[reversés aux collections publiques]\nAction\n\n[service régional de l'archéologie]\nActeur\n\n[non les garde pendant deux ans en études]\nAction{31} [vestiges]\nFlux\n\n[parcelle]\nFlux{41} [techniciens]\nActeur{43} [les CDD, ceux qui sont de passage à l'INRAP, souvent des prestataires]\nActeur{45} [publications]\nFlux\n\n[chercheurs]\n Acteur\n\n[responsables d'opérations mais spécialisés sur des périodes chronologiques]\nActeur{53} [fouilleurs]\nActeur",
   "dc_license": "https://creativecommons.org/licenses/by/4.0/"

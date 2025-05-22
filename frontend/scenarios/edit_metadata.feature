@@ -11,12 +11,13 @@ Scénario: dont on est l'auteur
     dc_title: Commentaire
     dc_creator: Alice Liddell
     dc_issued: 1932
-    dc_language: latin
+    dc_language: french
+    dc_translator: Charles Beaudelaire
     """
   Alors "Commentaire" est la glose ouverte
   Et le créateur est "Alice Liddell"
   Et l'année de publication est "1932"
-  Et la langue est "Latin"
+  Et la langue est "French"
 
 Scénario: dont on n'est pas l'auteur
 
