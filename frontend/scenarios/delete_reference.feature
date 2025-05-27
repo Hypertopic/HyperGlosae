@@ -3,6 +3,7 @@
 Fonctionnalité: Supprimer une référence à un document
 
 Scénario: dont je suis l'auteur
+
   Soit un document dont je ne suis pas l'auteur affiché comme document principal
   Et avec un document reconnaissable dont je suis l'auteur affiché comme glose
   Et une session active avec mon compte

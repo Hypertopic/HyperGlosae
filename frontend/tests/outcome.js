@@ -2,6 +2,7 @@ import { Then as Alors, Step } from '@badeball/cypress-cucumber-preprocessor';
 
 Alors("la glose ouverte a le titre par défaut", () => {
   Step(this, "'…' est la glose ouverte");
+  Step(this, "'…' est la glose ouverte");
 });
 
 Alors("{string} est la glose ouverte", (title) => {
@@ -35,6 +36,10 @@ Alors("le créateur est {string}", (name) => {
 
 Alors("l'année de publication est {string}", (year) => {
   cy.get('.metadata > .edition').first().should('contain', year);
+});
+
+Alors("la langue est {string}", (language) => {
+  cy.get('.metadata > .edition').first().should('contain', language);
 });
 
 Alors("la langue est {string}", (language) => {
