@@ -27,7 +27,7 @@ Quand("j'essaie de remplacer l'annotation du passage {int} par :", (block_number
 });
 
 Quand("j'essaie de remplacer le contenu de la glose par :", (markdown) => {
-  cy.click_on_text('content', '<TEXT>');
+  cy.click_on_text('content', '…');
   cy.get('textarea').type('{selectAll} ' + markdown.replaceAll(/[{}]/g, (x)=>`{${x}}`)).blur();
 });
 
@@ -75,7 +75,7 @@ Quand("je découpe la glose en passages numérotés et que je me focalise sur la
 });
 
 Quand("je remplace le contenu de la glose par ce qui suit et que je me focalise sur la glose :", (markdown) => {
-  cy.click_on_text('content', '<TEXT>');
+  cy.click_on_text('content', '…');
   cy.get('textarea').type('{selectAll} ' + markdown.replaceAll(/[{}]/g, (x)=>`{${x}}`)).blur();
   cy.get('.focus').click();
 });
@@ -97,7 +97,19 @@ Quand("j'essaie de créer une glose en gardant {string} comme éditeur", (userNa
 
 Quand("j'essaie de créer une glose en gardant tous les éditeurs", () => {
   cy.get('.open-editor-list').click();
-  cy.get(`#select-all`).click();
+  cy.get(`#select-all-editor`).click();
+  cy.get(".create-document").click();
+});
+
+Quand("j'essaie de créer une glose en gardant les métadonnées du document source", () => {
+  cy.get('.open-metadata-list').click();
+  cy.get(`#select-all-metadata`).click();
+  cy.get(".create-document").click();
+});
+
+Quand("j'essaie de créer une glose en gardant la {string} du document source", (metadata) => {
+  cy.get('.open-metadata-list').click();
+  cy.get(`#metadata-${metadata}`).click();
   cy.get(".create-document").click();
 });
 
@@ -105,3 +117,6 @@ Quand("je consulte les informations de création du document", function () {
   cy.get('.info-icon-container').trigger('mouseover');
 });
 
+Quand("je supprime le lien entre le document principal et la référence", () => {
+  cy.click_on_contextual_menu_item('.runningHead .scholium', 'Delete reference...');
+});

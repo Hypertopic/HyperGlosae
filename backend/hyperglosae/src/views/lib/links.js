@@ -13,12 +13,20 @@ exports.getRelatedDocuments = ({isPartOf, links}) =>
   );
 
 exports.emitPassages = ({text, isPartOf, related}) => {
+  if (!text) return;
   const PASSAGE = /{([^{]+)} ([^{]*)/g;
   let passages = [...text.matchAll(PASSAGE)];
-  passages = (passages.length) ? passages : [[null, null, text]];
+  passages = (passages.length) ? passages : [[null, '0', text]];
   passages.forEach(([_, rubric, passage]) => {
- 	  related.forEach(x => {
- 	    emit([x, Number(rubric)], {text: passage, isPartOf, _id: null});
+    let parsed_rubric = rubric.match(/(?:(\d+)[:\., ])?(\d+) ?([a-z]?)/)
+        .slice(1)
+        .filter(x => !!x)
+        .map(x => {
+          let n = Number(x) ;
+          return Number.isNaN(n) ? x : n;
+        });
+    related.forEach((x) => {
+      emit([x, ...parsed_rubric], { text: passage, isPartOf, rubric, _id: null });
  	  });
   });
 }
