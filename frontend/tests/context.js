@@ -1,4 +1,5 @@
 import { Given as Soit, Step } from '@badeball/cypress-cucumber-preprocessor';
+import { parseStrToObject } from './support';
 
 Soit("un document existant affiché comme document principal", () => {
   cy.sign_in('alice', '/');
@@ -143,17 +144,6 @@ Soit("ayant les métadonnées", (metadata) => {
   cy.get('.icon.edit').click();
   cy.get('.editable.metadata').click();
   cy.get('form textarea').invoke('val').then(actual => {
-    const parseStrToObject = str => {
-      const lines = str.trim().split('\n');
-      const result = {};
-      lines.forEach(line => {
-        const [key, value] = line.split(':').map(part => part.trim());
-        if (key !== undefined && value !== undefined) {
-          result[key] = value;
-        }
-      });
-      return result;
-    };
     const expectedMetadata = parseStrToObject(metadata);
     const actualMetadata = parseStrToObject(actual);
     expect(actualMetadata).to.deep.equal(expectedMetadata);

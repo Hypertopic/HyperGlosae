@@ -125,3 +125,15 @@ function setBaseAndExtent(...args) {
   document.getSelection().setBaseAndExtent(...args);
 }
 
+// Simplified YAML parser (does not handle complex YAML structures)
+export function parseStrToObject(str) {
+  const lines = str.trim().split('\n');
+  const result = {};
+  lines.forEach(line => {
+    const [key, value] = line.split(':').map(part => part.trim());
+    if (key && value) {
+      result[key] = value;
+    }
+  });
+  return result;
+}
