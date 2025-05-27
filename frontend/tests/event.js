@@ -28,7 +28,7 @@ Quand("j'essaie de remplacer l'annotation du passage {int} par :", (block_number
 
 Quand("j'essaie de remplacer le contenu de la glose par :", (markdown) => {
   cy.click_on_text('content', '…');
-  cy.get('textarea').type('{selectAll} ' + markdown.replaceAll(/[{}]/g, (x)=>`{${x}}`)).blur();
+  cy.get('textarea').type('{selectAll} ' + markdown.replaceAll(/[{}]/g, (x) => `{${x}}`)).blur();
 });
 
 Quand("j'ajoute le document principal à ma bibliothèque", () => {
@@ -76,7 +76,7 @@ Quand("je découpe la glose en passages numérotés et que je me focalise sur la
 
 Quand("je remplace le contenu de la glose par ce qui suit et que je me focalise sur la glose :", (markdown) => {
   cy.click_on_text('content', '…');
-  cy.get('textarea').type('{selectAll} ' + markdown.replaceAll(/[{}]/g, (x)=>`{${x}}`)).blur();
+  cy.get('textarea').type('{selectAll} ' + markdown.replaceAll(/[{}]/g, (x) => `{${x}}`)).blur();
   cy.get('.focus').click();
 });
 
@@ -117,3 +117,8 @@ Quand("je consulte les informations de création du document", function () {
   cy.get('.info-icon-container').trigger('mouseover');
 });
 
+Quand("j'essaie de modifier la numerotation de la glose:", function () {
+  cy.get('discreete-dropdown').click()
+  cy.click_on_text('Edit passage numbering');
+  cy.get('textarea').type('{selectAll}' + '{2} Second').blur();
+});

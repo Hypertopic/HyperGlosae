@@ -4,16 +4,22 @@ Fonctionnalité: Essayer d'éditer la numérotation d'un passage
 
 Contexte:
 
-  Soit un document affiché comme document principal
+  Soit un document en deux passages affiché comme document principal
   Et une glose dont je suis l'auteur
   Et une session active avec mon compte
 
-Scénario: quand le texte de la glose est en une seule partie
+Scénario: quand la glose ne contient qu'un seul passage
 
-  Quand je supprime l'ensemble du contenu de la glose
-  Alors le texte ainsi que la numérotation sont supprimés
+  Quand je modifie le texte de la glose pour rajouter a la fin
+  """
+  {2} Second
+  """
+  Alors la glose est en deux passages
 
-Scénario: quand le texte de la glose est plusieur partie
+Scénario: quand la glose contient 2 passages
 
-  Quand je supprime l'ensemble du contenu du passage 1 de la glose
-  Alors le texte du passage 1 est supprimé et la numérotation des autres passages est réadaptée
+    Quand je modifie le texte de dernier passge de la glose pour rajouter à la fin 
+    """
+    {3} Last
+    """
+    Alors la glose contient 3 passages
