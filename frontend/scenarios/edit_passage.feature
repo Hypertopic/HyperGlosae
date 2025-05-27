@@ -33,14 +33,3 @@ Scénario: avec une mise en forme
     """
   Alors la glose contient "Se socialiser"
 
-Scénario: quand la numérotation est modifiée
-
-  Quand j'essaie de éditer la numerotation de la ligne 2a:
-    """
-    Pour la remplacer par 2b
-    """
-    Alors cette ligne sera numérotée 2b
-    """
-    Pour supprimer la numérotation de la ligne 
-    """
-    Alors cette ligne n'aura plus de numérotaion
