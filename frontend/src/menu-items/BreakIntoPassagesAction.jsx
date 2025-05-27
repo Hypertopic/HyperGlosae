@@ -13,7 +13,7 @@ function BreakIntoPassagesAction({parallelDocuments, margin, backend, setLastUpd
     if (!hasChunks) {
       scholium = scholia[0];
       // disabled if source has rubrics and margin is not empty
-      disabled = parallelDocuments.doesSourceHaveRubrics && scholium.text !== '<TEXT>' && !!scholium.text;
+      disabled = parallelDocuments.doesSourceHaveRubrics && scholium.text !== '…' && !!scholium.text;
     }
   }
 

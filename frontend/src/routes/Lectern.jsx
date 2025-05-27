@@ -1,4 +1,5 @@
 import '../styles/Lectern.css';
+import DocumentNotFound from '../components/DocumentNotFound';
 
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -35,6 +36,17 @@ function Lectern({backend, user}) {
     setParallelDocuments(new ParallelDocuments(id, content, margin, rawEditMode));
   }, [id, content, margin, rawEditMode, lastUpdate]);
 
+  if (!metadata?.focusedDocument?._id) {
+    return <DocumentNotFound />;
+  }
+
+  const createOn = [...new Set([
+    id,
+    ...content
+      .filter(({value}) => value.isPartOf === id)
+      .map(({id, value}) => value._id || id)
+  ])];
+
   return (
     <Container className="screen">
       <Row>
@@ -47,8 +59,8 @@ function Lectern({backend, user}) {
               hasSources={metadata.forwardLinkedDocuments.length > 0}
               {...{id, margin, metadata, parallelDocuments, user, rawEditMode, setRawEditMode, backend, setLastUpdate}}
             />
-            <References active={!margin} createOn={[id]}
-              {...{metadata, user, setLastUpdate, backend}}
+            <References active={!margin}
+              {...{metadata, user, createOn, setLastUpdate, backend}}
             />
           </Row>
         </Col>

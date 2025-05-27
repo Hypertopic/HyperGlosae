@@ -1,7 +1,7 @@
 import { Then as Alors, Step } from '@badeball/cypress-cucumber-preprocessor';
 
 Alors("la glose ouverte a le titre par défaut", () => {
-  Step(this, "'<TITLE>' est la glose ouverte");
+  Step(this, "'…' est la glose ouverte");
 });
 
 Alors("{string} est la glose ouverte", (title) => {
@@ -35,6 +35,10 @@ Alors("le créateur est {string}", (name) => {
 
 Alors("l'année de publication est {string}", (year) => {
   cy.get('.metadata > .edition').first().should('contain', year);
+});
+
+Alors("la langue est {string}", (language) => {
+  cy.get('.metadata > .edition').first().should('contain', language);
 });
 
 Alors("la glose contient {string}", (text) => {
@@ -130,6 +134,52 @@ Alors("je peux voir les informations de création du document {string} et une da
 Alors("je ne vois aucune information de création du document", () => {
   cy.get('.text-document-creation')
     .should('contain.text', 'No information about the creator and creation date of this document');
+});
+
+Alors("la glose ouverte a les métadonnées", (metadata) => {
+  cy.get('.icon.edit').click();
+  cy.get('.editable.metadata').click();
+  cy.get('form textarea').invoke('val').then(actual => {
+    const parseStrToObject = str => {
+      const lines = str.trim().split('\n');
+      const result = {};
+      lines.forEach(line => {
+        const [key, value] = line.split(':').map(part => part.trim());
+        if (key !== undefined && value !== undefined) {
+          result[key] = value;
+        }
+      });
+      return result;
+    };
+    const expectedMetadata = parseStrToObject(metadata);
+    const actualMetadata = parseStrToObject(actual);
+    Object.entries(expectedMetadata).forEach(([key, value]) => {
+      expect(actualMetadata).to.have.property(key, value);
+    });
+  });
+});
+
+Alors("la glose ouverte a les métadonnées", (metadata) => {
+  cy.get('.icon.edit').click();
+  cy.get('.editable.metadata').click();
+  cy.get('form textarea').invoke('val').then(actual => {
+    const parseStrToObject = str => {
+      const lines = str.trim().split('\n');
+      const result = {};
+      lines.forEach(line => {
+        const [key, value] = line.split(':').map(part => part.trim());
+        if (key !== undefined && value !== undefined) {
+          result[key] = value;
+        }
+      });
+      return result;
+    };
+    const expectedMetadata = parseStrToObject(metadata);
+    const actualMetadata = parseStrToObject(actual);
+    Object.entries(expectedMetadata).forEach(([key, value]) => {
+      expect(actualMetadata).to.have.property(key, value);
+    });
+  });
 });
 
 Alors("la glose ouverte est le document reconnaissable", (title) => {
