@@ -97,11 +97,11 @@ Soit("un document dont je suis l'auteur affiché comme glose et contenant :", (t
   cy.sign_out();
 });
 
-Soit ("qui n'a pas de document source", () => {
+Soit("qui n'a pas de document source", () => {
   cy.get('.sources').find('.card-body').should('not.exist');
 });
 
-Soit ("qui a un document source", () => {
+Soit("qui a un document source", () => {
   cy.get('.sources').find('.card-body').should('exist');
 });
 
