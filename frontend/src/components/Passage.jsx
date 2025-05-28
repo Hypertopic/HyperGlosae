@@ -10,7 +10,7 @@ import EditableText from '../components/EditableText';
 import DiscreeteDropdown from './DiscreeteDropdown';
 import CommentFragmentAction from '../menu-items/CommentFragmentAction';
 
-function Passage({source, rubric, scholia, margin, sourceId, rawEditMode, setRawEditMode, backend, setLastUpdate}) {
+function Passage({source, rubric, scholia, margin, sourceId, isComposite, rawEditMode, setRawEditMode, backend, setLastUpdate}) {
   const [selectedText, setSelectedText] = useState();
   const [highlightedText, setHighlightedText] = useState('');
   const [fragment, setFragment] = useState();
@@ -31,7 +31,7 @@ function Passage({source, rubric, scholia, margin, sourceId, rawEditMode, setRaw
         {!isFromScratch &&
           <Container>
             <Row>
-              <PassageSource {...{highlightedText, setHighlightedText, setFragment, selectedText, setSelectedText, margin}}>
+              <PassageSource {...{isComposite, highlightedText, setHighlightedText, setFragment, selectedText, setSelectedText, margin}}>
                 {source}
               </PassageSource>
               <Rubric id={rubric} />
@@ -44,13 +44,25 @@ function Passage({source, rubric, scholia, margin, sourceId, rawEditMode, setRaw
   );
 }
 
-function PassageSource({children, highlightedText, setHighlightedText, setFragment, selectedText, setSelectedText, margin}) {
+function PassageSource({children, isComposite, highlightedText, setHighlightedText, setFragment, selectedText, setSelectedText, margin}) {
   return (
     <Col className="position-relative">
-      {children.map((chunk, index) =>
-        <SelectableFormattedText key={index} {...{highlightedText, setHighlightedText, setSelectedText}}>
-          {chunk}
-        </SelectableFormattedText>
+      {isComposite ? (
+        <Row>
+          {children.map((chunk, index) =>
+            <Col key={index}>
+              <SelectableFormattedText {...{highlightedText, setHighlightedText, setSelectedText}}>
+                {chunk}
+              </SelectableFormattedText>
+            </Col>
+          )}
+        </Row>
+      ) : (
+        children.map((chunk, index) =>
+          <SelectableFormattedText key={index} {...{highlightedText, setHighlightedText, setSelectedText}}>
+            {chunk}
+          </SelectableFormattedText>
+        )
       )}
       <DiscreeteDropdown>
         <CommentFragmentAction {...{selectedText, setSelectedText, setFragment, margin}}/>

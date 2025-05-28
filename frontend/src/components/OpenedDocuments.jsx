@@ -20,6 +20,7 @@ function OpenedDocuments({id, margin, metadata, parallelDocuments, rawEditMode, 
   const marginLicense = marginMetadata?.dc_license;
   const sourceMetadata = metadata.focusedDocument;
   const xs = margin ? 12 : 7;
+  const isComposite = parallelDocuments.doesSourceHaveInclusions;
   return (
     <Col className="lectern" {...{xs}} >
       <Row className ="runningHead">
@@ -30,7 +31,7 @@ function OpenedDocuments({id, margin, metadata, parallelDocuments, rawEditMode, 
       </Row>
       {parallelDocuments.passages.map(({rubric, source, scholia}, i) =>
         <Passage key={rubric || i}
-          {...{source, rubric, scholia, margin, sourceId: id, rawEditMode, setRawEditMode, backend, setLastUpdate}}
+          {...{source, rubric, scholia, margin, sourceId: id, isComposite, rawEditMode, setRawEditMode, backend, setLastUpdate}}
         />)
       }
       <Row>

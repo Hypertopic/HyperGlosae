@@ -1,5 +1,7 @@
 function ParallelDocuments(id, rawContent = [], margin, raw = false) {
 
+  this.doesSourceHaveInclusions = rawContent.some(x => x.doc);
+
   // Should have the same definition as in `backend/hyperglosae/src/lib/links.js`
   const parseText = (text) => {
     if (!text) return [];
