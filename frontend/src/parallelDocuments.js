@@ -1,4 +1,4 @@
-function ParallelDocuments(id, content = [], margin, raw = false) {
+function ParallelDocuments(id, rawContent = [], margin, raw = false) {
 
   // Should have the same definition as in `backend/hyperglosae/src/lib/links.js`
   const parseText = (text) => {
@@ -19,7 +19,7 @@ function ParallelDocuments(id, content = [], margin, raw = false) {
     }));
   };
 
-  const filteredContent = content
+  const content = rawContent
     .filter(
       x => [x.id, x.value.isPartOf].includes(id) || margin && [x.id, x.value.isPartOf].includes(margin)
     )
@@ -36,7 +36,7 @@ function ParallelDocuments(id, content = [], margin, raw = false) {
     .sort((a, b) => a.key[1] - b.key[1]);
 
   const hasRubrics = (doc_id) =>
-    filteredContent.some(x => x.value.rubric !== '0' && x.value.isPartOf === doc_id && x.value.text);
+    content.some(x => x.value.rubric !== '0' && x.value.isPartOf === doc_id && x.value.text);
 
   this.doesSourceHaveRubrics = hasRubrics(id);
 
@@ -59,7 +59,7 @@ function ParallelDocuments(id, content = [], margin, raw = false) {
 
   const xor = (x, y) => x !== y;
 
-  this.passages = filteredContent.reduce(({whole, part}, x, i, {length}) => {
+  this.passages = content.reduce(({whole, part}, x, i, {length}) => {
     if (part.rubric && x.value.rubric !== part.rubric) {
       whole.push(part);
       part = {source: [], scholia: []};
