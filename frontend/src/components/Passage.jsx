@@ -48,16 +48,24 @@ function PassageSource({children, highlightedText, setHighlightedText, setFragme
   return (
     <Col className="position-relative">
       {children.map((chunk, index) =>
-        <Marker key={index} mark={highlightedText} options={({separateWordSearch: false})}>
-          <FormattedText selectable="true" {...{setSelectedText, setHighlightedText}}>
-            {chunk}
-          </FormattedText>
-        </Marker>
+        <SelectableFormattedText key={index} {...{highlightedText, setHighlightedText, setSelectedText}}>
+          {chunk}
+        </SelectableFormattedText>
       )}
       <DiscreeteDropdown>
         <CommentFragmentAction {...{selectedText, setSelectedText, setFragment, margin}}/>
       </DiscreeteDropdown>
     </Col>
+  );
+}
+
+function SelectableFormattedText({children, highlightedText, setHighlightedText, setSelectedText}) {
+  return (
+    <Marker mark={highlightedText} options={({separateWordSearch: false})}>
+      <FormattedText selectable="true" {...{setSelectedText, setHighlightedText}}>
+        {children}
+      </FormattedText>
+    </Marker>
   );
 }
 
