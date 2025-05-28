@@ -1,7 +1,5 @@
 function ParallelDocuments(id, rawContent = [], margin, raw = false) {
 
-  this.doesSourceHaveInclusions = rawContent.some(x => x.doc);
-
   // Should have the same definition as in `backend/hyperglosae/src/lib/links.js`
   const parseText = (text) => {
     if (!text) return [];
@@ -46,6 +44,8 @@ function ParallelDocuments(id, rawContent = [], margin, raw = false) {
     )
     .flat()
     .sort(compareCompositeKeys);
+
+  this.doesSourceHaveInclusions = content.some(x => x.value.inclusion);
 
   const hasRubrics = (doc_id) =>
     content.some(x => x.value.rubric !== '0' && x.value.isPartOf === doc_id && x.value.text);
