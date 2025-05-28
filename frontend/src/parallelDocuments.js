@@ -1,8 +1,39 @@
 function ParallelDocuments(id, content = [], margin, raw = false) {
 
-  const filteredContent = content.filter(
-    x => [x.id, x.value.isPartOf].includes(id) || margin && [x.id, x.value.isPartOf].includes(margin)
-  );
+  // Should have the same definition as in `backend/hyperglosae/src/lib/links.js`
+  const parseText = (text) => {
+    if (!text) return [];
+    const PASSAGE = /{([^{]+)} ([^{]*)/g;
+    let passages = [...text.matchAll(PASSAGE)];
+    passages = (passages.length) ? passages : [[null, '0', text]];
+    return passages.map(([_, rubric, passage]) => ({
+      rubric,
+      passage,
+      parsed_rubric: rubric.match(/(?:(\d+)[:., ])?(\d+) ?([a-z]?)/)
+        .slice(1)
+        .filter(x => !!x)
+        .map(x => {
+          let n = Number(x) ;
+          return Number.isNaN(n) ? x : n;
+        })
+    }));
+  };
+
+  const filteredContent = content
+    .filter(
+      x => [x.id, x.value.isPartOf].includes(id) || margin && [x.id, x.value.isPartOf].includes(margin)
+    )
+    .map(({id, key, value, doc}) => (doc)
+      ? parseText(doc.text).map(
+        ({parsed_rubric, passage, rubric}) => ({
+          key: [key[0], ...parsed_rubric],
+          value: {...value, text: passage, rubric, _id: null},
+          ...doc.dc_title && {doc}
+        }))
+      : ({id, key, value})
+    )
+    .flat()
+    .sort((a, b) => a.key[1] - b.key[1]);
 
   const hasRubrics = (doc_id) =>
     filteredContent.some(x => x.value.rubric !== '0' && x.value.isPartOf === doc_id && x.value.text);
@@ -14,11 +45,10 @@ function ParallelDocuments(id, content = [], margin, raw = false) {
   const getCaption = ({dc_title, dc_spatial}) => [dc_title, dc_spatial].filter(Boolean).join(', ');
 
   const getText = ({doc, value}) => {
-    if (value.text) return value.text;
     let includedImage = (value.inclusion !== 'whole' ? '#' + value.inclusion : '')
       + ` "${doc ? getCaption(doc) : ''}"`;
     let imageReference = /!\[[^\]]*\]\([^)]+/;
-    return doc?.text?.replace(imageReference, '$&' + includedImage);
+    return value.text?.replace(imageReference, '$&' + includedImage);
   };
 
   this.isFromScratch = id === margin;

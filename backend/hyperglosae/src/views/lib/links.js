@@ -12,6 +12,7 @@ exports.getRelatedDocuments = ({isPartOf, links}) =>
       .map(x => parseReference(x).id)
   );
 
+// Should have the same definition as in `frontend/src/parallelDocuments.js`
 const parseText = (text) => {
   if (!text) return [];
   const PASSAGE = /{([^{]+)} ([^{]*)/g;
