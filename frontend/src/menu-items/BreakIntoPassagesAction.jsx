@@ -1,4 +1,5 @@
 import DiscreeteDropdown from '../components/DiscreeteDropdown';
+import { NotificationManager } from 'react-notifications';
 
 function BreakIntoPassagesAction({parallelDocuments, margin, backend, setLastUpdate}) {
 
@@ -24,7 +25,10 @@ function BreakIntoPassagesAction({parallelDocuments, margin, backend, setLastUpd
       .join('');
     backend.getDocument(scholium.id)
       .then(x => backend.putDocument({...x, text}))
-      .then(x => setLastUpdate(x.rev));
+      .then(x => {
+        setLastUpdate(x.rev);
+        NotificationManager.success('The text has been successfully split into passages.', '', 2000);
+      });
   };
 
   return (
