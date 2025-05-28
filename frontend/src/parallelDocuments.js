@@ -21,6 +21,16 @@ function ParallelDocuments(id, rawContent = [], margin, raw = false) {
     }));
   };
 
+  const compareCompositeKeys = (a, b) =>
+    a.key.reduce(
+      (acc, x, i) =>
+        acc !== 0 ? acc
+          : i >= b.key.length ? 1
+            : x < b.key[i] ? -1
+              : x > b.key[i] ? 1 : 0,
+      0
+    ) || (a.key.length - b.key.length);
+
   const content = rawContent
     .filter(
       x => [x.id, x.value.isPartOf].includes(id) || margin && [x.id, x.value.isPartOf].includes(margin)
@@ -35,7 +45,7 @@ function ParallelDocuments(id, rawContent = [], margin, raw = false) {
       : ({id, key, value})
     )
     .flat()
-    .sort((a, b) => a.key[1] - b.key[1]);
+    .sort(compareCompositeKeys);
 
   const hasRubrics = (doc_id) =>
     content.some(x => x.value.rubric !== '0' && x.value.isPartOf === doc_id && x.value.text);
