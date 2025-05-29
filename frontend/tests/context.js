@@ -16,6 +16,14 @@ Soit("un document dont je ne suis pas l'auteur affiché comme document principal
   cy.sign_out();
 });
 
+Soit("un document dont je suis l'auteur affiché comme document principal", () => {
+  cy.sign_in('alice', '/');
+  cy.create_document_from_scratch();
+  cy.set_random_name();
+  cy.get('.focus').click();
+  cy.sign_out();
+});
+
 Soit("une session active avec mon compte", () => {
   cy.sign_in('alice');
 });
@@ -48,7 +56,25 @@ Soit("un document dont je suis l'auteur affiché comme glose", () => {
 });
 
 Soit("un document reconnaissable dont je suis l'auteur affiché comme glose", () => {
-  cy.sign_in('alice', '/');
+  cy.sign_in('alice','/');
+  cy.create_glose(true);
+  cy.sign_out();
+});
+
+Soit("un document reconnaissable dont je suis pas l'auteur affiché comme glose", () => {
+  cy.sign_in('bill','/');
+  cy.create_glose(true);
+  cy.sign_out();
+});
+
+Soit("avec un document reconnaissable dont je suis l'auteur affiché comme glose", () => {
+  cy.sign_in('alice');
+  cy.create_glose(true);
+  cy.sign_out();
+});
+
+Soit("avec un document reconnaissable dont je suis pas l'auteur affiché comme glose", () => {
+  cy.sign_in('bill');
   cy.create_glose(true);
   cy.sign_out();
 });
@@ -76,6 +102,12 @@ Soit("un document dont je suis l'auteur affiché comme glose et dont le type est
   cy.create_glose();
   cy.get('.typeIcon').click();
   cy.contains('.list-group-item', name).click();
+  cy.sign_out();
+});
+
+Soit("un document reconnaissable dont je suis l'auteur affiché comme glose et dont le type est {string}", (option) => {
+  cy.sign_in('alice', '/420ab198674f11eda3b7a3fdd5ea984f');
+  cy.create_glose_of_type(true,option);
   cy.sign_out();
 });
 
