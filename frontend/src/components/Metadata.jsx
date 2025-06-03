@@ -44,11 +44,15 @@ function Metadata({metadata = {}, editable, backend, setLastUpdate}) {
   let capitalize = (name) =>
     name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
 
-  let formatTranslation = (translators = '', language = '') =>
-    (translators) &&
-      'Translated '
-        + (language && `in ${capitalize(language)} `)
-        + format(translators, 'by ', ', ');
+  let formatTranslation = (translators = '', language = '') => {
+    if (translators) {
+      return 'Translated ' +
+        (language ? `in ${capitalize(language)} ` : '') +
+        format(translators, 'by ', ', ');
+    } else if (language) {
+      return `Translated in ${capitalize(language)}, `;
+    }
+  };
 
   let getCaption = ({dc_title, dc_spatial}) => dc_title + (dc_spatial ? `, ${dc_spatial}` : '');
 
