@@ -24,3 +24,9 @@ Scénario: typé comme non typé
   Quand je choisis "remove current type" comme type de glose
   Alors la glose n'a pas de type
 
+Scénario: non typé avec type non existant
+
+  Soit un document dont je suis l'auteur affiché comme glose
+  Et une session active avec mon compte
+  Quand je qualifie le document avec un nouveau type de glose
+  Alors le nouveau type est le type de la glose
