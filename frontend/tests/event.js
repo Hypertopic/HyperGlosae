@@ -117,3 +117,6 @@ Quand("je consulte les informations de création du document", function () {
   cy.get('.info-icon-container').trigger('mouseover');
 });
 
+Quand("je consulte les informations de modification du document", () => {
+  cy.get('.open-editor-list').trigger('mouseover');
+}); 
