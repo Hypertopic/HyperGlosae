@@ -146,5 +146,20 @@ Alors("la glose ouverte a les métadonnées", (metadata) => {
     Object.entries(expectedMetadata).forEach(([key, value]) => {
       expect(actualMetadata).to.have.property(key, value);
     });
-  });
+  })
+});
+
+Alors("je peux voir les informations de modification du document {string} et une date", (text) => {
+  cy.get('.text-document-creation')
+    .should('contain.text', text + ' on');
+  cy.get('.text-document-creation').invoke('text')
+    .then((fullText) => {
+      const date = new Date(fullText.split('on')[1].trim());
+      expect(date).not.to.be.NaN;
+    });
+});
+
+Alors("je ne vois aucune information de modification du document", () => {
+  cy.get('.text-document-creation')
+    .should('contain.text', 'No information about the creator and creation date of this document');
 });

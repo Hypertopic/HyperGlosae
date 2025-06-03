@@ -16,6 +16,23 @@ Soit("un document dont je ne suis pas l'auteur affiché comme document principal
   cy.sign_out();
 });
 
+Soit("un document dont je ne suis pas l'auteur affiché comme document principal et qui a parmi ses éditeurs {string}", (userName) => {
+  cy.sign_in('bill', '/');
+  cy.create_document_from_scratch();
+  cy.set_random_name();
+
+  cy.click_on_contextual_menu_item('.runningHead .scholium', 'Invite editors...');
+
+  cy.get('.modal-dialog input').type(userName);
+  cy.contains('button', 'Invite').click();
+  cy.get('.list-group').should('contain', userName);
+
+  cy.get('.btn-close').click();
+  cy.get('.icon.focus').click()
+
+  cy.sign_out();
+});
+
 Soit("une session active avec mon compte", () => {
   cy.sign_in('alice');
 });
@@ -149,4 +166,10 @@ Soit("ayant les métadonnées", (metadata) => {
     expect(actualMetadata).to.deep.equal(expectedMetadata);
   });
   cy.get('.scholium>.icon.focus').click();
+}); 
+
+Soit("je modifie le document", () => {
+  cy.get('.icon.edit').click()
+  cy.edit_content("test");
+  cy.get('.focus').click();
 });
