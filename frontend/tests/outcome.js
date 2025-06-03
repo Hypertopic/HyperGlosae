@@ -86,6 +86,10 @@ Alors("la glose n'a pas de type", () => {
   cy.get('.typeSelected').should('not.exist');
 });
 
+Alors("le nouveau type est le type de la glose", function() {
+  cy.contains('.typeSelected', this.randomType);
+});
+
 Alors("le texte du document principal est en surbrillance :", (text) => {
   cy.contains('mark', text.trim()).should('exist');
 });

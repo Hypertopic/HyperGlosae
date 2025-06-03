@@ -43,8 +43,18 @@ Quand("j'essaie d'accorder les droits d'édition à {string}", (userName) => {
 
 Quand("je choisis {string} comme type de glose", (pattern) => {
   cy.get('.typeIcon').click();
-  cy.get('#searchType').type(pattern);
-  cy.get('.list-group-item').first().click();
+  cy.get('.form-control').first().type(pattern);
+  cy.get('.list-group').then(el => cy.wrap(el.find('.typeContainer')[0] || el.children()[0]).click());
+});
+
+Quand("je qualifie le document avec un nouveau type de glose", function() {
+  cy.get('.typeIcon').click();
+  this.randomType = [...Array(30)].map(() => Math.random().toString(36)[2]).join('');
+  cy.get('.inputField.form-control').type(this.randomType);
+  cy.get('.addButton').click();
+  cy.get('.typeIcon').click();
+  cy.get('.form-control').first().type(this.randomType);
+  cy.get('.typeBadge').first().click();
 });
 
 Quand("je survole le texte :", (text) => {
