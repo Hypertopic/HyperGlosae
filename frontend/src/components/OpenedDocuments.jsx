@@ -9,6 +9,7 @@ import DiscreeteDropdown from './DiscreeteDropdown';
 import InviteEditorsAction from '../menu-items/InviteEditorsAction';
 import BreakIntoPassagesAction from '../menu-items/BreakIntoPassagesAction';
 import DeleteDocumentAction from '../menu-items/DeleteDocumentAction';
+import DeleteReferenceToDocumentAction from '../menu-items/DeleteReferenceToDocumentAction';
 import EditRawDocumentAction from '../menu-items/EditRawDocumentAction';
 import Bookmark from './Bookmark';
 import LicenseCompatibility from './LicenseCompatibility';
@@ -77,6 +78,7 @@ function RunningHeadMargin({metadata, parallelDocuments, margin, setRawEditMode,
         <BreakIntoPassagesAction {...{parallelDocuments, margin, backend, setLastUpdate}} />
         <EditRawDocumentAction {...{setRawEditMode}} />
         <DeleteDocumentAction {...{metadata, isFromScratch, backend, setLastUpdate}} />
+        <DeleteReferenceToDocumentAction />
       </DiscreeteDropdown>
       <Metadata editable={true} {...{backend, metadata, setLastUpdate}} />
       <Type editable={true} {...{backend, metadata}}/>
