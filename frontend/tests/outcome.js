@@ -13,6 +13,10 @@ Alors("je peux lire {string}", (text) => {
   cy.get('body').should('contain', text);
 });
 
+Alors("je ne peux pas lire {string}", (text) => {
+  cy.get('body').should('not.contain', text);
+});
+
 Alors("je vois l'image {string} dans la glose", (alternative_text) => {
   cy.get('.row:not(.runningHead)>.main').should('have.descendants', `img[alt='${alternative_text}']`);
 });
