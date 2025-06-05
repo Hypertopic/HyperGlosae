@@ -18,6 +18,7 @@ function Lectern({backend, user}) {
   const [parallelDocuments, setParallelDocuments] = useState(new ParallelDocuments());
   const [lastUpdate, setLastUpdate] = useState();
   const [rawEditMode, setRawEditMode] = useState(false);
+  const [loading, setLoading] = useState(true);
   let {id} = useParams();
   let margin = useLocation().hash.slice(1);
   const getCaption = ({dc_title, dc_spatial}) => [dc_title, dc_spatial].filter(Boolean).join(', ');
@@ -28,7 +29,11 @@ function Lectern({backend, user}) {
   }
 
   useEffect(() => {
-    backend.refreshMetadata(id, x => setMetadata(new Context(id, x)));
+    setLoading(true);
+    backend.refreshMetadata(id, x => {
+      setMetadata(new Context(id, x));
+      setLoading(false);
+    });
     backend.refreshContent(id, x => setContent(x));
   }, [id, lastUpdate, backend]);
 
@@ -36,7 +41,7 @@ function Lectern({backend, user}) {
     setParallelDocuments(new ParallelDocuments(id, content, margin, rawEditMode));
   }, [id, content, margin, rawEditMode, lastUpdate]);
 
-  if (!metadata?.focusedDocument?._id) {
+  if (!metadata?.focusedDocument?._id && !loading) {
     return <DocumentNotFound />;
   }
 
