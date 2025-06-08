@@ -32,3 +32,4 @@ Scénario: avec une mise en forme
     Se **socialiser**
     """
   Alors la glose contient "Se socialiser"
+
