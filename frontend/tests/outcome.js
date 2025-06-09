@@ -152,3 +152,15 @@ Alors("la glose ouverte a les métadonnées", (metadata) => {
     });
   });
 });
+
+Alors("la glose ouverte est le document reconnaissable", function (title) {
+  cy.get('.runningHead .scholium').should('contain', this.randomName);
+});
+Alors("il n'y a aucun document principal affiché", () => {
+  cy.get('.main').children().should('have.length', 0);
+});
+
+Alors("les références au document principal contenues dans la glose ne sont plus visibles", () => {
+  cy.get('.scholium').should('not.contain', 'Les hommes naissent et demeurent libres et égaux en droits.');
+});
+

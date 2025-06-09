@@ -117,3 +117,7 @@ Quand("je consulte les informations de création du document", function () {
   cy.get('.info-icon-container').trigger('mouseover');
 });
 
+Quand("je supprime le lien entre le document principal et la référence", () => {
+  cy.click_on_contextual_menu_item('.runningHead .scholium', 'Delete reference...');
+  cy.get(".modal-dialog").get(".btn-primary").click();
+});
