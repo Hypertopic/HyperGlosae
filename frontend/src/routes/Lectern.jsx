@@ -62,7 +62,7 @@ function Lectern({backend, user}) {
           <Row>
             <OpenedDocuments
               hasSources={metadata.forwardLinkedDocuments.length > 0}
-              {...{id, margin, metadata, parallelDocuments, user, rawEditMode, setRawEditMode, backend, setLastUpdate}}
+              {...{id, margin, metadata, parallelDocuments, user, rawEditMode, setRawEditMode, backend, setLastUpdate, content}}
             />
             <References active={!margin}
               {...{metadata, user, createOn, setLastUpdate, backend}}

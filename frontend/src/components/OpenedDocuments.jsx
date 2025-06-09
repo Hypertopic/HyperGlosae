@@ -10,12 +10,13 @@ import DiscreeteDropdown from './DiscreeteDropdown';
 import InviteEditorsAction from '../menu-items/InviteEditorsAction';
 import BreakIntoPassagesAction from '../menu-items/BreakIntoPassagesAction';
 import DeleteDocumentAction from '../menu-items/DeleteDocumentAction';
+import DeleteReferenceToDocumentAction from '../menu-items/DeleteReferenceToDocumentAction';
 import EditRawDocumentAction from '../menu-items/EditRawDocumentAction';
 import Bookmark from './Bookmark';
 import LicenseCompatibility from './LicenseCompatibility';
 import { InfoCircle } from 'react-bootstrap-icons';
 
-function OpenedDocuments({id, margin, metadata, parallelDocuments, rawEditMode, setRawEditMode, backend, user, setLastUpdate}) {
+function OpenedDocuments({id, margin, metadata, parallelDocuments, rawEditMode, setRawEditMode, backend, user, setLastUpdate, content}) {
   const marginMetadata = metadata.getDocument(margin);
   const marginLicense = marginMetadata?.dc_license;
   const sourceMetadata = metadata.focusedDocument;
@@ -25,7 +26,7 @@ function OpenedDocuments({id, margin, metadata, parallelDocuments, rawEditMode, 
     <Col className="lectern" {...{xs}} >
       <Row className ="runningHead">
         <RunningHeadSource {...{id, metadata, parallelDocuments, backend, user}} />
-        <RunningHeadMargin {...{parallelDocuments, margin, setRawEditMode, backend, setLastUpdate}}
+        <RunningHeadMargin {...{id, parallelDocuments, margin, setRawEditMode, backend, setLastUpdate, content}}
           metadata={marginMetadata}
         />
       </Row>
@@ -91,7 +92,7 @@ function RunningHeadSource({id, metadata, parallelDocuments, backend, user}) {
   );
 }
 
-function RunningHeadMargin({metadata, parallelDocuments, margin, setRawEditMode, backend, setLastUpdate}) {
+function RunningHeadMargin({id, metadata, parallelDocuments, margin, setRawEditMode, backend, setLastUpdate, content}) {
   const isFromScratch = parallelDocuments.isFromScratch;
   if (Object.keys(metadata).length) return (
     <Col xs={5} className="scholium position-relative">
@@ -101,6 +102,7 @@ function RunningHeadMargin({metadata, parallelDocuments, margin, setRawEditMode,
         <BreakIntoPassagesAction {...{parallelDocuments, margin, backend, setLastUpdate}} />
         <EditRawDocumentAction {...{setRawEditMode}} />
         <DeleteDocumentAction {...{metadata, isFromScratch, backend, setLastUpdate}} />
+        <DeleteReferenceToDocumentAction {...{id, margin, backend, metadata, content, setLastUpdate}} />
       </DiscreeteDropdown>
       <Metadata editable={true} {...{backend, metadata, setLastUpdate}} />
       <Type editable={true} {...{backend, metadata}}/>
