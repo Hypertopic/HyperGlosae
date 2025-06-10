@@ -35,6 +35,8 @@ Soit("{string} le document principal", (title) => {
     'Treignes, le 8 septembre 2012 (Christophe Lejeune)': '/6b56ee657c870dfacd34e9ae4e0643dd',
     'Restaurer la vapeur': '/6b56ee657c870dfacd34e9ae4e050fcc',
     'Vestiges (diagramme de classes)': '/146e6e8442f0405b721b79357d0021e3',
+    'Víly (Charles Perrault)' : '/420ab198674f11eda3b7a3fdd5ea984f',
+    'Entretien avec un responsable d\'opération' : '/05b61f5285c711ed97bf6b9b56808c45',
   };
   expect(uris).to.contain.key(title);
   cy.visit(uris[title]);
@@ -149,4 +151,18 @@ Soit("ayant les métadonnées", (metadata) => {
     expect(actualMetadata).to.deep.equal(expectedMetadata);
   });
   cy.get('.scholium>.icon.focus').click();
+});
+
+Soit("{string} le nom de la licence du document principal", (n_licence) => {
+  cy.get('.license-container').eq(0).find('.license').then($license => {
+    if ($license.find('img').length) {
+      cy.wrap($license).find('img').should('have.attr', 'alt', n_licence);
+    } else if ($license.find('span').length) {
+      cy.wrap($license).find('span').should('have.text', n_licence);
+    } else if ($license.text().includes(n_licence)) {
+      expect($license.text()).to.include(n_licence);
+    } else {
+      throw new Error('Neither img nor span found in .license, or license text does not contain expected value');
+    }
+  });
 });
