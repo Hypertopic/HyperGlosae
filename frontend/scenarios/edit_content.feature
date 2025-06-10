@@ -8,11 +8,17 @@ Scénario: de la glose dont on est l'auteur
   Et une session active avec mon compte
   Quand j'essaie de remplacer le contenu de la glose par :
     """
-    Nous traduisons ici "shape" par "ombre" et non "forme" car dans un autre
-    poème du recueil, les "shapes" sont clairement ce qui apparaît en allumant
-    une lampe dans les ténèbres.
+    Corinne : Voilà donc heu on utilise leurs produits et puis comme on avait
+    visité heuu ils font aussi de très bons produits.
+
+    Mathilde : Et vous la produisez avec quelle machine ?
+
+    Corinne : La farine ?
     """
-  Alors la glose contient "Nous traduisons ici"
+  Alors la glose contient "Corinne : Voilà donc heu"
+  Et "Corinne" est en gras
+  Et "Mathilde" est en gras
+  
 
 Scénario: de la glose dont on n'est pas l'auteur
 
