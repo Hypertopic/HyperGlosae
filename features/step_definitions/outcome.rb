@@ -30,7 +30,3 @@ Alors("l'image intégrée en source {string} est légendée par son titre : {str
   expect(find('.sources')).to have_content image_caption
 end
 
-Alors('le document comporte la vidéo {string}') do |uri|
-  expect(page).to have_xpath("//iframe[contains(@src, '#{uri}')]")
-end
-
