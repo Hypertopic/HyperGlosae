@@ -6,6 +6,17 @@ import DiscreeteDropdown from './DiscreeteDropdown';
 import PictureUploadAction from '../menu-items/PictureUploadAction';
 import {v4 as uuid} from 'uuid';
 
+function boldSpeakerNames(text) {
+  return text.split('\n').map(line => {
+    const match = line.match(/^([A-Z][a-zA-ZéèêîïÉÈÊÎÏ\-']+)\s*:/);
+    if (match) {
+      const name = match[1];
+      return line.replace(name, `**${name}**`);
+    }
+    return line;
+  }).join('\n');
+}
+
 function EditableText({id, text, rubric, isPartOf, links, fragment, setFragment, setHighlightedText, setSelectedText, rawEditMode, setRawEditMode, backend, setLastUpdate}) {
   const [beingEdited, setBeingEdited] = useState(false);
   const [editedDocument, setEditedDocument] = useState();
@@ -92,6 +103,7 @@ function EditableText({id, text, rubric, isPartOf, links, fragment, setFragment,
     let text = (rubric && !rawEditMode)
       ? editedDocument.text.replace(PASSAGE, `{${rubric}} ${parsedText}`)
       : editedText;
+
     backend.putDocument({ ...editedDocument, text })
       .then(x => setLastUpdate(x.rev))
       .then(() => setHighlightedText())
@@ -105,7 +117,7 @@ function EditableText({id, text, rubric, isPartOf, links, fragment, setFragment,
     <div className="editable content position-relative" title="Edit content...">
       <div className="formatted-text" onClick={handleClick}>
         <FormattedText {...{setHighlightedText, setSelectedText}}>
-          {text || '&nbsp;'}
+          {boldSpeakerNames(text || '&nbsp;')}
         </FormattedText>
       </div>
       <DiscreeteDropdown>
