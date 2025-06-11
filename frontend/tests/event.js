@@ -113,7 +113,7 @@ Quand("j'essaie de créer une glose en gardant la {string} du document source", 
   cy.get(".create-document").click();
 });
 
-Quand("je consulte les informations de création du document", function () {
+Quand("je consulte l'historique du document", function () {
   cy.get('.info-icon-container').trigger('mouseover');
 });
 

@@ -126,21 +126,6 @@ Alors("la glose ouverte a {string} et {string} parmi les éditeurs par défaut",
   cy.get('.list-group').should('contain', userName2);
 });
 
-Alors("je peux voir les informations de création du document {string} et une date", (text) => {
-  cy.get('.text-document-creation')
-    .should('contain.text', text + ' on');
-  cy.get('.text-document-creation').invoke('text')
-    .then((fullText) => {
-      const date = new Date(fullText.split('on')[1].trim());
-      expect(date).not.to.be.NaN;
-    });
-});
-
-Alors("je ne vois aucune information de création du document", () => {
-  cy.get('.text-document-creation')
-    .should('contain.text', 'No information about the creator and creation date of this document');
-});
-
 Alors("la glose ouverte a les métadonnées", (metadata) => {
   cy.get('.icon.edit').click();
   cy.get('.editable.metadata').click();
@@ -150,7 +135,32 @@ Alors("la glose ouverte a les métadonnées", (metadata) => {
     Object.entries(expectedMetadata).forEach(([key, value]) => {
       expect(actualMetadata).to.have.property(key, value);
     });
-  });
+  })
+});
+
+Alors("je peux voir l'auteur de la création du document {string} et sa date de création", (userName) => {
+  cy.get('.text-document-creation')
+    .should('contain.text', 'Created by ' + userName + ' on');
+  cy.get('.text-document-creation').invoke('text')
+    .then((fullText) => {
+      const date = new Date(fullText.split('on')[1].trim());
+      expect(date).not.to.be.NaN;
+    });
+});
+
+Alors("je peux voir une modification effectuée par {string} et la date de cette modification", (userName) => {
+  cy.get('.text-document-creation')
+    .should('contain.text', 'Modified by :' + userName + ' on');
+  cy.get('.text-document-creation').invoke('text')
+    .then((fullText) => {
+      const date = new Date(fullText.split('on')[1].trim());
+      expect(date).not.to.be.NaN;
+    });
+});
+
+Alors("aucun historique n'est affiché", () => {
+  cy.get('.text-document-creation')
+    .should('contain.text', 'No historical record exists for this document.');
 });
 
 Alors("la glose ouverte est le document reconnaissable", function (title) {
