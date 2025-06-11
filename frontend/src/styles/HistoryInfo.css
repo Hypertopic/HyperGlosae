@@ -10,6 +10,9 @@
   cursor: pointer;
   color: crimson;
 }
+.info-icon-container:hover {
+  padding-left: 24px;
+}
 
 .text-document-creation {
   display: none;
@@ -22,8 +25,18 @@
   border: 1px solid #ccc;
   padding: 6px 12px;
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  max-height: 600px;
+  overflow-y: auto;
 }
 
 .info-icon-container:hover .text-document-creation {
   display: block;
+}
+
+.separator {
+  margin: 3px;
+}
+
+.btn-see-more {
+  color : crimson !important;
 }
