@@ -13,7 +13,7 @@ Scénario: d'une traduction avec licences compatibles
 Scénario: d'une traduction avec licences non compatibles
 
     Soit "Víly (Charles Perrault)" le document principal
-    Et "CC-BY-NC-ND" le code de la licence du document principal
+    Et "CC-BY-NC-ND" le nom de la licence du document principal
     Quand je consulte le contenu de "Fairies (Charles Perrault)"
     Alors je vois que le code de la licence est "CC-BY-NC-ND"
     Et je peux lire "Licenses are not compatible"

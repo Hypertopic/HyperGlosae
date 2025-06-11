@@ -117,3 +117,18 @@ Quand("je consulte les informations de création du document", function () {
   cy.get('.info-icon-container').trigger('mouseover');
 });
 
+Quand("je consulte le contenu de {string}", function (title) {
+  const uris = {
+    'Les fées (Charles Perrault)': '/37b4b9ba5cdb11ed887beb5c373fa643',
+    'Vidéo Sherlock Jr. (Buster Keaton)': '/4e1a31e14b032f2fa9e161ee9b009125',
+    'Treignes, le 8 septembre 2012 (Christophe Lejeune)': '/6b56ee657c870dfacd34e9ae4e0643dd',
+    'Restaurer la vapeur': '/6b56ee657c870dfacd34e9ae4e050fcc',
+    'Vestiges (diagramme de classes)': '/146e6e8442f0405b721b79357d0021e3',
+    'Víly (Charles Perrault)' : '/420ab198674f11eda3b7a3fdd5ea984f',
+    'Fairies (Charles Perrault)' : '/96bddee6-24b2-11ef-a1f4-5351a35fcaac',
+    'Étiquetage de l\'entretien' : '/6327c5008d1f11ed9aa8e7ae771dee2e',
+  };
+  expect(uris).to.contain.key(title);
+  cy.get(`a.icon.open[href*="#${uris[title].slice(1)}"]`).click();
+}
+);

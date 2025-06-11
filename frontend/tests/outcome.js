@@ -152,3 +152,12 @@ Alors("la glose ouverte a les métadonnées", (metadata) => {
     });
   });
 });
+
+Alors("je vois que le code de la licence est {string}", (n_licence) => {
+  cy.get('.license-container').eq(1).find('.license img[alt="' + n_licence + '"]').should('exist');
+});
+
+Alors("je ne peux pas lire {string}", (text) => {
+  cy.get('.license-compatibility').should('not.exist');
+}
+);
