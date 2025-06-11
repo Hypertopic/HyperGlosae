@@ -12,6 +12,12 @@ function(doc, req) {
     });
   } else {
     doc = Object.assign({}, doc, body);
+    if (!doc.history) doc.history = [];
+    doc.history.push({
+      user: req.userCtx.name,
+      date: new Date().toISOString(),
+      action: 'modification',
+    });
   }
   return [doc, { json: { status: 'ok' } }];
 }
