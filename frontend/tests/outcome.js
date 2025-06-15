@@ -164,3 +164,7 @@ Alors("les références au document principal contenues dans la glose ne sont pl
   cy.get('.scholium').should('not.contain', 'Les hommes naissent et demeurent libres et égaux en droits.');
 });
 
+Alors("le document comporte la vidéo {string}", (videoUrl) => {
+  cy.get(`iframe[src="${videoUrl}"]`).should('exist');
+});
+
