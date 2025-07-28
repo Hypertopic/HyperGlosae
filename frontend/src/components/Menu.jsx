@@ -7,6 +7,7 @@ import Row from 'react-bootstrap/Row';
 import Form from 'react-bootstrap/Form';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { Link } from 'react-router-dom';
+import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 import SignOutAction from '../menu-items/SignOutAction';
 
 function Menu({backend, user, setUser}) {
@@ -14,13 +15,15 @@ function Menu({backend, user, setUser}) {
     <Navbar bg="dark">
       <Container>
         <Navbar.Brand>
-          <Link to="/">
-            <img
-              src="/logo.png"
-              height="30"
-              alt="Index"
-            />
-          </Link>
+          <OverlayTrigger overlay={<Tooltip>Consult my bookshelf</Tooltip>} placement="bottom">
+            <Link to="/">
+              <img
+                src="/logo.png"
+                height="30"
+                alt="Index"
+              />
+            </Link>
+          </OverlayTrigger>
         </Navbar.Brand>
         <Authentication {...{backend, user, setUser}} />
       </Container>

@@ -31,7 +31,6 @@ function FragmentComment({ children, setHighlightedText }) {
           }
         }
         className="fragment"
-        title="Highlight in document"
       >
         <span className="citation">{citation}</span>
         {commentParts}

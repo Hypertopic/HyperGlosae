@@ -48,7 +48,7 @@ Quand("je choisis {string} comme type de glose", (pattern) => {
 });
 
 Quand("je survole le texte :", (text) => {
-  cy.contains('p[title="Highlight in document"]', text.trim())
+  cy.contains('.fragment', text.trim())
     .trigger('mouseover');
 });
 

@@ -44,7 +44,7 @@ function BrowseTools({id, closable, openable, editable, focusable = true}) {
           overlay={<Tooltip id="tooltip-focus">Focus on this document</Tooltip>}
         >
           <Link to={`../${id}`} className="icon focus">
-            <Bookmark title="Focus on this document" />
+            <Bookmark />
           </Link>
         </OverlayTrigger>
       }

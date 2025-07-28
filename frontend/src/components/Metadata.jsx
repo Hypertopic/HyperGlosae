@@ -2,6 +2,7 @@ import '../styles/Metadata.css';
 
 import { useEffect, useState } from 'react';
 import { parse, stringify } from 'yaml';
+import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 
 function Metadata({metadata = {}, editable, backend, setLastUpdate}) {
   const [beingEdited, setBeingEdited] = useState(false);
@@ -54,11 +55,8 @@ function Metadata({metadata = {}, editable, backend, setLastUpdate}) {
 
   if (!beingEdited) {
     let {dc_title, dc_spatial, dc_creator, dc_translator, dc_isPartOf, dc_issued, dc_language} = editedMetadata;
-    let attributes = (editable)
-      ? {className: 'editable metadata', onClick: handleClick, title: 'Edit metadata...'}
-      : {};
-    return (
-      <span {...attributes}>
+    let formattedMetadata = (
+      <>
         <span className="work">
           {getCaption({dc_title, dc_spatial})} {format(dc_creator, '(', ')')},
         </span>
@@ -67,6 +65,18 @@ function Metadata({metadata = {}, editable, backend, setLastUpdate}) {
           {dc_isPartOf ? <i>{dc_isPartOf}, </i> : ''}
           {dc_issued ? `${new Date(dc_issued.toString()).getFullYear()}` : ''}
         </span>
+      </>
+    );
+    if (editable) return (
+      <OverlayTrigger overlay={<Tooltip>Edit metadata...</Tooltip>} >
+        <span className="editable metadata" onClick={handleClick} >
+          {formattedMetadata}
+        </span>
+      </OverlayTrigger>
+    );
+    return (
+      <span>
+        {formattedMetadata}
       </span>
     );
   }

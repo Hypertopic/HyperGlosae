@@ -1,20 +1,26 @@
 import '../styles/VideoComment.css';
 
+import { OverlayTrigger, Tooltip } from 'react-bootstrap';
+
 function VideoComment({ children }) {
   const timecodeRegex = /(\d{2}:\d{2}:\d{2}\.\d{3}\s*-->\s*\d{2}:\d{2}:\d{2}\.\d{3})/;
-  if (timecodeRegex.test(children)) {
-    return <p
-      onClick={
-        e => {
-          e.preventDefault();
-          e.stopPropagation();
-          playVideoAt(children[0]);
+  if (timecodeRegex.test(children)) return (
+    <OverlayTrigger overlay={<Tooltip>Play the video fragment</Tooltip>} >
+      <p
+        onClick={
+          e => {
+            e.preventDefault();
+            e.stopPropagation();
+            playVideoAt(children[0]);
+          }
         }
-      }
-      className="videoComment"
-      title="Go to the video excerpt"
-    >{children[0]}</p>;
-  }
+        className="videoComment"
+      >
+        {children[0]}
+      </p>
+    </OverlayTrigger>
+  );
+
   function playVideoAt(timecode) {
     let [start, end] = timecode.split('-->');
     let [hour, min, sec] = start.split(/[:.]/);
