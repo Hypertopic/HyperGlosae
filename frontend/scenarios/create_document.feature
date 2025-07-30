@@ -6,21 +6,21 @@ Scénario: en tant que commentaire
 
   Soit un document existant affiché comme document principal
   Et une session active avec mon compte
-  Quand j'essaie de créer un glose de type "Commentary"
+  Quand j'essaie de créer une glose de type "Commentary"
   Alors la glose ouverte a le titre par défaut
 
 Scénario: en tant qu'adaptation
 
   Soit un document existant affiché comme document principal
   Et une session active avec mon compte
-  Quand j'essaie de créer un glose de type "Adaptation"
+  Quand j'essaie de créer une glose de type "Adaptation"
   Alors la glose ouverte a le titre par défaut
 
 Scénario: en tant que collection
 
   Soit le document contenant l'image 2019_10-13_16_UKR_R_A affiché comme document principal
   Et une session active avec mon compte
-  Quand j'essaie de créer un glose de type "Quotation"
+  Quand j'essaie de créer une glose de type "Quotation"
   Alors je vois l'image "2019_10-13_16_UKR_R_A" dans la glose
 
 
@@ -28,7 +28,7 @@ Scénario: en tant que composition partielle de texte
 
   Soit 'Les fées (Charles Perrault)' le document principal
   Et une session active avec mon compte
-  Quand j'essaie de créer un glose de type "Quotation"
+  Quand j'essaie de créer une glose de type "Quotation"
   Alors la glose contient :
     """
     Peuvent beaucoup sur les Esprits ;
