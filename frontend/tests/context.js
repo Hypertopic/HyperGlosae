@@ -209,3 +209,8 @@ Soit("je modifie le document", () => {
   cy.edit_content("test");
   cy.get('.focus').click();
 });
+
+Soit("{string} le nom de la licence du document principal", (license) => {
+  cy.get('.license').eq(0).should('contain', license);
+});
+

@@ -178,3 +178,11 @@ Alors("le document comporte la vidéo {string}", (videoUrl) => {
   cy.get(`iframe[src="${videoUrl}"]`).should('exist');
 });
 
+Alors("le nom de la licence de la glose est {string}", (name) => {
+  cy.get('.license').eq(1).should('contain', name);
+});
+
+Alors("le code de la licence de la glose est {string}", (code) => {
+  cy.get('.license').eq(1).get(`img[alt="${code}"]`).should('be.visible');
+});
+

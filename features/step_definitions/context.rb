@@ -47,11 +47,3 @@ Soit("un document dont je ne suis pas l'auteur affiché comme glose") do
   sign_out
 end
 
-Soit("{string} le nom de la licence du document principal") do |license|
-  expect(page).to have_text license
-end
-
-Soit("{string} le code de la licence du document principal") do |license|
-  expect(page).to have_image license
-end
-
