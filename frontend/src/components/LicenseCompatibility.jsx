@@ -9,9 +9,9 @@ const licenseCompatibility = {
   'All rights reserved': ['All rights reserved'],
 };
 
-function LicenseCompatibility({ sourceMetadata, marginLicense }) {
-  const sourceLicense = sourceMetadata?.dc_license;
-  const isAdaptation = sourceMetadata?.links?.some(x => x.verb === 'adapts');
+function LicenseCompatibility({ sourceMetadata, marginMetadata }) {
+  const isAdaptation = marginMetadata?.links?.some(x => x.verb === 'adapts');
+
   const getLicenseKey = (licenseUri) => {
     if (!licenseUri) return 'All rights reserved';
     if (licenseUri.toLowerCase() === 'public domain') return 'Public domain';
@@ -19,8 +19,8 @@ function LicenseCompatibility({ sourceMetadata, marginLicense }) {
     return matches ? matches[0].toLowerCase() : 'All rights reserved';
   };
 
-  const sourceKey = getLicenseKey(sourceLicense);
-  const marginKey = getLicenseKey(marginLicense);
+  const sourceKey = getLicenseKey(sourceMetadata?.dc_license);
+  const marginKey = getLicenseKey(marginMetadata?.dc_license);
   const isCompatible = isAdaptation ? licenseCompatibility[sourceKey]?.includes(marginKey) : true;
 
   const warningStyle = {

@@ -50,7 +50,7 @@ function OpenedDocuments({id, margin, metadata, parallelDocuments, rawEditMode, 
       {margin && (
         <Row>
           <Col>
-            <LicenseCompatibility {...{sourceMetadata, marginLicense}} />
+            <LicenseCompatibility {...{sourceMetadata, marginMetadata}} />
           </Col>
         </Row>
       )}
