@@ -3,6 +3,7 @@ import '../styles/VideoComment.css';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 
 function VideoComment({ children }) {
+  children = (children instanceof Array) ? children : [children];
   const timecodeRegex = /(\d{2}:\d{2}:\d{2}\.\d{3}\s*-->\s*\d{2}:\d{2}:\d{2}\.\d{3})/;
   if (timecodeRegex.test(children)) return (
     <OverlayTrigger overlay={<Tooltip>Play the video fragment</Tooltip>} >

@@ -2,6 +2,7 @@ import '../styles/FragmentComment.css';
 
 function FragmentComment({ children, setHighlightedText }) {
   try {
+    children = (children instanceof Array) ? children : [children];
     const citationRegex = /^\[.*\]\s*\n(.*)$/m;
     if (citationRegex.test(children[0])) {
       let [citation, comment] = children[0].split(/\n/);
