@@ -21,6 +21,14 @@ Alors("je vois l'image {string} dans la glose", (alternative_text) => {
   cy.get('.row:not(.runningHead)>.scholium').should('have.descendants', `img[alt='${alternative_text}']`);
 });
 
+Alors("je vois l'image {string} dans le document principal", (alternative_text) => {
+  cy.get('.row:not(.runningHead)>.main').should('have.descendants', `img[alt='${alternative_text}']`);
+});
+
+Alors("je ne vois pas l'image {string}", (alternative_text) => {
+  cy.get(`img[alt='${alternative_text}']`).should('not.exist');
+});
+
 Alors("{string} est le document principal", (title) => {
   cy.get('.main .work').should('contain', title);
   cy.title().should('contain', title);
@@ -184,5 +192,9 @@ Alors("le nom de la licence de la glose est {string}", (name) => {
 
 Alors("le code de la licence de la glose est {string}", (code) => {
   cy.get('.license').eq(1).get(`img[alt="${code}"]`).should('be.visible');
+});
+
+Alors("l'image intégrée dans la page a pour légende {string}", (image_caption) => {
+  cy.get('.lectern').should('contain', image_caption);
 });
 

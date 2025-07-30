@@ -60,6 +60,9 @@ Soit("{string} le document principal", (title) => {
     'Treignes, le 8 septembre 2012 (Christophe Lejeune)': '/6b56ee657c870dfacd34e9ae4e0643dd',
     'Restaurer la vapeur': '/6b56ee657c870dfacd34e9ae4e050fcc',
     'Vestiges (diagramme de classes)': '/146e6e8442f0405b721b79357d0021e3',
+    "Entretien avec un responsable d'opération": '/05b61f5285c711ed97bf6b9b56808c45',
+    "Étiquetage de l'entretien": '/6327c5008d1f11ed9aa8e7ae771dee2e',
+    'Photographie : vitrail, baie 113, Église Saint-Nizier, Troyes': '/b8cc79d8abba11edb9ee53989bc96c06',
   };
   expect(uris).to.contain.key(title);
   cy.visit(uris[title]);

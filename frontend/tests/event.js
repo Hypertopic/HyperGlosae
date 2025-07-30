@@ -10,7 +10,11 @@ Quand("j'essaie de créer une glose de type {string}", (option) => {
 });
 
 Quand("je me focalise sur {string}", (title) => {
-  cy.contains('span', title).parent().prev('a.focus').first().click();
+  cy.contains('span', title).parent().prevAll('a.focus').first().click();
+});
+
+Quand("j'ouvre {string} à côté", (title) => {
+  cy.contains('span', title).parent().prevAll('a.open').first().click();
 });
 
 Quand("j'essaie de remplacer les métadonnées de la glose par :", (metadata) => {
