@@ -20,7 +20,6 @@ jobs:
       - name: Download tools
         run: |
           docker compose --file docker-compose.test.yml pull
-          docker pull benel/cucumber-capybara
           curl https://assets.greenframe.io/install.sh | bash
           cd frontend; npm install --save-dev @badeball/cypress-cucumber-preprocessor
       - name: Install and launch backend with test data
@@ -50,7 +49,6 @@ jobs:
           args: http://localhost/ 200 30000 500
       - name: Run tests
         run: |
-          docker run --rm -v "$(pwd)":/app --tty --net="host" --env APP_HOST="http://`hostname`" benel/cucumber-capybara --retry 2 --fail-fast --no-source --no-snippets
           cd frontend; npx cypress run --config baseUrl=http://localhost
       - name: Measure carbon footprint
         run: |
