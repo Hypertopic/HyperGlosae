@@ -19,6 +19,7 @@
     "react-notifications": "^1.7.4",
     "react-router-dom": "^6.4.3",
     "remark-definition-list": "^2.0.0",
+    "remark-gfm": "^4.0.1",
     "remark-unwrap-images": "^4.0.0",
     "uuid": "^11.0.5",
     "vite-plugin-eslint": "^1.8.1",
