@@ -19,8 +19,7 @@ function Lectern({backend, user}) {
   const [lastUpdate, setLastUpdate] = useState();
   const [rawEditMode, setRawEditMode] = useState(false);
   const [loading, setLoading] = useState(true);
-  let {id} = useParams();
-  let margin = useLocation().hash.slice(1);
+  let {id, margin} = useParams();
   const getCaption = ({dc_title, dc_spatial}) => [dc_title, dc_spatial].filter(Boolean).join(', ');
 
   if (metadata) {

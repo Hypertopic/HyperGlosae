@@ -10,7 +10,7 @@ function DeleteDocumentAction({metadata, isFromScratch, backend, setLastUpdate})
   const handleClick = () => {
     backend.deleteDocument(metadata)
       .then(x => setLastUpdate(x.rev))
-      .then(() => navigate(isFromScratch ? '/' : '#'));
+      .then(() => navigate(isFromScratch ? '/' : '..', {relative: 'path'}));
   };
 
   return (

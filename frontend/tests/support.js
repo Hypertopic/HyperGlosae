@@ -78,7 +78,7 @@ Cypress.Commands.add('click_on_contextual_menu_item', (context, item_name) => {
 
 Cypress.Commands.add('click_on_create', () => {
   cy.get('.create-document').click();
-  cy.url().should('match', /\/[0-9a-f]+#[0-9a-f]+$/);
+  cy.url().should('match', /\/[0-9a-f]+\/[0-9a-f]+$/);
 });
 
 // From: https://github.com/decaporg/decap-cms/blob/a4b7481a99f58b9abe85ab5712d27593cde20096/cypress/support/commands.js#L374

@@ -10,7 +10,7 @@ function BrowseTools({id, closable, openable, editable, focusable = true}) {
           placement="top"
           overlay={<Tooltip id="tooltip-edit">Edit this document</Tooltip>}
         >
-          <Link to={`../${id}#${id}`} className="icon edit">
+          <Link to={id} className="icon edit">
             <PencilSquare />
           </Link>
         </OverlayTrigger>
@@ -21,7 +21,7 @@ function BrowseTools({id, closable, openable, editable, focusable = true}) {
           placement="top"
           overlay={<Tooltip id="tooltip-close">Close this document</Tooltip>}
         >
-          <Link to="#" className="icon close">
+          <Link to=".." relative="path" className="icon close">
             <ChevronBarDown />
           </Link>
         </OverlayTrigger>
@@ -32,7 +32,7 @@ function BrowseTools({id, closable, openable, editable, focusable = true}) {
           placement="top"
           overlay={<Tooltip id="tooltip-open">Open this document</Tooltip>}
         >
-          <Link to={`#${id}`} className="icon open">
+          <Link to={id} className="icon open">
             <ChevronExpand />
           </Link>
         </OverlayTrigger>
@@ -43,7 +43,7 @@ function BrowseTools({id, closable, openable, editable, focusable = true}) {
           placement="top"
           overlay={<Tooltip id="tooltip-focus">Focus on this document</Tooltip>}
         >
-          <Link to={`../${id}`} className="icon focus">
+          <Link to={`/${id}`} className="icon focus">
             <Bookmark />
           </Link>
         </OverlayTrigger>
