@@ -37,7 +37,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Bookshelf {...{backend, user}} />} />
             <Route path="/registration" element={<Registration {...{backend}}/>} />
-            <Route path="/:id" element={<Lectern {...{backend, user}} />} />
+            <Route path="/:id/:margin?" element={<Lectern {...{backend, user}} />} />
           </Routes>
         </TypesContext.Provider>
       </BrowserRouter>
