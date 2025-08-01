@@ -1,5 +1,5 @@
 import Card from 'react-bootstrap/Card';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 
 function ExistingDocument({ document, relatedTo, verb, setLastUpdate, backend }) {
   const navigate = useNavigate();

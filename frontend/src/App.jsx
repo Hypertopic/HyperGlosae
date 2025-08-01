@@ -5,7 +5,7 @@ import Lectern from './routes/Lectern';
 import Bookshelf from './routes/Bookshelf';
 import Hyperglosae from './hyperglosae';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router';
 import { NotificationContainer, NotificationManager } from 'react-notifications';
 import 'react-notifications/lib/notifications.css';
 import { TypesContext } from './components/TypesContext.js';

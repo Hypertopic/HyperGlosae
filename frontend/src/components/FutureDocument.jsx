@@ -1,7 +1,7 @@
 import '../styles/FutureDocument.css';
 
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { Card, Nav, Form, Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { PlusLg, Link } from 'react-bootstrap-icons';
 import { v4 as uuid } from 'uuid';
