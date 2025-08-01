@@ -11,7 +11,7 @@ function DeleteReferenceToDocumentAction({id, margin, backend, metadata, content
     metadata.links = metadata.links.filter(link => ![id, ...new Set([...content.filter((row) => row.value.isPartOf === id).map(({id, value}) => value._id || id)])].includes(link.object));
     backend.putDocument({...metadata})
       .then(x => setLastUpdate(x.rev))
-      .then(() => navigate('/' + margin + '#' + margin))
+      .then(() => navigate('/' + margin + '/' + margin))
       .catch(console.error);
   };
 

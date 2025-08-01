@@ -66,7 +66,7 @@ const FutureDocument = ({ relatedTo, setLastUpdate, backend, user }) => {
           : relatedTo.map((object) => ({ verb, object }))
       });
       setLastUpdate(_id);
-      navigate((relatedTo.length ? '#' : `/${_id}#`) + _id);
+      navigate((relatedTo.length ? '' : `/${_id}/`) + _id);
     } catch (error) {
       console.error('Error creating document:', error);
     }

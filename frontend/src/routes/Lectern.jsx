@@ -5,7 +5,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { useState, useEffect } from 'react';
-import { useParams, useLocation } from 'react-router';
+import { useParams } from 'react-router';
 import Context from '../context';
 import ParallelDocuments from '../parallelDocuments';
 import OpenedDocuments from '../components/OpenedDocuments';
@@ -19,8 +19,7 @@ function Lectern({backend, user}) {
   const [lastUpdate, setLastUpdate] = useState();
   const [rawEditMode, setRawEditMode] = useState(false);
   const [loading, setLoading] = useState(true);
-  let {id} = useParams();
-  let margin = useLocation().hash.slice(1);
+  let {id, margin} = useParams();
   const getCaption = ({dc_title, dc_spatial}) => [dc_title, dc_spatial].filter(Boolean).join(', ');
 
   if (metadata) {

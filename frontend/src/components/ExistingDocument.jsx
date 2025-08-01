@@ -29,7 +29,7 @@ function ExistingDocument({ document, relatedTo, verb, setLastUpdate, backend })
       .then(x => Promise.all(x))
       .then(() => {
         setLastUpdate(document._id);
-        navigate('#' + document._id);
+        navigate(document._id);
       })
       .catch(console.error);
   };
