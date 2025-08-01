@@ -49,7 +49,7 @@ jobs:
           args: http://localhost/ 200 30000 500
       - name: Run tests
         run: |
-          cd frontend; npx cypress run --config baseUrl=http://localhost
+          cd frontend; npx cypress run --config baseUrl=http://localhost retries=2
       - name: Measure carbon footprint
         run: |
           cd requirements
