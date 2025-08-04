@@ -37,7 +37,7 @@
     "stepDefinitions": "tests/{context,event,outcome}.js"
   },
   "devDependencies": {
-    "@badeball/cypress-cucumber-preprocessor": "^21.0.3",
+    "@badeball/cypress-cucumber-preprocessor": "^22.2.0",
     "@bahmutov/cypress-esbuild-preprocessor": "^2.2.4",
     "@eslint/js": "^9.9.0",
     "@vitejs/plugin-react-swc": "^3.5.0",
@@ -46,8 +46,8 @@
     "eslint-plugin-react": "^7.35.0",
     "eslint-plugin-react-hooks": "^5.1.0-rc.0",
     "eslint-plugin-react-refresh": "^0.4.9",
-    "globals": "^15.9.0",
-    "vite": "^6.0.7",
+    "globals": "^16.3.0",
+    "vite": "^7.0.6",
     "vite-bundle-visualizer": "^1.2.1"
   }
 }
