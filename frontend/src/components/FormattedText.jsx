@@ -1,4 +1,4 @@
-import ReactMarkdown from 'react-markdown';
+import { MarkdownHooks } from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import remarkUnwrapImages from 'remark-unwrap-images';
 import { remarkDefinitionList, defListHastHandlers } from 'remark-definition-list';
@@ -17,7 +17,7 @@ function FormattedText({children, setHighlightedText, selectable, setSelectedTex
   };
 
   return (<>
-    <ReactMarkdown
+    <MarkdownHooks
       remarkPlugins={[remarkGfm, remarkDefinitionList, remarkUnwrapImages]}
       components={{
         img: (x) => embedVideo(x) || CroppedImage(x),
@@ -31,7 +31,7 @@ function FormattedText({children, setHighlightedText, selectable, setSelectedTex
       }}
     >
       {children}
-    </ReactMarkdown>
+    </MarkdownHooks>
   </>);
 }
 
