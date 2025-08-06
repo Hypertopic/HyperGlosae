@@ -8,6 +8,7 @@ export default defineConfig({
     baseUrl: 'http://localhost:3000',
     specPattern: '**/*.feature',
     supportFile: 'tests/support.js',
+    defaultCommandTimeout: 6000,
     async setupNodeEvents(on, config) {
       await addCucumberPreprocessorPlugin(on, config);
       on(

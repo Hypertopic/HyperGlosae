@@ -33,8 +33,7 @@ Cypress.Commands.add('click_on_text', (type, text) => {
 });
 
 Cypress.Commands.add('create_glose', (random = false) => {
-  cy.get('.create-document').click();
-  cy.url().should('contain', '#');
+  cy.click_on_create();
   if (random) {
     cy.set_random_name();
   }
@@ -42,15 +41,14 @@ Cypress.Commands.add('create_glose', (random = false) => {
 
 Cypress.Commands.add('create_glose_of_type', (random = false, option = "Adaptation") => {
   cy.get('#select-dropdown').select(option);
-  cy.get('.create-document').click();
-  cy.url().should('contain', '#');
+  cy.click_on_create();
   if (random) {
     cy.set_random_name();
   }
 });
 
 Cypress.Commands.add('create_document_from_scratch', () => {
-  cy.get('.create-document').click();
+  cy.click_on_create();
   cy.get('.lectern').should('exist');
 });
 
@@ -76,6 +74,11 @@ Cypress.Commands.add('click_on_contextual_menu_item', (context, item_name) => {
   }
   context.find('.dropdown > .toggle').click({force: true});
   cy.contains(item_name).click({force: true});
+});
+
+Cypress.Commands.add('click_on_create', () => {
+  cy.get('.create-document').click();
+  cy.url().should('match', /\/[0-9a-f]+#[0-9a-f]+$/);
 });
 
 // From: https://github.com/decaporg/decap-cms/blob/a4b7481a99f58b9abe85ab5712d27593cde20096/cypress/support/commands.js#L374

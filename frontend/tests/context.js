@@ -105,7 +105,7 @@ Soit("un document en deux passages affiché comme document principal", () => {
 
 Soit("une glose dont je suis l'auteur faisant référence uniquement au premier passage", () => {
   cy.sign_in('alice');
-  cy.get('.create-document').click();
+  cy.click_on_create();
   Step(this, "j'essaie de remplacer le contenu de la glose par :", '{1} First side passage');
   cy.contains('.formatted-text', 'First side passage');
   cy.sign_out();
@@ -131,7 +131,7 @@ Soit("{string} la glose ouverte", (title) => {
 
 Soit("un autre document, en plusieurs passages, affiché comme glose et dont je suis l'auteur", () => {
   cy.sign_in('alice');
-  cy.get('.create-document').click();
+  cy.click_on_create();
   cy.click_on_contextual_menu_item('.runningHead .scholium', 'Break into numbered passages');
   cy.get('.lectern .row:not(.runningHead) .scholium').should('have.length.greaterThan', 1);
   cy.sign_out();
