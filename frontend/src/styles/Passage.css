@@ -1,3 +1,7 @@
 mark {
   padding: 0 !important;
 }
+
+.main.col {
+  padding-bottom: 1.5em;
+}
