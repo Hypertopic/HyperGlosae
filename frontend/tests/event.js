@@ -51,6 +51,16 @@ Quand("je choisis {string} comme type de glose", (pattern) => {
   cy.get('.list-group-item').first().click();
 });
 
+Quand("je qualifie le document avec un nouveau type de glose", function() {
+  cy.get('.typeIcon').click();
+  this.randomType = [...Array(30)].map(() => Math.random().toString(36)[2]).join('');
+  cy.get('.inputField.form-control').type(this.randomType);
+  cy.get('.addButton').click();
+  cy.get('.typeIcon').click();
+  cy.get('#searchType').type(this.randomType);
+  cy.get('.list-group-item').first().click();
+});
+
 Quand("je survole le texte :", (text) => {
   cy.contains('.fragment', text.trim())
     .trigger('mouseover');
