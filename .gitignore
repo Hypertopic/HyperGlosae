@@ -1,2 +1,4 @@
 data
 screenshots
+.env
+frontend/package-lock.json
