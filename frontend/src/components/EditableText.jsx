@@ -38,7 +38,7 @@ function EditableText({id, text, rubric, isPartOf, links, fragment, setFragment,
       updateEditedDocument()
         .then((x) => {
           let existingText = parseFirstPassage(x.text);
-          setEditedText((existingText && `${existingText}\n\n`) + fragment + '<COMMENT>');
+          setEditedText((existingText && `${existingText}\n\n`) + fragment + '…');
           setBeingEdited(true);
           setFragment();
           setHasBeenChanged(true);

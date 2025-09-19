@@ -14,5 +14,5 @@ Scénario: de texte
   Alors la glose est ouverte en mode édition et contient :
   """
   [plusieurs personnes se présentent à moi. Ayant identifié que je suis nouveau, elles me souhaitent la bienvenue]
-  <COMMENT>
+  …
   """
