@@ -54,6 +54,4 @@ jobs:
         run: |
           cd requirements
           greenframe analyze >> $GITHUB_STEP_SUMMARY
-        env:
-          GREENFRAME_SECRET_TOKEN: ${{secrets.GREENFRAME_SECRET_TOKEN}}
 
