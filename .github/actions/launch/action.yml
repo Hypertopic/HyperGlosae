@@ -1,0 +1,39 @@
+name: Launch Hyperglosae
+description: Install and launch both backend and frontend (sources should be checked out).
+
+inputs:
+  repo-token:
+    description: GH token to access frontend build
+    required: true
+
+runs:
+  using: composite
+  steps :
+      - name: Download, install and launch backend with test data
+        run: |
+          export COUCHDB_USER="TO_BE_CHANGED"
+          export COUCHDB_PASSWORD="TO_BE_CHANGED"
+          docker compose --file docker-compose.test.yml up --detach updated_samples updated_code
+        shell: bash
+      - name: Wait for frontend build
+        uses: lewagon/wait-on-check-action@v1.3.1
+        with:
+          check-regexp: .? / build
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          repo-token: ${{ inputs.repo-token }}
+      - name: Get frontend build
+        uses: actions/download-artifact@v4
+        with:
+          name: frontend-build
+          path: frontend/build
+      - name: Start frontend
+        run: |
+          export COUCHDB_USER="TO_BE_CHANGED"
+          export COUCHDB_PASSWORD="TO_BE_CHANGED"
+          docker compose --file docker-compose.test.yml up --detach
+        shell: bash
+      - name: Wait for frontend
+        uses: docker://benel/wait-for-response:1
+        with:
+          args: http://localhost/ 200 30000 500
+
