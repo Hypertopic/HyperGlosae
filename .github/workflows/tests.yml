@@ -10,7 +10,23 @@ jobs:
   build:
     uses: ./.github/workflows/build.yml
 
-  test:
+  functional:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download sources
+        uses: actions/checkout@v4
+      - name: Download tools
+        run: |
+          cd frontend; npm install --save-dev @badeball/cypress-cucumber-preprocessor
+      - name: Install and launch application
+        uses: ./.github/actions/launch
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Run tests
+        run: |
+          cd frontend; npx cypress run --config baseUrl=http://localhost
+
+  footprint:
     runs-on: ubuntu-latest
     steps:
       - name: Download sources
@@ -20,14 +36,10 @@ jobs:
       - name: Download tools
         run: |
           curl https://assets.greenframe.io/install.sh | bash
-          cd frontend; npm install --save-dev @badeball/cypress-cucumber-preprocessor
       - name: Install and launch application
         uses: ./.github/actions/launch
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
-      - name: Run tests
-        run: |
-          cd frontend; npx cypress run --config baseUrl=http://localhost
       - name: Measure carbon footprint
         run: |
           cd requirements
