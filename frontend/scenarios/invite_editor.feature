@@ -24,3 +24,12 @@ Scénario: sans être connecté
   Quand j'essaie d'accorder les droits d'édition à "christophe"
   Alors je peux lire "Before editing this document, please log in first"
 
+Scénario: en appuyant sur Entrée
+
+  Soit un document reconnaissable dont je suis l'auteur affiché comme glose
+  Et une session active avec mon compte
+  Quand j'essaie d'accorder les droits d'édition à "Christophe" en appuyant sur Entrée
+  Alors je vois "christophe" dans la liste des éditeurs
+  Et "christophe" peut modifier le document
+  Et le document apparaît dans la bibliothèque de "christophe"
+

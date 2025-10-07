@@ -45,6 +45,11 @@ Quand("j'essaie d'accorder les droits d'édition à {string}", (userName) => {
   cy.contains('button', 'Invite').click();
 });
 
+Quand("j'essaie d'accorder les droits d'édition à {string} en appuyant sur Entrée", (userName) => {
+  cy.click_on_contextual_menu_item('.runningHead .scholium', 'Invite editors...');
+  cy.get('.modal-dialog input').type(userName + '{enter}');
+});
+
 Quand("je choisis {string} comme type de glose", (pattern) => {
   cy.get('.typeIcon').click();
   cy.get('#searchType').type(pattern);

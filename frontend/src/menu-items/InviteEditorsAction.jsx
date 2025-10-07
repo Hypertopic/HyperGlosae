@@ -44,6 +44,11 @@ export default function InviteEditorsAction({metadata, backend, setLastUpdate}) 
               className="add-user-input"
               value={userName}
               onInput={(event) => setUserName(event.target.value.toLowerCase())}
+              onKeyDown={(event) => {
+                if (event.key === 'Enter') {
+                  addEditor();
+                }
+              }}
             />
             <Button variant="primary" onClick={addEditor} className="add-user-input-btn">
               Invite
