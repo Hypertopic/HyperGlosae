@@ -7,6 +7,17 @@ import PictureUploadAction from '../menu-items/PictureUploadAction';
 import {v4 as uuid} from 'uuid';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 
+function boldSpeakerNames(text) {
+  return text.split('\n').map(line => {
+    const match = line.match(/^([\p{Lu}][\p{L}'\- ]+?)\s*:/u);
+    if (match) {
+      const name = match[1];
+      return line.replace(name, `**${name}**`);
+    }
+    return line;
+  }).join('\n');
+}
+
 function EditableText({id, text, rubric, isPartOf, links, fragment, setFragment, setHighlightedText, setSelectedText, rawEditMode, setRawEditMode, backend, setLastUpdate}) {
   const [beingEdited, setBeingEdited] = useState(false);
   const [editedDocument, setEditedDocument] = useState();
@@ -110,7 +121,7 @@ function EditableText({id, text, rubric, isPartOf, links, fragment, setFragment,
       >
         <div className="formatted-text" onClick={handleClick}>
           <FormattedText {...{setHighlightedText, setSelectedText}}>
-            {text || '&nbsp;'}
+            {boldSpeakerNames(text || '&nbsp;')}
           </FormattedText>
         </div>
       </OverlayTrigger>
