@@ -37,13 +37,18 @@ function ParallelDocuments(id, rawContent = [], margin, raw = false) {
       ? parseText(doc.text).map(
         ({parsed_rubric, passage, rubric}) => ({
           key: [key[0], ...parsed_rubric],
-          value: {...value, text: passage, rubric, _id: null},
+          value: {...value, text: passage, includedFrom: doc.isPartOf, rubric, _id: null},
           ...doc.dc_title && {doc}
         }))
       : ({id, key, value})
     )
     .flat()
     .sort(compareCompositeKeys);
+
+  let includedDocs = [...new Set(
+    content.map(({value}) => value.includedFrom)
+      .filter(x => !!x))
+  ];
 
   this.doesSourceHaveInclusions = content.some(x => x.value.inclusion);
 
@@ -83,7 +88,8 @@ function ParallelDocuments(id, rawContent = [], margin, raw = false) {
     if (text) {
       let isPartOf = x.value.isPartOf;
       if (!this.isFromScratch && isPartOf === id) {
-        part.source.push(text);
+        let length = includedDocs.indexOf(x.value.includedFrom) - part.source.length;
+        part.source = [...part.source, ...Array.from({length}, (_, i) => i), text];
       }
       if (xor(!this.isFromScratch, isPartOf === id)) {
         if (!raw || !part.scholia.length || part.scholia[part.scholia.length - 1].id !== x.id) {
