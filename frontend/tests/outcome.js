@@ -198,3 +198,7 @@ Alors("l'image intégrée dans la page a pour légende {string}", (image_caption
   cy.get('.lectern').should('contain', image_caption);
 });
 
+Alors("la colonne {int} contient {string}", (column, text) => {
+  cy.contains(`.lectern .main .col .col:nth-child(${column})`, text);
+});
+

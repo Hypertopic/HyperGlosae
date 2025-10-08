@@ -73,6 +73,14 @@ Quand("je réutilise {string} comme glose", function (title) {
   cy.get('.existingDocument').first().click();
 });
 
+Quand("je réutilise mon document reconnaissable en tant que glose de citation et que je me focalise dessus", function () {
+  cy.get('.select-document').click();
+  cy.get('#select-dropdown').select('Quotation');
+  cy.get('input[placeholder="Search documents"]').type(this.randomName);
+  cy.get('.existingDocument').first().click();
+  cy.get('.scholium .focus').click();
+});
+
 Quand("je découpe la glose en passages numérotés et que je me focalise sur la glose", () => {
   cy.click_on_contextual_menu_item('.runningHead .scholium', 'Break into numbered passages');
   cy.get('.focus').click();

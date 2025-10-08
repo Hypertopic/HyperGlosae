@@ -56,6 +56,7 @@ Soit("le document contenant l'image 2019_10-13_16_UKR_R_A affiché comme documen
 Soit("{string} le document principal", (title) => {
   const uris = {
     'Les fées (Charles Perrault)': '/37b4b9ba5cdb11ed887beb5c373fa643',
+    'A tündérek (Charles Perrault)': '/09c906c6732b11ed89466ba197585f87',
     'Vidéo Sherlock Jr. (Buster Keaton)': '/4e1a31e14b032f2fa9e161ee9b009125',
     'Treignes, le 8 septembre 2012 (Christophe Lejeune)': '/6b56ee657c870dfacd34e9ae4e0643dd',
     'Restaurer la vapeur': '/6b56ee657c870dfacd34e9ae4e050fcc',
@@ -78,6 +79,12 @@ Soit("un document dont je suis l'auteur affiché comme glose", () => {
 Soit("avec un document reconnaissable dont je suis l'auteur affiché comme glose", () => {
   cy.sign_in('alice');
   cy.create_glose(true);
+  cy.sign_out();
+});
+
+Soit("avec un document reconnaissable dont je suis l'auteur affiché comme glose en tant que {string}", (type) => {
+  cy.sign_in('alice');
+  cy.create_glose_of_type(true, type);
   cy.sign_out();
 });
 
