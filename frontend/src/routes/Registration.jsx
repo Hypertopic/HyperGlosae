@@ -34,7 +34,7 @@ function Registration({backend}) {
 
       <Form.Group className="mb-3" controlId="password">
         <Form.Label>Password</Form.Label>
-        <Form.Control type="password" />
+        <Form.Control type="password" minlength="12" required />
         <Form.Text className="text-muted">
           <p>Set a <b>new</b> password, a password you never used anywhere else.</p>
           <p>Especially, do not reuse the password associated with your e-mail service.</p>
