@@ -5,16 +5,18 @@ function BreakIntoPassagesAction({parallelDocuments, margin, backend, setLastUpd
 
   let disabled = true;
   let scholium;
+  let firstPassage = parallelDocuments.passages[0];
 
   // disabled if margin has already rubrics
-  if (!parallelDocuments.doesMarginHaveRubrics) {
-    let scholia = parallelDocuments.passages[0].scholia.filter(x => x.isPartOf === margin);
+  if (!parallelDocuments.doesMarginHaveRubrics && firstPassage) {
+    let scholia = firstPassage.scholia.filter(x => x.isPartOf === margin);
     // disabled if different chunks
     let hasChunks = scholia.length > 1;
     if (!hasChunks) {
       scholium = scholia[0];
       // disabled if source has rubrics and margin is not empty
-      disabled = parallelDocuments.doesSourceHaveRubrics && scholium.text !== '…' && !!scholium.text;
+      disabled = !scholium
+        || parallelDocuments.doesSourceHaveRubrics && scholium.text && scholium.text !== '…';
     }
   }
 
