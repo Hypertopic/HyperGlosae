@@ -68,6 +68,11 @@ function Authentication({backend, user, setUser}) {
             Sign in
           </button>
         </Col>
+        <Col>
+          <Link className="btn btn-outline-light" to="/registration">
+            Register...
+          </Link>
+        </Col>
       </Row>
     </Form>
   );
