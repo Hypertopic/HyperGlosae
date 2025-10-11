@@ -76,8 +76,15 @@ function ParallelDocuments(id, rawContent = [], margin, raw = false) {
 
   const xor = (x, y) => x !== y;
 
+  const fill = (array, length, last) => [
+    ...array,
+    ...Array.from({length: length - array.length}),
+    ...last ? [last] : []
+  ];
+
   this.passages = content.reduce(({whole, part}, x, i, {length}) => {
     if (part.rubric && x.value.rubric !== part.rubric) {
+      part.source = fill(part.source, includedDocs.length);
       whole.push(part);
       part = {source: [], scholia: []};
     }
@@ -88,8 +95,7 @@ function ParallelDocuments(id, rawContent = [], margin, raw = false) {
     if (text) {
       let isPartOf = x.value.isPartOf;
       if (!this.isFromScratch && isPartOf === id) {
-        let length = includedDocs.indexOf(x.value.includedFrom) - part.source.length;
-        part.source = [...part.source, ...Array.from({length}, (_, i) => i), text];
+        part.source = fill(part.source, includedDocs.indexOf(x.value.includedFrom), text);
       }
       if (xor(!this.isFromScratch, isPartOf === id)) {
         if (!raw || !part.scholia.length || part.scholia[part.scholia.length - 1].id !== x.id) {
@@ -99,6 +105,7 @@ function ParallelDocuments(id, rawContent = [], margin, raw = false) {
       }
     }
     if (i === length - 1) {
+      part.source = fill(part.source, includedDocs.length);
       return [...whole, part];
     }
     return {whole, part};
