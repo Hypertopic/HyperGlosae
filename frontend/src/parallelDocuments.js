@@ -37,7 +37,7 @@ function ParallelDocuments(id, rawContent = [], margin, raw = false) {
       ? parseText(doc.text).map(
         ({parsed_rubric, passage, rubric}) => ({
           key: [key[0], ...parsed_rubric],
-          value: {...value, text: passage, includedFrom: doc.isPartOf, rubric, _id: null},
+          value: {...value, text: passage, includedFrom: doc.isPartOf || doc._id, rubric, _id: null},
           ...doc.dc_title && {doc}
         }))
       : ({id, key, value})
