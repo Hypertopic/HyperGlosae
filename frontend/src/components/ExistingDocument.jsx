@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router';
 
 function ExistingDocument({ document, relatedTo, verb, setLastUpdate, backend }) {
   const navigate = useNavigate();
-  const title = extractSubstring(document.dc_title || 'Untitled Document');
+  const title = document.dc_title || 'Untitled document';
   const sourceChunksToBeLinked = (verb !== 'includes' && relatedTo.length)
     ? [{ verb, object: relatedTo[0] }]
     : relatedTo.map(object =>({ verb, object }));
@@ -41,18 +41,6 @@ function ExistingDocument({ document, relatedTo, verb, setLastUpdate, backend })
       </Card.Body>
     </Card>
   );
-}
-
-function extractSubstring(str) {
-  if (str.includes('–')) {
-    str = str.split('–')[0];
-  }
-
-  if (str.length > 25) {
-    str = str.substring(0, 25) + '...';
-  }
-
-  return str;
 }
 
 export default ExistingDocument;
