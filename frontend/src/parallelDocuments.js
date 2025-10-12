@@ -46,7 +46,9 @@ function ParallelDocuments(id, rawContent = [], margin, raw = false) {
     .sort(compareCompositeKeys);
 
   let includedDocs = [...new Set(
-    content.map(({value}) => value.includedFrom)
+    content
+      .filter(({value}) => value.isPartOf === id)
+      .map(({value}) => value.includedFrom)
       .filter(x => !!x))
   ];
 
