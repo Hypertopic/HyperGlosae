@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import { Marker } from 'react-mark.js';
+import CrossElementHighlighter from './CrossElementHighlighter';
 import FormattedText from './FormattedText';
 import EditableText from '../components/EditableText';
 import DiscreeteDropdown from './DiscreeteDropdown';
@@ -73,11 +73,11 @@ function PassageSource({children, isComposite, highlightedText, setHighlightedTe
 
 function SelectableFormattedText({children, highlightedText, setHighlightedText, setSelectedText}) {
   return (
-    <Marker mark={highlightedText} options={({separateWordSearch: false})}>
+    <CrossElementHighlighter highlightText={highlightedText}>
       <FormattedText selectable="true" {...{setSelectedText, setHighlightedText}}>
         {children}
       </FormattedText>
-    </Marker>
+    </CrossElementHighlighter>
   );
 }
 

@@ -202,3 +202,7 @@ Alors("la colonne {int} contient {string}", (column, text) => {
   cy.contains(`.lectern .main .col .col:nth-child(${column})`, text);
 });
 
+Alors("la citation contient du texte en italique", () => {
+  cy.get('.fragment .citation em').should('exist');
+});
+
