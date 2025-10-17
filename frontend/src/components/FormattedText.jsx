@@ -10,29 +10,73 @@ function FormattedText({children, setHighlightedText, selectable, setSelectedTex
 
   const handleMouseUp = () => {
     if (selectable) {
-      let text = window.getSelection().toString();
-      setSelectedText(text);
-      setHighlightedText(text);
+      const selection = window.getSelection();
+      let plainText = selection.toString();
+      if (plainText.trim()) {
+        const markdownText = extractMarkdownFromSelection(selection);
+        setSelectedText(markdownText);
+        setHighlightedText(plainText);
+      }
     }
   };
 
-  return (<>
-    <ReactMarkdown
-      remarkPlugins={[remarkGfm, remarkDefinitionList, remarkUnwrapImages]}
-      components={{
-        img: (x) => embedVideo(x) || CroppedImage(x),
-        p: (x) => VideoComment(x)
-          || FragmentComment({...x, setHighlightedText})
-          || <p onMouseUp={handleMouseUp}>{x.children}</p>,
-        a: ({children, href}) => <a href={href}>{children}</a>
-      }}
-      remarkRehypeOptions={{
-        handlers: defListHastHandlers
-      }}
-    >
-      {children}
-    </ReactMarkdown>
-  </>);
+  return (
+    <div onMouseUp={handleMouseUp}>
+      <ReactMarkdown
+        remarkPlugins={[remarkGfm, remarkDefinitionList, remarkUnwrapImages]}
+        components={{
+          img: (x) => embedVideo(x) || CroppedImage(x),
+          p: (x) => VideoComment(x)
+            || FragmentComment({...x, setHighlightedText})
+            || <p>{x.children}</p>,
+          a: ({children, href}) => <a href={href}>{children}</a>
+        }}
+        remarkRehypeOptions={{
+          handlers: defListHastHandlers
+        }}
+      >
+        {children}
+      </ReactMarkdown>
+    </div>
+  );
+}
+
+function extractMarkdownFromSelection(selection) {
+  if (selection.rangeCount === 0) return selection.toString();
+  return processNode(selection.getRangeAt(0).cloneContents());
+}
+
+function getMarkdownMarkers(element) {
+  if (!element.tagName) return null;
+  const tag = element.tagName;
+  if (tag === 'EM' || tag === 'I') return { open: '*', close: '*' };
+  if (tag === 'STRONG' || tag === 'B') return { open: '**', close: '**' };
+  if (tag === 'CODE') return { open: '`', close: '`' };
+  if (tag === 'DEL' || tag === 'S') return { open: '~~', close: '~~' };
+  return null;
+}
+
+function processNode(node) {
+  if (node.nodeType === Node.TEXT_NODE) return node.textContent;
+
+  if (node.nodeType === Node.DOCUMENT_FRAGMENT_NODE || node.nodeType === Node.ELEMENT_NODE) {
+    const markers = node.nodeType === Node.ELEMENT_NODE ? getMarkdownMarkers(node) : null;
+
+    let content = '';
+    for (const child of node.childNodes) {
+      content += processNode(child);
+    }
+
+    if (markers) {
+      const trimmedContent = content.trim();
+      const leadingSpaces = content.match(/^\s*/)[0];
+      const trailingSpaces = content.match(/\s*$/)[0];
+      return leadingSpaces + markers.open + trimmedContent + markers.close + trailingSpaces;
+    }
+    return content;
+  }
+
+  return '';
 }
 
 function getId(text) {
