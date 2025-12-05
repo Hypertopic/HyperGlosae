@@ -17,11 +17,11 @@
     "react-mark.js": "^10.0.10",
     "react-markdown": "^10.1.0",
     "react-notifications": "^1.7.4",
-    "react-router": "^7.7.1",
+    "react-router": "^7.10.1",
     "remark-definition-list": "^2.0.0",
     "remark-gfm": "^4.0.1",
     "remark-unwrap-images": "^4.0.0",
-    "uuid": "^11.0.5",
+    "uuid": "^13.0.0",
     "vite-plugin-eslint": "^1.8.1",
     "yaml": "^2.2.1"
   },
@@ -37,11 +37,11 @@
     "stepDefinitions": "tests/{context,event,outcome}.js"
   },
   "devDependencies": {
-    "@badeball/cypress-cucumber-preprocessor": "^22.2.0",
+    "@badeball/cypress-cucumber-preprocessor": "^24.0.0",
     "@bahmutov/cypress-esbuild-preprocessor": "^2.2.4",
     "@eslint/js": "^9.9.0",
-    "@vitejs/plugin-react-swc": "^3.5.0",
-    "cypress": "^13.17.0",
+    "@vitejs/plugin-react-swc": "^4.2.2",
+    "cypress": "^15.7.1",
     "eslint": "^9.9.0",
     "eslint-plugin-react": "^7.35.0",
     "eslint-plugin-react-hooks": "^5.1.0-rc.0",
