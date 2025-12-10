@@ -12,3 +12,9 @@
     font-weight: bold;
 }
 
+/* Ensure all inline elements within citation inherit the bold and background */
+.fragment .citation * {
+    background-color: inherit;
+    font-weight: inherit;
+}
+
