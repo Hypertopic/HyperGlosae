@@ -1,23 +1,49 @@
-# HyperGlosae: A Nelsonian[^1] hypertext infrastructure for digital humanities
+# Hyperglosae: Human annotations for digital humanities
 
-## Vision
+## Product vision
 
-[Hypertexts as envisioned by Theodor Nelson in the 1960's](https://www.youtube.com/watch?v=hMKy52Intac) are "needed more than ever", hypertexts with links that can be:
+__For__ intellectual workers<br/>
+__who__ interpret documents<br/>
+Hyperglosae __is a__ digital margin<br/>
+__that allows__ writing glosses (comments, adaptations or quotes) of these documents for future readers.
 
-- followed both ways (e.g. from a comment to the original and from the original to comments),
-- created freely by any reader (without validation by the author or the organization hosting the original document),
-- used to read linked documents side by side, with related fragments in parallel,
-- used to quote, explain, translate an existing document or fragment in a new one, or to compare two existing documents.
+__Unlike__ *Hypothes.is*, *Google Docs*, *Hypotheses* (based on *WordPress*), *Zotero*, and *LiquidText*,<br/>
+__our product allows__ glossing an author-defined "passage" (*i.e.* a meaningful unit, like a paragraph, a strophe, a verse...).
 
-Because of the Web scale and because of the gap between Web usage and the tradition of Humanities that inspired Theodor Nelson, rebuilding the Web on these bases are probably out of reach for most of people and organizations.
-However, existing communities of "humanists" share the same epistemological and methodological tradition.
-We think they are both willing and able to adopt such an infrastructure.
+![Glossing an author-defined 'passage'](docs/screenshot_translator_passage.png "Glossing an author-defined 'passage'")
+
+__Unlike__ *Hypotheses*,<br/>
+__our product also allows__ commenting on a reader-defined "fragment".
+
+![Commenting on a reader-defined 'fragment'](docs/screenshot_analysis_fragment.png "Commenting on a reader-defined 'fragment'")
+
+__Unlike__  *Hypothes.is* and *Google Docs*,<br/>
+fragments __may be__ defined on a picture.
+
+![Fragments may be defined on a picture](docs/screenshot_historian_fragment.png "Fragments may be defined on a picture")
+
+__Unlike__ all of the previously cited software,<br/>
+fragments __may even be__ defined on a video.
+
+![Fragments may be defined on a video](docs/screenshot_movie_fragment.png "Fragments may be defined on a video")
+
+
+__Unlike__ *Hypothes.is*, *Google Docs*, and *Zotero*,<br/>
+__our product allows__ glosses to be full-fledged documents and hence to be glossed as well.<br/>
+__It allows__ navigating from gloss to gloss, or from source to source.
+
+![Glosses are full-fledged documents and hence can be glossed as well](docs/screenshot_analysis_browsing.png "Glosses are full-fledged documents and hence can be glossed as well")
+![Navigating from gloss to gloss, or from source to source](docs/screenshot_analysis_graph.png "Navigating from gloss to gloss, or from source to source")
+
+## Project background
+
+In the past decades, we designed *[Cassandre](https://hypertopic.org/cassandre)* for ethnographic studies and *[TraduXio](https://hypertopic.org/traduxio)* for translation studies. 
+It appeared that both pieces of software were kind of implementations of "[parallel documents with a visible connection](https://www.youtube.com/watch?v=hMKy52Intac)" as envisioned by Theodor Nelson, who coined the term "hypertext".
+We then figured out that a more general Nelsonian[^1] hypertext could be the missing infrastructure for "digital humanists".
 
 [^1]: Disclaimer: We are not affiliated with Theodor Nelson. We are just fans ;)
 
-## Scope
-
-Step by step, we will prototype such an infrastructure and will test it on prior documented practices of "parallel documents" in our existing Hypertopic software suite (esp. [TraduXio](https://hypertopic.org/traduxio) and [Cassandre](https://hypertopic.org/cassandre)).
+Step by step, we will prototype such an infrastructure and test it on practices in social and human sciences.
 
 ## Requirements
 
@@ -31,62 +57,6 @@ Instead, the original hypertext architecture was more like a federation of backe
 A modern version of this (see figure below) will be achieved with CouchDB filtered replications.
 
 ![HyperGlosae architecture](./docs/architecture.png "Hypertext architecture, revisited from Nelson (1993:4/62) with current technologies (React and CouchDB).")
-
-## "Literature" model
-
-The concept of *literature* (*e.g.* "scientific literature") is that *reading* a document results in *writing* new ones (highlights, annotations, analyses, translations, critics, etc.).
-Hence the meaning of a document is indeed in the whole graph of direct or indirect sources and offsprings.
-
-![](docs/component_graph.png)
-
-### Forward links
-
-![](docs/screenshot_translator_forwardlink.png)
-A *forward link* is similar to a bibliographical reference: because a document (in the center) has been written after reading a prior document (on the left margin), it refers to it.
-
-In this hypertext system, contrary to the Web:
-- the reference of the link does not depend of a host (see [format](https://github.com/Hypertopic/HyperGlosae/blob/main/samples/hyperglosae/perrault_jamborova.json#L12-L13)),
-- the system resolves the identifier and gets bibliographical data (see [format](https://github.com/Hypertopic/HyperGlosae/blob/main/samples/hyperglosae/perrault_1886.json#L3-L9)).
-
-### Reverse links
-
-![](docs/screenshot_translatior_reverselinks.png)
-A "reverse link" is the virtual one going from a document to a document that refers to it.
-Consulting (on the right margin) the different translations, commentaries, analyses of a given source (in the center) has deep philosophical and political perspectives: each derived document can be seen as a different *point of view* on the document, attested by a specific author at a given date.
-
-Contrary to this hypertext system, the Web has no built-in features to compute and display "reverse links" but, for example, such a computation is handled for the Web globally by Google Search (to compute *PageRank*), and locally by certain blog or wiki software.
-
-### Side-by-side linked documents
-
-![](docs/screenshot_analyst_picture_whole.png)
-
-![](docs/screenshot_analyst_text_whole.png)
-Opening one of the reverse links, side by side with its source, is like reviving the moment when the author of the derived document read the source and started to write in the margin, creating a new document.
-
-### Side-by-side parallel documents
-
-![](docs/screenshot_translator_parallel.png)
-
-![](docs/screenshot_analyst_parallel.png)
-Translations, *scholia* (comments on a term), qualitative analysis "codes", are typical *parallel linked documents* of a source.
-It means that every part of the derived document is linked to a specific part of the source document, using:
-- a mandatory *rubric*, *i.e.* the "red-printed" identifier of a passage (see [format](https://github.com/Hypertopic/HyperGlosae/blob/main/samples/hyperglosae/perrault_jamborova03.json#L9)), already defined in the source (see [format](https://github.com/Hypertopic/HyperGlosae/blob/main/samples/hyperglosae/perrault_1886_content.json#L4)), and that follows the same order as the passages,
-- an optional quote from this passage (see [format](https://github.com/Hypertopic/HyperGlosae/blob/main/samples/hyperglosae/inrap_D.json#L13) and commit message).
-
-### Transclusion (inclusion by reference)
-
-![](docs/screenshot_historian_transclusion_links.png)
-
-A new document can be made by *transcluding* (i.e. "virtually including") the content of existing documents or parts of them (see [format](https://github.com/Hypertopic/HyperGlosae/blob/main/samples/hyperglosae/revelation_stars.json#L9-L18)).
-
-The resulting collection can be used to compare documents (e.g. related works of art, alternative translations, etc.).
-It can also be used to present selected documents to an audience in a meaningful order (chronological, narrative, argumentative, etc.).
-
-Because transclusion is also a *link*:
-- bibliographical data from sources are displayed with the derived document,
-- collections based on the same document appear as *reverse links*.
-
-![](docs/screenshot_historian_transclusion_reverselinks.png)
 
 ## Deliverables
 
