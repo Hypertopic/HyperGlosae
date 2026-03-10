@@ -16,3 +16,15 @@ Scénario: de texte
   [plusieurs personnes se présentent à moi. Ayant identifié que je suis nouveau, elles me souhaitent la bienvenue]
   …
   """
+
+Scénario: de texte formaté en italique
+
+  Soit "Treignes, le 8 septembre 2012 (Christophe Lejeune)" le document principal
+  Et un document dont je suis l'auteur affiché comme glose et contenant :
+    """
+    [*plusieurs personnes*]
+    Mon commentaire sur ce passage
+    """
+  Et une session active avec mon compte
+  Alors la glose contient "plusieurs personnes"
+  Et la citation contient du texte en italique
