@@ -7,6 +7,7 @@ Scénario: en fonction du numéro de paragraphe
   Soit un document dont je suis l'auteur affiché comme glose et contenant :
     """
     Les hommes naissent et demeurent libres et égaux en droits. Les distinctions sociales ne peuvent être fondées que sur l'utilité commune.
+    
     Le but de toute association politique est la conservation des droits naturels et imprescriptibles de l'Homme. Ces droits sont la liberté, la propriété, la sûreté, et la résistance à l'oppression.
     """
   Et une session active avec mon compte
