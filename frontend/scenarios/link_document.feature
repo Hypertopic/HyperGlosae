@@ -6,13 +6,13 @@ Scénario: pour commenter un document
 
   Soit un document existant affiché comme document principal
   Et une session active avec mon compte
-  Quand je réutilise "Glossaire" comme glose
-  Alors "Glossaire" est la glose ouverte
-  Et la glose contient :
+  Quand j'utilise un document existant comme commentaire
+  Alors la liste de mes documents s'affichent
+  Et la liste contient pour chaque document son titre, son auteur, sa dernière date de modification et son lien isPartOf
     """
-    "Il était une fois"
-    "Once upon a time" (eng)
-    "Bolo to raz" (svk)
+    "Comments on the video - Côme Peyrelongue, 24/03/2026 09:32 - My First Video Document"
+    "My Second Video Document - Côme Peyrelongue, 10/03/2026 20:15"
+    "Comments on the video - Côme Peyrelongue, 23/03/2026 10:44 - My Second Video Document"
     """
 
 Scénario: pour le comparer avec un autre
