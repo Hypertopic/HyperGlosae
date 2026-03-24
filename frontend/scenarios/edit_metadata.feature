@@ -41,3 +41,16 @@ Scénario: sans être connecté
     dc_issued: 1932
     """
   Alors je peux lire "Before editing this document, please log in first"
+
+Scénario: avec le caractère deux-points dans dc_title et/ou dc_isPartOf
+
+  Soit un document dont je suis l'auteur affiché comme glose
+  Et une session active avec mon compte
+  Quand j'essaie de remplacer les métadonnées de la glose par :
+    """
+    dc_title: Introduction: Philosophie moderne
+    dc_isPartOf: Chapitre 1: Contexte historique
+    """
+  Alors "Introduction: Philosophie moderne" est la glose ouverte
+  Et le dc_isPartOf est "Chapitre 1: Contexte historique"
+
