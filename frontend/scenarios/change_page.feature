@@ -8,4 +8,4 @@ Scénario: au bookshelf
   
   Quand j'essaie de revenir au bookshelf
   Alors je suis sur la page bookshelf
-  Et le titre de l'onglet est HyperGlosae
+  Et le titre de l'onglet est Hyperglosae
