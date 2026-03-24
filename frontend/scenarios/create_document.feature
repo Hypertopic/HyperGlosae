@@ -107,3 +107,13 @@ Scénario: en gardant certaines des métadonnées du document source
   """
     dc_isPartOf: Archéologie préventive (IF14)
   """
+
+
+Scénario: qui soit découpée en passages  
+
+ Soit "Vestiges (diagramme de classes)" le document principal
+ Et une session active avec mon compte  
+ Quand j'essaie de créer une glose qui soit découpée en passages  
+ Alors la rubrique "1" est associée au passage "…"  
+
+
