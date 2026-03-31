@@ -1,11 +1,17 @@
 #language: fr
 
-Fonctionnalité: Ajouter un document à sa bibliothèque
+Fonctionnalité: Ajouter à sa bibliothèque un document 
 
-Scénario:
+Scénario: dont on n'est pas l'auteur
 
   Soit un document dont je ne suis pas l'auteur affiché comme document principal
   Et une session active avec mon compte
   Quand j'ajoute le document principal à ma bibliothèque
   Alors le document apparaît dans ma bibliothèque
 
+Scénario: dont on est l'auteur
+
+  Soit un document dont je suis l'auteur affiché comme document principal
+  Et une session active avec mon compte
+  Quand j'ajoute le document principal à ma bibliothèque
+  Alors le document apparaît dans ma bibliothèque
