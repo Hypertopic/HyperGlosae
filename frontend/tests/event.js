@@ -145,5 +145,11 @@ Quand("j'essaie d'ajouter une image à une glose", () => {
   cy.get('[id="image-input"]').selectFile('../docs/architecture.png', {
     force: true,
   });
+
+ Quand("j'essaie de créer une glose qui soit découpée en passages", () => {
+  cy.get('.activate-break-into-passages').click();
+  cy.click_on_create();
+   
+});
 });
 
