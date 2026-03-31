@@ -147,3 +147,8 @@ Quand("j'essaie d'ajouter une image à une glose", () => {
   });
 });
 
+Quand("j'essaie de créer une glose qui soit découpée en passages", () => {
+  cy.get('#add-break-into-passage').click();
+  cy.click_on_create();
+  cy.get('.scholium .focus').click();
+});
