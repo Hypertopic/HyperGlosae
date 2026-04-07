@@ -23,7 +23,6 @@ function embedVideo({ src }) {
 }
 
 function FormattedText({ children, setHighlightedText, selectable, setSelectedText }) {
-
   const handleMouseUp = () => {
     if (selectable) {
       let text = window.getSelection().toString();
