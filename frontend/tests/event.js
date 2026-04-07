@@ -147,3 +147,9 @@ Quand("j'essaie d'ajouter une image à une glose", () => {
   });
 });
 
+Quand("je reviens à l'étagère", () => {
+  cy.get(".navbar-brand").click();
+});
+Quand("je suis sur la page étagère", () => {
+  cy.location("pathname").should("eq", "/");
+});

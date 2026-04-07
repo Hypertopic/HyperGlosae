@@ -224,3 +224,6 @@ Soit("{string} le nom de la licence du document principal", (license) => {
   cy.get('.license').eq(0).should('contain', license);
 });
 
+Soit("le titre de l'onglet est {string}", (title) => {
+  cy.title().should("eq", title);
+});
