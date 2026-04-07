@@ -20,6 +20,8 @@ const FutureDocument = ({ relatedTo, setLastUpdate, backend, user }) => {
   const [availableMetadata, setAvailableMetadata] = useState([]);
   const [selectedMetadata, setSelectedMetadata] = useState([]);
 
+  const [selectedBreakIntoPassage, setSelectedBreakIntoPassage] = useState(false);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -54,7 +56,7 @@ const FutureDocument = ({ relatedTo, setLastUpdate, backend, user }) => {
       dc_language: null,
       dc_publisher: null,
       dc_spatial: null,
-      text: '…',
+      text: selectedBreakIntoPassage ? '{1} …' : '…',
       ...Object.fromEntries(selectedMetadata),
     };
 
@@ -130,6 +132,14 @@ const FutureDocument = ({ relatedTo, setLastUpdate, backend, user }) => {
               {showMetadataList && (
                 <CheckboxList availableItems={availableMetadata} selectedItems={selectedMetadata} setSelectedItems={setSelectedMetadata} type="metadata" />
               )}
+            </>
+            <>
+              <Form.Switch
+                className="mt-3 mb-1"
+                id="add-break-into-passage"
+                label="Break into passage"
+                onChange={() => setSelectedBreakIntoPassage(!selectedBreakIntoPassage)}
+              />
             </>
             {
               availableEditors.length !== 0 && (
