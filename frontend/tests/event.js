@@ -156,3 +156,15 @@ Quand("{string} remplace les métadonnées de la glose par :", (username, metada
   cy.request_by_user(username, parseStrToObject(metadata));
 });
 
+Quand("le titre de l'onglet est {string}", (title) => {
+  cy.title().should("eq", title);
+});
+
+Quand("j'essaie de revenir à l'étagère", () => {
+  cy.get(".navbar-brand").click();
+});
+
+Quand("je suis sur la page étagère", () => {
+  cy.location("pathname").should("eq", "/");
+});
+
