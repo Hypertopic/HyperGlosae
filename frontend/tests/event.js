@@ -145,5 +145,15 @@ Quand("j'essaie d'ajouter une image à une glose", () => {
   cy.get('[id="image-input"]').selectFile('../docs/architecture.png', {
     force: true,
   });
+})
+
+Quand("le titre de l'onglet est {string}", (title) => {
+  cy.title().should("eq", title);
 });
 
+Quand("j'essaie de revenir à l'étagère", () => {
+  cy.get(".navbar-brand").click();
+});
+Quand("je suis sur la page étagère", () => {
+  cy.location("pathname").should("eq", "/");
+});
