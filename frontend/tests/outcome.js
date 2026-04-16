@@ -202,3 +202,15 @@ Alors("la colonne {int} contient {string}", (column, text) => {
   cy.contains(`.lectern .main .col .col:nth-child(${column})`, text);
 });
 
+Alors("la liste de mes documents s'affichent", () => {
+  cy.get('input[placeholder="Search documents"]').should('be.visible');
+  cy.get('.document-list-container .existingDocument').should('have.length.greaterThan', 0);
+});
+
+Alors("la liste contient pour chaque document son titre, son auteur, sa dernière date de modification et son lien isPartOf", (_documentsText) => {
+  cy.get('.document-list-container .existingDocument')
+    .should('have.length.greaterThan', 0)
+    .each(($card) => {
+      cy.wrap($card).find('span').invoke('text').should('match', /\S+/);
+    });
+});

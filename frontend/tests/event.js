@@ -147,3 +147,7 @@ Quand("j'essaie d'ajouter une image à une glose", () => {
   });
 });
 
+Quand("j'utilise un document existant comme commentaire", () => {
+  cy.get('.select-document').click();
+  cy.get('#select-dropdown').select('refersTo');
+});
