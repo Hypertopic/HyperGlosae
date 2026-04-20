@@ -14,3 +14,11 @@ Scénario: qui modifie le contenu
     """
   Alors la glose en mode édition contient "Notre sujet"
   
+Scénario: qui modifie les métadonnées
+  Quand "Bill" remplace les métadonnées de la glose par :
+    """
+    dc_creator: Bill
+    
+    """
+  Alors les métadonnées de la glose en mode édition contiennent "dc_creator: Bill"
+
