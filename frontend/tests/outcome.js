@@ -202,3 +202,8 @@ Alors("la colonne {int} contient {string}", (column, text) => {
   cy.contains(`.lectern .main .col .col:nth-child(${column})`, text);
 });
 
+Alors("la glose en mode édition contient {string}", (text) => {
+  cy.click_on_text('content', '…');
+  cy.get('textarea').should('contain', text);
+});
+

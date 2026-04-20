@@ -175,6 +175,14 @@ Soit("ayant parmi les éditeurs {string} et {string}", (userName1, userName2) =>
   cy.get('.icon.focus').click()
 });
 
+Soit("{string} un des éditeurs de la glose", (userName) => {
+  cy.click_on_contextual_menu_item('.runningHead .scholium', 'Invite editors...');
+  cy.get('.modal-dialog input').type(userName);
+  cy.contains('button', 'Invite').click();
+  cy.get('.list-group').contains(userName, {matchCase: false});
+  cy.get('.btn-close').click();
+});
+
 Soit("un document sans champ {string} affiché comme document principal", (field) => {
   cy.sign_in('alice', '/');
   cy.create_document_from_scratch();

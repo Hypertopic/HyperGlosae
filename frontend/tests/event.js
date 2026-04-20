@@ -147,3 +147,7 @@ Quand("j'essaie d'ajouter une image à une glose", () => {
   });
 });
 
+Quand("{string} remplace le contenu de la glose par :", (username, text) => {
+  cy.request_by_user(username, {text});
+});
+

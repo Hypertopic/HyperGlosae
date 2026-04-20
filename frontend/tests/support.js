@@ -1,19 +1,19 @@
+export function getPassword(username) {
+  switch (username) {
+    case 'alice':
+      return 'whiterabbit';
+    case 'bill':
+      return 'madhatter';
+    case 'christophe':
+      return 'redqueen';
+  }
+}
+
 Cypress.Commands.add('sign_in', (username, page = '') => {
   if (page)
     cy.visit(page);
-  switch (username) {
-    case 'alice':
-      password = 'whiterabbit';
-      break;
-    case 'bill':
-      password = 'madhatter';
-      break;
-    case 'christophe':
-      password = 'redqueen';
-      break;
-  }
   cy.get('[placeholder="Username"]').type(username);
-  cy.get('[placeholder="Password"]').type(password);
+  cy.get('[placeholder="Password"]').type(getPassword(username));
   cy.contains('button', 'Sign in').click();
   cy.get('.navbar').should('contain', username);
 });
@@ -149,3 +149,27 @@ export function parseStrToObject(str) {
   });
   return result;
 }
+
+Cypress.Commands.add("request_by_user", (username, doc_change) => {
+  cy.getCookie('AuthSession').then((cookie) => {
+    cy.clearCookie('AuthSession');
+    username = username.toLowerCase();
+    let password = getPassword(username);
+    cy.url().then((url) => {
+      const id = url.split('#')[1];
+      cy.request(`/api/${id}`)
+        .then(({body}) => {
+          cy.request({
+            method: 'PUT',
+            url: `/api/${id}`,
+            body: {...body, ...doc_change},
+            auth: {username, password}
+          });
+        })
+        .then(() => {
+          cy.setCookie('AuthSession', cookie.value);
+        });
+    });
+  });
+});
+
