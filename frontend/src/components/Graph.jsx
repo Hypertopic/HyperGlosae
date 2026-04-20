@@ -1,6 +1,5 @@
 import { useEffect, useRef } from 'react';
 import { select, schemeCategory10, forceSimulation, forceLink, forceManyBody, forceX, forceY, scaleOrdinal, drag } from 'd3';
-import { legendColor } from 'd3-svg-legend';
 
 function Graph({ rawDocs, displayedDocs }) {
   const svgRef = useRef();
@@ -88,13 +87,19 @@ function Graph({ rawDocs, displayedDocs }) {
     svg.append('g')
       .attr('class', 'legendLinear');
 
-    let legendLinear = legendColor()
-      .shapeWidth(30)
-      .orient('vertical')
-      .scale(typeColorScale)
-      .labels(Object.values(types));
-    svg.select('.legendLinear')
-      .call(legendLinear);
+    const legend = svg.append('g')
+      .selectAll('g')
+      .data(typeColorScale.domain())
+      .join('g')
+      .attr('transform', (d, i) => `translate(0, ${i * 20})`);
+
+    legend.append('rect')
+      .attr('width', 20).attr('height', 15).attr('rx', 2)
+      .attr('fill', typeColorScale);
+
+    legend.append('text')
+      .attr('x', 26).attr('y', 10)
+      .text(d => d);
 
     try {
       simulation.on('tick', () => {
