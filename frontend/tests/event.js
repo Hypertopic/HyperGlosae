@@ -1,4 +1,5 @@
 import { When as Quand } from '@badeball/cypress-cucumber-preprocessor';
+import { parseStrToObject } from './support';
 
 Quand("j'essaie de créer un nouveau document", () => {
   cy.get('.create-document').click();
@@ -149,5 +150,9 @@ Quand("j'essaie d'ajouter une image à une glose", () => {
 
 Quand("{string} remplace le contenu de la glose par :", (username, text) => {
   cy.request_by_user(username, {text});
+});
+
+Quand("{string} remplace les métadonnées de la glose par :", (username, metadata) => {
+  cy.request_by_user(username, parseStrToObject(metadata));
 });
 

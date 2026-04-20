@@ -173,3 +173,12 @@ Cypress.Commands.add("request_by_user", (username, doc_change) => {
   });
 });
 
+Cypress.Commands.add("editable_metadata_contains", (metadata) => {
+  cy.get('form textarea').invoke('val').then(actual => {
+    const expectedMetadata = parseStrToObject(metadata);
+    const actualMetadata = parseStrToObject(actual);
+    Object.entries(expectedMetadata).forEach(([key, value]) => {
+      expect(actualMetadata).to.have.property(key, value);
+    });
+  });
+});

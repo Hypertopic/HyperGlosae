@@ -204,11 +204,7 @@ Soit("un document sans champ {string} affiché comme document principal", (field
 Soit("ayant les métadonnées", (metadata) => {
   cy.get('.icon.edit').click();
   cy.get('.editable.metadata').click();
-  cy.get('form textarea').invoke('val').then(actual => {
-    const expectedMetadata = parseStrToObject(metadata);
-    const actualMetadata = parseStrToObject(actual);
-    expect(actualMetadata).to.deep.equal(expectedMetadata);
-  });
+  cy.editable_metadata_contains(metadata);
   cy.get('.scholium>.icon.focus').click();
 });
 

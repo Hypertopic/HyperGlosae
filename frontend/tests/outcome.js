@@ -137,13 +137,7 @@ Alors("la glose ouverte a {string} et {string} parmi les éditeurs par défaut",
 Alors("la glose ouverte a les métadonnées", (metadata) => {
   cy.get('.icon.edit').click();
   cy.get('.editable.metadata').click();
-  cy.get('form textarea').invoke('val').then(actual => {
-    const expectedMetadata = parseStrToObject(metadata);
-    const actualMetadata = parseStrToObject(actual);
-    Object.entries(expectedMetadata).forEach(([key, value]) => {
-      expect(actualMetadata).to.have.property(key, value);
-    });
-  })
+  cy.editable_metadata_contains(metadata);
 });
 
 Alors("je peux voir l'auteur de la création du document {string} et sa date de création", (userName) => {
@@ -205,5 +199,10 @@ Alors("la colonne {int} contient {string}", (column, text) => {
 Alors("la glose en mode édition contient {string}", (text) => {
   cy.click_on_text('content', '…');
   cy.get('textarea').should('contain', text);
+});
+
+Alors("les métadonnées de la glose en mode édition contiennent {string}", (metadata) => {
+  cy.get('.editable.metadata').click();
+  cy.editable_metadata_contains(metadata);
 });
 
