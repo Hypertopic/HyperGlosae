@@ -50,6 +50,10 @@ Alors("l'année de publication est {string}", (year) => {
   cy.get('.metadata > .edition').first().should('contain', year);
 });
 
+Alors("le titre de l'ouvrage est {string}", (title) => {
+  cy.get('.metadata > .edition').first().should('contain', title);
+})
+
 Alors("la langue est {string}", (language) => {
   cy.get('.metadata > .edition').first().should('contain', language);
 });
