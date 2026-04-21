@@ -26,7 +26,7 @@ function Metadata({metadata = {}, editable, backend, setLastUpdate}) {
       ...Object.fromEntries(
         Object.entries(editedDocument).filter(([key, _]) => !key.startsWith('dc_'))
       ),
-      ...parse(event.target.value)
+      ...parse(event.target.value.replaceAll(/(dc_isPartOf|dc_title):\s*"?([^"\n]+)"?$/gm, '$1: "$2"'))
     };
     setEditedDocument(updatedDocument);
     backend.putDocument(updatedDocument)
