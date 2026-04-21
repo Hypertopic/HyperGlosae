@@ -17,8 +17,14 @@ Alors("je ne peux pas lire {string}", (text) => {
   cy.get('body').should('not.contain', text);
 });
 
-Alors("je vois l'image {string} dans la glose", (alternative_text) => {
-  cy.get('.row:not(.runningHead)>.scholium').should('have.descendants', `img[alt='${alternative_text}']`);
+Alors("je vois l'image {string} dans la glose", (image_name) => {
+  cy.get('.row:not(.runningHead)>.scholium img[src]')
+    .invoke('attr', 'src')
+    .should('match', /^http.*[^/]$/);
+});
+
+Alors("l'image a un texte alternatif {string}", (alternative_text) => {
+    cy.get('.row:not(.runningHead)>.scholium').should('have.descendants', `img[alt='${alternative_text}']`);
 });
 
 Alors("je vois l'image {string} dans le document principal", (alternative_text) => {
