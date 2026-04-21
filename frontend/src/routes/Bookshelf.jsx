@@ -16,6 +16,8 @@ function Bookshelf({ backend, user }) {
 
   const displayModesList = ['graph', 'list'];
 
+  document.title = 'Hyperglosae';
+
   useEffect(() => {
     backend.getAllDocuments(user)
       .then(setDocuments);
