@@ -139,11 +139,10 @@ Quand("je supprime le lien entre le document principal et la référence", () =>
   cy.get(".modal-dialog").get(".btn-primary").click();
 });
 
-Quand("j'essaie d'ajouter une image à une glose", () => {
+Quand("j'essaie d'ajouter une image {string} à une glose", (imagePath) => {
   context = cy.get('.scholium').eq(1);
   cy.click_on_contextual_menu_item(context, 'Add a picture...');
-  cy.get('[id="image-input"]').selectFile('../docs/architecture.png', {
+  cy.get('[id="image-input"]').selectFile(`../docs/${imagePath}`, {
     force: true,
   });
 });
-
