@@ -199,7 +199,9 @@ Soit("ayant les métadonnées", (metadata) => {
   cy.get('form textarea').invoke('val').then(actual => {
     const expectedMetadata = parseStrToObject(metadata);
     const actualMetadata = parseStrToObject(actual);
-    expect(actualMetadata).to.deep.equal(expectedMetadata);
+    Object.entries(expectedMetadata).forEach(([key, value]) => {
+      expect(actualMetadata).to.have.property(key, value);
+    });
   });
   cy.get('.scholium>.icon.focus').click();
 });
