@@ -206,3 +206,9 @@ Alors("les métadonnées de la glose en mode édition contiennent {string}", (me
   cy.editable_metadata_contains(metadata);
 });
 
+Alors("{string} est à la ligne {int} du passage", (text, line) => {
+  cy.contains('p', text).invoke('text').then(x=> {
+    expect(x.split('\n')[line-1]).to.contain(text);
+  });
+});
+
