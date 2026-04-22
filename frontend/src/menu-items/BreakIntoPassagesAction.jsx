@@ -23,7 +23,7 @@ function BreakIntoPassagesAction({parallelDocuments, margin, backend, setLastUpd
   const handleClick = () => {
     let text = scholium.text
       .split(/\n{2,}/)
-      .map((x, i) => `{${i + 1}} ${x.replaceAll('\n', ' ')}`)
+      .map((x, i) => `{${i + 1}} ${x}`)
       .join('\n\n');
     backend.getDocument(scholium.id)
       .then(x => backend.putDocument({...x, text}))
