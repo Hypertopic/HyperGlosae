@@ -111,7 +111,7 @@ Alors("la glose est ouverte en mode édition et contient :", (text) => {
 });
 
 Alors("la rubrique {string} est associée au passage {string}", (rubric, text) => {
-  cy.contains('.row', text).contains('.rubric', rubric);
+  cy.contains('.row:not(.runningHead)', text).contains('.rubric', rubric);
 });
 
 Alors("{string} est la glose ouverte en mode édition", (title) => {
