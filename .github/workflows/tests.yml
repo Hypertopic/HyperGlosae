@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Download sources
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       - name: Download tools
         run: |
           cd frontend; npm install --save-dev @badeball/cypress-cucumber-preprocessor
@@ -30,7 +30,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Download sources
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0 # Greenframe needs the whole history
       - name: Download tools

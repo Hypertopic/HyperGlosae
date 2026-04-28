@@ -7,17 +7,28 @@ import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 function Metadata({metadata = {}, editable, backend, setLastUpdate}) {
   const [beingEdited, setBeingEdited] = useState(false);
   const [editedDocument, setEditedDocument] = useState(metadata);
+  const [editedText, setEditedText] = useState();
 
   useEffect(() => {
     setEditedDocument(metadata);
   }, [metadata]);
 
+  let getMetadata = (doc) =>
+    Object.fromEntries(
+      Object.entries(doc).filter(([key, _]) => key.startsWith('dc_'))
+    );
+
   let handleClick = () => {
-    setBeingEdited(true);
     backend.getDocument(metadata._id)
       .then((x) => {
         setEditedDocument(x);
+        setEditedText(stringify(getMetadata(x)));
+        setBeingEdited(true);
       });
+  };
+
+  let handleChange = (event) => {
+    setEditedText(event.target.value);
   };
 
   let handleBlur = () => {
@@ -26,18 +37,13 @@ function Metadata({metadata = {}, editable, backend, setLastUpdate}) {
       ...Object.fromEntries(
         Object.entries(editedDocument).filter(([key, _]) => !key.startsWith('dc_'))
       ),
-      ...parse(event.target.value)
+      ...parse(editedText)
     };
     setEditedDocument(updatedDocument);
     backend.putDocument(updatedDocument)
       .then(x => setLastUpdate(x.rev))
       .catch(console.error);
   };
-
-  let editedMetadata = Object.fromEntries(
-    Object.entries(editedDocument)
-      .filter(([key, _]) => key.startsWith('dc_'))
-  );
 
   let format = (actors, prefix = '', suffix = '') =>
     actors && (prefix + [actors].flat().join(' & ') + suffix);
@@ -54,7 +60,7 @@ function Metadata({metadata = {}, editable, backend, setLastUpdate}) {
   let getCaption = ({dc_title, dc_spatial}) => dc_title + (dc_spatial ? `, ${dc_spatial}` : '');
 
   if (!beingEdited) {
-    let {dc_title, dc_spatial, dc_creator, dc_translator, dc_isPartOf, dc_issued, dc_language} = editedMetadata;
+    let {dc_title, dc_spatial, dc_creator, dc_translator, dc_isPartOf, dc_issued, dc_language} = getMetadata(editedDocument);
     let formattedMetadata = (
       <>
         <span className="work">
@@ -83,7 +89,7 @@ function Metadata({metadata = {}, editable, backend, setLastUpdate}) {
   return (
     <form>
       <textarea className="form-control" type="text" rows="5" autoFocus
-        defaultValue={stringify(editedMetadata)} onBlur={handleBlur}
+        value={editedText} onChange={handleChange} onBlur={handleBlur}
       />
     </form>
   );

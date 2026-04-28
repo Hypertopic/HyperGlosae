@@ -137,13 +137,7 @@ Alors("la glose ouverte a {string} et {string} parmi les éditeurs par défaut",
 Alors("la glose ouverte a les métadonnées", (metadata) => {
   cy.get('.icon.edit').click();
   cy.get('.editable.metadata').click();
-  cy.get('form textarea').invoke('val').then(actual => {
-    const expectedMetadata = parseStrToObject(metadata);
-    const actualMetadata = parseStrToObject(actual);
-    Object.entries(expectedMetadata).forEach(([key, value]) => {
-      expect(actualMetadata).to.have.property(key, value);
-    });
-  })
+  cy.editable_metadata_contains(metadata);
 });
 
 Alors("je peux voir l'auteur de la création du document {string} et sa date de création", (userName) => {
@@ -200,5 +194,21 @@ Alors("l'image intégrée dans la page a pour légende {string}", (image_caption
 
 Alors("la colonne {int} contient {string}", (column, text) => {
   cy.contains(`.lectern .main .col .col:nth-child(${column})`, text);
+});
+
+Alors("la glose en mode édition contient {string}", (text) => {
+  cy.click_on_text('content', '…');
+  cy.get('textarea').should('contain', text);
+});
+
+Alors("les métadonnées de la glose en mode édition contiennent {string}", (metadata) => {
+  cy.get('.editable.metadata').click();
+  cy.editable_metadata_contains(metadata);
+});
+
+Alors("{string} est à la ligne {int} du passage", (text, line) => {
+  cy.contains('p', text).invoke('text').then(x=> {
+    expect(x.split('\n')[line-1]).to.contain(text);
+  });
 });
 

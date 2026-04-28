@@ -1,4 +1,5 @@
 import { When as Quand } from '@badeball/cypress-cucumber-preprocessor';
+import { parseStrToObject } from './support';
 
 Quand("j'essaie de créer un nouveau document", () => {
   cy.get('.create-document').click();
@@ -151,4 +152,12 @@ Quand("j'essaie de créer une glose qui soit découpée en passages", () => {
   cy.get('#add-break-into-passage').click();
   cy.click_on_create();
   cy.get('.scholium .focus').click();
+});
+
+Quand("{string} remplace le contenu de la glose par :", (username, text) => {
+  cy.request_by_user(username, {text});
+});
+
+Quand("{string} remplace les métadonnées de la glose par :", (username, metadata) => {
+  cy.request_by_user(username, parseStrToObject(metadata));
 });
