@@ -10,6 +10,10 @@ Quand("j'essaie de créer une glose de type {string}", (option) => {
   cy.click_on_create();
 });
 
+Quand("j'essaie de créer une glose de type {string} à partir de la bibliothèque", (option) => {
+  cy.get('#btn-create-quotation').click();
+});
+
 Quand("je me focalise sur {string}", (title) => {
   cy.contains('span', title).parent().prevAll('a.focus').first().click();
 });

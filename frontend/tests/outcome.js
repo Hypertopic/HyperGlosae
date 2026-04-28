@@ -212,3 +212,9 @@ Alors("{string} est à la ligne {int} du passage", (text, line) => {
   });
 });
 
+Alors("le document ouvert contient les références à {string}", (title) => {
+  cy.get('.card .card-body')
+    .should('be.visible')
+    .find('.work')
+    .should('contain', title)
+});
