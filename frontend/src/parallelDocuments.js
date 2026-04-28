@@ -102,7 +102,12 @@ function ParallelDocuments(id, rawContent = [], margin, raw = false) {
       if (xor(!this.isFromScratch, isPartOf === id)) {
         if (!raw || !part.scholia.length || part.scholia[part.scholia.length - 1].id !== x.id) {
           let rubric = x.value.rubric;
-          part.scholia.push({id: x.id, text, isPartOf, ...(rubric !== '0' && {rubric})});
+
+          part.scholia.push({
+            id: x.id, text, isPartOf,
+            ...(rubric !== '0' && {rubric}),
+            ...(x.value.beingEditedBy && {beingEditedBy: x.value.beingEditedBy})
+          });
         }
       }
     }

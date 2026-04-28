@@ -6,13 +6,15 @@ import DiscreeteDropdown from './DiscreeteDropdown';
 import PictureUploadAction from '../menu-items/PictureUploadAction';
 import {v4 as uuid} from 'uuid';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
+import { PencilSquare } from 'react-bootstrap-icons';
 
-function EditableText({id, text, rubric, isPartOf, links, fragment, setFragment, setHighlightedText, setSelectedText, rawEditMode, setRawEditMode, backend, setLastUpdate}) {
+function EditableText({id, text, rubric, isPartOf, links, beingEditedBy, fragment, setFragment, setHighlightedText, setSelectedText, rawEditMode, setRawEditMode, backend, setLastUpdate, user}) {
   const [beingEdited, setBeingEdited] = useState(false);
   const [editedDocument, setEditedDocument] = useState();
   const [editedText, setEditedText] = useState();
   const [hasBeenChanged, setHasBeenChanged] = useState(false);
   const PASSAGE = new RegExp(`\\{${rubric}} ?([^{]*)`);
+  const isEditedByOther = beingEditedBy && beingEditedBy !== user;
 
   let parsePassage = (rawText) => (rubric)
     ? rawText.match(PASSAGE)[1]
@@ -32,6 +34,19 @@ function EditableText({id, text, rubric, isPartOf, links, fragment, setFragment,
       setEditedDocument(x);
       return x;
     }), [backend, id, isPartOf, links, rubric]);
+
+  // Marque "en édition par <user>" quand on entre, démarque quand on sort
+  useEffect(() => {
+    if (!user || !id) return;
+    if (beingEdited) {
+      backend.markEditing(id, user).catch(console.error);
+    }
+    return () => {
+      if (beingEdited) {
+        backend.markEditing(id, null).catch(console.error);
+      }
+    };
+  }, [beingEdited, id, user, backend]);
 
   useEffect(() => {
     if (fragment) {
@@ -57,6 +72,7 @@ function EditableText({id, text, rubric, isPartOf, links, fragment, setFragment,
   }, [rawEditMode, updateEditedDocument]);
 
   let handleClick = () => {
+    if (isEditedByOther) return;
     setBeingEdited(true);
     updateEditedDocument()
       .then((x) => {
@@ -102,25 +118,38 @@ function EditableText({id, text, rubric, isPartOf, links, fragment, setFragment,
       .catch(console.error);
   };
 
+  // Vue lecture
   if (!beingEdited) return (
     <div className="editable content position-relative">
+      {isEditedByOther && (
+        <OverlayTrigger
+          placement="top"
+          overlay={<Tooltip id={`being-edited-${id}`}>{beingEditedBy} is currently editing passage {rubric || '0'}</Tooltip>}
+        >
+          <PencilSquare className="being-edited-icon" data-testid="being-edited-icon" />
+        </OverlayTrigger>
+      )}
       <OverlayTrigger
         placement="top"
-        overlay={<Tooltip id={`tooltip-${id}`}>Edit content...</Tooltip>}
-      >
-        <div className="formatted-text" onClick={handleClick}>
+        overlay={<Tooltip id={`tooltip-${id}`}>
+          {isEditedByOther ? `Locked by ${beingEditedBy}` : 'Edit content...'}
+        </Tooltip>}
+      > <div className="formatted-text" onClick={handleClick}>
           <FormattedText {...{setHighlightedText, setSelectedText}}>
             {text || '&nbsp;'}
           </FormattedText>
         </div>
       </OverlayTrigger>
       <DiscreeteDropdown>
-        <PictureUploadAction {... {id, backend, handleImageUrl}}/>
+        <PictureUploadAction {...{id, backend, handleImageUrl}}/>
       </DiscreeteDropdown>
     </div>
   );
+
+  // Vue édition
   return (
-    <form>
+    <form className="position-relative">
+      <PencilSquare className="being-edited-icon self" data-testid="being-edited-self" />
       <textarea className="form-control" type="text" rows="5" autoFocus
         value={editedText} onChange={handleChange} onBlur={handleBlur}
       />

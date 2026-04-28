@@ -31,11 +31,17 @@ const parseText = (text) => {
   }));
 }
 
-exports.emitPassages = ({text, isPartOf, related}) => {
+exports.emitPassages = ({text, isPartOf, related, beingEditedBy}) => {
   parseText(text).forEach(({rubric, passage, parsed_rubric}) =>
     related.forEach((x) => {
-      emit([x, ...parsed_rubric], { text: passage, isPartOf, rubric, _id: null });
- 	  })
+      emit([x, ...parsed_rubric], {
+        text: passage,
+        isPartOf,
+        rubric,
+        _id: null,
+        ...(beingEditedBy && {beingEditedBy})
+      });
+    })
   );
 }
 

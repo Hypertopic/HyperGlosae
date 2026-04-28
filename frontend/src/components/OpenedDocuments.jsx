@@ -34,7 +34,7 @@ function OpenedDocuments({id, margin, metadata, parallelDocuments, rawEditMode, 
       </Row>
       {parallelDocuments.passages.map(({rubric, source, scholia}, i) =>
         <Passage key={rubric || i}
-          {...{source, rubric, scholia, margin, sourceId: id, isComposite, rawEditMode, setRawEditMode, backend, setLastUpdate}}
+          {...{source, rubric, scholia, margin, sourceId: id, isComposite, rawEditMode, setRawEditMode, backend, setLastUpdate, user}}
         />)
       }
       <Row>
