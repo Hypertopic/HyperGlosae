@@ -3,22 +3,23 @@
 Fonctionnalité: Coéditer un document avec un collaborateur
 
 Contexte:
-  Soit un document dont je suis l'auteur affiché comme glose
+  Soit un document, en plusieurs passages, affiché comme glose et dont je suis l'auteur
   Et une session active avec mon compte
-  Et "Bill" un des éditeurs de la glose
+  Et "bill" un des éditeurs de la glose
 
-Scénario: qui modifie le contenu 
-  Quand "Bill" remplace le contenu de la glose par :
+Scénario: qui modifie le contenu
+  Soit le passage "2" est en mode édition
+  Quand "bill" remplace le passage "1" de la glose par :
     """
-    Notre sujet porte sur... 
+    Notre sujet porte sur...
     """
-  Alors la glose en mode édition contient "Notre sujet"
-  
+  Alors le passage "1" de la glose contient "Notre sujet porte sur..."
+  Et le passage "2" est toujours en mode édition
+
 Scénario: qui modifie les métadonnées
-  Quand "Bill" remplace les métadonnées de la glose par :
+  Quand "bill" remplace les métadonnées de la glose par :
     """
     dc_creator: Bill
-    
+
     """
   Alors les métadonnées de la glose en mode édition contiennent "dc_creator: Bill"
-
