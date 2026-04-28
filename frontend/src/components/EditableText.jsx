@@ -131,12 +131,15 @@ function EditableText({id, text, rubric, isPartOf, links, beingEditedBy, fragmen
       )}
       <OverlayTrigger
         placement="top"
-        overlay={<Tooltip id={`tooltip-${id}`}>
-          {isEditedByOther ? `Locked by ${beingEditedBy}` : 'Edit content...'}
-        </Tooltip>}
-      > <div className="formatted-text" onClick={handleClick}>
+        overlay={
+          <Tooltip id={`tooltip-${id}`}>
+            {isEditedByOther ? `Locked by ${beingEditedBy}` : 'Edit content...'}
+          </Tooltip>
+        }
+      >
+        <div className="formatted-text" onClick={handleClick}>
           <FormattedText {...{setHighlightedText, setSelectedText}}>
-            {text || '&nbsp;'}
+            {text || '\u00A0'}
           </FormattedText>
         </div>
       </OverlayTrigger>
