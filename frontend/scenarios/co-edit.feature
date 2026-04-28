@@ -22,9 +22,14 @@ Scénario: qui modifie les métadonnées
     """
   Alors les métadonnées de la glose en mode édition contiennent "dc_creator: Bill"
 
+Scénario: qui est en train de modifier le contenu
+  Quand "Bill" est en train d’éditer le passage “1”
+  Alors la glose en mode édition contient une icône
+  Et cette icône indique qu’il modifie le passage “1”
 
-Scénario: qui est en train de modifier le contenu 
- 
- Quand "Bill" est en train d’éditer le passage “1”
- Alors la glose en mode édition contient une icône
- Et cette icône indique qu’il modifie le  passage “1”
+Scénario: termine de modifier le contenu
+  Soit "Bill" est en train d’éditer le passage “1”
+  Et la glose en mode édition contient une icône
+  Et cette icône indique qu’il modifie le passage “1”
+  Quand "Bill" quitte le mode édition
+  Alors la glose qui était en mode édition ne contient plus d’icône
