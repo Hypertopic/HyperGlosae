@@ -22,3 +22,8 @@ Scénario: qui modifie les métadonnées
     """
   Alors les métadonnées de la glose en mode édition contiennent "dc_creator: Bill"
 
+Scénario: qui a modifié le contenu 
+ 
+ Quand "Bill" a édité le passage “1”
+ Alors le passage "1" de la glose en mode édition contient une barre
+ Et cette barre indique qu’il a modifié le passage “1”
