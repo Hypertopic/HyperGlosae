@@ -202,3 +202,9 @@ Alors("la colonne {int} contient {string}", (column, text) => {
   cy.contains(`.lectern .main .col .col:nth-child(${column})`, text);
 });
 
+Alors("le document apparaît une seule fois dans la liste de ma bibliothèque", function() {
+  cy.get('[alt="Index"]').click();
+  cy.contains('label', 'as a list').click();
+  cy.get('.bookshelf').contains(this.randomName);
+  cy.get('.bookshelf .work').filter(`:contains("${this.randomName}")`).should('have.length', 1);
+});

@@ -12,6 +12,10 @@ Soit("un document dont je ne suis pas l'auteur affiché comme document principal
   cy.sign_in('bill', '/');
   cy.create_document_from_scratch();
   cy.set_random_name();
+  cy.click_on_contextual_menu_item('.runningHead .scholium', 'Invite editors...');
+  cy.get('.modal-dialog input').type('alice');
+  cy.contains('button', 'Invite').click();
+  cy.get('.btn-close').click();
   cy.get('.focus').click();
   cy.sign_out();
 });
@@ -224,3 +228,15 @@ Soit("{string} le nom de la licence du document principal", (license) => {
   cy.get('.license').eq(0).should('contain', license);
 });
 
+
+Soit("un document dont je suis l'auteur affiché comme document principal", () => {
+  cy.sign_in('alice', '/');
+  cy.create_document_from_scratch();
+  cy.set_random_name();
+  cy.get('.focus').first().click();
+  cy.url().then((url) => {
+    cy.visit(url.split('#')[0]);
+  });
+  cy.get('.bookmark').click();
+  cy.sign_out();
+});
