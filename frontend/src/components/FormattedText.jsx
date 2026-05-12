@@ -6,8 +6,7 @@ import CroppedImage from './CroppedImage';
 import VideoComment from './VideoComment';
 import FragmentComment from './FragmentComment';
 
-function FormattedText({children, setHighlightedText, selectable, setSelectedText}) {
-
+function FormattedText({ children, setHighlightedText, selectable, setSelectedText }) {
   const handleMouseUp = () => {
     if (selectable) {
       let text = window.getSelection().toString();
@@ -16,23 +15,35 @@ function FormattedText({children, setHighlightedText, selectable, setSelectedTex
     }
   };
 
-  return (<>
-    <ReactMarkdown
-      remarkPlugins={[remarkGfm, remarkDefinitionList, remarkUnwrapImages]}
-      components={{
-        img: (x) => embedVideo(x) || CroppedImage(x),
-        p: (x) => VideoComment(x)
-          || FragmentComment({...x, setHighlightedText})
-          || <p onMouseUp={handleMouseUp}>{x.children}</p>,
-        a: ({children, href}) => <a href={href}>{children}</a>
-      }}
-      remarkRehypeOptions={{
-        handlers: defListHastHandlers
-      }}
-    >
-      {children}
-    </ReactMarkdown>
-  </>);
+  const renderLinkOrVideo = ({ children, href }) => {
+    const videoId = getId(href);
+    if (videoId) {
+      const embedLink = `https://www.youtube.com/embed/${videoId}`;
+      return <iframe width="80%" height="300" src={embedLink} style={{ border: 0 }} allowFullScreen title="YouTube video" />;
+    }
+    return <a href={href}>{children}</a>;
+  };
+
+  return (
+    <>
+      <ReactMarkdown
+        remarkPlugins={[remarkGfm, remarkDefinitionList, remarkUnwrapImages]}
+        components={{
+          img: (x) => embedVideo(x) || CroppedImage(x),
+          p: (x) =>
+            VideoComment(x) ||
+            FragmentComment({ ...x, setHighlightedText }) ||
+            <p onMouseUp={handleMouseUp}>{x.children}</p>,
+          a: renderLinkOrVideo
+        }}
+        remarkRehypeOptions={{
+          handlers: defListHastHandlers
+        }}
+      >
+        {children}
+      </ReactMarkdown>
+    </>
+  );
 }
 
 function getId(text) {
@@ -42,13 +53,11 @@ function getId(text) {
   return match ? match[1] : null;
 }
 
-function embedVideo({src}) {
+function embedVideo({ src }) {
   const videoId = getId(src);
   if (videoId) {
     const embedLink = `https://www.youtube.com/embed/${videoId}`;
-    return (
-      <iframe width="80%" height="300" src={embedLink} frameBorder="0" allowFullScreen></iframe>
-    );
+    return <iframe width="80%" height="300" src={embedLink} style={{ border: 0 }} allowFullScreen title="YouTube video" />;
   }
   return null;
 }
