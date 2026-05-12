@@ -212,3 +212,8 @@ Alors("{string} est à la ligne {int} du passage", (text, line) => {
   });
 });
 
+Alors("la glose ouverte contient les références à {string}", (title) => {
+  cy.get('.scholium .sources')
+    .should('be.visible')
+    .and('contain', title);
+});

@@ -228,3 +228,7 @@ Soit("{string} le nom de la licence du document principal", (license) => {
   cy.get('.license').eq(0).should('contain', license);
 });
 
+Soit("ayant sélectionné les documents {string} et {string}", (doc1, doc2) => {
+  cy.contains('.list-group-item', doc1).find('input[type="checkbox"]').check();
+  cy.contains('.list-group-item', doc2).find('input[type="checkbox"]').check();
+});
