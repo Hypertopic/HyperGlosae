@@ -16,6 +16,15 @@ function FormattedText({children, setHighlightedText, selectable, setSelectedTex
     }
   };
 
+  const renderLinkOrVideo = ({children, href}) => {
+    const videoId = getId(href);
+    if (videoId) {
+      const embedLink = `https://www.youtube.com/embed/${videoId}`;
+      return <iframe width="80%" height="300" src={embedLink} style={{ border: 0 }} allowFullScreen title="YouTube video" />;
+    }
+    return <a href={href}>{children}</a>;
+  };
+
   return (<>
     <ReactMarkdown
       remarkPlugins={[remarkGfm, remarkDefinitionList, remarkUnwrapImages]}
@@ -24,7 +33,7 @@ function FormattedText({children, setHighlightedText, selectable, setSelectedTex
         p: (x) => VideoComment(x)
           || FragmentComment({...x, setHighlightedText})
           || <p onMouseUp={handleMouseUp}>{x.children}</p>,
-        a: ({children, href}) => <a href={href}>{children}</a>
+        a: renderLinkOrVideo
       }}
       remarkRehypeOptions={{
         handlers: defListHastHandlers
@@ -36,6 +45,7 @@ function FormattedText({children, setHighlightedText, selectable, setSelectedTex
 }
 
 function getId(text) {
+  if (!text) return null;
   const regExp = /^.*(?:youtube\.com\/watch\?v=|youtu\.be\/)([^\s&]{11})/;
   const match = text.match(regExp);
   return match ? match[1] : null;
