@@ -36,6 +36,7 @@ function FormattedText({children, setHighlightedText, selectable, setSelectedTex
 }
 
 function getId(text) {
+  if (!text) return null;
   const regExp = /^.*(?:youtube\.com\/watch\?v=|youtu\.be\/)([^\s&]{11})/;
   const match = text.match(regExp);
   return match ? match[1] : null;
