@@ -59,8 +59,7 @@ function Hyperglosae(logger) {
       reader.readAsArrayBuffer(attachment);
       reader.onload = () => {
         const arrayBuffer = reader.result;
-
-        fetch(`${service}/${id}/${attachment.name}`, {
+        fetch(`${service}/${id}/${attachment.name.split('#').join('%23')}`, {
           method: 'PUT',
           headers: {
             // ETag is the header that carries the current rev.
