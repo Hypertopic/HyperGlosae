@@ -117,7 +117,7 @@ function Hyperglosae(logger) {
 
   this.getAllDocuments = (user) =>
     this.getView({view: 'all_documents', id: user || 'PUBLIC', options: ['include_docs']})
-      .then((rows) => rows.map(x => x.doc));
+      .then((rows) => [...new Map(rows.map(x => [x.doc._id, x.doc])).values()]);
 
   return this;
 }
