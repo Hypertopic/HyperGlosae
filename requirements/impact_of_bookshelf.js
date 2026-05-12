@@ -5,11 +5,11 @@
 module.exports = async (page) => {
 
   await page.goto("", {
-    waitUntil: 'networkidle0'
+    waitUntil: 'domcontentloaded'
   });
   await page.waitForTimeout(10000);
   await page.scrollToEnd();
-  await page.waitForNetworkIdle();
+  await page.waitForNetworkIdle({ concurrency: 2 });
   await page.waitForTimeout(7000);
 
 };

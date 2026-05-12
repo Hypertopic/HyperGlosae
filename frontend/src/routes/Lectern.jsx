@@ -41,6 +41,30 @@ function Lectern({backend, user}) {
     setParallelDocuments(new ParallelDocuments(id, content, margin, rawEditMode));
   }, [id, content, margin, rawEditMode, lastUpdate]);
 
+  // Long polling sur les changements CouchDB
+  useEffect(() => {
+    let cancelled = false;
+    let since = 'now';
+    function poll() {
+      backend.subscribeToChanges(since)
+        .then(({ last_seq, results }) => {
+          if (cancelled) return;
+          since = last_seq;
+          if (results && results.length > 0) {
+            setLastUpdate(last_seq);
+          }
+          poll();
+        })
+        .catch(() => {
+          if (!cancelled) setTimeout(poll, 5000);
+        });
+    }
+    poll();
+    return () => {
+      cancelled = true;
+    };
+  }, [backend]);
+
   if (!metadata?.focusedDocument?._id && !loading) {
     return <DocumentNotFound />;
   }

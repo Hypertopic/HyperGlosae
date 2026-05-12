@@ -63,7 +63,6 @@ function Hyperglosae(logger) {
         fetch(`${service}/${id}/${attachment.name}`, {
           method: 'PUT',
           headers: {
-            // ETag is the header that carries the current rev.
             'If-Match': x.headers.get('ETag'),
             'Content-Type': attachment.type
           },
@@ -118,6 +117,16 @@ function Hyperglosae(logger) {
   this.getAllDocuments = (user) =>
     this.getView({view: 'all_documents', id: user || 'PUBLIC', options: ['include_docs']})
       .then((rows) => rows.map(x => x.doc));
+
+  this.markEditing = (id, beingEditedBy) =>
+    fetch(`${service}/_design/app/_update/editFlag/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify({ beingEditedBy })
+    }).then(x => x.json());
+
+  this.subscribeToChanges = (since = 'now') =>
+    fetch(`${service}/_changes?feed=longpoll&since=${since}&heartbeat=25000`)
+      .then(x => x.json());
 
   return this;
 }
