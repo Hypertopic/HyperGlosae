@@ -120,7 +120,7 @@ function EditableText({id, text, rubric, isPartOf, links, beingEditedBy, fragmen
 
   // Vue lecture
   if (!beingEdited) return (
-    <div className="editable content position-relative">
+    <div className="editable content position-relative" id={id} >
       {isEditedByOther && (
         <OverlayTrigger
           placement="top"
