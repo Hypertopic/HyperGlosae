@@ -6,7 +6,7 @@ Scénario: pour commenter un document
 
   Soit un document existant affiché comme document principal
   Et une session active avec mon compte
-  Quand je réutilise "Glossaire" comme glose
+  Quand je réutilise "Glossaire - Projet Perrault, 28/03/2025 - " comme glose
   Alors "Glossaire" est la glose ouverte
   Et la glose contient :
     """
