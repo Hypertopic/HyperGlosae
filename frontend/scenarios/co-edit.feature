@@ -8,11 +8,13 @@ Contexte:
   Et "Bill" un des éditeurs de la glose
 
 Scénario: qui modifie le contenu 
-  Quand "Bill" remplace le contenu de la glose par :
+  Soit le passage "2" est en mode édition
+  Quand "Bill" remplace le passage "1" de la glose par :
     """
     Notre sujet porte sur... 
     """
-  Alors la glose en mode édition contient "Notre sujet"
+  Alors le passage "1" de la glose contient "Notre sujet"
+  Et le passage "2" est toujours en mode édition
   
 Scénario: qui modifie les métadonnées
   Quand "Bill" remplace les métadonnées de la glose par :
@@ -22,3 +24,8 @@ Scénario: qui modifie les métadonnées
     """
   Alors les métadonnées de la glose en mode édition contiennent "dc_creator: Bill"
 
+Scénario: qui a modifié le contenu 
+ 
+ Quand "Bill" a édité le passage “1”
+ Alors le passage "1" de la glose en mode édition contient une barre
+ Et cette barre indique qu’il a modifié le passage “1”
