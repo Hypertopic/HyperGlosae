@@ -9,6 +9,14 @@ Alors("{string} est la glose ouverte", (title) => {
   cy.get('.runningHead .scholium').should('contain', title);
 });
 
+Alors("{string} est en gras", (texte) => {
+  cy.get(".scholium").eq(1).find("strong")
+    .should(($strong) => {
+      const strongText = $strong.map((i, el) => Cypress.$(el).text().trim()).get();
+      expect(strongText).to.include(texte);
+    });
+});
+
 Alors("je peux lire {string}", (text) => {
   cy.get('body').should('contain', text);
 });
