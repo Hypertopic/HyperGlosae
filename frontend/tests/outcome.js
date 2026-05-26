@@ -206,11 +206,6 @@ Alors("la colonne {int} contient {string}", (column, text) => {
   cy.contains(`.lectern .main .col .col:nth-child(${column})`, text);
 });
 
-Alors("la glose en mode édition contient {string}", (text) => {
-  cy.click_on_text('content', '…');
-  cy.get('textarea').should('contain', text);
-});
-
 Alors("les métadonnées de la glose en mode édition contiennent {string}", (metadata) => {
   cy.get('.editable.metadata').click();
   cy.editable_metadata_contains(metadata);
@@ -228,3 +223,18 @@ Alors("le document apparaît une seule fois dans la liste de ma bibliothèque", 
   cy.get('.bookshelf').contains(this.randomName);
   cy.get('.bookshelf .work').filter(`:contains("${this.randomName}")`).should('have.length', 1);
 });
+
+Alors("la glose indique que {string} modifie le passage", (userName) => {
+  cy.get('.scholium .editable.content svg[data-testid="being-edited-icon"]')
+    .trigger('mouseover');
+  cy.contains(
+    '.tooltip',
+    `${userName} is currently editing this passage`
+  ).should('be.visible');
+});
+
+Alors("la glose n'indique pas de modification en cours sur ce passage", () => {
+    cy.get('.scholium .editable.content')
+    .should('not.have.descendants', '[data-testid="being-edited-icon"]');
+});
+

@@ -173,3 +173,12 @@ Quand("j'essaie de créer une glose qui soit découpée en passages", () => {
   cy.click_on_create();
   cy.get('.scholium .focus').click();
 });
+
+Quand("{string} est en train d’éditer le passage {string}", (username, passageNumber) => {
+  cy.request_by_user(username,{beingEditedBy: username});
+});
+
+Quand("{string} quitte le mode édition", (username) => {
+  cy.request_by_user(username, {beingEditedBy: undefined});
+});
+

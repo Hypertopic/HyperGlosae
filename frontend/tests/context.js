@@ -251,3 +251,14 @@ Soit("un document dont je suis l'auteur affiché comme document principal", () =
   cy.sign_out();
 });
 
+Soit("{string} est en train d'éditer le passage {string}", (username, passageNumber) => {
+  cy.request_by_user(username, { editing: { block_number: passageNumber } });
+});
+
+Soit("la glose indique que {string} modifie ce passage", (userName) => {
+  cy.get('.scholium .editable.content')
+    .find('[data-testid="being-edited-icon"]')
+    .trigger('mouseover');
+  cy.contains('.tooltip',`${userName} is currently editing this passage`).should('be.visible');
+});
+
