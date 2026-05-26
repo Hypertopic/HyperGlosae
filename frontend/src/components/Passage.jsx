@@ -45,12 +45,14 @@ function Passage({source, rubric, scholia, margin, sourceId, isComposite, rawEdi
 }
 
 function PassageSource({children, isComposite, highlightedText, setHighlightedText, setFragment, selectedText, setSelectedText, margin}) {
+  const styleOdd = {borderLeft: '1px #AAA solid', backgroundColor: '#efefef'};
+  const styleEven = {borderLeft: '1px #AAA solid', backgroundColor: '#f8f8ff'};
   return (
     <Col className="position-relative">
       {isComposite ? (
         <Row>
           {children.map((chunk, index) =>
-            <Col key={index}>
+            <Col key={index} style={index === 0 ? {} : (index % 2 === 0 ? styleEven : styleOdd)}>
               <SelectableFormattedText {...{highlightedText, setHighlightedText, setSelectedText}}>
                 {chunk}
               </SelectableFormattedText>
