@@ -144,6 +144,29 @@ Soit("un autre document, en plusieurs passages, affiché comme glose et dont je 
   cy.sign_out();
 });
 
+Soit("un document, en plusieurs passages, affiché comme glose et dont je suis l'auteur", () => {
+  cy.sign_in('alice', '/');
+  cy.create_document_from_scratch();
+  const longText = `Première partie :
+Ceci est un texte d'exemple suffisamment long pour constituer le premier passage. Il contient plusieurs phrases et même une seconde phrase pour la robustesse.
+
+Deuxième partie :
+Voici le second passage qui contient aussi plusieurs phrases et permettra au découpage de produire au moins deux passages distincts.`;
+  cy.edit_content(longText);
+  cy.sign_out();
+  cy.sign_in('alice');
+  cy.click_on_contextual_menu_item('.runningHead .scholium', 'Break into numbered passages');
+  cy.sign_out();
+});
+
+Soit("le passage {string} est en mode édition", (passage) => {
+  cy.get('.lectern ')
+    .children()
+    .eq(passage)
+    .find('.scholium')
+    .click(); 
+});
+
 Soit("un document dont je suis l'auteur affiché comme glose et contenant :", (text) => {
   cy.sign_in('alice', '/');
   cy.create_document_from_scratch();
@@ -227,4 +250,3 @@ Soit("je modifie le document", () => {
 Soit("{string} le nom de la licence du document principal", (license) => {
   cy.get('.license').eq(0).should('contain', license);
 });
-

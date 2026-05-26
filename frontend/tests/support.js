@@ -173,6 +173,34 @@ Cypress.Commands.add("request_by_user", (username, doc_change) => {
   });
 });
 
+Cypress.Commands.add("request_fragment_by_user", (username, frag_num, doc_change) => {
+  cy.getCookie('AuthSession').then((cookie) => {
+    cy.clearCookie('AuthSession');
+    username = username.toLowerCase();
+    let password = getPassword(username);
+    cy.url().then((url) => {
+      const id = url.split('#')[1];
+      cy.request(`/api/${id}`)
+        .then(({body}) => {
+
+          const fragments = body.text.split(/(?=\{\d+\})/);
+          fragments[frag_num - 1] = `{${frag_num}} ${doc_change.text} \n\n`;
+          const updatedText = fragments.join('');
+          
+          cy.request({
+            method: 'PUT',
+            url: `/api/${id}`,
+            body: {...body, text: updatedText},
+            auth: {username, password}
+          })
+        })
+        .then(() => {
+          cy.setCookie('AuthSession', cookie.value);
+        });
+    });
+  });
+});
+
 Cypress.Commands.add("editable_metadata_contains", (metadata) => {
   cy.get('form textarea').invoke('val').then(actual => {
     const expectedMetadata = parseStrToObject(metadata);

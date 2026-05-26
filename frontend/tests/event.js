@@ -152,6 +152,10 @@ Quand("{string} remplace le contenu de la glose par :", (username, text) => {
   cy.request_by_user(username, {text});
 });
 
+Quand("{string} remplace le passage {string} de la glose par :", (username, frag_num, text) => {
+  cy.request_fragment_by_user(username, frag_num, {text});
+});
+
 Quand("{string} remplace les métadonnées de la glose par :", (username, metadata) => {
   cy.request_by_user(username, parseStrToObject(metadata));
 });

@@ -62,6 +62,22 @@ Alors("la glose contient :", (text) => {
   cy.contains('.scholium .formatted-text', text.replaceAll('\n', ' ')).should('exist');
 });
 
+Alors("le passage {string} de la glose contient {string}", (frag_num, text) => {
+  cy.get('.lectern')
+    .children()
+    .eq(frag_num)
+    .find('.scholium .formatted-text')
+    .should('contain', text.replaceAll('\n', ' '));
+});
+
+Alors("le passage {string} est toujours en mode édition", (frag_num) => {
+  cy.get('.lectern')
+    .children()
+    .eq(frag_num)
+    .find('.scholium')
+    .should('have.descendants', 'form');
+});
+
 Alors("la glose est ouverte en mode édition", () => {
   cy.get('.scholium').should('have.descendants', 'form');
 });
