@@ -12,4 +12,16 @@
   border-color: black;
 }
 
+.editable-text-form {
+  margin-inline: -0.5rem;
+}
+
+.editable-textarea {
+  display: block;
+  width: 100%;
+  min-height: 150px;
+  overflow: hidden;
+  resize: none;
+}
+
 

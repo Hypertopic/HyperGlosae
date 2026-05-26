@@ -1,6 +1,6 @@
 import '../styles/EditableText.css';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef, useLayoutEffect } from 'react';
 import FormattedText from './FormattedText';
 import DiscreeteDropdown from './DiscreeteDropdown';
 import PictureUploadAction from '../menu-items/PictureUploadAction';
@@ -12,6 +12,7 @@ function EditableText({id, text, rubric, isPartOf, links, fragment, setFragment,
   const [editedDocument, setEditedDocument] = useState();
   const [editedText, setEditedText] = useState();
   const [hasBeenChanged, setHasBeenChanged] = useState(false);
+  const textareaRef = useRef(null);
   const PASSAGE = new RegExp(`\\{${rubric}} ?([^{]*)`);
 
   let parsePassage = (rawText) => (rubric)
@@ -55,6 +56,15 @@ function EditableText({id, text, rubric, isPartOf, links, fragment, setFragment,
         });
     }
   }, [rawEditMode, updateEditedDocument]);
+
+  useLayoutEffect(() => {
+    if (textareaRef.current && beingEdited) {
+      const el = textareaRef.current;
+      if (el.scrollHeight > el.clientHeight) {
+        el.style.height = `${el.scrollHeight}px`;
+      }
+    }
+  }, [editedText, beingEdited]);
 
   let handleClick = () => {
     setBeingEdited(true);
@@ -120,9 +130,8 @@ function EditableText({id, text, rubric, isPartOf, links, fragment, setFragment,
     </div>
   );
   return (
-    <form>
-      <textarea className="form-control" type="text" rows="5" autoFocus
-        value={editedText} onChange={handleChange} onBlur={handleBlur}
+    <form className="editable-text-form">
+      <textarea className="form-control editable-textarea" ref={textareaRef} autoFocus value={editedText} onChange={handleChange} onBlur={handleBlur}
       />
     </form>
   );
