@@ -17,6 +17,10 @@ Alors("je ne peux pas lire {string}", (text) => {
   cy.get('body').should('not.contain', text);
 });
 
+Alors("je ne vois pas {string}", (text) => {
+  cy.get('body').should('not.contain', text);
+});
+
 Alors("je vois l'image {string} dans la glose", (image_name) => {
   cy.get('.row:not(.runningHead)>.scholium img[src]')
     .invoke('attr', 'src')
