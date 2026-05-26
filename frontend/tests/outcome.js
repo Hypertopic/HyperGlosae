@@ -210,6 +210,10 @@ Alors("la colonne {int} contient {string}", (column, text) => {
   cy.contains(`.lectern .main .col .col:nth-child(${column})`, text);
 });
 
+Alors("l'entête de la colonne {int} est {string}", (column, text) => {
+  cy.contains(`.lectern .row .main .col .row .col:nth-child(${column}) span.work`, text);
+});
+
 Alors("les métadonnées de la glose en mode édition contiennent {string}", (metadata) => {
   cy.get('.editable.metadata').click();
   cy.editable_metadata_contains(metadata);
