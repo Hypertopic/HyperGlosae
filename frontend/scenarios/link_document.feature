@@ -23,6 +23,8 @@ Scénario: pour le comparer avec un autre
   Et une session active avec mon compte
   Quand je réutilise mon document reconnaissable en tant que glose de citation et que je me focalise dessus
   Alors la colonne 1 contient "Il était une fois une veuve"
+  Et l'entête de la colonne 1 est "Les fées (Charles Perrault)"
+  Et l'entête de la colonne 2 est "A tündérek (Charles Perrault)"
   Et la colonne 2 contient "Volt egyszer egy özvegyasszony"
   Et la colonne 2 contient "MÁSIK TANULSÁG"
   
