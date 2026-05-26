@@ -43,3 +43,41 @@ Scénario: sans être connecté
     dc_issued: 1932
     """
   Alors je peux lire "Before editing this document, please log in first"
+
+
+
+  Scénario: avec un formulaire dont on est l'auteur
+
+  Soit un document dont je suis l'auteur affiché comme glose
+  Et une session active avec mon compte
+  Quand j'ouvre le formulaire de modification des métadonnées
+  Et je remplis "title" avec "Chapitre 1: Contexte historique"
+  Et je remplis "creator" avec "Alice Liddell"
+  Et je remplis "issued" avec "1932"
+  Et je remplis "language" avec "french"
+  Et je remplis "translator" avec "Charles Beaudelaire"
+  Et je remplis "isPartOf" avec "Philosophie Moderne : Une première approche"
+  Et je valide le formulaire
+  Alors "Chapitre 1: Contexte historique" est la glose ouverte
+  Et le créateur est "Alice Liddell"
+  Et l'année de publication est "1932"
+  Et la langue est "French"
+  Et le titre de l'ouvrage est "Philosophie Moderne : Une première approche"
+
+
+Scénario: avec un formulaire dont on n'est pas l'auteur
+
+  Soit un document dont je ne suis pas l'auteur affiché comme glose
+  Et une session active avec mon compte
+  Quand j'ouvre le formulaire de modification des métadonnées
+  Alors je peux lire "Before editing this document, please request authorization to its editors first"
+
+
+
+Scénario: avec un formulaire sans être connecté
+
+  Soit un document dont je suis l'auteur affiché comme glose
+  Quand j'ouvre le formulaire de modification des métadonnées
+  Alors je peux lire "Before editing this document, please log in first"
+
+
