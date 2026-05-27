@@ -16,24 +16,17 @@ function FormattedText({children, setHighlightedText, selectable, setSelectedTex
     }
   };
 
-  const renderLinkOrVideo = ({children, href}) => {
-    const videoId = getId(href);
-    if (videoId) {
-      const embedLink = `https://www.youtube.com/embed/${videoId}`;
-      return <iframe width="80%" height="300" src={embedLink} style={{ border: 0 }} allowFullScreen title="YouTube video" />;
-    }
-    return <a href={href}>{children}</a>;
-  };
+  const AutoLink = ({children, href}) => <a href={href}>{children}</a>;
 
   return (<>
     <ReactMarkdown
       remarkPlugins={[remarkGfm, remarkDefinitionList, remarkUnwrapImages]}
       components={{
-        img: (x) => embedVideo(x) || CroppedImage(x),
+        img: (x) => Video(x) || CroppedImage(x),
         p: (x) => VideoComment(x)
           || FragmentComment({...x, setHighlightedText})
           || <p onMouseUp={handleMouseUp}>{x.children}</p>,
-        a: renderLinkOrVideo
+        a: (x) => Video(x) || AutoLink(x)
       }}
       remarkRehypeOptions={{
         handlers: defListHastHandlers
@@ -51,8 +44,8 @@ function getId(text) {
   return match ? match[1] : null;
 }
 
-function embedVideo({src}) {
-  const videoId = getId(src);
+function Video({src, href}) {
+  const videoId = getId(src || href);
   if (videoId) {
     const embedLink = `https://www.youtube.com/embed/${videoId}`;
     return (
