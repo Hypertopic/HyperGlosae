@@ -59,6 +59,7 @@ Soit("le document contenant l'image 2019_10-13_16_UKR_R_A affiché comme documen
 
 Soit("{string} le document principal", (title) => {
   const uris = {
+    'Troyes 02-06-2026': '/e2d67af8cc6247f8993e110087b40d77',
     'Les fées (Charles Perrault)': '/37b4b9ba5cdb11ed887beb5c373fa643',
     'A tündérek (Charles Perrault)': '/09c906c6732b11ed89466ba197585f87',
     'Vidéo Sherlock Jr. (Buster Keaton)': '/4e1a31e14b032f2fa9e161ee9b009125',
