@@ -156,6 +156,14 @@ function EditableText({id, text, rubric, isPartOf, links, beingEditedBy, fragmen
       <textarea className="form-control" type="text" rows="5" autoFocus
         value={editedText} onChange={handleChange} onBlur={handleBlur}
       />
+      <button
+        type="button"
+        className="btn btn-secondary btn-sm mt-1"
+        onMouseDown={(e) => e.preventDefault()}
+        onClick={handleBlur}
+      >
+        Save
+      </button>
     </form>
   );
 }
