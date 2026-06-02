@@ -1,17 +1,19 @@
 import '../styles/EditableText.css';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useContext } from 'react';
 import FormattedText from './FormattedText';
 import DiscreeteDropdown from './DiscreeteDropdown';
 import PictureUploadAction from '../menu-items/PictureUploadAction';
 import {v4 as uuid} from 'uuid';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
+import { SegmentContext } from './SegmentContext';
 
-function EditableText({id, text, rubric, isPartOf, links, fragment, setFragment, setHighlightedText, setSelectedText, rawEditMode, setRawEditMode, backend, setLastUpdate}) {
+function EditableText({id, text, rubric, isPartOf, links, fragment, setFragment, setHighlightedText, setSelectedText, rawEditMode, setRawEditMode, backend, setLastUpdate, isSegmentReceiver}) {
   const [beingEdited, setBeingEdited] = useState(false);
   const [editedDocument, setEditedDocument] = useState();
   const [editedText, setEditedText] = useState();
   const [hasBeenChanged, setHasBeenChanged] = useState(false);
+  const { segmentTimecode, setSegmentTimecode } = useContext(SegmentContext);
   const PASSAGE = new RegExp(`\\{${rubric}} ?([^{]*)`);
 
   let parsePassage = (rawText) => (rubric)
@@ -45,6 +47,19 @@ function EditableText({id, text, rubric, isPartOf, links, fragment, setFragment,
         });
     }
   }, [fragment, parseFirstPassage, setFragment, updateEditedDocument]);
+
+  useEffect(() => {
+    if (segmentTimecode && isSegmentReceiver) {
+      updateEditedDocument()
+        .then((x) => {
+          let existingText = parseFirstPassage(x.text);
+          setEditedText((existingText && `${existingText}\n\n`) + segmentTimecode);
+          setBeingEdited(true);
+          setSegmentTimecode(null);
+          setHasBeenChanged(true);
+        });
+    }
+  }, [segmentTimecode, isSegmentReceiver, parseFirstPassage, setSegmentTimecode, updateEditedDocument]);
 
   useEffect(() => {
     if (rawEditMode) {

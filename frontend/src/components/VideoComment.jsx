@@ -17,23 +17,37 @@ function VideoComment({ children }) {
         }
         className="videoComment"
       >
-        {children[0]}
+        {children[0].replace(/ @\S+$/, '')}
       </p>
     </OverlayTrigger>
   );
 
-  function playVideoAt(timecode) {
-    let [start, end] = timecode.split('-->');
+  function playVideoAt(timecodeString) {
+    let videoIdMatch = timecodeString.match(/@(\S+)/);
+    let targetVideoId = videoIdMatch ? videoIdMatch[1] : null;
+
+    let [start, end] = timecodeString.split('-->');
     let [hour, min, sec] = start.split(/[:.]/);
     let startTime = Number(hour * 3600) + Number(min * 60) + Number(sec);
     [hour, min, sec] = end.split(/[:.]/);
     let endTime = Number(hour * 3600) + Number(min * 60) + Number(sec);
-    let iframe = document.getElementsByTagName('iframe');
-    if (iframe.length != 0) {
-      let youTubeLink = new URL(iframe[0].src);
-      let youTubeBaseLink = youTubeLink.origin + youTubeLink.pathname;
-      let targetLink = `${youTubeBaseLink}?start=${startTime}&end=${endTime}&autoplay=1&mute=1`;
-      iframe[0].src = targetLink;
+
+    let iframes = document.getElementsByTagName('iframe');
+    let iframe;
+
+    if (targetVideoId) {
+      iframe = Array.from(iframes).find(
+        f => f.getAttribute('data-video-id') === targetVideoId
+      );
+    }
+    if (!iframe && iframes.length !== 0) {
+      iframe = iframes[0];
+    }
+
+    if (iframe) {
+      let videoIdForUrl = targetVideoId || new URL(iframe.src).pathname.split('/').pop();
+      let targetLink = `https://www.youtube.com/embed/${videoIdForUrl}?start=${startTime}&end=${endTime}&autoplay=1&mute=1`;
+      iframe.src = targetLink;
     }
   }
 }

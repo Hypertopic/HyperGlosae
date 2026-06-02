@@ -12,4 +12,10 @@
   border-color: black;
 }
 
-
+/* --- Segment Selector --- */
+.segment-selector {
+  margin-top: 8px;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+}

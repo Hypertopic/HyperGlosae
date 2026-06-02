@@ -5,8 +5,9 @@ import { remarkDefinitionList, defListHastHandlers } from 'remark-definition-lis
 import CroppedImage from './CroppedImage';
 import VideoComment from './VideoComment';
 import FragmentComment from './FragmentComment';
+import VideoPlayer from './VideoPlayer';
 
-function FormattedText({children, setHighlightedText, selectable, setSelectedText}) {
+function FormattedText({children, setHighlightedText, selectable, setSelectedText, showSegmentControls}) {
 
   const handleMouseUp = () => {
     if (selectable) {
@@ -16,11 +17,23 @@ function FormattedText({children, setHighlightedText, selectable, setSelectedTex
     }
   };
 
+  function getVideoId(src) {
+    const regExp = /^.*(?:youtube\.com\/watch\?v=|youtu\.be\/)([^\s&]{11})/;
+    const match = src.match(regExp);
+    return match ? match[1] : null;
+  }
+
   return (<>
     <ReactMarkdown
       remarkPlugins={[remarkGfm, remarkDefinitionList, remarkUnwrapImages]}
       components={{
-        img: (x) => embedVideo(x) || CroppedImage(x),
+        img: (x) => {
+          let videoId = getVideoId(x.src);
+          if (videoId) {
+            return <VideoPlayer videoId={videoId} showSegmentControls={showSegmentControls} />;
+          }
+          return CroppedImage(x);
+        },
         p: (x) => VideoComment(x)
           || FragmentComment({...x, setHighlightedText})
           || <p onMouseUp={handleMouseUp}>{x.children}</p>,
@@ -33,23 +46,6 @@ function FormattedText({children, setHighlightedText, selectable, setSelectedTex
       {children}
     </ReactMarkdown>
   </>);
-}
-
-function getId(text) {
-  const regExp = /^.*(?:youtube\.com\/watch\?v=|youtu\.be\/)([^\s&]{11})/;
-  const match = text.match(regExp);
-  return match ? match[1] : null;
-}
-
-function embedVideo({src}) {
-  const videoId = getId(src);
-  if (videoId) {
-    const embedLink = `https://www.youtube.com/embed/${videoId}`;
-    return (
-      <iframe width="80%" height="300" src={embedLink} frameBorder="0" allowFullScreen></iframe>
-    );
-  }
-  return null;
 }
 
 export default FormattedText;

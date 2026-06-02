@@ -10,6 +10,7 @@ import Context from '../context';
 import ParallelDocuments from '../parallelDocuments';
 import OpenedDocuments from '../components/OpenedDocuments';
 import DocumentsCards from '../components/DocumentsCards';
+import { SegmentContext } from '../components/SegmentContext';
 
 function Lectern({backend, user}) {
 
@@ -19,6 +20,7 @@ function Lectern({backend, user}) {
   const [lastUpdate, setLastUpdate] = useState();
   const [rawEditMode, setRawEditMode] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [segmentTimecode, setSegmentTimecode] = useState(null);
   let {id} = useParams();
   let margin = useLocation().hash.slice(1);
   const getCaption = ({dc_title, dc_spatial}) => [dc_title, dc_spatial].filter(Boolean).join(', ');
@@ -53,24 +55,30 @@ function Lectern({backend, user}) {
   ])];
 
   return (
-    <Container className="screen">
-      <Row>
-        <Col md={2} className="sources">
-          <DocumentsCards docs={metadata.forwardLinkedDocuments} byRow={1} />
-        </Col>
-        <Col>
-          <Row>
-            <OpenedDocuments
-              hasSources={metadata.forwardLinkedDocuments.length > 0}
-              {...{id, margin, metadata, parallelDocuments, user, rawEditMode, setRawEditMode, backend, setLastUpdate, content}}
-            />
-            <References active={!margin}
-              {...{metadata, user, createOn, setLastUpdate, backend}}
-            />
-          </Row>
-        </Col>
-      </Row>
-    </Container>
+    <SegmentContext.Provider value={{
+      segmentTimecode,
+      setSegmentTimecode,
+      showSegmentButton: !!margin
+    }}>
+      <Container className="screen">
+        <Row>
+          <Col md={2} className="sources">
+            <DocumentsCards docs={metadata.forwardLinkedDocuments} byRow={1} />
+          </Col>
+          <Col>
+            <Row>
+              <OpenedDocuments
+                hasSources={metadata.forwardLinkedDocuments.length > 0}
+                {...{id, margin, metadata, parallelDocuments, user, rawEditMode, setRawEditMode, backend, setLastUpdate, content}}
+              />
+              <References active={!margin}
+                {...{metadata, user, createOn, setLastUpdate, backend}}
+              />
+            </Row>
+          </Col>
+        </Row>
+      </Container>
+    </SegmentContext.Provider>
   );
 }
 

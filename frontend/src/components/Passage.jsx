@@ -1,6 +1,6 @@
 import '../styles/Passage.css';
 
-import { useState } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -9,12 +9,25 @@ import FormattedText from './FormattedText';
 import EditableText from '../components/EditableText';
 import DiscreeteDropdown from './DiscreeteDropdown';
 import CommentFragmentAction from '../menu-items/CommentFragmentAction';
+import { SegmentContext } from './SegmentContext';
 
 function Passage({source, rubric, scholia, margin, sourceId, isComposite, rawEditMode, setRawEditMode, backend, setLastUpdate}) {
   const [selectedText, setSelectedText] = useState();
   const [highlightedText, setHighlightedText] = useState('');
   const [fragment, setFragment] = useState();
   const isFromScratch = margin === sourceId;
+  const { segmentTimecode, setSegmentTimecode } = useContext(SegmentContext);
+
+  const hasVideo = source.some(
+    chunk => /(?:youtube\.com\/watch\?v=|youtu\.be\/)/.test(chunk)
+  );
+
+  useEffect(() => {
+    if (segmentTimecode && hasVideo) {
+      setFragment(segmentTimecode + '\n\n');
+      setSegmentTimecode(null);
+    }
+  }, [segmentTimecode, hasVideo, setFragment, setSegmentTimecode]);
 
   scholia = scholia.filter(x => (x.isPartOf === margin));
   if (!scholia.length) {
@@ -74,7 +87,7 @@ function PassageSource({children, isComposite, highlightedText, setHighlightedTe
 function SelectableFormattedText({children, highlightedText, setHighlightedText, setSelectedText}) {
   return (
     <Marker mark={highlightedText} options={({separateWordSearch: false})}>
-      <FormattedText selectable="true" {...{setSelectedText, setHighlightedText}}>
+      <FormattedText selectable="true" showSegmentControls={true} {...{setSelectedText, setHighlightedText}}>
         {children}
       </FormattedText>
     </Marker>
