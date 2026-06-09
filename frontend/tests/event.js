@@ -76,6 +76,8 @@ Quand("je sélectionne le fragment de texte :", (text) => {
 Quand("je réutilise {string} comme glose", function (title) {
   cy.get('.select-document').click();
   cy.get('input[placeholder="Search documents"]').type(title);
+  cy.get('.existingDocument').first().find('strong').should('contain', title);
+  cy.get('.existingDocument').first().find('i').should('exist');
   cy.get('.existingDocument').first().click();
 });
 
