@@ -1,3 +1,4 @@
+
 import { When as Quand } from '@badeball/cypress-cucumber-preprocessor';
 import { parseStrToObject } from './support';
 
@@ -172,4 +173,20 @@ Quand("j'essaie de créer une glose qui soit découpée en passages", () => {
   cy.get('#add-break-into-passage').click();
   cy.click_on_create();
   cy.get('.scholium .focus').click();
+});
+
+Quand("je sélectionne le fragment de vidéo de {string} à {string}", (start, end) => {
+  function timecodeToSeconds(tc) {
+    let [h, m, s] = tc.split(/[:.]/);
+    return Number(h) * 3600 + Number(m) * 60 + Number(s) + Number(tc.split('.')[1] || 0) / 1000;
+  }
+
+  cy.stub_youtube_api();
+  cy.reload();
+  cy.get('iframe[data-video-id]').should('exist');
+
+  cy.set_video_time(timecodeToSeconds(start));
+  cy.contains('button', 'Define segment start').click();
+  cy.set_video_time(timecodeToSeconds(end));
+  cy.contains('button', /Define segment end/).click();
 });

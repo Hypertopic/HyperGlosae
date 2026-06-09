@@ -1,3 +1,4 @@
+
 import { Given as Soit, Step } from '@badeball/cypress-cucumber-preprocessor';
 import { parseStrToObject } from './support';
 
@@ -250,4 +251,3 @@ Soit("un document dont je suis l'auteur affiché comme document principal", () =
   cy.get('.bookmark').click();
   cy.sign_out();
 });
-

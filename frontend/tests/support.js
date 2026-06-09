@@ -1,3 +1,4 @@
+
 export function getPassword(username) {
   switch (username) {
     case 'alice':
@@ -180,5 +181,41 @@ Cypress.Commands.add("editable_metadata_contains", (metadata) => {
     Object.entries(expectedMetadata).forEach(([key, value]) => {
       expect(actualMetadata).to.have.property(key, value);
     });
+  });
+});
+
+Cypress.Commands.add('stub_youtube_api', () => {
+  cy.intercept('GET', 'https://www.youtube.com/iframe_api', {
+    body: `
+      window.YT = {
+        Player: function(element, config) {
+          var iframe = document.createElement('iframe');
+          iframe.setAttribute('data-video-id', config.videoId || '');
+          iframe.src = 'https://www.youtube.com/embed/' + (config.videoId || '');
+          iframe.width = config.width || '100%';
+          iframe.height = config.height || '300';
+          if (element.parentNode) {
+            element.parentNode.replaceChild(iframe, element);
+          }
+          this._iframe = iframe;
+          this.getIframe = function() { return this._iframe; };
+          this.getCurrentTime = function() { return window.__ytMockCurrentTime || 0; };
+          this.destroy = function() { if (this._iframe) this._iframe.remove(); };
+          var self = this;
+          if (config.events && config.events.onReady) {
+            setTimeout(function() { config.events.onReady({ target: self }); }, 50);
+          }
+        }
+      };
+      if (window.onYouTubeIframeAPIReady) {
+        window.onYouTubeIframeAPIReady();
+      }
+    `
+  }).as('youtubeApi');
+});
+
+Cypress.Commands.add('set_video_time', (seconds) => {
+  cy.window().then(win => {
+    win.__ytMockCurrentTime = seconds;
   });
 });

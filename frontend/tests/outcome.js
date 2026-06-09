@@ -1,3 +1,4 @@
+
 import { Then as Alors, Step } from '@badeball/cypress-cucumber-preprocessor';
 import { parseStrToObject } from './support';
 
@@ -181,7 +182,8 @@ Alors("les références au document principal contenues dans la glose ne sont pl
 });
 
 Alors("le document comporte la vidéo {string}", (videoUrl) => {
-  cy.get(`iframe[src="${videoUrl}"]`).should('exist');
+  let videoId = videoUrl.split('/').pop();
+  cy.get(`iframe[data-video-id="${videoId}"]`).should('exist');
 });
 
 Alors("le nom de la licence de la glose est {string}", (name) => {
