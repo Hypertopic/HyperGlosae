@@ -242,3 +242,7 @@ Alors("la glose n'indique pas de modification en cours sur ce passage", () => {
     .should('not.have.descendants', '[data-testid="being-edited-icon"]');
 });
 
+Alors("{string} a pour contenu {string}", (title, text) => {
+  cy.get('body').should('contain', text);
+});
+

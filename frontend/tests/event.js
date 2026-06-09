@@ -187,3 +187,9 @@ Quand("{string} quitte le mode édition", (username) => {
   cy.request_by_user(username, {beingEditedBy: undefined});
 });
 
+Quand("je supprime tout le contenu", () => {
+  cy.get('textarea').should('not.be.empty');
+  cy.get('textarea').type('{selectAll}{backspace}').blur();
+  cy.get('.focus').click();
+});
+
