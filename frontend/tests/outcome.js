@@ -212,8 +212,9 @@ Alors("{string} est à la ligne {int} du passage", (text, line) => {
   });
 });
 
-Alors("la glose ouverte contient les références à {string}", (title) => {
-  cy.get('.scholium .sources')
+Alors("le document ouvert contient les références à {string}", (title) => {
+  cy.get('.card .card-body')
     .should('be.visible')
-    .and('contain', title);
+    .find('.work')
+    .should('contain', title)
 });

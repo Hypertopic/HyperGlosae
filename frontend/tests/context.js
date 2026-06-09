@@ -229,6 +229,13 @@ Soit("{string} le nom de la licence du document principal", (license) => {
 });
 
 Soit("ayant sélectionné les documents {string} et {string}", (doc1, doc2) => {
-  cy.contains('.list-group-item', doc1).find('input[type="checkbox"]').check();
-  cy.contains('.list-group-item', doc2).find('input[type="checkbox"]').check();
+  cy.get('#display-list').check({ force: true });
+  cy.contains('span.work', doc1)
+    .parents('.card-body')
+    .find('input[type="checkbox"]')
+    .check();
+  cy.contains('span.work', doc2)
+    .parents('.card-body')
+    .find('input[type="checkbox"]')
+    .check();
 });

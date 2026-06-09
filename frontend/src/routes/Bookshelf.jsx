@@ -81,7 +81,7 @@ function Bookshelf({ backend, user }) {
             {selectedDocs.length > 0 && (
               <div className="card p-3 mb-4 justify-content-between align-items-center flex-direction-row">
                 <div>Create a new quotation with the <strong>{selectedDocs.length}</strong> selected document(s)</div>
-                <Button variant="outline-danger" onClick={handleCreateQuotation}>
+                <Button variant="outline-danger" onClick={handleCreateQuotation} id="btn-create-quotation">
                   Create Quotation
                 </Button>
               </div>

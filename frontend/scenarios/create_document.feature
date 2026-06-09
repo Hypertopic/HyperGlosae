@@ -110,7 +110,7 @@ Scénario: en gardant certaines des métadonnées du document source
 Scénario: En tant qu'hexaple par sélection de plusieurs documents
   Soit la liste des documents affichée
   Et une session active avec mon compte
-  Et ayant sélectionné les documents "Traduction A" et "Traduction B"
-  Quand j'essaie de créer une glose de type "Quotation"
-  Alors la glose ouverte contient les références à "Traduction A"
-  Et la glose ouverte contient les références à "Traduction B"
+  Et ayant sélectionné les documents "Fairies (Charles Perrault)" et "Víly (Charles Perrault)"
+  Quand j'essaie de créer une glose de type "Quotation" à partir de la bibliothèque
+  Alors le document ouvert contient les références à "Fairies (Charles Perrault)"
+  Et le document ouvert contient les références à "Víly (Charles Perrault)"
