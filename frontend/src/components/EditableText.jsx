@@ -108,6 +108,9 @@ function EditableText({id, text, rubric, isPartOf, links, beingEditedBy, fragmen
     let text = (rubric && !rawEditMode)
       ? editedDocument.text.replace(PASSAGE, `{${rubric}} ${parsedText}`)
       : editedText;
+    text = text === ''
+      ? '…'
+      : text;
     backend.putDocument({ ...editedDocument, text })
       .then(x => setLastUpdate(x.rev))
       .then(() => setHighlightedText())
