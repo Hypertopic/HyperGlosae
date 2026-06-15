@@ -1,13 +1,14 @@
 import Card from 'react-bootstrap/Card';
 import { useNavigate } from 'react-router';
-import { format } from 'date-fns';
+import { format, isValid } from 'date-fns';
 
 function ExistingDocument({ document, relatedTo, verb, setLastUpdate, backend }) {
   const navigate = useNavigate();
   const title = document.dc_title || 'Untitled document';
   const isPartOf = document.dc_isPartOf || '';
   const creator = document.dc_creator || '';
-  const issued = format(new Date(document.dc_issued), 'dd/MM/yyyy HH:mm') || '';
+  const rawIssued = new Date(`${document.dc_issued}`);
+  const issued = isValid(rawIssued) ? format(rawIssued, 'dd/MM/yyyy HH:mm') : '';
   const sourceChunksToBeLinked = (verb !== 'includes' && relatedTo.length)
     ? [{ verb, object: relatedTo[0] }]
     : relatedTo.map(object =>({ verb, object }));
