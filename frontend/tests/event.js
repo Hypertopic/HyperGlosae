@@ -18,9 +18,7 @@ Quand("j'ouvre {string} à côté", (title) => {
   cy.contains('span', title).parent().prevAll('a.open').first().click();
 });
 
-Quand("j'essaie de remplacer les métadonnées de la glose par :", (metadata) => {
-  cy.edit_metadata(metadata);
-});
+
 
 Quand("j'essaie de remplacer l'annotation du passage {int} par :", (block_number, markdown) => {
   let element = cy.get(`.lectern>.row:nth-child(${block_number + 1})>.scholium>.content>.formatted-text`);
@@ -156,6 +154,12 @@ Quand("{string} remplace les métadonnées de la glose par :", (username, metada
   cy.request_by_user(username, parseStrToObject(metadata));
 });
 
+
+Quand("j'ouvre le formulaire de modification des métadonnées", () => { cy.click_on_text('metadata'); }); 
+
+
+Quand("je valide le formulaire", () => { cy.get('.metadata-form').submit();
+});
 Quand("le titre de l'onglet est {string}", (title) => {
   cy.title().should("eq", title);
 });
@@ -173,3 +177,38 @@ Quand("j'essaie de créer une glose qui soit découpée en passages", () => {
   cy.click_on_create();
   cy.get('.scholium .focus').click();
 });
+
+//MOFIER PAR MOI
+Quand("je remplis {string} avec {string}", (field, value) => {
+  const input = cy.get(`#dc_${field}`);
+  // dc_issued est de type "date" : on force la valeur via invoke('val') + trigger
+  if (field === 'issued') {
+    const dateValue = value.length === 4 ? `${value}-01-01` : value;
+    input.invoke('val', dateValue).trigger('input').trigger('change');
+  } else {
+    input.clear().type(value);
+  }
+});
+
+Quand("je remplis {string} avec {string}", (field, value) => {
+  const input = cy.get(`#dc_${field}`);
+  if (field === 'issued') {
+    const dateValue = value.length === 4 ? `${value}-01-01` : value;
+    input
+      .focus()
+      .clear()
+      .type(dateValue)
+      .blur()
+      .focus();
+  } else {
+    input.clear().type(value);
+  }
+});
+ 
+Quand("j'ajoute le champ {string} au formulaire", (label) => {
+  cy.get('.add-section-toggle').click();
+  cy.contains('.dropdown-item', label).click();
+});
+
+//
+

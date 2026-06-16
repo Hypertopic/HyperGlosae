@@ -45,17 +45,19 @@ Scénario: sans être connecté
   Alors je peux lire "Before editing this document, please log in first"
 
 
-
-  Scénario: avec un formulaire dont on est l'auteur
-
+  
+Scénario: avec un formulaire dont on est l'auteur
   Soit un document dont je suis l'auteur affiché comme glose
   Et une session active avec mon compte
   Quand j'ouvre le formulaire de modification des métadonnées
-  Et je remplis "title" avec "Chapitre 1: Contexte historique"
   Et je remplis "creator" avec "Alice Liddell"
+  Et je remplis "title" avec "Chapitre 1: Contexte historique"
   Et je remplis "issued" avec "1932"
+  Et j'ajoute le champ "Language" au formulaire
   Et je remplis "language" avec "french"
+  Et j'ajoute le champ "Translator" au formulaire
   Et je remplis "translator" avec "Charles Beaudelaire"
+  Et j'ajoute le champ "Part of" au formulaire
   Et je remplis "isPartOf" avec "Philosophie Moderne : Une première approche"
   Et je valide le formulaire
   Alors "Chapitre 1: Contexte historique" est la glose ouverte

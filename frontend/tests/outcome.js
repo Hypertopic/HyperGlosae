@@ -50,9 +50,6 @@ Alors("l'année de publication est {string}", (year) => {
   cy.get('.metadata > .edition').first().should('contain', year);
 });
 
-Alors("le titre de l'ouvrage est {string}", (title) => {
-  cy.get('.metadata > .edition').first().should('contain', title);
-})
 
 Alors("la langue est {string}", (language) => {
   cy.get('.metadata > .edition').first().should('contain', language);
@@ -221,4 +218,9 @@ Alors("le document apparaît une seule fois dans la liste de ma bibliothèque", 
   cy.contains('label', 'as a list').click();
   cy.get('.bookshelf').contains(this.randomName);
   cy.get('.bookshelf .work').filter(`:contains("${this.randomName}")`).should('have.length', 1);
+});
+
+
+Alors("le titre de l'ouvrage est {string}", (title) => {
+  cy.get('.metadata').should('contain', title);
 });

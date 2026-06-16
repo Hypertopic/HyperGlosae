@@ -129,7 +129,7 @@ function Metadata({metadata = {}, editable, user, backend, setLastUpdate}) {
         <span className="edition">
           {formatTranslation(dc_translator, dc_language)}
           {dc_isPartOf ? <i>{dc_isPartOf}, </i> : ''}
-          {dc_issued ? `${new Date(dc_issued.toString()).getFullYear()}` : ''}
+          {dc_issued ? `${dc_issued.toString().slice(0, 4)}` : ''}
         </span>
       </>
     );
