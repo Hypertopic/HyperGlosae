@@ -107,6 +107,14 @@ Scénario: en gardant certaines des métadonnées du document source
   """
     dc_isPartOf: Archéologie préventive (IF14)
   """
+Scénario: En tant qu'hexaple par sélection de plusieurs documents
+  Soit la liste des documents affichée
+  Et ayant sélectionné les documents "Rencontrons un président (Christophe Lejeune)" et "Note rire Buster Keaton (Antoine-Valentin Charpentier)"
+  Et une session active avec mon compte
+  Quand j'essaie de créer une glose de type "Quotation" à partir de la bibliothèque
+  Et je me focalise sur "…"
+  Alors la colonne 1 contient "Origine, d'où ?"
+  Et la colonne 2 contient "Ce qui m'a fait rire :"
 
 
 Scénario: qui soit découpée en passages  

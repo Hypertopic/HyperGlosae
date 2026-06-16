@@ -1,19 +1,24 @@
 import '../styles/Bookshelf.css';
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router';
 import Container from 'react-bootstrap/Container';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import ToggleButton from 'react-bootstrap/ToggleButton';
+import Button from 'react-bootstrap/Button';
 import FutureDocument from '../components/FutureDocument.jsx';
 import DocumentsCards from '../components/DocumentsCards.jsx';
 import Graph from '../components/Graph.jsx';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
+import { v4 as uuid } from 'uuid';
 
 function Bookshelf({ backend, user }) {
   const [documents, setDocuments] = useState([]);
   const [lastUpdate, setLastUpdate] = useState();
   const [displayMode, setDisplayMode] = useState(localStorage.getItem('displayMode') || 'graph');
+  const [selectedDocs, setSelectedDocs] = useState([]);
 
+  const navigate = useNavigate();
   const displayModesList = ['graph', 'list'];
 
   document.title = 'Hyperglosae';
@@ -22,6 +27,7 @@ function Bookshelf({ backend, user }) {
     backend.getAllDocuments(user)
       .then(setDocuments);
   }, [lastUpdate, user, backend]);
+
   const docs = [
     ...new Map(
       documents?.filter(x => !!x)
@@ -29,6 +35,34 @@ function Bookshelf({ backend, user }) {
     ).values()
   ];
   const displayedDocs = docs?.flatMap(d => d[0]);
+
+  const handleCreateQuotation = async () => {
+    const _id = uuid().replace(/-/g, '');
+    const doc = {
+      _id,
+      editors: [user],
+      dc_creator: '…',
+      dc_title: '…',
+      dc_issued: new Date(),
+      dc_isPartOf: null,
+      dc_license: null,
+      dc_translator: null,
+      dc_language: null,
+      dc_publisher: null,
+      dc_spatial: null,
+      text: '',
+      links: selectedDocs.map((object) => ({ verb: 'includes', object }))
+    };
+
+    try {
+      await backend.putDocument(doc);
+      setLastUpdate(_id);
+      navigate(`/${selectedDocs[0]}#${_id}`);
+      setSelectedDocs([]);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   function DisplayDocuments() {
     switch (displayMode) {
@@ -44,9 +78,29 @@ function Bookshelf({ backend, user }) {
           </Row>
         );
       case 'list':
-        return <DocumentsCards docs={documents} byRow={4} createOn={[]}
-          {...{setLastUpdate, backend, user}}
-        />;
+        return (
+          <>
+            {selectedDocs.length > 0 && (
+              <div className="card p-3 mb-4 justify-content-between align-items-center flex-direction-row">
+                <div>Create a new quotation with the <strong>{selectedDocs.length}</strong> selected document(s)</div>
+                <Button variant="outline-danger" onClick={handleCreateQuotation} id="btn-create-quotation">
+                  Create Quotation
+                </Button>
+              </div>
+            )}
+            <DocumentsCards
+              docs={documents}
+              byRow={4}
+              createOn={[]}
+              selectedDocs={selectedDocs}
+              setSelectedDocs={setSelectedDocs}
+              showCheckboxes={true}
+              {...{setLastUpdate, backend, user}}
+            />
+          </>
+        );
+      default:
+        return null;
     }
   }
 
@@ -78,4 +132,3 @@ function Bookshelf({ backend, user }) {
 }
 
 export default Bookshelf;
-

@@ -239,6 +239,17 @@ Soit("{string} le nom de la licence du document principal", (license) => {
   cy.get('.license').eq(0).should('contain', license);
 });
 
+Soit("ayant sélectionné les documents {string} et {string}", (doc1, doc2) => {
+  cy.get('#display-list').check({ force: true });
+  cy.contains('span.work', doc1)
+    .parents('.card-body')
+    .find('input[type="checkbox"]')
+    .check();
+  cy.contains('span.work', doc2)
+    .parents('.card-body')
+    .find('input[type="checkbox"]')
+    .check();
+});
 
 Soit("un document dont je suis l'auteur affiché comme document principal", () => {
   cy.sign_in('alice', '/');
