@@ -6,13 +6,15 @@ import DiscreeteDropdown from './DiscreeteDropdown';
 import PictureUploadAction from '../menu-items/PictureUploadAction';
 import {v4 as uuid} from 'uuid';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
+import { PencilSquare, PersonCircle } from 'react-bootstrap-icons';
 
-function EditableText({id, text, rubric, isPartOf, links, fragment, setFragment, setHighlightedText, setSelectedText, rawEditMode, setRawEditMode, backend, setLastUpdate}) {
+function EditableText({id, text, rubric, isPartOf, links, beingEditedBy, fragment, setFragment, setHighlightedText, setSelectedText, rawEditMode, setRawEditMode, backend, setLastUpdate, user}) {
   const [beingEdited, setBeingEdited] = useState(false);
   const [editedDocument, setEditedDocument] = useState();
   const [editedText, setEditedText] = useState();
   const [hasBeenChanged, setHasBeenChanged] = useState(false);
   const PASSAGE = new RegExp(`\\{${rubric}} ?([^{]*)`);
+  const isEditedByOther = beingEditedBy && beingEditedBy !== user;
 
   let parsePassage = (rawText) => (rubric)
     ? rawText.match(PASSAGE)[1]
@@ -32,6 +34,18 @@ function EditableText({id, text, rubric, isPartOf, links, fragment, setFragment,
       setEditedDocument(x);
       return x;
     }), [backend, id, isPartOf, links, rubric]);
+
+  useEffect(() => {
+    if (!user || !id) return;
+    if (beingEdited) {
+      backend.markEditing(id, user).catch(console.error);
+    }
+    return () => {
+      if (beingEdited) {
+        backend.markEditing(id, null).catch(console.error);
+      }
+    };
+  }, [beingEdited, id, user, backend]);
 
   useEffect(() => {
     if (fragment) {
@@ -57,6 +71,7 @@ function EditableText({id, text, rubric, isPartOf, links, fragment, setFragment,
   }, [rawEditMode, updateEditedDocument]);
 
   let handleClick = () => {
+    if (isEditedByOther) return;
     setBeingEdited(true);
     updateEditedDocument()
       .then((x) => {
@@ -93,6 +108,9 @@ function EditableText({id, text, rubric, isPartOf, links, fragment, setFragment,
     let text = (rubric && !rawEditMode)
       ? editedDocument.text.replace(PASSAGE, `{${rubric}} ${parsedText}`)
       : editedText;
+    text = text === ''
+      ? '…'
+      : text;
     backend.putDocument({ ...editedDocument, text })
       .then(x => setLastUpdate(x.rev))
       .then(() => setHighlightedText())
@@ -103,10 +121,23 @@ function EditableText({id, text, rubric, isPartOf, links, fragment, setFragment,
   };
 
   if (!beingEdited) return (
-    <div className="editable content position-relative">
+    <div className="editable content position-relative" id={id} >
+      {isEditedByOther && (
+        <OverlayTrigger
+          placement="top"
+          overlay={<Tooltip id={`being-edited-${id}`}>{beingEditedBy} is currently editing this passage</Tooltip>}
+        >
+          <PersonCircle className="being-edited-icon" data-testid="being-edited-icon" />
+
+        </OverlayTrigger>
+      )}
       <OverlayTrigger
         placement="top"
-        overlay={<Tooltip id={`tooltip-${id}`}>Edit content...</Tooltip>}
+        overlay={
+          <Tooltip id={`tooltip-${id}`}>
+            {isEditedByOther ? `Locked by ${beingEditedBy}` : 'Edit content...'}
+          </Tooltip>
+        }
       >
         <div className="formatted-text" onClick={handleClick}>
           <FormattedText {...{setHighlightedText, setSelectedText}}>
@@ -120,7 +151,8 @@ function EditableText({id, text, rubric, isPartOf, links, fragment, setFragment,
     </div>
   );
   return (
-    <form>
+    <form className="position-relative">
+      <PencilSquare className="being-edited-icon self" data-testid="being-edited-self" />
       <textarea className="form-control" type="text" rows="5" autoFocus
         value={editedText} onChange={handleChange} onBlur={handleBlur}
       />

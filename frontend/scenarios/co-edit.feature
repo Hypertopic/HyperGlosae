@@ -7,13 +7,18 @@ Contexte:
   Et une session active avec mon compte
   Et "Bill" un des éditeurs de la glose
 
-Scénario: qui modifie le contenu 
+Scénario: termine de modifier le contenu
   Quand "Bill" remplace le contenu de la glose par :
     """
     Notre sujet porte sur... 
     """
-  Alors la glose en mode édition contient "Notre sujet"
-  
+  Alors la glose contient "Notre sujet"
+  Et la glose n'indique pas de modification en cours sur ce passage
+
+Scénario: qui est en train de modifier le contenu
+  Quand "Bill" est en train d’éditer le passage "1"
+  Alors la glose indique que "Bill" modifie le passage 
+
 Scénario: qui modifie les métadonnées
   Quand "Bill" remplace les métadonnées de la glose par :
     """

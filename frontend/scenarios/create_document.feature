@@ -115,3 +115,13 @@ Scénario: En tant qu'hexaple par sélection de plusieurs documents
   Et je me focalise sur "…"
   Alors la colonne 1 contient "Origine, d'où ?"
   Et la colonne 2 contient "Ce qui m'a fait rire :"
+
+
+Scénario: qui soit découpée en passages  
+
+ Soit "Vestiges (diagramme de classes)" le document principal
+ Et une session active avec mon compte  
+ Quand j'essaie de créer une glose qui soit découpée en passages  
+ Alors la rubrique "1" est associée au passage "…"  
+
+

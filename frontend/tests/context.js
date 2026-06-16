@@ -12,6 +12,10 @@ Soit("un document dont je ne suis pas l'auteur affiché comme document principal
   cy.sign_in('bill', '/');
   cy.create_document_from_scratch();
   cy.set_random_name();
+  cy.click_on_contextual_menu_item('.runningHead .scholium', 'Invite editors...');
+  cy.get('.modal-dialog input').type('alice');
+  cy.contains('button', 'Invite').click();
+  cy.get('.btn-close').click();
   cy.get('.focus').click();
   cy.sign_out();
 });
@@ -55,6 +59,7 @@ Soit("le document contenant l'image 2019_10-13_16_UKR_R_A affiché comme documen
 
 Soit("{string} le document principal", (title) => {
   const uris = {
+    'Troyes 02-06-2026': '/e2d67af8cc6247f8993e110087b40d77',
     'Les fées (Charles Perrault)': '/37b4b9ba5cdb11ed887beb5c373fa643',
     'A tündérek (Charles Perrault)': '/09c906c6732b11ed89466ba197585f87',
     'Vidéo Sherlock Jr. (Buster Keaton)': '/4e1a31e14b032f2fa9e161ee9b009125',
@@ -204,7 +209,13 @@ Soit("un document sans champ {string} affiché comme document principal", (field
 Soit("ayant les métadonnées", (metadata) => {
   cy.get('.icon.edit').click();
   cy.get('.editable.metadata').click();
-  cy.editable_metadata_contains(metadata);
+  cy.get('form textarea').invoke('val').then(actual => {
+    const expectedMetadata = parseStrToObject(metadata);
+    const actualMetadata = parseStrToObject(actual);
+    Object.entries(expectedMetadata).forEach(([key, value]) => {
+      expect(actualMetadata).to.have.property(key, value);
+    });
+  });
   cy.get('.scholium>.icon.focus').click();
 });
 
@@ -239,3 +250,27 @@ Soit("ayant sélectionné les documents {string} et {string}", (doc1, doc2) => {
     .find('input[type="checkbox"]')
     .check();
 });
+
+Soit("un document dont je suis l'auteur affiché comme document principal", () => {
+  cy.sign_in('alice', '/');
+  cy.create_document_from_scratch();
+  cy.set_random_name();
+  cy.get('.focus').first().click();
+  cy.url().then((url) => {
+    cy.visit(url.split('#')[0]);
+  });
+  cy.get('.bookmark').click();
+  cy.sign_out();
+});
+
+Soit("{string} est en train d'éditer le passage {string}", (username, passageNumber) => {
+  cy.request_by_user(username, { editing: { block_number: passageNumber } });
+});
+
+Soit("la glose indique que {string} modifie ce passage", (userName) => {
+  cy.get('.scholium .editable.content')
+    .find('[data-testid="being-edited-icon"]')
+    .trigger('mouseover');
+  cy.contains('.tooltip',`${userName} is currently editing this passage`).should('be.visible');
+});
+

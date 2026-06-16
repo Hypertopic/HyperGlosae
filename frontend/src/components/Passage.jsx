@@ -10,7 +10,7 @@ import EditableText from '../components/EditableText';
 import DiscreeteDropdown from './DiscreeteDropdown';
 import CommentFragmentAction from '../menu-items/CommentFragmentAction';
 
-function Passage({source, rubric, scholia, margin, sourceId, isComposite, rawEditMode, setRawEditMode, backend, setLastUpdate}) {
+function Passage({source, rubric, scholia, margin, sourceId, isComposite, rawEditMode, setRawEditMode, backend, setLastUpdate, user}) {
   const [selectedText, setSelectedText] = useState();
   const [highlightedText, setHighlightedText] = useState('');
   const [fragment, setFragment] = useState();
@@ -39,18 +39,20 @@ function Passage({source, rubric, scholia, margin, sourceId, isComposite, rawEdi
           </Container>
         }
       </Col>
-      <PassageMargin active={!!margin} {...{scholia, rubric, setHighlightedText, fragment, setFragment, setSelectedText, rawEditMode, setRawEditMode, backend, setLastUpdate}} />
+      <PassageMargin active={!!margin} {...{scholia, rubric, setHighlightedText, fragment, setFragment, setSelectedText, rawEditMode, setRawEditMode, backend, setLastUpdate, user}} />
     </Row>
   );
 }
 
 function PassageSource({children, isComposite, highlightedText, setHighlightedText, setFragment, selectedText, setSelectedText, margin}) {
+  const styleOdd = {borderLeft: '1px #AAA solid', backgroundColor: '#efefef'};
+  const styleEven = {borderLeft: '1px #AAA solid', backgroundColor: '#f8f8ff'};
   return (
     <Col className="position-relative">
       {isComposite ? (
         <Row>
           {children.map((chunk, index) =>
-            <Col key={index}>
+            <Col key={index} style={index === 0 ? {} : (index % 2 === 0 ? styleEven : styleOdd)}>
               <SelectableFormattedText {...{highlightedText, setHighlightedText, setSelectedText}}>
                 {chunk}
               </SelectableFormattedText>
@@ -87,12 +89,12 @@ function Rubric({id}) {
   );
 }
 
-function PassageMargin({active, scholia, setHighlightedText, fragment, setFragment, setSelectedText, rawEditMode, setRawEditMode, backend, setLastUpdate}) {
+function PassageMargin({active, scholia, setHighlightedText, fragment, setFragment, setSelectedText, rawEditMode, setRawEditMode, backend, setLastUpdate, user}) {
   if (!active) return;
   return (
     <Col xs={5} className="scholium">
       {scholia.map((scholium, i) =>
-        <EditableText key={i} {...scholium} {...{setHighlightedText, fragment, setFragment, setSelectedText, rawEditMode, setRawEditMode, backend, setLastUpdate}} />
+        <EditableText key={i} {...scholium} {...{setHighlightedText, fragment, setFragment, setSelectedText, rawEditMode, setRawEditMode, backend, setLastUpdate, user}} />
       )}
     </Col>
   );

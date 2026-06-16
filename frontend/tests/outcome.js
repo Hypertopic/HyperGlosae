@@ -17,8 +17,18 @@ Alors("je ne peux pas lire {string}", (text) => {
   cy.get('body').should('not.contain', text);
 });
 
-Alors("je vois l'image {string} dans la glose", (alternative_text) => {
-  cy.get('.row:not(.runningHead)>.scholium').should('have.descendants', `img[alt='${alternative_text}']`);
+Alors("je ne vois pas {string}", (text) => {
+  cy.get('body').should('not.contain', text);
+});
+
+Alors("je vois l'image {string} dans la glose", (image_name) => {
+  cy.get('.row:not(.runningHead)>.scholium img[src]')
+    .invoke('attr', 'src')
+    .should('match', /^http.*:\/\/(?!.*\/#).*/)
+});
+
+Alors("l'image a un texte alternatif {string}", (alternative_text) => {
+    cy.get('.row:not(.runningHead)>.scholium').should('have.descendants', `img[alt='${alternative_text}']`);
 });
 
 Alors("je vois l'image {string} dans le document principal", (alternative_text) => {
@@ -49,6 +59,10 @@ Alors("le créateur est {string}", (name) => {
 Alors("l'année de publication est {string}", (year) => {
   cy.get('.metadata > .edition').first().should('contain', year);
 });
+
+Alors("le titre de l'ouvrage est {string}", (title) => {
+  cy.get('.metadata > .edition').first().should('contain', title);
+})
 
 Alors("la langue est {string}", (language) => {
   cy.get('.metadata > .edition').first().should('contain', language);
@@ -111,7 +125,7 @@ Alors("la glose est ouverte en mode édition et contient :", (text) => {
 });
 
 Alors("la rubrique {string} est associée au passage {string}", (rubric, text) => {
-  cy.contains('.row', text).contains('.rubric', rubric);
+  cy.contains('.row:not(.runningHead)', text).contains('.rubric', rubric);
 });
 
 Alors("{string} est la glose ouverte en mode édition", (title) => {
@@ -196,11 +210,6 @@ Alors("la colonne {int} contient {string}", (column, text) => {
   cy.contains(`.lectern .main .col .col:nth-child(${column})`, text);
 });
 
-Alors("la glose en mode édition contient {string}", (text) => {
-  cy.click_on_text('content', '…');
-  cy.get('textarea').should('contain', text);
-});
-
 Alors("les métadonnées de la glose en mode édition contiennent {string}", (metadata) => {
   cy.get('.editable.metadata').click();
   cy.editable_metadata_contains(metadata);
@@ -218,3 +227,28 @@ Alors("le document ouvert contient les références à {string}", (title) => {
     .find('.work')
     .should('contain', title)
 });
+Alors("le document apparaît une seule fois dans la liste de ma bibliothèque", function() {
+  cy.get('[alt="Index"]').click();
+  cy.contains('label', 'as a list').click();
+  cy.get('.bookshelf').contains(this.randomName);
+  cy.get('.bookshelf .work').filter(`:contains("${this.randomName}")`).should('have.length', 1);
+});
+
+Alors("la glose indique que {string} modifie le passage", (userName) => {
+  cy.get('.scholium .editable.content svg[data-testid="being-edited-icon"]')
+    .trigger('mouseover');
+  cy.contains(
+    '.tooltip',
+    `${userName} is currently editing this passage`
+  ).should('be.visible');
+});
+
+Alors("la glose n'indique pas de modification en cours sur ce passage", () => {
+    cy.get('.scholium .editable.content')
+    .should('not.have.descendants', '[data-testid="being-edited-icon"]');
+});
+
+Alors("{string} a pour contenu {string}", (title, text) => {
+  cy.get('body').should('contain', text);
+});
+
