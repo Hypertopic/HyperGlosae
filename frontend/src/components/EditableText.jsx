@@ -163,7 +163,7 @@ function EditableText({id, text, rubric, isPartOf, links, beingEditedBy, fragmen
   return (
     <form className="position-relative">
       <PencilSquare className="being-edited-icon self" data-testid="being-edited-self" />
-      <textarea className="form-control" type="text" rows="5" autoFocus
+      <textarea className="form-control editable-textarea" ref={textareaRef} type="text" rows="5" autoFocus
         value={editedText} onChange={handleChange} onBlur={handleBlur}
       />
     </form>
