@@ -190,20 +190,7 @@ Quand("je remplis {string} avec {string}", (field, value) => {
   }
 });
 
-Quand("je remplis {string} avec {string}", (field, value) => {
-  const input = cy.get(`#dc_${field}`);
-  if (field === 'issued') {
-    const dateValue = value.length === 4 ? `${value}-01-01` : value;
-    input
-      .focus()
-      .clear()
-      .type(dateValue)
-      .blur()
-      .focus();
-  } else {
-    input.clear().type(value);
-  }
-});
+
  
 Quand("j'ajoute le champ {string} au formulaire", (label) => {
   cy.get('.add-section-toggle').click();
