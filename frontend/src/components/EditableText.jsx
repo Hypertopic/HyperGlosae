@@ -160,9 +160,11 @@ function EditableText({id, text, rubric, isPartOf, links, beingEditedBy, fragmen
       </DiscreeteDropdown>
     </div>
   );
-  return (
-    <form className="editable-text-form">
-      <textarea className="form-control editable-textarea" ref={textareaRef} autoFocus value={editedText} onChange={handleChange} onBlur={handleBlur}
+   return (
+    <form className="position-relative">
+      <PencilSquare className="being-edited-icon self" data-testid="being-edited-self" />
+      <textarea className="form-control" type="text" rows="5" autoFocus
+        value={editedText} onChange={handleChange} onBlur={handleBlur}
       />
     </form>
   );
