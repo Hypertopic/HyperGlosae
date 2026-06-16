@@ -54,3 +54,12 @@ Scénario: du document principal lorsqu'il a un document source
   Et une session active avec mon compte
   Quand je souhaite modifier le contenu du document principal
   Alors "Treignes, le 8 septembre 2012 (Christophe Lejeune)" est la glose ouverte en mode édition
+
+Scénario: du document principal et de supprimer tout son contenu
+
+  Soit "Troyes 02-06-2026" le document principal
+  Et une session active avec mon compte
+  Quand je souhaite modifier le contenu du document principal
+  Et je supprime tout le contenu
+  Alors "Troyes 02-06-2026" a pour contenu "…"
+

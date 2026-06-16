@@ -59,6 +59,7 @@ Soit("le document contenant l'image 2019_10-13_16_UKR_R_A affiché comme documen
 
 Soit("{string} le document principal", (title) => {
   const uris = {
+    'Troyes 02-06-2026': '/e2d67af8cc6247f8993e110087b40d77',
     'Les fées (Charles Perrault)': '/37b4b9ba5cdb11ed887beb5c373fa643',
     'A tündérek (Charles Perrault)': '/09c906c6732b11ed89466ba197585f87',
     'Vidéo Sherlock Jr. (Buster Keaton)': '/4e1a31e14b032f2fa9e161ee9b009125',
@@ -249,5 +250,16 @@ Soit("un document dont je suis l'auteur affiché comme document principal", () =
   });
   cy.get('.bookmark').click();
   cy.sign_out();
+});
+
+Soit("{string} est en train d'éditer le passage {string}", (username, passageNumber) => {
+  cy.request_by_user(username, { editing: { block_number: passageNumber } });
+});
+
+Soit("la glose indique que {string} modifie ce passage", (userName) => {
+  cy.get('.scholium .editable.content')
+    .find('[data-testid="being-edited-icon"]')
+    .trigger('mouseover');
+  cy.contains('.tooltip',`${userName} is currently editing this passage`).should('be.visible');
 });
 

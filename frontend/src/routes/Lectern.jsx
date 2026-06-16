@@ -41,6 +41,27 @@ function Lectern({backend, user}) {
     setParallelDocuments(new ParallelDocuments(id, content, margin, rawEditMode));
   }, [id, content, margin, rawEditMode, lastUpdate]);
 
+  useEffect(() => {
+    const source = backend.eventSource();
+    const handleMessage = (event) => {
+      try {
+        const change = JSON.parse(event.data);
+        const rev = change?.changes?.[0]?.rev;
+        if (!change?.seq || !rev) {
+          return;
+        }
+        setLastUpdate({seq: change.seq, rev});
+      } catch (error) {
+        console.error('catch EventSource Error:', error);
+      }
+    };
+    source.addEventListener('message', handleMessage);
+    return () => {
+      source.removeEventListener('message', handleMessage);
+      source.close();
+    };
+  }, [backend]);
+
   if (!metadata?.focusedDocument?._id && !loading) {
     return <DocumentNotFound />;
   }

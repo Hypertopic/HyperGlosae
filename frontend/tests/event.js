@@ -76,6 +76,8 @@ Quand("je sélectionne le fragment de texte :", (text) => {
 Quand("je réutilise {string} comme glose", function (title) {
   cy.get('.select-document').click();
   cy.get('input[placeholder="Search documents"]').type(title);
+  cy.get('.existingDocument').first().find('strong').should('contain', title);
+  cy.get('.existingDocument').first().find('i').should('exist');
   cy.get('.existingDocument').first().click();
 });
 
@@ -140,10 +142,13 @@ Quand("je supprime le lien entre le document principal et la référence", () =>
   cy.get(".modal-dialog").get(".btn-primary").click();
 });
 
-Quand("j'essaie d'ajouter une image à une glose", () => {
-  context = cy.get('.scholium').eq(1);
+Quand("j'essaie d'ajouter une image {string} à une glose", (imagePath) => {
+  const context = cy.get('.scholium').eq(1);
   cy.click_on_contextual_menu_item(context, 'Add a picture...');
-  cy.get('[id="image-input"]').selectFile('../docs/architecture.png', {
+  const filePath = imagePath.includes('/')
+    ? `../${imagePath}`
+    : `../docs/${imagePath}`;
+  cy.get('[id="image-input"]').selectFile(filePath, {
     force: true,
   });
 });
@@ -173,3 +178,18 @@ Quand("j'essaie de créer une glose qui soit découpée en passages", () => {
   cy.click_on_create();
   cy.get('.scholium .focus').click();
 });
+
+Quand("{string} est en train d’éditer le passage {string}", (username, passageNumber) => {
+  cy.request_by_user(username,{beingEditedBy: username});
+});
+
+Quand("{string} quitte le mode édition", (username) => {
+  cy.request_by_user(username, {beingEditedBy: undefined});
+});
+
+Quand("je supprime tout le contenu", () => {
+  cy.get('textarea').should('not.be.empty');
+  cy.get('textarea').type('{selectAll}{backspace}').blur();
+  cy.get('.focus').click();
+});
+
