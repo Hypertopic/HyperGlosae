@@ -160,7 +160,7 @@ function EditableText({id, text, rubric, isPartOf, links, beingEditedBy, fragmen
       </DiscreeteDropdown>
     </div>
   );
-   return (
+  return (
     <form className="position-relative">
       <PencilSquare className="being-edited-icon self" data-testid="being-edited-self" />
       <textarea className="form-control" type="text" rows="5" autoFocus
