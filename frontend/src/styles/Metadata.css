@@ -16,6 +16,34 @@
   color: inherit;
 }
 
+.metadata-form .metadata-field {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+
+.metadata-form .metadata-field .form-label {
+  width: 7rem;
+  flex-shrink: 0;
+  margin-bottom: 0;
+  text-align: left;
+}
+
+.metadata-form .metadata-field .form-label::after {
+  content: " :";
+}
+
+.metadata-form .add-section {
+  text-align: left;
+}
+
+.metadata-form .add-section .dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  display: block;
+}
+
 .icon {
   opacity: 1 !important;
   cursor: pointer;
