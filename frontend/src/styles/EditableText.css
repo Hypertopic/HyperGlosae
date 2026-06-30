@@ -12,16 +12,16 @@
   border-color: black;
 }
 
-.being-edited-icon {
-  position: absolute;
-  top: 4px;
-  right: 4px;
-  color: #d2691e;
-  z-index: 5;
-  pointer-events: auto;
+.editable-text-form {
+  margin-inline: -0.5rem;
 }
 
-.being-edited-icon.self {
-  color: #2e7d32;
+.editable-textarea {
+  display: block;
+  width: 100%;
+  min-height: 150px;
+  overflow: hidden;
+  resize: none;
 }
+
 
