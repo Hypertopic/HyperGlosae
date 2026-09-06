@@ -2,7 +2,7 @@
   visibility: hidden;
 }
 
-:is(.runningHead .scholium, .scholium .content, .main):hover .discreete-dropdown {
+:is(.runningHead .scholium, .runningHead .main, .scholium .content, .main):hover .discreete-dropdown {
   visibility: visible;
 }
 

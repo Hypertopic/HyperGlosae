@@ -1,9 +1,10 @@
 import { useState, useEffect, useCallback } from 'react';
-import { BookmarkFill } from 'react-bootstrap-icons';
+import Dropdown from 'react-bootstrap/Dropdown';
 import { v4 as uuid } from 'uuid';
-import { OverlayTrigger, Tooltip } from 'react-bootstrap';
+import { NotificationManager } from 'react-notifications';
 
-function Bookmark({backend, user, id}) {
+function ToggleBookmarkAction({id, user, backend}) {
+
   const [isBookmarked, setIsBookmarked] = useState(false);
 
   const getBookmark = useCallback((id, user) =>
@@ -22,7 +23,10 @@ function Bookmark({backend, user, id}) {
   const onBookmarkToggle = () => {
     if (!isBookmarked) {
       backend.putDocument({ _id: uuid(), editors: [user], bookmark: id })
-        .then(() => setIsBookmarked(true))
+        .then(() => {
+          setIsBookmarked(true);
+          NotificationManager.success('The document has been added to your bookshelf.', '', 2000);
+        })
         .catch(console.error);
     } else {
       getBookmark(id, user)
@@ -34,23 +38,14 @@ function Bookmark({backend, user, id}) {
   };
 
   return (
-    <OverlayTrigger
-      placement="top"
-      overlay={
-        <Tooltip id="tooltip-bookmark">
-          {isBookmarked
-            ? 'Remove this document from your bookshelf'
-            : 'Add this document to your bookshelf'}
-        </Tooltip>
+    <Dropdown.Item onClick={onBookmarkToggle}>
+      {isBookmarked
+        ? 'Unbookmark this document'
+        : 'Bookmark this document'
       }
-    >
-      <BookmarkFill
-        className={`icon bookmark ${isBookmarked && 'bookmarked'}`}
-        onClick={onBookmarkToggle}
-        style={{ cursor: 'pointer' }}
-      />
-    </OverlayTrigger>
+    </Dropdown.Item>
   );
 }
 
-export default Bookmark;
+export default ToggleBookmarkAction;
+

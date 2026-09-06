@@ -37,7 +37,7 @@ Quand("j'essaie de remplacer le contenu de la glose par :", (markdown) => {
 });
 
 Quand("j'ajoute le document principal à ma bibliothèque", () => {
-  cy.get('.bookmark').click();
+  cy.click_on_contextual_menu_item('.runningHead .main', 'Bookmark this document');
 });
 
 Quand("j'essaie d'accorder les droits d'édition à {string}", (userName) => {

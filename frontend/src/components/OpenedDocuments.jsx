@@ -14,9 +14,9 @@ import BreakIntoPassagesAction from '../menu-items/BreakIntoPassagesAction';
 import DeleteDocumentAction from '../menu-items/DeleteDocumentAction';
 import DeleteReferenceToDocumentAction from '../menu-items/DeleteReferenceToDocumentAction';
 import EditRawDocumentAction from '../menu-items/EditRawDocumentAction';
-import Bookmark from './Bookmark';
+import ToggleBookmarkAction from '../menu-items/ToggleBookmarkAction';
 import LicenseCompatibility from './LicenseCompatibility';
-import { InfoCircle } from 'react-bootstrap-icons';
+import { InfoCircle, BookmarkFill } from 'react-bootstrap-icons';
 
 function OpenedDocuments({id, margin, metadata, parallelDocuments, rawEditMode, setRawEditMode, backend, user, setLastUpdate, content}) {
   const marginMetadata = metadata.getDocument(margin);
@@ -167,11 +167,14 @@ function RunningHeadSource({id, metadata, parallelDocuments, backend, user}) {
     <Col className="main" />
   );
   return (
-    <Col className="main">
+    <Col className="main position-relative">
       <HistoryInfo metadata={metadata} backend={backend} />
-      <Bookmark {...{backend, user, id}} />
+      <BookmarkFill />
       <BrowseTools {...{id}} editable={true} focusable={false} />
       <Metadata {...{metadata}} />
+      <DiscreeteDropdown>
+        <ToggleBookmarkAction {...{id, backend, user}}/>
+      </DiscreeteDropdown>
       <TypeBadge type={metadata?.type} />
     </Col>
   );

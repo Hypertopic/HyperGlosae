@@ -244,11 +244,7 @@ Soit("un document dont je suis l'auteur affiché comme document principal", () =
   cy.sign_in('alice', '/');
   cy.create_document_from_scratch();
   cy.set_random_name();
-  cy.get('.focus').first().click();
-  cy.url().then((url) => {
-    cy.visit(url.split('#')[0]);
-  });
-  cy.get('.bookmark').click();
+  cy.get('.focus').click();
   cy.sign_out();
 });
 
