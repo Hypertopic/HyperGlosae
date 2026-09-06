@@ -1,21 +1,10 @@
 import { Link } from 'react-router';
-import { Bookmark, ChevronBarDown, ChevronExpand, PencilSquare} from 'react-bootstrap-icons';
+import { Bookmark, ChevronBarDown, ChevronExpand } from 'react-bootstrap-icons';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 
-function BrowseTools({id, closable, openable, editable, focusable = true}) {
+function BrowseTools({id, closable, openable, focusable = true}) {
   return (
     <>
-      {editable &&
-        <OverlayTrigger
-          placement="top"
-          overlay={<Tooltip id="tooltip-edit">Edit this document</Tooltip>}
-        >
-          <Link to={`../${id}#${id}`} className="icon edit">
-            <PencilSquare />
-          </Link>
-        </OverlayTrigger>
-      }
-
       {closable &&
         <OverlayTrigger
           placement="top"

@@ -165,7 +165,7 @@ Soit ("qui a un document source", () => {
 });
 
 Soit("ayant parmi les éditeurs {string} et {string}", (userName1, userName2) => {
-  cy.get('.icon.edit').click()
+  cy.click_on_contextual_menu_item('.runningHead .main', 'Edit this document');
   cy.click_on_contextual_menu_item('.runningHead .scholium', 'Invite editors...');
 
   cy.get('.modal-dialog input').type(userName1);
@@ -207,7 +207,7 @@ Soit("un document sans champ {string} affiché comme document principal", (field
 });
 
 Soit("ayant les métadonnées", (metadata) => {
-  cy.get('.icon.edit').click();
+  cy.click_on_contextual_menu_item('.runningHead .main', 'Edit this document');
   cy.get('.editable.metadata').click();
   cy.get('form textarea').invoke('val').then(actual => {
     const expectedMetadata = parseStrToObject(metadata);
@@ -230,7 +230,7 @@ Soit("je réutilise ma glose reconnaissable", function (){
 });
 
 Soit("je modifie le document", () => {
-  cy.get('.icon.edit').click()
+  cy.click_on_contextual_menu_item('.runningHead .main', 'Edit this document');
   cy.edit_content("test");
   cy.get('.focus').click();
 });

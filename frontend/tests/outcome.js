@@ -134,14 +134,14 @@ Alors("{string} est la glose ouverte en mode édition", (title) => {
 });
 
 Alors("la glose ouverte a {string} parmi les éditeurs par défaut", (userName) => {
-  cy.get('.icon.edit').click()
+  cy.click_on_contextual_menu_item('.runningHead .main', 'Edit this document');
   cy.click_on_contextual_menu_item('.runningHead .scholium', 'Invite editors...');
 
   cy.get('.list-group').should('contain', userName);
 });
 
 Alors("la glose ouverte a {string} et {string} parmi les éditeurs par défaut", (userName1, userName2) => {
-  cy.get('.icon.edit').click()
+  cy.click_on_contextual_menu_item('.runningHead .main', 'Edit this document');
   cy.click_on_contextual_menu_item('.runningHead .scholium', 'Invite editors...');
 
   cy.get('.list-group').should('contain', userName1);
@@ -149,7 +149,7 @@ Alors("la glose ouverte a {string} et {string} parmi les éditeurs par défaut",
 });
 
 Alors("la glose ouverte a les métadonnées", (metadata) => {
-  cy.get('.icon.edit').click();
+  cy.click_on_contextual_menu_item('.runningHead .main', 'Edit this document');
   cy.get('.editable.metadata').click();
   cy.editable_metadata_contains(metadata);
 });

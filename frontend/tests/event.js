@@ -105,7 +105,7 @@ Quand("j'essaie d'ouvrir l'URI {string} reçue par courriel", (uri) => {
 });
 
 Quand("je souhaite modifier le contenu du document principal", () => {
-  cy.get('.icon.edit').click();
+  cy.click_on_contextual_menu_item('.runningHead .main', 'Edit this document');
   cy.click_on_text('content');
 });
 

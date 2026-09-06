@@ -15,6 +15,7 @@ import DeleteDocumentAction from '../menu-items/DeleteDocumentAction';
 import DeleteReferenceToDocumentAction from '../menu-items/DeleteReferenceToDocumentAction';
 import EditRawDocumentAction from '../menu-items/EditRawDocumentAction';
 import ToggleBookmarkAction from '../menu-items/ToggleBookmarkAction';
+import EditDocumentAction from '../menu-items/EditDocumentAction';
 import LicenseCompatibility from './LicenseCompatibility';
 import { InfoCircle, BookmarkFill } from 'react-bootstrap-icons';
 
@@ -170,10 +171,10 @@ function RunningHeadSource({id, metadata, parallelDocuments, backend, user}) {
     <Col className="main position-relative">
       <HistoryInfo metadata={metadata} backend={backend} />
       <BookmarkFill />
-      <BrowseTools {...{id}} editable={true} focusable={false} />
       <Metadata {...{metadata}} />
       <DiscreeteDropdown>
         <ToggleBookmarkAction {...{id, backend, user}}/>
+        <EditDocumentAction {...{id}} />
       </DiscreeteDropdown>
       <TypeBadge type={metadata?.type} />
     </Col>
