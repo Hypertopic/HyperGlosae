@@ -55,7 +55,6 @@ function PassageSource({children, metadata, isComposite, highlightedText, setHig
   if (documentsMetadata !== undefined) {
     documentsMetadata = documentsMetadata.filter(doc => 'dc_title' in doc);
   }
-  console.log(JSON.stringify(documentsMetadata));
   return (
     <Col className="position-relative">
       {isComposite ? (
