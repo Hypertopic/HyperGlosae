@@ -6,13 +6,12 @@ import Bookshelf from './routes/Bookshelf';
 import Hyperglosae from './hyperglosae';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter, Routes, Route } from 'react-router';
-import { NotificationContainer, NotificationManager } from 'react-notifications';
-import 'react-notifications/lib/notifications.css';
+import { SnackbarProvider, enqueueSnackbar } from 'notistack';
 import { TypesContext } from './components/TypesContext.js';
 import Registration from './routes/Registration';
 
 const backend = new Hyperglosae(
-  x => NotificationManager.warning(x, '', 2000)
+  x => !enqueueSnackbar(x, {variant: 'warning'})
 );
 
 function App() {
@@ -32,7 +31,10 @@ function App() {
     <StrictMode>
       <BrowserRouter>
         <Menu {...{backend, user, setUser}} />
-        <NotificationContainer />
+        <SnackbarProvider
+          autoHideDuration={2000}
+          anchorOrigin={{vertical: 'top', horizontal: 'right'}}
+        />
         <TypesContext.Provider value={types}>
           <Routes>
             <Route path="/" element={<Bookshelf {...{backend, user}} />} />

@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import Dropdown from 'react-bootstrap/Dropdown';
+import { enqueueSnackbar } from 'notistack';
 import { v4 as uuid } from 'uuid';
-import { NotificationManager } from 'react-notifications';
 
 function ToggleBookmarkAction({id, user, backend}) {
 
@@ -25,7 +25,7 @@ function ToggleBookmarkAction({id, user, backend}) {
       backend.putDocument({ _id: uuid(), editors: [user], bookmark: id })
         .then(() => {
           setIsBookmarked(true);
-          NotificationManager.success('The document has been added to your bookshelf.', '', 2000);
+          enqueueSnackbar('The document has been added to your bookshelf.', {variant: 'success'});
         })
         .catch(console.error);
     } else {

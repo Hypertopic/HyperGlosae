@@ -1,5 +1,5 @@
 import DiscreeteDropdown from '../components/DiscreeteDropdown';
-import { NotificationManager } from 'react-notifications';
+import { enqueueSnackbar } from 'notistack';
 
 function BreakIntoPassagesAction({parallelDocuments, margin, backend, setLastUpdate}) {
 
@@ -29,7 +29,7 @@ function BreakIntoPassagesAction({parallelDocuments, margin, backend, setLastUpd
       .then(x => backend.putDocument({...x, text}))
       .then(x => {
         setLastUpdate(x.rev);
-        NotificationManager.success('The text has been successfully split into passages.', '', 2000);
+        enqueueSnackbar('The text has been successfully split into passages.', {variant: 'success'});
       });
   };
 

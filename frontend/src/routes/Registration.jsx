@@ -1,6 +1,6 @@
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import { NotificationManager } from 'react-notifications';
+import { enqueueSnackbar } from 'notistack';
 
 function Registration({backend}) {
 
@@ -15,7 +15,7 @@ function Registration({backend}) {
     };
     backend.putDocument(user, `_users/org.couchdb.user:${user.name}`)
       .then(() => {
-        NotificationManager.success(`${user.name} is now registered!`);
+        enqueueSnackbar(`${user.name} is now registered!`, {variant: 'success'});
         e.target.reset();
       });
   };

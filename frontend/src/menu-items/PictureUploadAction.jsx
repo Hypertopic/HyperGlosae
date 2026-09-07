@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import { NotificationManager } from 'react-notifications';
+import { enqueueSnackbar } from 'notistack';
 
 import DiscreeteDropdown from '../components/DiscreeteDropdown';
 
@@ -16,7 +16,7 @@ function PictureUploadAction({ id, backend, handleImageUrl }) {
     if (!file) return;
 
     if (!file.type.startsWith('image/')) {
-      NotificationManager.warning('Please choose an image file (png,jpg,jpeg...).', '', 2000);
+      enqueueSnackbar('Please choose an image file (png,jpg,jpeg...).', {variant: 'warning'});
       return;
     }
 
