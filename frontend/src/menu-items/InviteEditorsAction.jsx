@@ -1,6 +1,5 @@
 import { useState } from 'react';
-import { Button, InputGroup, ListGroup, Modal, Form } from 'react-bootstrap';
-import DiscreeteDropdown from '../components/DiscreeteDropdown';
+import { Button, InputGroup, ListGroup, Modal, Form, Dropdown } from 'react-bootstrap';
 
 export default function InviteEditorsAction({metadata, backend, setLastUpdate}) {
   const [show, setShow] = useState(false);
@@ -29,9 +28,9 @@ export default function InviteEditorsAction({metadata, backend, setLastUpdate}) 
 
   return (
     <>
-      <DiscreeteDropdown.Item onClick={handleShow}>
+      <Dropdown.Item onClick={handleShow}>
         Invite editors...
-      </DiscreeteDropdown.Item>
+      </Dropdown.Item>
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>

@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
-import { Modal, Button } from 'react-bootstrap';
-import DiscreeteDropdown from '../components/DiscreeteDropdown';
+import { Modal, Button, Dropdown } from 'react-bootstrap';
 
 function DeleteDocumentAction({metadata, isFromScratch, backend, setLastUpdate}) {
   const navigate = useNavigate();
@@ -15,9 +14,9 @@ function DeleteDocumentAction({metadata, isFromScratch, backend, setLastUpdate})
 
   return (
     <>
-      <DiscreeteDropdown.Item onClick={() => setShow(true)}>
+      <Dropdown.Item onClick={() => setShow(true)}>
         Delete...
-      </DiscreeteDropdown.Item>
+      </Dropdown.Item>
       <Modal show={show} onHide={() => setShow(false)}>
         <Modal.Body>
           Are you sure you want to delete this document (with all of its contents and metadata).

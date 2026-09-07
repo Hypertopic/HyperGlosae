@@ -1,13 +1,13 @@
-import DiscreeteDropdown from '../components/DiscreeteDropdown';
+import Dropdown from 'react-bootstrap/Dropdown';
 
 function EditRawDocumentAction({setRawEditMode}) {
 
   const handleClick = () => setRawEditMode(true);
 
   return (
-    <DiscreeteDropdown.Item onClick={handleClick}>
+    <Dropdown.Item onClick={handleClick}>
       Edit passage numbering
-    </DiscreeteDropdown.Item>
+    </Dropdown.Item>
   );
 }
 

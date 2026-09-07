@@ -1,4 +1,4 @@
-import DiscreeteDropdown from '../components/DiscreeteDropdown';
+import Dropdown from 'react-bootstrap/Dropdown';
 import { enqueueSnackbar } from 'notistack';
 
 function BreakIntoPassagesAction({parallelDocuments, margin, backend, setLastUpdate}) {
@@ -34,9 +34,9 @@ function BreakIntoPassagesAction({parallelDocuments, margin, backend, setLastUpd
   };
 
   return (
-    <DiscreeteDropdown.Item onClick={handleClick} {...{disabled}}>
+    <Dropdown.Item onClick={handleClick} {...{disabled}}>
       Break into numbered passages
-    </DiscreeteDropdown.Item>
+    </Dropdown.Item>
   );
 }
 

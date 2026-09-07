@@ -1,4 +1,4 @@
-import DiscreeteDropdown from '../components/DiscreeteDropdown';
+import Dropdown from 'react-bootstrap/Dropdown';
 
 function CommentFragmentAction({selectedText, setSelectedText, setFragment, margin}) {
 
@@ -10,9 +10,9 @@ function CommentFragmentAction({selectedText, setSelectedText, setFragment, marg
   };
 
   return (
-    <DiscreeteDropdown.Item onClick={handleClick} {...{disabled}}>
+    <Dropdown.Item onClick={handleClick} {...{disabled}}>
       Comment the selected text...
-    </DiscreeteDropdown.Item>
+    </Dropdown.Item>
   );
 }
 

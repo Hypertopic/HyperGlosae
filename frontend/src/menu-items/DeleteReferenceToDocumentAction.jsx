@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
-import { Modal, Button } from 'react-bootstrap';
-import DiscreeteDropdown from '../components/DiscreeteDropdown';
+import { Modal, Button, Dropdown } from 'react-bootstrap';
 
 function DeleteReferenceToDocumentAction({id, margin, backend, metadata, content, setLastUpdate}) {
   const [show, setShow] = useState(false);
@@ -18,9 +17,9 @@ function DeleteReferenceToDocumentAction({id, margin, backend, metadata, content
   const disabled = (metadata.links && metadata.links.length > 0 ? false : true);
   return (
     <>
-      <DiscreeteDropdown.Item onClick={() => setShow(true)} {...{disabled}}>
+      <Dropdown.Item onClick={() => setShow(true)} {...{disabled}}>
         Delete reference...
-      </DiscreeteDropdown.Item>
+      </Dropdown.Item>
       <Modal show={show} onHide={() => setShow(false)}>
         <Modal.Body>
           Are you sure you want to delete the link between this glose and the

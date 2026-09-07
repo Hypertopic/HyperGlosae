@@ -1,7 +1,6 @@
 import { useRef } from 'react';
+import Dropdown from 'react-bootstrap/Dropdown';
 import { enqueueSnackbar } from 'notistack';
-
-import DiscreeteDropdown from '../components/DiscreeteDropdown';
 
 function PictureUploadAction({ id, backend, handleImageUrl }) {
   const fileInputRef = useRef(null);
@@ -27,9 +26,9 @@ function PictureUploadAction({ id, backend, handleImageUrl }) {
 
   return (
     <>
-      <DiscreeteDropdown.Item onClick={handleClick}>
+      <Dropdown.Item onClick={handleClick}>
         Add a picture...
-      </DiscreeteDropdown.Item>
+      </Dropdown.Item>
       <input
         id="image-input"
         type="file"
