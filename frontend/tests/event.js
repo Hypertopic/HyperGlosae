@@ -134,7 +134,7 @@ Quand("j'essaie de créer une glose en gardant la {string} du document source", 
 });
 
 Quand("je consulte l'historique du document", function () {
-  cy.get('.info-icon-container').trigger('mouseover');
+  cy.click_on_contextual_menu_item('.runningHead .main', 'View contribution history');
 });
 
 Quand("je supprime le lien entre le document principal et la référence", () => {

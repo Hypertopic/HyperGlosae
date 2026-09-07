@@ -155,9 +155,9 @@ Alors("la glose ouverte a les métadonnées", (metadata) => {
 });
 
 Alors("je peux voir l'auteur de la création du document {string} et sa date de création", (userName) => {
-  cy.get('.text-document-creation')
+  cy.get('.popover')
     .should('contain.text', 'Created by ' + userName + ' on');
-  cy.get('.text-document-creation').invoke('text')
+  cy.get('.popover').invoke('text')
     .then((fullText) => {
       const date = new Date(fullText.split('on')[1].trim());
       expect(date).not.to.be.NaN;
@@ -165,9 +165,9 @@ Alors("je peux voir l'auteur de la création du document {string} et sa date de 
 });
 
 Alors("je peux voir une modification effectuée par {string} et la date de cette modification", (userName) => {
-  cy.get('.text-document-creation')
+  cy.get('.popover')
     .should('contain.text', 'Modified by :' + userName + ' on');
-  cy.get('.text-document-creation').invoke('text')
+  cy.get('.popover').invoke('text')
     .then((fullText) => {
       const date = new Date(fullText.split('on')[1].trim());
       expect(date).not.to.be.NaN;
@@ -175,7 +175,7 @@ Alors("je peux voir une modification effectuée par {string} et la date de cette
 });
 
 Alors("aucun historique n'est affiché", () => {
-  cy.get('.text-document-creation')
+  cy.get('.popover')
     .should('contain.text', 'No historical record exists for this document.');
 });
 
