@@ -12,3 +12,12 @@
   cursor: pointer;
 }
 
+.no-caret::after {
+  display: none !important;
+}
+
+.top-right {
+  position: absolute;
+  top: 0;
+  right: 0;
+}

@@ -6,7 +6,7 @@ import Metadata from './Metadata';
 import Type, { TypeBadge } from './Type';
 import Passage from './Passage';
 import License from './License';
-import DiscreeteDropdown from './DiscreeteDropdown';
+import VisibleDropdown from './VisibleDropdown';
 import InviteEditorsAction from '../menu-items/InviteEditorsAction';
 import BreakIntoPassagesAction from '../menu-items/BreakIntoPassagesAction';
 import DeleteDocumentAction from '../menu-items/DeleteDocumentAction';
@@ -66,13 +66,15 @@ function RunningHeadSource({id, metadata, parallelDocuments, backend, user}) {
   );
   return (
     <Col className="main position-relative" ref={target}>
-      <BookmarkFill />
-      <Metadata {...{metadata}} />
-      <DiscreeteDropdown>
+      <VisibleDropdown>
         <ToggleBookmarkAction {...{id, backend, user}}/>
         <EditDocumentAction {...{id}} />
         <ViewHistoryAction {...{metadata, target, backend}} />
-      </DiscreeteDropdown>
+      </VisibleDropdown>
+      <div className="headerBox">
+        <BookmarkFill className="icon" />
+        <Metadata {...{metadata}} />
+      </div>
       <TypeBadge type={metadata?.type} />
     </Col>
   );
@@ -82,15 +84,17 @@ function RunningHeadMargin({id, metadata, parallelDocuments, margin, setRawEditM
   const isFromScratch = parallelDocuments.isFromScratch;
   if (Object.keys(metadata).length) return (
     <Col xs={5} className="scholium position-relative">
-      <BrowseTools id={metadata._id} closable={!parallelDocuments.isFromScratch} />
-      <DiscreeteDropdown>
+      <VisibleDropdown>
         <InviteEditorsAction {...{backend, metadata, setLastUpdate}} />
         <BreakIntoPassagesAction {...{parallelDocuments, margin, backend, setLastUpdate}} />
         <EditRawDocumentAction {...{setRawEditMode}} />
         <DeleteDocumentAction {...{metadata, isFromScratch, backend, setLastUpdate}} />
         <DeleteReferenceToDocumentAction {...{id, margin, backend, metadata, content, setLastUpdate}} />
-      </DiscreeteDropdown>
-      <Metadata editable={true} {...{backend, metadata, setLastUpdate}} />
+      </VisibleDropdown>
+      <div className="headerBox">
+        <BrowseTools id={metadata._id} closable={!parallelDocuments.isFromScratch} />
+        <Metadata editable={true} {...{backend, metadata, setLastUpdate}} />
+      </div>
       <Type editable={true} {...{backend, metadata}}/>
     </Col>
   );

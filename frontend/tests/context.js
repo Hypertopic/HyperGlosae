@@ -216,7 +216,7 @@ Soit("ayant les métadonnées", (metadata) => {
       expect(actualMetadata).to.have.property(key, value);
     });
   });
-  cy.get('.scholium>.icon.focus').click();
+  cy.get('.scholium .icon.focus').click();
 });
 
 Soit("je choisis {string} comme type de reférence", (gloseType) => {
