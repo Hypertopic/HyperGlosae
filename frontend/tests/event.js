@@ -52,7 +52,7 @@ Quand("j'essaie d'accorder les droits d'édition à {string} en appuyant sur Ent
 });
 
 Quand("je choisis {string} comme type de glose", (pattern) => {
-  cy.get('.typeIcon').click();
+  cy.click_on_contextual_menu_item('.runningHead .scholium', 'Set document type...');
   cy.get('#searchType').type(pattern);
   cy.get('.list-group-item').first().click();
 });

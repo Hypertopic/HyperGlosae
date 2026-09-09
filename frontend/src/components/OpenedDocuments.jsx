@@ -3,7 +3,6 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import BrowseTools from './BrowseTools';
 import Metadata from './Metadata';
-import Type from './Type';
 import TypeBadge from './TypeBadge';
 import Passage from './Passage';
 import License from './License';
@@ -16,6 +15,7 @@ import EditRawDocumentAction from '../menu-items/EditRawDocumentAction';
 import ToggleBookmarkAction from '../menu-items/ToggleBookmarkAction';
 import EditDocumentAction from '../menu-items/EditDocumentAction';
 import ViewHistoryAction from '../menu-items/ViewHistoryAction';
+import SetTypeAction from '../menu-items/SetTypeAction';
 import LicenseCompatibility from './LicenseCompatibility';
 import { BookmarkFill } from 'react-bootstrap-icons';
 
@@ -89,6 +89,7 @@ function RunningHeadMargin({id, metadata, parallelDocuments, margin, setRawEditM
         <InviteEditorsAction {...{backend, metadata, setLastUpdate}} />
         <BreakIntoPassagesAction {...{parallelDocuments, margin, backend, setLastUpdate}} />
         <EditRawDocumentAction {...{setRawEditMode}} />
+        <SetTypeAction {...{backend, metadata}}/>
         <DeleteDocumentAction {...{metadata, isFromScratch, backend, setLastUpdate}} />
         <DeleteReferenceToDocumentAction {...{id, margin, backend, metadata, content, setLastUpdate}} />
       </VisibleDropdown>
@@ -96,7 +97,7 @@ function RunningHeadMargin({id, metadata, parallelDocuments, margin, setRawEditM
         <BrowseTools id={metadata._id} closable={!parallelDocuments.isFromScratch} />
         <Metadata editable={true} {...{backend, metadata, setLastUpdate}} />
       </div>
-      <Type {...{backend, metadata}}/>
+      <TypeBadge type={metadata?.type} />
     </Col>
   );
 }

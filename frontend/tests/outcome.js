@@ -105,11 +105,11 @@ Alors("le document apparaît dans la bibliothèque de {string}", function(userNa
 });
 
 Alors("le type {string} est le type de la glose", (name) => {
-  cy.contains('.typeSelected', name);
+  cy.contains('.typeBadge', name);
 });
 
 Alors("la glose n'a pas de type", () => {
-  cy.get('.typeSelected').should('not.exist');
+  cy.get('.typeBadge').should('not.exist');
 });
 
 Alors("le texte du document principal est en surbrillance :", (text) => {

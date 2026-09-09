@@ -1,11 +1,10 @@
 import '../styles/Metadata.css';
 import '../styles/Type.css';
 
-import { TagFill } from 'react-bootstrap-icons';
 import { useState, useContext } from 'react';
-import { Modal, ListGroup, OverlayTrigger, Tooltip } from 'react-bootstrap';
-import { TypesContext } from './TypesContext.js';
-import TypeBadge from './TypeBadge';
+import { Modal, ListGroup, Dropdown } from 'react-bootstrap';
+import { TypesContext } from '../components/TypesContext.js';
+import TypeBadge from '../components/TypeBadge';
 
 function TypeList({ typeSelected, handleUpdate }) {
   const types = useContext(TypesContext);
@@ -47,7 +46,7 @@ function TypeList({ typeSelected, handleUpdate }) {
   );
 }
 
-function Type({ metadata, backend }) {
+function SetTypeAction({ metadata, backend }) {
   const [ beingEdited, setBeingEdited ] = useState(false);
   const [ typeSelected, setTypeSelected ] = useState(metadata.type);
   const [ editedDocument, setEditedDocument ] = useState(metadata);
@@ -69,19 +68,10 @@ function Type({ metadata, backend }) {
   };
 
   return (
-    <div style={{ paddingTop: 10, paddingBottom: 30 }}>
-      <div style={{ paddingTop: 0, justifyContent: 'flex-end' }}>
-        <TypeBadge addClassName="typeSelected" type={typeSelected}/>
-        <OverlayTrigger
-          placement="top"
-          overlay={<Tooltip id="tooltip-apply-label">Apply a label...</Tooltip>}
-        >
-          <TagFill
-            onClick={handleEdit}
-            className="icon typeIcon always-visible"
-          />
-        </OverlayTrigger>
-      </div>
+    <>
+      <Dropdown.Item onClick={handleEdit}>
+        Set document type...
+      </Dropdown.Item>
 
       <Modal show={beingEdited} onHide={() => setBeingEdited(false)}>
         <Modal.Header closeButton>
@@ -91,8 +81,8 @@ function Type({ metadata, backend }) {
           <TypeList typeSelected={typeSelected} handleUpdate={handleUpdate}/>
         </Modal.Body>
       </Modal>
-    </div>
+    </>
   );
 }
 
-export default Type;
+export default SetTypeAction;

@@ -126,7 +126,7 @@ Soit("une glose dont je suis l'auteur faisant référence uniquement au premier 
 Soit("un document dont je suis l'auteur affiché comme glose et dont le type est {string}", (name) => {
   cy.sign_in('alice', '/4e1a31e14b032f2fa9e161ee9b123456');
   cy.create_glose();
-  cy.get('.typeIcon').click();
+  cy.click_on_contextual_menu_item('.runningHead .scholium', 'Set document type...');
   cy.contains('.list-group-item', name).click();
   cy.sign_out();
 });
