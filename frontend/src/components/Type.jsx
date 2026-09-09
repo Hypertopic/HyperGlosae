@@ -5,16 +5,7 @@ import { TagFill } from 'react-bootstrap-icons';
 import { useState, useContext } from 'react';
 import { ListGroup, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { TypesContext } from './TypesContext.js';
-
-export function TypeBadge({ type, addClassName }) {
-  const types = useContext(TypesContext);
-  if (!type) return null;
-  const typeSelected = types.find((t) => t.id === type);
-  if (!typeSelected) return;
-  return <div style={{backgroundColor: typeSelected.doc.color}} className={`typeBadge ${addClassName ?? ''}`}>
-    {typeSelected.doc.type_name}
-  </div>;
-}
+import TypeBadge from './TypeBadge';
 
 function TypeList({ typeSelected, handleUpdate }) {
   const types = useContext(TypesContext);
@@ -56,7 +47,7 @@ function TypeList({ typeSelected, handleUpdate }) {
   );
 }
 
-function Type({ metadata, editable, backend }) {
+function Type({ metadata, backend }) {
   const [ beingEdited, setBeingEdited ] = useState(false);
   const [ typeSelected, setTypeSelected ] = useState(metadata.type);
   const [ editedDocument, setEditedDocument ] = useState(metadata);
@@ -81,17 +72,15 @@ function Type({ metadata, editable, backend }) {
     <div style={{ paddingTop: 10, paddingBottom: 30 }}>
       <div style={{ paddingTop: 0, justifyContent: 'flex-end' }}>
         <TypeBadge addClassName="typeSelected" type={typeSelected}/>
-        {editable ? (
-          <OverlayTrigger
-            placement="top"
-            overlay={<Tooltip id="tooltip-apply-label">Apply a label...</Tooltip>}
-          >
-            <TagFill
-              onClick={handleEdit}
-              className="icon typeIcon always-visible"
-            />
-          </OverlayTrigger>
-        ) : null}
+        <OverlayTrigger
+          placement="top"
+          overlay={<Tooltip id="tooltip-apply-label">Apply a label...</Tooltip>}
+        >
+          <TagFill
+            onClick={handleEdit}
+            className="icon typeIcon always-visible"
+          />
+        </OverlayTrigger>
       </div>
       {beingEdited ?
         <TypeList typeSelected={typeSelected} handleUpdate={handleUpdate}/>

@@ -3,7 +3,8 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import BrowseTools from './BrowseTools';
 import Metadata from './Metadata';
-import Type, { TypeBadge } from './Type';
+import Type from './Type';
+import TypeBadge from './TypeBadge';
 import Passage from './Passage';
 import License from './License';
 import VisibleDropdown from './VisibleDropdown';
@@ -95,7 +96,7 @@ function RunningHeadMargin({id, metadata, parallelDocuments, margin, setRawEditM
         <BrowseTools id={metadata._id} closable={!parallelDocuments.isFromScratch} />
         <Metadata editable={true} {...{backend, metadata, setLastUpdate}} />
       </div>
-      <Type editable={true} {...{backend, metadata}}/>
+      <Type {...{backend, metadata}}/>
     </Col>
   );
 }

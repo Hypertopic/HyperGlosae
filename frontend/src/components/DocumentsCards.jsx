@@ -4,7 +4,7 @@ import Row from 'react-bootstrap/Row';
 import Metadata from './Metadata';
 import BrowseTools from './BrowseTools';
 import FutureDocument from './FutureDocument';
-import { TypeBadge } from './Type';
+import TypeBadge from './TypeBadge';
 
 function DocumentsCards({docs, expandable, byRow, createOn, setLastUpdate, backend, user}) {
   return (
