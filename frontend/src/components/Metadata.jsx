@@ -3,6 +3,7 @@ import '../styles/Metadata.css';
 import { useEffect, useState } from 'react';
 import { parse, stringify } from 'yaml';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
+import TextArea from './TextArea';
 
 function Metadata({metadata = {}, editable, backend, setLastUpdate}) {
   const [beingEdited, setBeingEdited] = useState(false);
@@ -88,9 +89,7 @@ function Metadata({metadata = {}, editable, backend, setLastUpdate}) {
   }
   return (
     <form>
-      <textarea className="form-control" type="text" rows="5" autoFocus
-        value={editedText} onChange={handleChange} onBlur={handleBlur}
-      />
+      <TextArea value={editedText} onChange={handleChange} onBlur={handleBlur} />
     </form>
   );
 }

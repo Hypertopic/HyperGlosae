@@ -2,6 +2,7 @@ import '../styles/EditableText.css';
 
 import { useState, useEffect, useCallback } from 'react';
 import FormattedText from './FormattedText';
+import TextArea from './TextArea';
 import DiscreeteDropdown from './DiscreeteDropdown';
 import PictureUploadAction from '../menu-items/PictureUploadAction';
 import {v4 as uuid} from 'uuid';
@@ -153,17 +154,7 @@ function EditableText({id, text, rubric, isPartOf, links, beingEditedBy, fragmen
   return (
     <form className="position-relative">
       <PencilSquare className="being-edited-icon self" data-testid="being-edited-self" />
-      <textarea className="form-control" type="text" rows="5" autoFocus
-        value={editedText} onChange={handleChange} onBlur={handleBlur}
-      />
-      <button
-        type="button"
-        className="btn btn-secondary btn-sm mt-1"
-        onMouseDown={(e) => e.preventDefault()}
-        onClick={handleBlur}
-      >
-        Save
-      </button>
+      <TextArea value={editedText} onChange={handleChange} onBlur={handleBlur} />
     </form>
   );
 }
