@@ -3,7 +3,7 @@ import '../styles/Type.css';
 
 import { TagFill } from 'react-bootstrap-icons';
 import { useState, useContext } from 'react';
-import { ListGroup, OverlayTrigger, Tooltip } from 'react-bootstrap';
+import { Modal, ListGroup, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { TypesContext } from './TypesContext.js';
 import TypeBadge from './TypeBadge';
 
@@ -82,10 +82,15 @@ function Type({ metadata, backend }) {
           />
         </OverlayTrigger>
       </div>
-      {beingEdited ?
-        <TypeList typeSelected={typeSelected} handleUpdate={handleUpdate}/>
-        : null
-      }
+
+      <Modal show={beingEdited} onHide={() => setBeingEdited(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Set document type</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <TypeList typeSelected={typeSelected} handleUpdate={handleUpdate}/>
+        </Modal.Body>
+      </Modal>
     </div>
   );
 }
