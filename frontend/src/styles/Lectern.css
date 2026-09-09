@@ -67,7 +67,10 @@
 .icon,
 .icon:hover {
   color: crimson;
-  text-decoration: none;
+}
+
+.icon,
+.passiveIcon {
   margin-right: .5rem;
 }
 

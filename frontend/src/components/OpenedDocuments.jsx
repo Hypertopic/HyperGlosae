@@ -73,7 +73,7 @@ function RunningHeadSource({id, metadata, parallelDocuments, backend, user}) {
         <ViewHistoryAction {...{metadata, target, backend}} />
       </VisibleDropdown>
       <div className="headerBox">
-        <BookmarkFill className="icon" />
+        <BookmarkFill className="passiveIcon" />
         <Metadata {...{metadata}} />
       </div>
       <TypeBadge type={metadata?.type} />
