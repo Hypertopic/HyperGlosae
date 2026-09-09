@@ -1,6 +1,6 @@
 import '../styles/EditableText.css';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef, useLayoutEffect } from 'react';
 import FormattedText from './FormattedText';
 import DiscreeteDropdown from './DiscreeteDropdown';
 import PictureUploadAction from '../menu-items/PictureUploadAction';
@@ -13,6 +13,7 @@ function EditableText({id, text, rubric, isPartOf, links, beingEditedBy, fragmen
   const [editedDocument, setEditedDocument] = useState();
   const [editedText, setEditedText] = useState();
   const [hasBeenChanged, setHasBeenChanged] = useState(false);
+  const textareaRef = useRef(null);
   const PASSAGE = new RegExp(`\\{${rubric}} ?([^{]*)`);
   const isEditedByOther = beingEditedBy && beingEditedBy !== user;
 
@@ -69,6 +70,15 @@ function EditableText({id, text, rubric, isPartOf, links, beingEditedBy, fragmen
         });
     }
   }, [rawEditMode, updateEditedDocument]);
+
+  useLayoutEffect(() => {
+    if (textareaRef.current && beingEdited) {
+      const el = textareaRef.current;
+      if (el.scrollHeight > el.clientHeight) {
+        el.style.height = `${el.scrollHeight}px`;
+      }
+    }
+  }, [editedText, beingEdited]);
 
   let handleClick = () => {
     if (isEditedByOther) return;
@@ -153,7 +163,7 @@ function EditableText({id, text, rubric, isPartOf, links, beingEditedBy, fragmen
   return (
     <form className="position-relative">
       <PencilSquare className="being-edited-icon self" data-testid="being-edited-self" />
-      <textarea className="form-control" type="text" rows="5" autoFocus
+      <textarea className="form-control editable-textarea" ref={textareaRef} type="text" rows="5" autoFocus
         value={editedText} onChange={handleChange} onBlur={handleBlur}
       />
       <button
