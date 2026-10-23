@@ -53,6 +53,6 @@
     "cypress@15.21.1": true,
     "esbuild@0.28.2": true,
     "fsevents@2.3.3": true,
-    "@swc/core@1.16.2": true
+    "@swc/core@1.16.20": true
   }
 }
